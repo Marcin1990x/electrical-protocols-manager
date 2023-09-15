@@ -2,23 +2,23 @@ package pl.koneckimarcin.electricalprotocolsmanager.structure;
 
 import java.util.List;
 
-public class Building {
+public class Floor {
 
-    private List<Floor> floors;
+    private List<Room> rooms;
 
     private String name;
 
-    public Building(List<Floor> floors, String name) {
-        this.floors = floors;
+    public Floor(List<Room> rooms, String name) {
+        this.rooms = rooms;
         this.name = name;
     }
 
-    public List<Floor> getFloors() {
-        return floors;
+    public List<Room> getRooms() {
+        return rooms;
     }
 
-    public void setFloors(List<Floor> floors) {
-        this.floors = floors;
+    public void setRooms(List<Room> rooms) {
+        this.rooms = rooms;
     }
 
     public String getName() {
@@ -31,8 +31,8 @@ public class Building {
 
     @Override
     public String toString() {
-        return "Building{" +
-                "floors=" + floors +
+        return "Floor{" +
+                "rooms=" + rooms +
                 ", name='" + name + '\'' +
                 '}';
     }

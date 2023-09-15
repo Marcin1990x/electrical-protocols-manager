@@ -1,4 +1,6 @@
 package pl.koneckimarcin.electricalprotocolsmanager.measurement;
 
-public class ProtectionAgainstElectricShockByAutomaticShutdown {
+public enum NetworkType {
+
+    TNS,
 }

@@ -9,5 +9,6 @@ public class Run {
     public static void run() throws IOException {
 
         PdfGenerator.createPdfDocument("F:\\Programista\\Pomiary elektryczne\\new_pdf.pdf");
+
     }
 }
