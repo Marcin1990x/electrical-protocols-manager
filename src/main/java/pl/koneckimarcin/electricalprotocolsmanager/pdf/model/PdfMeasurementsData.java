@@ -1,20 +1,15 @@
-package pl.koneckimarcin.electricalprotocolsmanager.pdf;
+package pl.koneckimarcin.electricalprotocolsmanager.pdf.model;
 
-import org.apache.pdfbox.pdmodel.PDDocument;
-import org.apache.pdfbox.pdmodel.PDPage;
-import org.apache.pdfbox.pdmodel.PDPageContentStream;
-import org.apache.pdfbox.pdmodel.font.PDFont;
-import org.apache.pdfbox.pdmodel.font.PDType1Font;
-import org.apache.pdfbox.pdmodel.font.Standard14Fonts;
-import pl.koneckimarcin.electricalprotocolsmanager.structure.Building;
+import pl.koneckimarcin.electricalprotocolsmanager.structure.model.Building;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PdfData {
+public class PdfMeasurementsData {
 
-    public static List<String> getData(Building building) {
+    private List<String> measurementData;
+
+    public void setMeasurementData(Building building) {
 
         List<String> lines = new ArrayList<>();
 
@@ -37,15 +32,10 @@ public class PdfData {
                             });
 
                 });
-        return lines;
+        this.measurementData = lines;
     }
 
-    public static void printData(PDDocument document, PDPage page, List<String> text) throws IOException {
-
-        PDFont pdFont = new PDType1Font(Standard14Fonts.FontName.COURIER);
-
-        PDPageContentStream content = new PDPageContentStream(document, page);
-        PdfDataService.addMultipleLineOfText(content, text, 50, 750, 10, pdFont, 10);
-        content.close();
+    public List<String> getMeasurementData() {
+        return measurementData;
     }
 }
