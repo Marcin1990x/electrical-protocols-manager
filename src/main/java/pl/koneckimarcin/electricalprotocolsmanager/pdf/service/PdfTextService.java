@@ -1,4 +1,4 @@
-package pl.koneckimarcin.electricalprotocolsmanager.pdf;
+package pl.koneckimarcin.electricalprotocolsmanager.pdf.service;
 
 import org.apache.pdfbox.pdmodel.PDPageContentStream;
 import org.apache.pdfbox.pdmodel.font.PDFont;
@@ -6,7 +6,7 @@ import org.apache.pdfbox.pdmodel.font.PDFont;
 import java.io.IOException;
 import java.util.List;
 
-public class PdfDataService {
+public class PdfTextService {
 
     public static void addSingleLineOfText(PDPageContentStream content, String text, int xPos, int yPos,
                                            PDFont pdFont, float fontSize) throws IOException {

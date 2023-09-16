@@ -1,4 +1,4 @@
-package pl.koneckimarcin.electricalprotocolsmanager.structure;
+package pl.koneckimarcin.electricalprotocolsmanager.structure.model;
 
 import pl.koneckimarcin.electricalprotocolsmanager.measurement.MeasurementMain;
 
