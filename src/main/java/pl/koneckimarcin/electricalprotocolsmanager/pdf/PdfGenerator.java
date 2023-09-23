@@ -2,22 +2,20 @@ package pl.koneckimarcin.electricalprotocolsmanager.pdf;
 
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPage;
-import org.apache.pdfbox.pdmodel.PDPageContentStream;
-import org.apache.pdfbox.pdmodel.font.PDFont;
-import org.apache.pdfbox.pdmodel.font.PDType1Font;
-import org.apache.pdfbox.pdmodel.font.Standard14Fonts;
 import pl.koneckimarcin.electricalprotocolsmanager.measurement.NetworkType;
 import pl.koneckimarcin.electricalprotocolsmanager.measurement.Result;
 import pl.koneckimarcin.electricalprotocolsmanager.measurement.protectionAgainstElectricShockByAutomaticShutdown.ProtectionAgainstElectricShockByAutomaticShutdown;
 import pl.koneckimarcin.electricalprotocolsmanager.measurement.protectionAgainstElectricShockByAutomaticShutdown.ProtectionMeasurementEntry;
-import pl.koneckimarcin.electricalprotocolsmanager.pdf.model.PdfMeasurementsData;
-import pl.koneckimarcin.electricalprotocolsmanager.pdf.service.PdfTextService;
+import pl.koneckimarcin.electricalprotocolsmanager.pdf.model.PdfHeading;
+import pl.koneckimarcin.electricalprotocolsmanager.pdf.service.PdfHeadingService;
 import pl.koneckimarcin.electricalprotocolsmanager.structure.model.Building;
 import pl.koneckimarcin.electricalprotocolsmanager.structure.model.Floor;
 import pl.koneckimarcin.electricalprotocolsmanager.structure.model.Room;
+import pl.koneckimarcin.electricalprotocolsmanager.utilities.model.Electrician;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Date;
 import java.util.List;
 
 public class PdfGenerator {
@@ -48,35 +46,28 @@ public class PdfGenerator {
 
         ///////////////////////////////
 
-        PDDocument pdf = new PDDocument();
+        PDDocument pdfDocument = new PDDocument();
         PDPage page = new PDPage();
-        pdf.addPage(page);
+        PDPage page2 = new PDPage();
+        pdfDocument.addPage(page);
+        pdfDocument.addPage(page2);
 
         File file = new File(directory);
 
         //add title page
         //add heading
+        PdfHeading heading = new PdfHeading("PE20230917", new Date(2023, 8, 17),
+                List.of(new Electrician("Marcin", "Elektryk")), "Domek");
+        PdfHeadingService.addHeading(heading, pdfDocument);
         //add footer
         //add measurements
-        PdfMeasurementsData measurementsData = new PdfMeasurementsData();
+/*        PdfMeasurementsData measurementsData = new PdfMeasurementsData();
         measurementsData.setMeasurementData(building);
-        addMeasurementData(pdf, page, measurementsData);
+        PdfMeasurementDataService.addMeasurementData(pdfDocument, page, measurementsData);*/
         //add legend
         //add theory
 
-        pdf.save(file);
-        pdf.close();
-    }
-
-    private static void addMeasurementData(PDDocument document, PDPage page, PdfMeasurementsData measurementsData) throws IOException {
-
-        PDFont pdFont = new PDType1Font(Standard14Fonts.FontName.COURIER);
-
-        PDPageContentStream content = new PDPageContentStream(document, page);
-
-        PdfTextService.addMultipleLineOfText(content, measurementsData.getMeasurementData(),
-                50, 750, 10, pdFont, 10);
-
-        content.close();
+        pdfDocument.save(file);
+        pdfDocument.close();
     }
 }

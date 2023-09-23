@@ -2,6 +2,7 @@ package pl.koneckimarcin.electricalprotocolsmanager.pdf.model;
 
 import pl.koneckimarcin.electricalprotocolsmanager.utilities.model.Electrician;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -49,5 +50,18 @@ public class PdfHeading {
 
     public void setMeasurementsPlace(String measurementsPlace) {
         this.measurementsPlace = measurementsPlace;
+    }
+
+    public List<String> getHeadingData() {
+
+        List<String> headingData = new ArrayList<>();
+        headingData.add(documentNumber);
+        headingData.add(measurementDate.toString());
+        for(Electrician electrician : electricians){
+            headingData.add(electrician.getFirstName() + " " + electrician.getLastName());
+        }
+        headingData.add(measurementsPlace);
+
+        return headingData;
     }
 }
