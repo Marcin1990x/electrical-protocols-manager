@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 import pl.koneckimarcin.electricalprotocolsmanager.pdf.model.PdfHeading;
 
 import java.io.IOException;
-import java.util.List;
 
 @Service
 public class PdfHeadingService {
@@ -30,9 +29,6 @@ public class PdfHeadingService {
 
         int pagesCount = document.getNumberOfPages();
 
-        List<String> headingText =
-                List.of(heading.getDocumentNumber(), heading.getElectricians().toString(), heading.getMeasurementsPlace());
-
         PDPageContentStream content;
 
         for (int i = 0; i < pagesCount; i++) {
@@ -40,7 +36,7 @@ public class PdfHeadingService {
             content = new PDPageContentStream(document, document.getPage(i),
                     PDPageContentStream.AppendMode.APPEND, false);
 
-            textService.addMultipleLineOfText(content, headingText, headingXposition, headingYposition, headingLeading,
+            textService.addMultipleLineOfText(content, heading.getHeadingData(), headingXposition, headingYposition, headingLeading,
                     font, headingFontSize);
 
             content.close();

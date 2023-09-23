@@ -12,7 +12,7 @@ public class PdfService {
         int count = 0;
 
         for(Floor floor : building.getFloors()) {
-            count += floor.getNecessaryPagesCount();
+            count += floor.calculateMainMeasurementsCount();
         }
         return count;
     }

@@ -2,13 +2,15 @@ package pl.koneckimarcin.electricalprotocolsmanager.pdf.service;
 
 import org.apache.pdfbox.pdmodel.PDPageContentStream;
 import org.apache.pdfbox.pdmodel.font.PDFont;
+import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.util.List;
 
+@Service
 public class PdfTextService {
 
-    public static void addSingleLineOfText(PDPageContentStream content, String text, int xPos, int yPos,
+    public void addSingleLineOfText(PDPageContentStream content, String text, int xPos, int yPos,
                                            PDFont pdFont, float fontSize) throws IOException {
         content.beginText();
         content.setFont(pdFont, fontSize);
@@ -17,7 +19,7 @@ public class PdfTextService {
         content.endText();
         content.moveTo(0, 0);
     }
-    public static void addMultipleLineOfText(PDPageContentStream content, List<String> text, int xPos, int yPos,
+    public void addMultipleLineOfText(PDPageContentStream content, List<String> text, int xPos, int yPos,
                                              float leading, PDFont pdFont, float fontSize) throws IOException {
 
         content.beginText();
