@@ -6,11 +6,17 @@ public class Floor {
 
     private List<Room> rooms;
 
-    private String name;
+    private String floorName;
 
-    public Floor(List<Room> rooms, String name) {
+    private String floorCascadeName;
+
+    public Floor(List<Room> rooms, String floorName) {
         this.rooms = rooms;
-        this.name = name;
+        this.floorName = floorName;
+
+        for(Room room : rooms){
+            setRoomCascadeName(this.floorName, room);
+        }
     }
 
     public List<Room> getRooms() {
@@ -21,12 +27,29 @@ public class Floor {
         this.rooms = rooms;
     }
 
-    public String getName() {
-        return name;
+    public String getBuildingName() {
+        return floorName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setBuildingName(String buildingName) {
+        this.floorName = buildingName;
+    }
+
+    public String getFloorName() {
+        return floorName;
+    }
+
+    public void setFloorName(String floorName) {
+        this.floorName = floorName;
+    }
+
+    public String getFloorCascadeName() {
+        return floorCascadeName;
+    }
+
+    public void setFloorCascadeName(String floorName, Room room) {
+
+        room.setRoomCascadeName(floorName);
     }
 
     public int calculateMainMeasurementsCount() {
@@ -36,17 +59,27 @@ public class Floor {
         //check if one page is enough
 
         for (Room room : getRooms()) {
-            if (room.getMeasurementMains().size() > 0)
-                count++;
+            if (room.getMeasurementMains().size() > 0) {
+                count += room.getMeasurementMains().size(); // every measurement on new page
+            }
         }
         return count;
+    }
+
+    public void setFloorCascadeName(String buildingName){
+        this.floorCascadeName = buildingName + "/" + this.floorName;
+    }
+
+    private void setRoomCascadeName(String floorCascadeName, Room room) {
+        room.setRoomCascadeName(floorName);
     }
 
     @Override
     public String toString() {
         return "Floor{" +
                 "rooms=" + rooms +
-                ", name='" + name + '\'' +
+                ", floorName='" + floorName + '\'' +
+                ", floorCascadeName='" + floorCascadeName + '\'' +
                 '}';
     }
 }

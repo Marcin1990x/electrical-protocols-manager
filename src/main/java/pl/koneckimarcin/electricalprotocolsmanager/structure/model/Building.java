@@ -9,11 +9,15 @@ public class Building {
 
     private List<Floor> floors;
 
-    private String name;
+    private String buildingName;
 
-    public Building(List<Floor> floors, String name) {
+    public Building(List<Floor> floors, String buildingName) {
         this.floors = floors;
-        this.name = name;
+        this.buildingName = buildingName;
+
+        for(Floor floor : floors){
+            setFloorCascadeName(this.buildingName, floor);
+        }
     }
 
     public List<Floor> getFloors() {
@@ -24,12 +28,12 @@ public class Building {
         this.floors = floors;
     }
 
-    public String getName() {
-        return name;
+    public String getBuildingName() {
+        return buildingName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setBuildingName(String buildingName) {
+        this.buildingName = buildingName;
     }
 
     public List<MeasurementMain> getMeasurementMainList() {
@@ -43,11 +47,15 @@ public class Building {
         return measurementMainList;
     }
 
+    private void setFloorCascadeName(String buildingName, Floor floor){
+        floor.setFloorCascadeName(buildingName);
+    }
+
     @Override
     public String toString() {
         return "Building{" +
                 "floors=" + floors +
-                ", name='" + name + '\'' +
+                ", buildingName='" + buildingName + '\'' +
                 '}';
     }
 }

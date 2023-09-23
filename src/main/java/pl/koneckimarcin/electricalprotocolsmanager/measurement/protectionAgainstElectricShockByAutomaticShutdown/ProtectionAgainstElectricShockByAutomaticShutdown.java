@@ -4,10 +4,12 @@ import pl.koneckimarcin.electricalprotocolsmanager.measurement.MeasurementEntry;
 import pl.koneckimarcin.electricalprotocolsmanager.measurement.MeasurementMain;
 import pl.koneckimarcin.electricalprotocolsmanager.measurement.NetworkType;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ProtectionAgainstElectricShockByAutomaticShutdown extends MeasurementMain {
 
+    private final String name = "Measurement Name 1";
     private int specificField1;
     private int specificField2;
 
@@ -35,12 +37,23 @@ public class ProtectionAgainstElectricShockByAutomaticShutdown extends Measureme
         this.specificField2 = specificField2;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    @Override
+    public String getMeasurementMainCascadeName() {
+        return super.getMeasurementMainCascadeName() + this.getName();
+    }
+
     @Override
     public List<String> getMeasurementsMainTextData() {
 
-        List<String> measurementsTextData = super.getMeasurementsMainTextData();
+        List<String> measurementsTextData = new ArrayList<>();
+        measurementsTextData.add(getMeasurementMainCascadeName());
         measurementsTextData.add("Specific main 1: " + getSpecificField1());
         measurementsTextData.add("Specific main 2: " + getSpecificField2());
+        measurementsTextData.addAll(super.getMeasurementsMainTextData());
 
         return measurementsTextData;
     }
@@ -48,7 +61,8 @@ public class ProtectionAgainstElectricShockByAutomaticShutdown extends Measureme
     @Override
     public String toString() {
         return "ProtectionAgainstElectricShockByAutomaticShutdown{" +
-                "specificField1=" + specificField1 +
+                "name='" + name + '\'' +
+                ", specificField1=" + specificField1 +
                 ", specificField2=" + specificField2 +
                 '}';
     }

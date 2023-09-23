@@ -8,11 +8,17 @@ public class Room {
 
     private List<MeasurementMain> measurementMains;
 
-    private String name;
+    private String roomName;
 
-    public Room(List<MeasurementMain> measurementMains, String name) {
+    private String roomCascadeName;
+
+    public Room(List<MeasurementMain> measurementMains, String roomName) {
         this.measurementMains = measurementMains;
-        this.name = name;
+        this.roomName = roomName;
+
+        for(MeasurementMain measurementMain : measurementMains){
+            setMeasurementMainCascadeName(this.roomCascadeName, measurementMain);
+        }
     }
 
     public List<MeasurementMain> getMeasurementMains() {
@@ -23,19 +29,33 @@ public class Room {
         this.measurementMains = measurementMains;
     }
 
-    public String getName() {
-        return name;
+    public String getRoomName() {
+        return roomName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setRoomName(String roomName) {
+        this.roomName = roomName;
+    }
+
+    public String getRoomCascadeName() {
+        return roomCascadeName;
+    }
+
+    public void setRoomCascadeName(String floorCascadeName) {
+
+        this.roomCascadeName = floorCascadeName + "/" + this.roomName;
+    }
+
+    private void setMeasurementMainCascadeName(String roomCascadeName, MeasurementMain measurementMain) {
+        measurementMain.setMeasurementMainCascadeName(roomCascadeName);
     }
 
     @Override
     public String toString() {
         return "Room{" +
                 "measurementMains=" + measurementMains +
-                ", name='" + name + '\'' +
+                ", roomName='" + roomName + '\'' +
+                ", roomCascadeName='" + roomCascadeName + '\'' +
                 '}';
     }
 }

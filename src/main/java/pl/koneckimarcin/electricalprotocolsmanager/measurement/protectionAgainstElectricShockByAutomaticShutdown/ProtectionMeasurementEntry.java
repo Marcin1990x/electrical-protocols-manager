@@ -3,6 +3,7 @@ package pl.koneckimarcin.electricalprotocolsmanager.measurement.protectionAgains
 import pl.koneckimarcin.electricalprotocolsmanager.measurement.MeasurementEntry;
 import pl.koneckimarcin.electricalprotocolsmanager.measurement.Result;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ProtectionMeasurementEntry extends MeasurementEntry {
@@ -48,10 +49,11 @@ public class ProtectionMeasurementEntry extends MeasurementEntry {
     @Override
     public List<String> getMeasurementEntriesTextData() {
 
-        List<String> measurementEntriesTextData = super.getMeasurementEntriesTextData();
+        List<String> measurementEntriesTextData = new ArrayList<>();
         measurementEntriesTextData.add("Specific entry 1: " + getSpecificField1());
         measurementEntriesTextData.add("Specific entry 2: " + getSpecificField2());
         measurementEntriesTextData.add("Specific entry 3: " + getSpecificField3());
+        measurementEntriesTextData.addAll(super.getMeasurementEntriesTextData());
 
         return measurementEntriesTextData;
     }

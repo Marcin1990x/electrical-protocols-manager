@@ -59,7 +59,7 @@ public class PdfGenerator {
 
         Room kitchen = new Room(List.of(protection), "Kitchen");
         Room livingRoom = new Room(List.of(protection2), "Living Room");
-        Room bedroom = new Room(List.of(protection), "Bedroom");
+        Room bedroom = new Room(List.of(protection, protection2), "Bedroom");
         Room bathroom = new Room(List.of(protection), "Bathroom");
         Room guestroom = new Room(List.of(protection2), "Guestroom");
 

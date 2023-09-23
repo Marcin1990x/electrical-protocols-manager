@@ -7,6 +7,9 @@ public abstract class MeasurementMain {
 
     private List<MeasurementEntry> measurementEntries;
 
+    private String measurementName = "";
+    private String measurementMainCascadeName;
+
     private int commonMainField1;
     private int commonMainField2;
     private int commonMainField3;
@@ -61,6 +64,15 @@ public abstract class MeasurementMain {
     public void setNetworkType(NetworkType networkType) {
         this.networkType = networkType;
     }
+
+    public void setMeasurementMainCascadeName(String roomCascadeName) {
+        this.measurementMainCascadeName = roomCascadeName + "/" + this.measurementName;
+    }
+
+    public String getMeasurementMainCascadeName() {
+        return measurementMainCascadeName;
+    }
+
     public List<String> getMeasurementsMainTextData() {
 
         List<String> measurementsTextData = new ArrayList<>();
