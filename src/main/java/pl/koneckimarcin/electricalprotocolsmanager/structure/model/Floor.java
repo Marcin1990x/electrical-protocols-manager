@@ -29,6 +29,19 @@ public class Floor {
         this.name = name;
     }
 
+    public int calculateMainMeasurementsCount() {
+
+        int count = 0;
+
+        //check if one page is enough
+
+        for (Room room : getRooms()) {
+            if (room.getMeasurementMains().size() > 0)
+                count++;
+        }
+        return count;
+    }
+
     @Override
     public String toString() {
         return "Floor{" +
