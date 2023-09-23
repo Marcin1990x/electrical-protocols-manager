@@ -1,5 +1,8 @@
 package pl.koneckimarcin.electricalprotocolsmanager.structure.model;
 
+import pl.koneckimarcin.electricalprotocolsmanager.measurement.MeasurementMain;
+
+import java.util.ArrayList;
 import java.util.List;
 
 public class Building {
@@ -27,6 +30,17 @@ public class Building {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public List<MeasurementMain> getMeasurementMainList() {
+
+        List<MeasurementMain> measurementMainList = new ArrayList<>();
+        for(Floor floor : getFloors()){
+            for(Room room : floor.getRooms()){
+                measurementMainList.addAll(room.getMeasurementMains());
+            }
+        }
+        return measurementMainList;
     }
 
     @Override
