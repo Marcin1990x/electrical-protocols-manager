@@ -1,5 +1,8 @@
 package pl.koneckimarcin.electricalprotocolsmanager.measurement;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public abstract class MeasurementEntry {
 
     private int commonField1;
@@ -56,6 +59,18 @@ public abstract class MeasurementEntry {
 
     public void setResult(Result result) {
         this.result = result;
+    }
+
+    public List<String> getMeasurementEntriesTextData() {
+
+        List<String> measurementEntriesTextData = new ArrayList<>();
+        measurementEntriesTextData.add("Common entry 1: " + getCommonField1());
+        measurementEntriesTextData.add("Common entry 2: " + getCommonField2());
+        measurementEntriesTextData.add("Common entry 3: " + getCommonField3());
+        measurementEntriesTextData.add("Common entry 4: " + getCommonField4());
+        measurementEntriesTextData.add("Result: " + getResult());
+
+        return measurementEntriesTextData;
     }
 
     @Override

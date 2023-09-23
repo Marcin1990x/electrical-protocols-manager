@@ -1,5 +1,6 @@
 package pl.koneckimarcin.electricalprotocolsmanager.measurement;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public abstract class MeasurementMain {
@@ -60,7 +61,19 @@ public abstract class MeasurementMain {
     public void setNetworkType(NetworkType networkType) {
         this.networkType = networkType;
     }
+    public List<String> getMeasurementsMainTextData() {
 
+        List<String> measurementsTextData = new ArrayList<>();
+        measurementsTextData.add("Common main 1: " + getCommonMainField1());
+        measurementsTextData.add("Common main 2: " + getCommonMainField2());
+        measurementsTextData.add("Common main 3: " + getCommonMainField3());
+        measurementsTextData.add("Network type: " + getNetworkType().toString());
+
+        for(MeasurementEntry entry : getMeasurementEntries()){
+            measurementsTextData.addAll(entry.getMeasurementEntriesTextData());
+        }
+        return measurementsTextData;
+    }
     @Override
     public String toString() {
         return "MeasurementMain{" +

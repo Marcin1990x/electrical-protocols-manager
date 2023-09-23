@@ -36,6 +36,16 @@ public class ProtectionAgainstElectricShockByAutomaticShutdown extends Measureme
     }
 
     @Override
+    public List<String> getMeasurementsMainTextData() {
+
+        List<String> measurementsTextData = super.getMeasurementsMainTextData();
+        measurementsTextData.add("Specific main 1: " + getSpecificField1());
+        measurementsTextData.add("Specific main 2: " + getSpecificField2());
+
+        return measurementsTextData;
+    }
+
+    @Override
     public String toString() {
         return "ProtectionAgainstElectricShockByAutomaticShutdown{" +
                 "specificField1=" + specificField1 +
