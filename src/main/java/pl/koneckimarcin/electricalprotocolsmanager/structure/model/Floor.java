@@ -1,30 +1,27 @@
 package pl.koneckimarcin.electricalprotocolsmanager.structure.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Floor {
 
-    private List<Room> rooms;
+    private List<Room> rooms = new ArrayList<>();
 
     private String floorName;
 
     private String floorCascadeName;
 
-    public Floor(List<Room> rooms, String floorName) {
-        this.rooms = rooms;
+    public Floor(String floorName) {
         this.floorName = floorName;
-
-        for(Room room : rooms){
-            setRoomCascadeName(this.floorName, room);
-        }
     }
 
     public List<Room> getRooms() {
         return rooms;
     }
 
-    public void setRooms(List<Room> rooms) {
-        this.rooms = rooms;
+    public void addRoom(Room room) {
+        this.rooms.add(room);
+        room.setRoomCascadeName(this.floorCascadeName);
     }
 
     public String getBuildingName() {

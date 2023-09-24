@@ -7,25 +7,22 @@ import java.util.List;
 
 public class Building {
 
-    private List<Floor> floors;
+    private List<Floor> floors = new ArrayList<>();
 
     private String buildingName;
 
-    public Building(List<Floor> floors, String buildingName) {
-        this.floors = floors;
+    public Building(String buildingName) {
         this.buildingName = buildingName;
-
-        for(Floor floor : floors){
-            setFloorCascadeName(this.buildingName, floor);
-        }
     }
 
     public List<Floor> getFloors() {
         return floors;
     }
 
-    public void setFloors(List<Floor> floors) {
-        this.floors = floors;
+    public void addFloor(Floor floor) {
+
+        this.floors.add(floor);
+        floor.setFloorCascadeName(this.buildingName);
     }
 
     public String getBuildingName() {

@@ -57,26 +57,50 @@ public class PdfGenerator {
                 new ProtectionAgainstElectricShockByAutomaticShutdown(List.of(measurement1, measurement2), 3,
                         12, 24, NetworkType.TNS, 2, 40);
 
-        Room kitchen = new Room(List.of(protection), "Kitchen");
-        Room livingRoom = new Room(List.of(protection2), "Living Room");
-        Room bedroom = new Room(List.of(protection, protection2), "Bedroom");
-        Room bathroom = new Room(List.of(protection), "Bathroom");
-        Room guestroom = new Room(List.of(protection2), "Guestroom");
+        ProtectionAgainstElectricShockByAutomaticShutdown protection3 =
+                new ProtectionAgainstElectricShockByAutomaticShutdown(List.of(measurement1, measurement2), 3,
+                        12, 24, NetworkType.TNS, 2, 40);
 
-        Floor groundFloor = new Floor(List.of(kitchen, livingRoom), "Ground floor");
-        Floor firstFloor = new Floor(List.of(bedroom, bathroom, guestroom), "First floor");
+        ProtectionAgainstElectricShockByAutomaticShutdown protection4 =
+                new ProtectionAgainstElectricShockByAutomaticShutdown(List.of(measurement1, measurement2), 3,
+                        12, 24, NetworkType.TNS, 2, 40);
 
-        Building building = new Building(List.of(groundFloor, firstFloor), "Dom");
+        ProtectionAgainstElectricShockByAutomaticShutdown protection5 =
+                new ProtectionAgainstElectricShockByAutomaticShutdown(List.of(measurement1, measurement2), 3,
+                        12, 24, NetworkType.TNS, 2, 40);
 
         PdfHeading headingData = new PdfHeading("RAP-0005-2023", new Date(System.currentTimeMillis()),
                 List.of(new Electrician("Elektryk", "Pierwszy"), new Electrician("Elektryk", "Drugi")),
                 "Domek nad jeziorem");
 
+        Building buildingTest = new Building("Domek");
+
+        Floor downFloor = new Floor("Down floor");
+        Floor upperFloor = new Floor("Upper floor");
+
+        buildingTest.addFloor(downFloor);
+        buildingTest.addFloor(upperFloor);
+
+        Room bath = new Room("Laznia");
+        Room salon = new Room("Salon");
+        Room bed = new Room("Sypialnia");
+        Room cloth = new Room("Garderoba");
+
+        downFloor.addRoom(bath);
+        bath.addMeasurementMain(protection);
+        downFloor.addRoom(salon);
+        salon.addMeasurementMain(protection2);
+        salon.addMeasurementMain(protection3);
+        upperFloor.addRoom(bed);
+        bed.addMeasurementMain(protection4);
+        upperFloor.addRoom(cloth);
+        cloth.addMeasurementMain(protection5);
+
         /////////////////////////////// temporary place for data
 
         PDDocument doc = new PDDocument();
         //count pages for rooms measurements
-        int pagesCount = pdfService.calculateNumberOfPages(building);
+        int pagesCount = pdfService.calculateNumberOfPages(buildingTest);
         //add pages for title, theory...
 
         //create pages
@@ -93,7 +117,7 @@ public class PdfGenerator {
         headingService.addHeading(doc, headingData);
         //add footers
         //add measurements
-        measurementDataService.addMeasurementData(doc, building, pagesCount);
+        measurementDataService.addMeasurementData(doc, buildingTest, pagesCount);
         //add legend page/pages
         //add theory page/pages
 

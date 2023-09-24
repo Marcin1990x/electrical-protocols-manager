@@ -2,31 +2,28 @@ package pl.koneckimarcin.electricalprotocolsmanager.structure.model;
 
 import pl.koneckimarcin.electricalprotocolsmanager.measurement.MeasurementMain;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Room {
 
-    private List<MeasurementMain> measurementMains;
+    private List<MeasurementMain> measurementMains = new ArrayList<>();
 
     private String roomName;
 
     private String roomCascadeName;
 
-    public Room(List<MeasurementMain> measurementMains, String roomName) {
-        this.measurementMains = measurementMains;
+    public Room(String roomName) {
         this.roomName = roomName;
-
-        for(MeasurementMain measurementMain : measurementMains){
-            setMeasurementMainCascadeName(this.roomCascadeName, measurementMain);
-        }
     }
 
     public List<MeasurementMain> getMeasurementMains() {
         return measurementMains;
     }
 
-    public void setMeasurementMains(List<MeasurementMain> measurementMains) {
-        this.measurementMains = measurementMains;
+    public void addMeasurementMain(MeasurementMain measurementMain) {
+        this.measurementMains.add(measurementMain);
+        measurementMain.setMeasurementMainCascadeName(this.roomCascadeName);
     }
 
     public String getRoomName() {
@@ -49,7 +46,6 @@ public class Room {
     private void setMeasurementMainCascadeName(String roomCascadeName, MeasurementMain measurementMain) {
         measurementMain.setMeasurementMainCascadeName(roomCascadeName);
     }
-
     @Override
     public String toString() {
         return "Room{" +
