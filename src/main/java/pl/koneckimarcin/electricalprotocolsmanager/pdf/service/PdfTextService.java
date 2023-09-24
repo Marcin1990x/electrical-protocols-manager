@@ -33,4 +33,9 @@ public class PdfTextService {
         content.endText();
         content.moveTo(0, 0);
     }
+
+    public float getTextWidth(String text, PDFont font, float fontSize) throws IOException {
+
+        return font.getStringWidth(text) / 1000 * fontSize;
+    }
 }
