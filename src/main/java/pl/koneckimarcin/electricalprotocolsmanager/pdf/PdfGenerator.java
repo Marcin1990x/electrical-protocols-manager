@@ -117,9 +117,31 @@ public class PdfGenerator {
         headingService.addHeading(doc, headingData);
         //add footers
         //add measurements
-        measurementDataService.addMeasurementData(doc, buildingTest, pagesCount);
+        //measurementDataService.addMeasurementData(doc, buildingTest, pagesCount);
+
+        //table tests
+        measurementDataService.addMeasurementDataTableTest(doc, buildingTest, pagesCount);
+        //table tests
+
+
         //add legend page/pages
         //add theory page/pages
+
+        //table tests
+/*        PDPageContentStream contentStream = new PDPageContentStream(doc, doc.getPage(0),
+                PDPageContentStream.AppendMode.APPEND, false);
+
+        Table table = new Table(contentStream);
+        int[] cellWidths = {30, 50, 100, 50, 30};
+        table.setTable(cellWidths, 30, 50, 300);
+        table.addCell("Dupa");
+        table.addCell("Test");
+        table.addCell("Test");
+        table.addCell("Test");
+        table.addCell("Test");
+        contentStream.close();*/
+        //table tests
+
 
         doc.save(file);
         doc.close();

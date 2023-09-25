@@ -15,16 +15,18 @@ import java.util.List;
 @Service
 public class PdfMeasurementDataService {
 
-    private final int headingXposition = 50;
-    private final int headingYposition = 680;
-    private final int headingLeading = 10;
-    private final int headingFontSize = 10;
+    private final int measurementsXposition = 50;
+    private final int measurementsYposition = 680;
+    private final int measurementsLeading = 10;
+    private final int measurementsFontSize = 10;
     private final PDFont font = new PDType1Font(Standard14Fonts.FontName.COURIER);
 
     private PdfTextService textService;
+    private PdfTableService tableService;
 
-    public PdfMeasurementDataService(PdfTextService textService) {
+    public PdfMeasurementDataService(PdfTextService textService, PdfTableService tableService) {
         this.textService = textService;
+        this.tableService = tableService;
     }
 
     public void addMeasurementData(PDDocument document, Building building, int measurementPagesCount) throws IOException {
@@ -39,8 +41,25 @@ public class PdfMeasurementDataService {
                     PDPageContentStream.AppendMode.APPEND, false);
 
             textService.addMultipleLineOfText(content, measurementMainList.get(i).getMeasurementsMainTextData(),
-                    headingXposition, headingYposition, headingLeading,
-                    font, headingFontSize);
+                    measurementsXposition, measurementsYposition, measurementsLeading,
+                    font, measurementsFontSize);
+
+            content.close();
+        }
+    }
+
+    public void addMeasurementDataTableTest(PDDocument document, Building building, int measurementPagesCount) throws IOException {
+
+        PDPageContentStream content;
+
+        List<MeasurementMain> measurementMainList = building.getMeasurementMainList();
+
+        for (int i = 0; i < measurementPagesCount; i++) {
+
+            content = new PDPageContentStream(document, document.getPage(i),
+                    PDPageContentStream.AppendMode.APPEND, false);
+
+            tableService.addDataTable(content, measurementMainList.get(i), measurementsFontSize);
 
             content.close();
         }

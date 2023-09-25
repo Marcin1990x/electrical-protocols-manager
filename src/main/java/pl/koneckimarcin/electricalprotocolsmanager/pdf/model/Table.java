@@ -32,9 +32,8 @@ public class Table {
         this.xInitialPos = xPos;
     }
 
-    public void addCell(String text) throws IOException {
+    public void addCell(String text, int alignment, Color fillColor, int fontSize) throws IOException {
 
-        Color fillColor = new Color(255, 255, 255);
         Color fontColor = new Color(0, 0, 0);
 
         contentStream.setNonStrokingColor(fillColor);
@@ -44,8 +43,8 @@ public class Table {
         contentStream.fillAndStroke();
         contentStream.beginText();
         contentStream.setNonStrokingColor(fontColor);
-        contentStream.setFont(font, 10);
-        contentStream.newLineAtOffset(xPos + 3, yPos + 10);
+        contentStream.setFont(font, fontSize);
+        contentStream.newLineAtOffset(xPos + alignment, yPos + 10);
         contentStream.showText(text);
         contentStream.endText();
 

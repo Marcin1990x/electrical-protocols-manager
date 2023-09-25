@@ -36,16 +36,12 @@ public class Building {
     public List<MeasurementMain> getMeasurementMainList() {
 
         List<MeasurementMain> measurementMainList = new ArrayList<>();
-        for(Floor floor : getFloors()){
-            for(Room room : floor.getRooms()){
+        for (Floor floor : getFloors()) {
+            for (Room room : floor.getRooms()) {
                 measurementMainList.addAll(room.getMeasurementMains());
             }
         }
         return measurementMainList;
-    }
-
-    private void setFloorCascadeName(String buildingName, Floor floor){
-        floor.setFloorCascadeName(buildingName);
     }
 
     @Override

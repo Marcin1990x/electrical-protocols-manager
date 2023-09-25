@@ -44,11 +44,6 @@ public class Floor {
         return floorCascadeName;
     }
 
-    public void setFloorCascadeName(String floorName, Room room) {
-
-        room.setRoomCascadeName(floorName);
-    }
-
     public int calculateMainMeasurementsCount() {
 
         int count = 0;
@@ -63,7 +58,7 @@ public class Floor {
         return count;
     }
 
-    public void setFloorCascadeName(String buildingName){
+    public void setFloorCascadeName(String buildingName) {
         this.floorCascadeName = buildingName + "/" + this.floorName;
     }
 

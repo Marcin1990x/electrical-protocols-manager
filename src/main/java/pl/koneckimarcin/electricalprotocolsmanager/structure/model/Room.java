@@ -42,10 +42,6 @@ public class Room {
 
         this.roomCascadeName = floorCascadeName + "/" + this.roomName;
     }
-
-    private void setMeasurementMainCascadeName(String roomCascadeName, MeasurementMain measurementMain) {
-        measurementMain.setMeasurementMainCascadeName(roomCascadeName);
-    }
     @Override
     public String toString() {
         return "Room{" +
