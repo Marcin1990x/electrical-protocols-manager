@@ -69,8 +69,18 @@ public abstract class MeasurementMain {
         this.measurementMainCascadeName = roomCascadeName + "/" + this.measurementName;
     }
 
+    public String getMeasurementName() {
+        return measurementName;
+    }
+
     public String getMeasurementMainCascadeName() {
         return measurementMainCascadeName;
+    }
+
+    public String getMeasurementMainCascadeNameWithoutMeasurementName() {
+
+        String result = this.measurementMainCascadeName.replace(this.measurementName, "");
+        return result.substring(0 , result.length()-1);
     }
 
     public List<String> getMeasurementsMainTextData() {
@@ -85,6 +95,13 @@ public abstract class MeasurementMain {
             measurementsTextData.addAll(entry.getMeasurementEntriesTextData());
         }
         return measurementsTextData;
+    }
+
+    public String getPropertiesNamesAndValues() {
+        return "CommonMainField1 = " + this.commonMainField1 +
+                ", CommonMainField2 = " + this.commonMainField2 +
+                ", CommonMainField3 = " + this.commonMainField3 +
+                ", NetworkType = " + this.networkType.name();
     }
     @Override
     public String toString() {

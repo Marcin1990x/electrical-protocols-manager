@@ -9,7 +9,7 @@ import java.util.List;
 
 public class ProtectionAgainstElectricShockByAutomaticShutdown extends MeasurementMain {
 
-    private final String name = "Measurement Name 1";
+    private final String measurementName = "Measurement Name 1";
     private int specificField1;
     private int specificField2;
 
@@ -37,13 +37,13 @@ public class ProtectionAgainstElectricShockByAutomaticShutdown extends Measureme
         this.specificField2 = specificField2;
     }
 
-    public String getName() {
-        return name;
+    public String getMeasurementName() {
+        return measurementName;
     }
 
     @Override
     public String getMeasurementMainCascadeName() {
-        return super.getMeasurementMainCascadeName() + this.getName();
+        return super.getMeasurementMainCascadeName() + this.getMeasurementName();
     }
 
     @Override
@@ -59,9 +59,16 @@ public class ProtectionAgainstElectricShockByAutomaticShutdown extends Measureme
     }
 
     @Override
+    public String getPropertiesNamesAndValues() {
+        return super.getPropertiesNamesAndValues() +
+                ", SpecificField1 = " + this.specificField1 +
+                ", SpecificField2 = " + this.specificField2;
+    }
+
+    @Override
     public String toString() {
         return "ProtectionAgainstElectricShockByAutomaticShutdown{" +
-                "name='" + name + '\'' +
+                "name='" + measurementName + '\'' +
                 ", specificField1=" + specificField1 +
                 ", specificField2=" + specificField2 +
                 '}';
