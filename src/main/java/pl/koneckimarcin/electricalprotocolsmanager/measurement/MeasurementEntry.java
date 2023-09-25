@@ -73,6 +73,11 @@ public abstract class MeasurementEntry {
         return measurementEntriesTextData;
     }
 
+    public List<Object> getEntryResultList() {
+
+        return List.of(this.commonField1, this.commonField2, this.commonField3, this.commonField4, this.result);
+    }
+
     @Override
     public String toString() {
         return "MeasurementEntry{" +

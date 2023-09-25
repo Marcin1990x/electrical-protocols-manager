@@ -5,6 +5,7 @@ import pl.koneckimarcin.electricalprotocolsmanager.measurement.Result;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Stream;
 
 public class ProtectionMeasurementEntry extends MeasurementEntry {
 
@@ -56,6 +57,14 @@ public class ProtectionMeasurementEntry extends MeasurementEntry {
         measurementEntriesTextData.addAll(super.getMeasurementEntriesTextData());
 
         return measurementEntriesTextData;
+    }
+
+    @Override
+    public List<Object> getEntryResultList() {
+
+        List<Object> entryResultList = List.of(this.specificField1, this.specificField2, this.specificField3);
+
+        return Stream.concat(entryResultList.stream(), super.getEntryResultList().stream()).toList();
     }
 
     @Override
