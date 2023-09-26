@@ -2,6 +2,7 @@ package pl.koneckimarcin.electricalprotocolsmanager.pdf;
 
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPage;
+import org.apache.pdfbox.pdmodel.common.PDRectangle;
 import org.springframework.stereotype.Service;
 import pl.koneckimarcin.electricalprotocolsmanager.measurement.NetworkType;
 import pl.koneckimarcin.electricalprotocolsmanager.measurement.Result;
@@ -11,7 +12,6 @@ import pl.koneckimarcin.electricalprotocolsmanager.pdf.model.PdfHeading;
 import pl.koneckimarcin.electricalprotocolsmanager.pdf.service.PdfHeadingService;
 import pl.koneckimarcin.electricalprotocolsmanager.pdf.service.PdfMeasurementDataService;
 import pl.koneckimarcin.electricalprotocolsmanager.pdf.service.PdfService;
-import pl.koneckimarcin.electricalprotocolsmanager.pdf.service.PdfTextService;
 import pl.koneckimarcin.electricalprotocolsmanager.structure.model.Building;
 import pl.koneckimarcin.electricalprotocolsmanager.structure.model.Floor;
 import pl.koneckimarcin.electricalprotocolsmanager.structure.model.Room;
@@ -25,15 +25,12 @@ import java.util.List;
 @Service
 public class PdfGenerator {
 
-    private PdfService pdfService;
-    private PdfTextService pdfTextService;
-    private PdfHeadingService headingService;
-    private PdfMeasurementDataService measurementDataService;
+    private final PdfService pdfService;
+    private final PdfHeadingService headingService;
+    private final PdfMeasurementDataService measurementDataService;
 
-    public PdfGenerator(PdfService pdfService, PdfTextService pdfTextService,
-                        PdfHeadingService headingService, PdfMeasurementDataService measurementDataService) {
+    public PdfGenerator(PdfService pdfService, PdfHeadingService headingService, PdfMeasurementDataService measurementDataService) {
         this.pdfService = pdfService;
-        this.pdfTextService = pdfTextService;
         this.headingService = headingService;
         this.measurementDataService = measurementDataService;
     }
@@ -105,7 +102,7 @@ public class PdfGenerator {
 
         //create pages
         for (int i = 0; i < pagesCount; i++) {
-            PDPage page = new PDPage();
+            PDPage page = new PDPage(PDRectangle.A4);
             doc.addPage(page);
         }
 
@@ -117,31 +114,10 @@ public class PdfGenerator {
         headingService.addHeading(doc, headingData);
         //add footers
         //add measurements
-        //measurementDataService.addMeasurementData(doc, buildingTest, pagesCount);
-
-        //table tests
         measurementDataService.addMeasurementDataTableTest(doc, buildingTest, pagesCount);
-        //table tests
-
 
         //add legend page/pages
         //add theory page/pages
-
-        //table tests
-/*        PDPageContentStream contentStream = new PDPageContentStream(doc, doc.getPage(0),
-                PDPageContentStream.AppendMode.APPEND, false);
-
-        Table table = new Table(contentStream);
-        int[] cellWidths = {30, 50, 100, 50, 30};
-        table.setTable(cellWidths, 30, 50, 300);
-        table.addCell("Dupa");
-        table.addCell("Test");
-        table.addCell("Test");
-        table.addCell("Test");
-        table.addCell("Test");
-        contentStream.close();*/
-        //table tests
-
 
         doc.save(file);
         doc.close();

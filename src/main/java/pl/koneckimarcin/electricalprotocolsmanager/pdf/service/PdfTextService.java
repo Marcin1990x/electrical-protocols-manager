@@ -5,13 +5,14 @@ import org.apache.pdfbox.pdmodel.font.PDFont;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
 public class PdfTextService {
 
     public void addSingleLineOfText(PDPageContentStream content, String text, int xPos, int yPos,
-                                           PDFont pdFont, float fontSize) throws IOException {
+                                    PDFont pdFont, float fontSize) throws IOException {
         content.beginText();
         content.setFont(pdFont, fontSize);
         content.newLineAtOffset(xPos, yPos);
@@ -19,14 +20,15 @@ public class PdfTextService {
         content.endText();
         content.moveTo(0, 0);
     }
+
     public void addMultipleLineOfText(PDPageContentStream content, List<String> text, int xPos, int yPos,
-                                             float leading, PDFont pdFont, float fontSize) throws IOException {
+                                      float leading, PDFont pdFont, float fontSize) throws IOException {
 
         content.beginText();
         content.setFont(pdFont, fontSize);
         content.setLeading(leading);
         content.newLineAtOffset(xPos, yPos);
-        for(String textLine : text) {
+        for (String textLine : text) {
             content.showText(textLine);
             content.newLine();
         }
@@ -34,8 +36,18 @@ public class PdfTextService {
         content.moveTo(0, 0);
     }
 
-    public float getTextWidth(String text, PDFont font, float fontSize) throws IOException {
+    private int getTextWidth(String text, PDFont font, float fontSize) throws IOException {
 
-        return font.getStringWidth(text) / 1000 * fontSize;
+        return (int)(font.getStringWidth(text) / 1000 * fontSize);
+    }
+
+    public List<Integer> calculateHeadersWidth(List<Object> headers, PDFont font, int fontSize) throws IOException {
+
+        List<Integer> headersWidth = new ArrayList<>();
+
+        for(Object header : headers) {
+            headersWidth.add(getTextWidth(header.toString(), font, fontSize));
+        }
+        return headersWidth;
     }
 }

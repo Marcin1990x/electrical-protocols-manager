@@ -22,9 +22,9 @@ public class PdfMeasurementDataService {
     private final PDFont font = new PDType1Font(Standard14Fonts.FontName.COURIER);
 
     private PdfTextService textService;
-    private PdfTableService tableService;
+    private PdfTableComponent tableService;
 
-    public PdfMeasurementDataService(PdfTextService textService, PdfTableService tableService) {
+    public PdfMeasurementDataService(PdfTextService textService, PdfTableComponent tableService) {
         this.textService = textService;
         this.tableService = tableService;
     }
@@ -59,7 +59,7 @@ public class PdfMeasurementDataService {
             content = new PDPageContentStream(document, document.getPage(i),
                     PDPageContentStream.AppendMode.APPEND, false);
 
-            tableService.addDataTable(content, measurementMainList.get(i), measurementsFontSize);
+            tableService.addTable(content, measurementMainList.get(i), measurementsFontSize);
 
             content.close();
         }

@@ -14,7 +14,7 @@ public class Table {
     private int[] columnWidths;
     private int cellHeight;
     private int yPos;
-    private int xPos;
+    private int xPos = 50; // start position in X
     private int columnPosition;
     private int xInitialPos;
     private PDFont font = new PDType1Font(Standard14Fonts.FontName.COURIER); // test
@@ -24,15 +24,14 @@ public class Table {
         this.contentStream = contentStream;
     }
 
-    public void setTable(int[] columnWidths, int cellHeight, int xPos, int yPos) {
+    public void setTable(int[] columnWidths, int cellHeight, int yPos) {
         this.columnWidths = columnWidths;
         this.cellHeight = cellHeight;
-        this.xPos = xPos;
         this.yPos = yPos;
         this.xInitialPos = xPos;
     }
 
-    public void addCell(String text, int alignment, Color fillColor, int fontSize) throws IOException {
+    public void addCell(String text, int alignment, Color fillColor, int fontSize, PDFont font) throws IOException {
 
         Color fontColor = new Color(0, 0, 0);
 
@@ -49,6 +48,6 @@ public class Table {
         contentStream.endText();
 
         xPos = xPos + columnWidths[columnPosition];
-        columnPosition ++;
+        columnPosition++;
     }
 }
