@@ -9,22 +9,19 @@ import pl.koneckimarcin.electricalprotocolsmanager.pdf.model.PdfHeading;
 import java.io.IOException;
 
 @Service
-public class PdfHeadingService {
+public class PdfFooterService {
 
-    private final int headingXposition = 53;
-    private final int headingYposition = 790;
-    private final int headingLeading = 12;
-    private final int headingFontSize = 10;
+    private final PdfTextService textService;
+    private final PdfTableComponent tableComponent;
 
-    private PdfTextService textService;
-    private PdfTableComponent tableComponent;
-
-    public PdfHeadingService(PdfTextService textService, PdfTableComponent tableComponent) {
+    public PdfFooterService(PdfTextService textService, PdfTableComponent tableComponent) {
         this.textService = textService;
         this.tableComponent = tableComponent;
     }
 
-    public void addHeading(PDDocument document, PdfHeading heading) throws IOException {
+    private final int footerFontSize = 9;
+
+    public void addFooter(PDDocument document, PdfHeading heading) throws IOException {
 
         int pagesCount = document.getNumberOfPages();
 
@@ -35,10 +32,11 @@ public class PdfHeadingService {
             content = new PDPageContentStream(document, document.getPage(i),
                     PDPageContentStream.AppendMode.APPEND, false);
 
-            tableComponent.addHeaderTable(content); // add empty table cell
+            tableComponent.addFooterTable(content);
 
-            textService.addMultipleLineOfText(content, heading.getHeadingData(), headingXposition, headingYposition, headingLeading,
-                    Font.font, headingFontSize); // add header text
+            textService.addSingleLineOfText(content,
+                    heading.getDocumentNumber() + "  " +  (i + 1) + "/" + pagesCount, 450, 40,
+                            Font.font, footerFontSize);
 
             content.close();
         }

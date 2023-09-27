@@ -9,6 +9,7 @@ import pl.koneckimarcin.electricalprotocolsmanager.measurement.Result;
 import pl.koneckimarcin.electricalprotocolsmanager.measurement.protectionAgainstElectricShockByAutomaticShutdown.ProtectionAgainstElectricShockByAutomaticShutdown;
 import pl.koneckimarcin.electricalprotocolsmanager.measurement.protectionAgainstElectricShockByAutomaticShutdown.ProtectionMeasurementEntry;
 import pl.koneckimarcin.electricalprotocolsmanager.pdf.model.PdfHeading;
+import pl.koneckimarcin.electricalprotocolsmanager.pdf.service.PdfFooterService;
 import pl.koneckimarcin.electricalprotocolsmanager.pdf.service.PdfHeadingService;
 import pl.koneckimarcin.electricalprotocolsmanager.pdf.service.PdfMeasurementDataService;
 import pl.koneckimarcin.electricalprotocolsmanager.pdf.service.PdfService;
@@ -27,11 +28,13 @@ public class PdfGenerator {
 
     private final PdfService pdfService;
     private final PdfHeadingService headingService;
+    private final PdfFooterService footerService;
     private final PdfMeasurementDataService measurementDataService;
 
-    public PdfGenerator(PdfService pdfService, PdfHeadingService headingService, PdfMeasurementDataService measurementDataService) {
+    public PdfGenerator(PdfService pdfService, PdfHeadingService headingService, PdfFooterService footerService, PdfMeasurementDataService measurementDataService) {
         this.pdfService = pdfService;
         this.headingService = headingService;
+        this.footerService = footerService;
         this.measurementDataService = measurementDataService;
     }
 
@@ -113,6 +116,7 @@ public class PdfGenerator {
         //add headers
         headingService.addHeading(doc, headingData);
         //add footers
+        footerService.addFooter(doc, headingData);
         //add measurements
         measurementDataService.addMeasurementDataTableTest(doc, buildingTest, pagesCount);
 

@@ -62,8 +62,13 @@ public class PdfTableComponent {
         }
     }
 
-    public void addHeadingTable(PDPageContentStream content) throws IOException {
+    public void addHeaderTable(PDPageContentStream content) throws IOException {
         addTableComponent(content, new int[]{500}, 60, 750, List.of(""), 3, commonColor,
+                10, Font.font);
+    }
+
+    public void addFooterTable(PDPageContentStream content) throws IOException {
+        addTableComponent(content, new int[]{500}, 1, 50, List.of(""), 3, commonColor,
                 10, Font.font);
     }
 
