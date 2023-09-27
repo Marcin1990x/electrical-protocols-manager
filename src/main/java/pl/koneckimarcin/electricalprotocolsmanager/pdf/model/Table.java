@@ -2,8 +2,6 @@ package pl.koneckimarcin.electricalprotocolsmanager.pdf.model;
 
 import org.apache.pdfbox.pdmodel.PDPageContentStream;
 import org.apache.pdfbox.pdmodel.font.PDFont;
-import org.apache.pdfbox.pdmodel.font.PDType1Font;
-import org.apache.pdfbox.pdmodel.font.Standard14Fonts;
 
 import java.awt.*;
 import java.io.IOException;
@@ -16,9 +14,6 @@ public class Table {
     private int yPos;
     private int xPos = 50; // start position in X
     private int columnPosition;
-    private int xInitialPos;
-    private PDFont font = new PDType1Font(Standard14Fonts.FontName.COURIER); // test
-
 
     public Table(PDPageContentStream contentStream) {
         this.contentStream = contentStream;
@@ -28,7 +23,6 @@ public class Table {
         this.columnWidths = columnWidths;
         this.cellHeight = cellHeight;
         this.yPos = yPos;
-        this.xInitialPos = xPos;
     }
 
     public void addCell(String text, int alignment, Color fillColor, int fontSize, PDFont font) throws IOException {

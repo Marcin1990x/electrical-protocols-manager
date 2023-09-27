@@ -1,5 +1,6 @@
 package pl.koneckimarcin.electricalprotocolsmanager.pdf.model;
 
+import pl.koneckimarcin.electricalprotocolsmanager.measurement.data.TextData;
 import pl.koneckimarcin.electricalprotocolsmanager.utilities.model.Electrician;
 
 import java.util.ArrayList;
@@ -54,13 +55,16 @@ public class PdfHeading {
 
     public List<String> getHeadingData() {
 
+        StringBuilder electricansData = new StringBuilder();
+
         List<String> headingData = new ArrayList<>();
-        headingData.add(documentNumber);
-        headingData.add(measurementDate.toString());
+        headingData.add(documentNumber + "                            " + TextData.headerText.get(0)
+                + measurementDate.toString()); // hardcoded spaces for now
         for(Electrician electrician : electricians){
-            headingData.add(electrician.getFirstName() + " " + electrician.getLastName());
+            electricansData.append(electrician.getFirstName()).append(" ").append(electrician.getLastName()).append("; ");
         }
-        headingData.add(measurementsPlace);
+        headingData.add(TextData.headerText.get(1) + electricansData.substring(0, electricansData.length()-2));
+        headingData.add(TextData.headerText.get(2) + measurementsPlace);
 
         return headingData;
     }

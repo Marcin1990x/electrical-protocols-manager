@@ -2,10 +2,8 @@ package pl.koneckimarcin.electricalprotocolsmanager.pdf.service;
 
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPageContentStream;
-import org.apache.pdfbox.pdmodel.font.PDFont;
-import org.apache.pdfbox.pdmodel.font.PDType1Font;
-import org.apache.pdfbox.pdmodel.font.Standard14Fonts;
 import org.springframework.stereotype.Service;
+import pl.koneckimarcin.electricalprotocolsmanager.pdf.Font;
 import pl.koneckimarcin.electricalprotocolsmanager.pdf.model.PdfHeading;
 
 import java.io.IOException;
@@ -13,16 +11,17 @@ import java.io.IOException;
 @Service
 public class PdfHeadingService {
 
-    private final int headingXposition = 50;
-    private final int headingYposition = 750;
-    private final int headingLeading = 10;
+    private final int headingXposition = 53;
+    private final int headingYposition = 790;
+    private final int headingLeading = 12;
     private final int headingFontSize = 10;
-    private final PDFont font = new PDType1Font(Standard14Fonts.FontName.COURIER);
 
     private PdfTextService textService;
+    private PdfTableComponent tableComponent;
 
-    public PdfHeadingService(PdfTextService textService) {
+    public PdfHeadingService(PdfTextService textService, PdfTableComponent tableComponent) {
         this.textService = textService;
+        this.tableComponent = tableComponent;
     }
 
     public void addHeading(PDDocument document, PdfHeading heading) throws IOException {
@@ -36,8 +35,10 @@ public class PdfHeadingService {
             content = new PDPageContentStream(document, document.getPage(i),
                     PDPageContentStream.AppendMode.APPEND, false);
 
+            tableComponent.addHeadingTable(content); // add empty table cell
+
             textService.addMultipleLineOfText(content, heading.getHeadingData(), headingXposition, headingYposition, headingLeading,
-                    font, headingFontSize);
+                    Font.font, headingFontSize); // add header text
 
             content.close();
         }

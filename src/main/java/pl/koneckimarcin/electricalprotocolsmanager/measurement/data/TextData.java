@@ -5,13 +5,12 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 
 @Component
-public class EntryHeaderName {
+public class TextData {
 
-    private List<Object> protectionAgainstElectricShockByAutomaticShutdownEntryHeaders =
+    public static List<Object> protectionAgainstElectricShockByAutomaticShutdownEntryHeaders =
             List.of("CommonField1", "CommonField2", "CommonField3", "CommonField4", "Result", "SpecificField1",
                     "SpecificField2", "SpecificField3");
 
-    public List<Object> getProtectionAgainstElectricShockByAutomaticShutdownEntryHeaders() {
-        return protectionAgainstElectricShockByAutomaticShutdownEntryHeaders;
-    }
+    public static List<String> headerText =
+            List.of("Data pomiarow: ", "Wykonawca pomiarow: ", "Miejsce przeprowadzenia pomiarow: ");
 }
