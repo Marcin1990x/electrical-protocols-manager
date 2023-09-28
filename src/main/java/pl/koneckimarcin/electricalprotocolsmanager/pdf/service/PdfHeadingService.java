@@ -30,14 +30,14 @@ public class PdfHeadingService {
 
         PDPageContentStream content;
 
-        for (int i = 0; i < pagesCount; i++) {
+        for (int i = 1; i < pagesCount; i++) {
 
             content = new PDPageContentStream(document, document.getPage(i),
                     PDPageContentStream.AppendMode.APPEND, false);
 
             tableComponent.addHeaderTable(content); // add empty table cell
 
-            textService.addMultipleLineOfText(content, heading.getHeadingData(), headingXposition, headingYposition, headingLeading,
+            textService.addMultipleLineOfText(content, heading.getHeadingTextData(), headingXposition, headingYposition, headingLeading,
                     Font.font, headingFontSize); // add header text
 
             content.close();

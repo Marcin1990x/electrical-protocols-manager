@@ -4,15 +4,12 @@ import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPage;
 import org.apache.pdfbox.pdmodel.common.PDRectangle;
 import org.springframework.stereotype.Service;
-import pl.koneckimarcin.electricalprotocolsmanager.measurement.NetworkType;
-import pl.koneckimarcin.electricalprotocolsmanager.measurement.Result;
+import pl.koneckimarcin.electricalprotocolsmanager.measurement.*;
 import pl.koneckimarcin.electricalprotocolsmanager.measurement.protectionAgainstElectricShockByAutomaticShutdown.ProtectionAgainstElectricShockByAutomaticShutdown;
 import pl.koneckimarcin.electricalprotocolsmanager.measurement.protectionAgainstElectricShockByAutomaticShutdown.ProtectionMeasurementEntry;
 import pl.koneckimarcin.electricalprotocolsmanager.pdf.model.PdfHeading;
-import pl.koneckimarcin.electricalprotocolsmanager.pdf.service.PdfFooterService;
-import pl.koneckimarcin.electricalprotocolsmanager.pdf.service.PdfHeadingService;
-import pl.koneckimarcin.electricalprotocolsmanager.pdf.service.PdfMeasurementDataService;
-import pl.koneckimarcin.electricalprotocolsmanager.pdf.service.PdfService;
+import pl.koneckimarcin.electricalprotocolsmanager.pdf.model.PdfTitlePage;
+import pl.koneckimarcin.electricalprotocolsmanager.pdf.service.*;
 import pl.koneckimarcin.electricalprotocolsmanager.structure.model.Building;
 import pl.koneckimarcin.electricalprotocolsmanager.structure.model.Floor;
 import pl.koneckimarcin.electricalprotocolsmanager.structure.model.Room;
@@ -30,12 +27,14 @@ public class PdfGenerator {
     private final PdfHeadingService headingService;
     private final PdfFooterService footerService;
     private final PdfMeasurementDataService measurementDataService;
+    private final PdfTitlePageService titlePageService;
 
-    public PdfGenerator(PdfService pdfService, PdfHeadingService headingService, PdfFooterService footerService, PdfMeasurementDataService measurementDataService) {
+    public PdfGenerator(PdfService pdfService, PdfHeadingService headingService, PdfFooterService footerService, PdfMeasurementDataService measurementDataService, PdfTitlePageService titlePageService) {
         this.pdfService = pdfService;
         this.headingService = headingService;
         this.footerService = footerService;
         this.measurementDataService = measurementDataService;
+        this.titlePageService = titlePageService;
     }
 
     public void createPdfDocument(String directory) throws IOException {
@@ -69,9 +68,25 @@ public class PdfGenerator {
                 new ProtectionAgainstElectricShockByAutomaticShutdown(List.of(measurement1, measurement2), 3,
                         12, 24, NetworkType.TNS, 2, 40);
 
-        PdfHeading headingData = new PdfHeading("RAP-0005-2023", new Date(System.currentTimeMillis()),
+        PdfTitlePage titlePageData = new PdfTitlePage(
                 List.of(new Electrician("Elektryk", "Pierwszy"), new Electrician("Elektryk", "Drugi")),
-                "Domek nad jeziorem");
+                "RAP-0005-2023",
+                "Protokol z pomiarow ochronnych",
+                "Klient kliencki",
+                "Domek nad jeziorem",
+                TypeOfMeasurement.PERIODIC,
+                TypeOfWeather.CLOUDY,
+                new Date(System.currentTimeMillis()),
+                TypeOfInstallation.EXISTING,
+                "1. Instalacja nadaje sie do uzytku"
+        );
+
+        PdfHeading headingData = new PdfHeading(
+                titlePageData.getDocumentNumber(),
+                titlePageData.getMeasurementDate(),
+                titlePageData.getElectricians(),
+                titlePageData.getMeasurementPlace()
+        );
 
         Building buildingTest = new Building("Domek");
 
@@ -104,7 +119,7 @@ public class PdfGenerator {
         //add pages for title, theory...
 
         //create pages
-        for (int i = 0; i < pagesCount; i++) {
+        for (int i = 0; i < pagesCount + 1; i++) { // +1 for title page
             PDPage page = new PDPage(PDRectangle.A4);
             doc.addPage(page);
         }
@@ -112,7 +127,7 @@ public class PdfGenerator {
         File file = new File(directory);
 
         //add title page
-
+        titlePageService.addTitlePage(doc, titlePageData);
         //add headers
         headingService.addHeading(doc, headingData);
         //add footers

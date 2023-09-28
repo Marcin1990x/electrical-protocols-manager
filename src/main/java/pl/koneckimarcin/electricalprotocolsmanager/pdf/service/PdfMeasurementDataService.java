@@ -53,7 +53,7 @@ public class PdfMeasurementDataService {
 
         for (int i = 0; i < measurementPagesCount; i++) {
 
-            content = new PDPageContentStream(document, document.getPage(i),
+            content = new PDPageContentStream(document, document.getPage(i+1),
                     PDPageContentStream.AppendMode.APPEND, false);
 
             tableComponent.addMeasurementTable(content, measurementMainList.get(i));

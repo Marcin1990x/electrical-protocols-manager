@@ -53,19 +53,19 @@ public class PdfHeading {
         this.measurementsPlace = measurementsPlace;
     }
 
-    public List<String> getHeadingData() {
+    public List<String> getHeadingTextData() {
 
-        StringBuilder electricansData = new StringBuilder();
+        StringBuilder builder = new StringBuilder();
 
-        List<String> headingData = new ArrayList<>();
-        headingData.add(documentNumber + "                            " + TextData.headerText.get(0)
+        List<String> headingTextData = new ArrayList<>();
+        headingTextData.add(documentNumber + "                            " + TextData.headerText.get(0)
                 + measurementDate.toString()); // hardcoded spaces for now
-        for(Electrician electrician : electricians){
-            electricansData.append(electrician.getFirstName()).append(" ").append(electrician.getLastName()).append("; ");
+        for (Electrician electrician : electricians) {
+            builder.append(electrician.getFirstName()).append(" ").append(electrician.getLastName()).append("; ");
         }
-        headingData.add(TextData.headerText.get(1) + electricansData.substring(0, electricansData.length()-2));
-        headingData.add(TextData.headerText.get(2) + measurementsPlace);
+        headingTextData.add(TextData.headerText.get(1) + builder.substring(0, builder.length() - 2));
+        headingTextData.add(TextData.headerText.get(2) + measurementsPlace);
 
-        return headingData;
+        return headingTextData;
     }
 }
