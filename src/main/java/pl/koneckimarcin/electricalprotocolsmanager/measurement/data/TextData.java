@@ -1,10 +1,7 @@
 package pl.koneckimarcin.electricalprotocolsmanager.measurement.data;
 
-import org.springframework.stereotype.Component;
-
 import java.util.List;
 
-@Component
 public class TextData {
 
     public static List<Object> protectionAgainstElectricShockByAutomaticShutdownEntryHeaders =
@@ -13,4 +10,8 @@ public class TextData {
 
     public static List<String> headerText =
             List.of("Data pomiarow: ", "Wykonawca pomiarow: ", "Miejsce przeprowadzenia pomiarow: ");
+
+    public static List<String> titlePageText =
+            List.of("Zleceniodawca: ", "Miejsce przeprowadzenia pomiarow: ", "Rodzaj pomiarow: ", "Pogoda: ",
+                    "Data pomiarow: ", "Data nastepnych pomiarow: ", "Instalacja: ", "Wykonawcy pomiarow:", "Orzeczenie: ");
 }
