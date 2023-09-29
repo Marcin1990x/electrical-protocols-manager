@@ -6,8 +6,8 @@ import pl.koneckimarcin.electricalprotocolsmanager.measurement.TypeOfWeather;
 import pl.koneckimarcin.electricalprotocolsmanager.measurement.data.TextData;
 import pl.koneckimarcin.electricalprotocolsmanager.utilities.model.Electrician;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class PdfTitlePage {
@@ -19,14 +19,14 @@ public class PdfTitlePage {
     private String measurementPlace;
     private TypeOfMeasurement typeOfMeasurement;
     private TypeOfWeather typeOfWeather;
-    private Date measurementDate;
-    private Date nextMeasurementDate;
+    private LocalDate measurementDate;
+    private LocalDate nextMeasurementDate;
     private TypeOfInstallation typeOfInstallation;
     private String decisionDescription;
 
     public PdfTitlePage(List<Electrician> electricians, String documentNumber, String title, String customerName,
                         String measurementPlace, TypeOfMeasurement typeOfMeasurement, TypeOfWeather typeOfWeather,
-                        Date measurementDate, TypeOfInstallation typeOfInstallation, String decisionDescription) {
+                        LocalDate measurementDate, TypeOfInstallation typeOfInstallation, String decisionDescription) {
         this.electricians = electricians;
         this.documentNumber = documentNumber;
         this.title = title;
@@ -41,7 +41,7 @@ public class PdfTitlePage {
     }
 
     private void setNextMeasurementDate() {
-        this.nextMeasurementDate = this.measurementDate; // add 5 years - to be done
+        this.nextMeasurementDate = this.measurementDate.plusYears(5);
     }
 
     public String getDocumentNumber() {
@@ -56,7 +56,7 @@ public class PdfTitlePage {
         return measurementPlace;
     }
 
-    public Date getMeasurementDate() {
+    public LocalDate getMeasurementDate() {
         return measurementDate;
     }
 
@@ -82,8 +82,9 @@ public class PdfTitlePage {
 
         List<String> measurementTextData = new ArrayList<>();
         measurementTextData.add(TextData.titlePageText.get(2) + TypeOfMeasurement.PERIODIC +
-                "                                 " + TextData.titlePageText.get(3) + TypeOfWeather.CLOUDY);
+                "                                     " + TextData.titlePageText.get(3) + TypeOfWeather.CLOUDY);
         measurementTextData.add(TextData.titlePageText.get(4) + measurementDate.toString() +
+                "                   " +
                 TextData.titlePageText.get(5) + nextMeasurementDate.toString());
         measurementTextData.add(TextData.titlePageText.get(6));
         measurementTextData.add(TypeOfInstallation.EXISTING.toString());

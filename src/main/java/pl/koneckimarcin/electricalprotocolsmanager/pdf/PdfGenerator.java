@@ -17,7 +17,7 @@ import pl.koneckimarcin.electricalprotocolsmanager.utilities.model.Electrician;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -28,13 +28,17 @@ public class PdfGenerator {
     private final PdfFooterService footerService;
     private final PdfMeasurementDataService measurementDataService;
     private final PdfTitlePageService titlePageService;
+    private final PdfLegendService legendService;
 
-    public PdfGenerator(PdfService pdfService, PdfHeadingService headingService, PdfFooterService footerService, PdfMeasurementDataService measurementDataService, PdfTitlePageService titlePageService) {
+    public PdfGenerator(PdfService pdfService, PdfHeadingService headingService, PdfFooterService footerService,
+                        PdfMeasurementDataService measurementDataService, PdfTitlePageService titlePageService,
+                        PdfLegendService legendService) {
         this.pdfService = pdfService;
         this.headingService = headingService;
         this.footerService = footerService;
         this.measurementDataService = measurementDataService;
         this.titlePageService = titlePageService;
+        this.legendService = legendService;
     }
 
     public void createPdfDocument(String directory) throws IOException {
@@ -76,7 +80,7 @@ public class PdfGenerator {
                 "Domek nad jeziorem",
                 TypeOfMeasurement.PERIODIC,
                 TypeOfWeather.CLOUDY,
-                new Date(System.currentTimeMillis()),
+                LocalDate.now(),
                 TypeOfInstallation.EXISTING,
                 "1. Instalacja nadaje sie do uzytku"
         );
@@ -119,7 +123,7 @@ public class PdfGenerator {
         //add pages for title, theory...
 
         //create pages
-        for (int i = 0; i < pagesCount + 1; i++) { // +1 for title page
+        for (int i = 0; i < pagesCount + 2; i++) { // +1 for title page, +1 for legend page
             PDPage page = new PDPage(PDRectangle.A4);
             doc.addPage(page);
         }
@@ -134,8 +138,8 @@ public class PdfGenerator {
         footerService.addFooter(doc, headingData);
         //add measurements
         measurementDataService.addMeasurementDataTableTest(doc, buildingTest, pagesCount);
-
         //add legend page/pages
+        legendService.addLegendData(doc, 6, buildingTest.getMeasurementMainList());
         //add theory page/pages
 
         doc.save(file);

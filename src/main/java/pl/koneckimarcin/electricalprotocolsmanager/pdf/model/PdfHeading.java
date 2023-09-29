@@ -3,18 +3,18 @@ package pl.koneckimarcin.electricalprotocolsmanager.pdf.model;
 import pl.koneckimarcin.electricalprotocolsmanager.measurement.data.TextData;
 import pl.koneckimarcin.electricalprotocolsmanager.utilities.model.Electrician;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class PdfHeading {
 
     private String documentNumber;
-    private Date measurementDate;
+    private LocalDate measurementDate;
     private List<Electrician> electricians;
     private String measurementsPlace;
 
-    public PdfHeading(String documentNumber, Date measurementDate, List<Electrician> electricians, String measurementsPlace) {
+    public PdfHeading(String documentNumber, LocalDate measurementDate, List<Electrician> electricians, String measurementsPlace) {
         this.documentNumber = documentNumber;
         this.measurementDate = measurementDate;
         this.electricians = electricians;
@@ -29,11 +29,11 @@ public class PdfHeading {
         this.documentNumber = documentNumber;
     }
 
-    public Date getMeasurementDate() {
+    public LocalDate getMeasurementDate() {
         return measurementDate;
     }
 
-    public void setMeasurementDate(Date measurementDate) {
+    public void setMeasurementDate(LocalDate measurementDate) {
         this.measurementDate = measurementDate;
     }
 
