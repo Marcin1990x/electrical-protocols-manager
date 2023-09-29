@@ -29,16 +29,18 @@ public class PdfGenerator {
     private final PdfMeasurementDataService measurementDataService;
     private final PdfTitlePageService titlePageService;
     private final PdfLegendService legendService;
+    private final PdfTheoryService theoryService;
 
     public PdfGenerator(PdfService pdfService, PdfHeadingService headingService, PdfFooterService footerService,
                         PdfMeasurementDataService measurementDataService, PdfTitlePageService titlePageService,
-                        PdfLegendService legendService) {
+                        PdfLegendService legendService, PdfTheoryService theoryService) {
         this.pdfService = pdfService;
         this.headingService = headingService;
         this.footerService = footerService;
         this.measurementDataService = measurementDataService;
         this.titlePageService = titlePageService;
         this.legendService = legendService;
+        this.theoryService = theoryService;
     }
 
     public void createPdfDocument(String directory) throws IOException {
@@ -123,7 +125,7 @@ public class PdfGenerator {
         //add pages for title, theory...
 
         //create pages
-        for (int i = 0; i < pagesCount + 2; i++) { // +1 for title page, +1 for legend page
+        for (int i = 0; i < pagesCount + 4; i++) { // +1 for title page, +1 for legend page, +2 for theory
             PDPage page = new PDPage(PDRectangle.A4);
             doc.addPage(page);
         }
@@ -139,8 +141,9 @@ public class PdfGenerator {
         //add measurements
         measurementDataService.addMeasurementDataTableTest(doc, buildingTest, pagesCount);
         //add legend page/pages
-        legendService.addLegendData(doc, 6, buildingTest.getMeasurementMainList());
+        legendService.addLegendData(doc, 6, buildingTest.getMeasurementMainList()); // hardcoded page
         //add theory page/pages
+        theoryService.addTheory(doc, 7, 2); // hardcoded page
 
         doc.save(file);
         doc.close();

@@ -20,6 +20,9 @@ public class PdfLegendService {
         this.textService = textService;
     }
 
+    private final int xPos = 53;
+    private int yPos = 720;
+
     public void addLegendData(PDDocument document, int legendPage, List<MeasurementMain> measurementMainList) throws IOException {
 
         PDPageContentStream content;
@@ -35,12 +38,16 @@ public class PdfLegendService {
 
         MeasurementLegend legend;
 
-        textService.addSingleLineOfText(content, TextData.legendPageText.get(0), 53, 720, Font.font, 14);
+        textService.addSingleLineOfText(content, TextData.legendPageText.get(0), xPos, yPos, Font.font, 14);
+
+        yPos -= 20;
 
         for (String measure : measurementsListForLegend) {
             legend = new MeasurementLegend(measure);
-            textService.addSingleLineOfText(content, legend.getMeasurementName(), 53, 700, Font.font, 14);
-            textService.addMultipleLineOfText(content, legend.getLegendText(), 53, 680, 12, Font.font, 10);
+            textService.addSingleLineOfText(content, legend.getMeasurementName(), xPos, yPos, Font.font, 14);
+            yPos -= 20;
+            textService.addMultipleLineOfText(content, legend.getLegendText(), xPos, 680, 12, Font.font, 10);
+            yPos -= 20;
         }
         content.close();
     }
