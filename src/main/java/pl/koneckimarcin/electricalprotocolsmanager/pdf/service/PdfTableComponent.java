@@ -8,6 +8,7 @@ import pl.koneckimarcin.electricalprotocolsmanager.measurement.data.TextData;
 import pl.koneckimarcin.electricalprotocolsmanager.pdf.Font;
 import pl.koneckimarcin.electricalprotocolsmanager.pdf.model.PdfTitlePage;
 import pl.koneckimarcin.electricalprotocolsmanager.pdf.model.Table;
+import pl.koneckimarcin.electricalprotocolsmanager.utilities.model.Electrician;
 
 import java.awt.*;
 import java.io.IOException;
@@ -21,7 +22,8 @@ public class PdfTableComponent {
 
     private int yPosMeas; // y position for measurements tables
     private int yPosTitle; // y position for title page tables
-    private int[] oneCellTable = new int[]{500};
+    private int yPosElec; // y position for electricians data page
+    private final int[] oneCellTable = new int[]{500};
 
     public PdfTableComponent(PdfTableService pdfTableService, PdfTextService textService) {
         this.pdfTableService = pdfTableService;
@@ -81,7 +83,7 @@ public class PdfTableComponent {
         yPosMeas -= 30;
         // add cascadeTable
         // add header
-        int[] headerCellWidths = pdfTableService.calculateCellSizes(measurementMain.getMeasurementName());
+        int[] headerCellWidths = pdfTableService.calculateCellSizes(measurementMain.getMeasurementName(), 10);
         addTableComponent(content, headerCellWidths, 25, yPosMeas,
                 TextData.protectionAgainstElectricShockByAutomaticShutdownEntryHeaders,
                 3, headerColor, 10, Font.font);
@@ -97,6 +99,18 @@ public class PdfTableComponent {
                     3, commonColor, 8, Font.font);
             yPosMeas -= 25;
         }
+    }
+
+    public void addElectricianPageTable(PDPageContentStream content, List<Electrician> electricians) throws IOException {
+        // add header
+        yPosElec = 720;
+        addTableComponent(content, oneCellTable, 22, yPosElec, List.of(TextData.electriciansPageText.get(2)),
+                170, commonColor, 12, Font.font);
+        // add table header
+        yPosElec -= 30;
+        int[] headerCellWidths = pdfTableService.calculateCellSizes("ElectricianTable headers", 10);
+        addTableComponent(content, headerCellWidths, 25, yPosElec,
+                TextData.electricianPdfTableHeaders,3, headerColor, 10, Font.font);
     }
 
     public void addHeaderTable(PDPageContentStream content) throws IOException {
