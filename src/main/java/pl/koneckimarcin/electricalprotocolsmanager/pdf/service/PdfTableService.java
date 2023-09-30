@@ -18,13 +18,15 @@ public class PdfTableService {
 
     private final int maxTableSize = 500; // page area width
 
-    public int[] calculateCellSizes(String measurementName) throws IOException {
+    public int[] calculateCellSizes(String nameForCalculation, int fontSize) throws IOException {
 
-        int cellQuantity = calculateCellQuantity(measurementName);
+        int cellQuantity = calculateCellQuantity(nameForCalculation);
         int[] cellWidths = new int[cellQuantity];
 
-        List<Integer> headersWidth = textService.calculateHeadersWidth(TextData
-                .protectionAgainstElectricShockByAutomaticShutdownEntryHeaders, Font.font, 10);
+        List<Integer> headersWidth;
+
+        headersWidth = textService
+                .calculateHeadersWidth(textService.getHeadersForCalculation(nameForCalculation), Font.font, fontSize);
 
         int totalHeadersWidth = headersWidth.stream().mapToInt(Integer::intValue).sum();
         float resolution = (float) maxTableSize / totalHeadersWidth;
@@ -39,6 +41,8 @@ public class PdfTableService {
 
         if (measurementName.equals("Measurement Name 1")) { // case for each measurement main
             return TextData.protectionAgainstElectricShockByAutomaticShutdownEntryHeaders.size();
+        } else if (measurementName.equals("ElectricianTable headers")) {
+            return TextData.electricianPdfTableHeaders.size();
         } else {
             return 0;
         }

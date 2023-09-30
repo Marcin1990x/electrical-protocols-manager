@@ -14,6 +14,7 @@ import pl.koneckimarcin.electricalprotocolsmanager.structure.model.Building;
 import pl.koneckimarcin.electricalprotocolsmanager.structure.model.Floor;
 import pl.koneckimarcin.electricalprotocolsmanager.structure.model.Room;
 import pl.koneckimarcin.electricalprotocolsmanager.utilities.model.Electrician;
+import pl.koneckimarcin.electricalprotocolsmanager.utilities.model.Position;
 
 import java.io.File;
 import java.io.IOException;
@@ -30,10 +31,12 @@ public class PdfGenerator {
     private final PdfTitlePageService titlePageService;
     private final PdfLegendService legendService;
     private final PdfTheoryService theoryService;
+    private final PdfElectricianPageService electricianPageService;
 
     public PdfGenerator(PdfService pdfService, PdfHeadingService headingService, PdfFooterService footerService,
                         PdfMeasurementDataService measurementDataService, PdfTitlePageService titlePageService,
-                        PdfLegendService legendService, PdfTheoryService theoryService) {
+                        PdfLegendService legendService, PdfTheoryService theoryService,
+                        PdfElectricianPageService electricianPageService) {
         this.pdfService = pdfService;
         this.headingService = headingService;
         this.footerService = footerService;
@@ -41,6 +44,7 @@ public class PdfGenerator {
         this.titlePageService = titlePageService;
         this.legendService = legendService;
         this.theoryService = theoryService;
+        this.electricianPageService = electricianPageService;
     }
 
     public void createPdfDocument(String directory) throws IOException {
@@ -74,8 +78,20 @@ public class PdfGenerator {
                 new ProtectionAgainstElectricShockByAutomaticShutdown(List.of(measurement1, measurement2), 3,
                         12, 24, NetworkType.TNS, 2, 40);
 
+        Electrician electrician = new Electrician(
+                "Elektryk", "Pierwszy",
+                "Przykladowy adres 1",
+                List.of("E/244/10/20", "E/244/08/10"),
+                Position.CHECKER);
+        Electrician electrician2 = new Electrician(
+                "Elektryk", "Drugi",
+                "Przykladowy adres 100",
+                List.of("E/244/10/22", "E/244/90/10"),
+                Position.MEASURER);
+
+
         PdfTitlePage titlePageData = new PdfTitlePage(
-                List.of(new Electrician("Elektryk", "Pierwszy"), new Electrician("Elektryk", "Drugi")),
+                List.of(electrician, electrician2),
                 "RAP-0005-2023",
                 "Protokol z pomiarow ochronnych",
                 "Klient kliencki",
@@ -125,7 +141,7 @@ public class PdfGenerator {
         //add pages for title, theory...
 
         //create pages
-        for (int i = 0; i < pagesCount + 4; i++) { // +1 for title page, +1 for legend page, +2 for theory
+        for (int i = 0; i < pagesCount + 5; i++) { // +1 for title page, +1 for legend page, +2 for theory, +1 for electricians
             PDPage page = new PDPage(PDRectangle.A4);
             doc.addPage(page);
         }
@@ -144,6 +160,8 @@ public class PdfGenerator {
         legendService.addLegendData(doc, 6, buildingTest.getMeasurementMainList()); // hardcoded page
         //add theory page/pages
         theoryService.addTheory(doc, 7, 2); // hardcoded page
+        //add electricians page
+        electricianPageService.addData(doc, List.of(electrician, electrician2), 9); // hardcoded page
 
         doc.save(file);
         doc.close();

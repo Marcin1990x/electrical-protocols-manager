@@ -3,6 +3,7 @@ package pl.koneckimarcin.electricalprotocolsmanager.pdf.service;
 import org.apache.pdfbox.pdmodel.PDPageContentStream;
 import org.apache.pdfbox.pdmodel.font.PDFont;
 import org.springframework.stereotype.Service;
+import pl.koneckimarcin.electricalprotocolsmanager.measurement.data.TextData;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -49,5 +50,17 @@ public class PdfTextService {
             headersWidth.add(getTextWidth(header.toString(), font, fontSize));
         }
         return headersWidth;
+    }
+
+    public List<Object> getHeadersForCalculation(String nameForCalculation) {
+
+        List<Object> headers = new ArrayList<>();
+
+        if(nameForCalculation.equals("Measurement Name 1")) {
+            headers = TextData.protectionAgainstElectricShockByAutomaticShutdownEntryHeaders;
+        } else if (nameForCalculation.equals("ElectricianTable headers")) {
+            headers = TextData.electricianPdfTableHeaders;
+        }
+        return headers;
     }
 }

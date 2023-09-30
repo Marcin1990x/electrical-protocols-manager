@@ -17,4 +17,10 @@ public class TextData {
 
     public static List<String> legendPageText =
             List.of("Legenda:");
+
+    public static List<Object> electricianPdfTableHeaders =
+            List.of("Imie", "Nazwisko", "Adres", "Numer uprawnien", "Stanowisko", "Podpis");
+
+    public static List<String> electriciansPageText =
+            List.of("Prace kontrolno-pomiarowe", "Świadectwo kwalifikacyjne SEP", "Osoby wykonujace pomiary:");
 }
