@@ -108,9 +108,16 @@ public class PdfTableComponent {
                 170, commonColor, 12, Font.font);
         // add table header
         yPosElec -= 30;
-        int[] headerCellWidths = pdfTableService.calculateCellSizes("ElectricianTable headers", 10);
+        int[] headerCellWidths = new int[]{50, 60, 100, 70, 70, 150}; // to do: automatic calculation
         addTableComponent(content, headerCellWidths, 25, yPosElec,
                 TextData.electricianPdfTableHeaders,3, headerColor, 10, Font.font);
+        // add electrician data
+        yPosElec -= 70;
+        for (Electrician electrician : electricians) {
+            addTableComponentWithMultilineText(content, headerCellWidths, 60, yPosElec,
+                    electrician.getElectricianDataTextList(), 3, commonColor, 8, Font.font);
+            yPosElec -= 60;
+        }
     }
 
     public void addHeaderTable(PDPageContentStream content) throws IOException {
@@ -130,6 +137,15 @@ public class PdfTableComponent {
         table.setTable(cellWidths, cellHeight, yPos);
         for (int i = 0; i < cellWidths.length; i++) {
             table.addCell(textData.get(i).toString(), alignment, backgroundColor, fontSize, fontType);
+        }
+    }
+    private void addTableComponentWithMultilineText(PDPageContentStream content, int[] cellWidths, int cellHeight,
+                                                    int yPos, List<List<String>> textData, int alignment, Color backgroundColor,
+                                                    int fontSize, PDFont fontType) throws IOException {
+        Table table = new Table(content);
+        table.setTable(cellWidths, cellHeight, yPos);
+        for (int i = 0; i < cellWidths.length; i++) {
+            table.addCellWithMultilineText(textData.get(i), alignment, backgroundColor, fontSize, fontType);
         }
     }
 }

@@ -19,8 +19,8 @@ public class TextData {
             List.of("Legenda:");
 
     public static List<Object> electricianPdfTableHeaders =
-            List.of("Imie", "Nazwisko", "Adres", "Numer uprawnien", "Stanowisko", "Podpis");
+            List.of("Imie", "Nazwisko", "Adres", "Uprawnienia", "Stanowisko", "Podpis");
 
     public static List<String> electriciansPageText =
-            List.of("Prace kontrolno-pomiarowe", "Świadectwo kwalifikacyjne SEP", "Osoby wykonujace pomiary:");
+            List.of("Prace kontrolno-pomiarowe", "Swiadectwo kwalifikacyjne SEP", "Osoby wykonujace pomiary:");
 }

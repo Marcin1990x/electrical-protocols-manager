@@ -51,7 +51,7 @@ public class Electrician {
     private List<String> addSignature() {
 
         List<String> signature = new ArrayList<>();
-        signature.add(this.toString());
+        signature.add(this.firstName + " " + this.lastName);
         signature.add(TextData.electriciansPageText.get(0));
         signature.add(TextData.electriciansPageText.get(1));
         String permissions = "";
@@ -61,5 +61,14 @@ public class Electrician {
         signature.add(permissions);
 
         return signature;
+    }
+    public List<List<String>> getElectricianDataTextList() {
+
+        return List.of(List.of(this.firstName),
+                List.of(this.lastName),
+                List.of(this.electricianAddress),
+                this.permissionList,
+                List.of(this.position.toString()),
+                this.signature);
     }
 }
