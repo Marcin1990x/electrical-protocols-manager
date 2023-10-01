@@ -2,6 +2,7 @@ package pl.koneckimarcin.electricalprotocolsmanager.pdf.model;
 
 import org.apache.pdfbox.pdmodel.PDPageContentStream;
 import org.apache.pdfbox.pdmodel.font.PDFont;
+import pl.koneckimarcin.electricalprotocolsmanager.pdf.Alignment;
 
 import java.awt.*;
 import java.io.IOException;
@@ -44,6 +45,26 @@ public class Table {
         xPos = xPos + columnWidths[columnPosition];
         columnPosition++;
     }
+    public void addCellAlignment(String text, Alignment alignment, Color fillColor, int fontSize, PDFont font) throws IOException {
+
+        Color fontColor = new Color(0, 0, 0);
+
+        content.setNonStrokingColor(fillColor);
+
+        content.addRect(xPos, yPos, columnWidths[columnPosition], cellHeight);
+
+        content.fillAndStroke();
+        content.beginText();
+        content.setNonStrokingColor(fontColor);
+        content.setFont(font, fontSize);
+        content.newLineAtOffset(xPos + calculateAlignmentPosition(alignment, columnWidths[columnPosition],
+                text, font, fontSize), yPos + 10);
+        content.showText(text);
+        content.endText();
+
+        xPos = xPos + columnWidths[columnPosition];
+        columnPosition++;
+    }
     public void addCellWithMultilineText(List<String> text, int alignment, Color fillColor, int fontSize, PDFont font)
             throws IOException {
 
@@ -67,5 +88,23 @@ public class Table {
 
         xPos = xPos + columnWidths[columnPosition];
         columnPosition++;
+    }
+
+    private int calculateAlignmentPosition(Alignment alignment, int columnWidth, String text, PDFont font, int fontSize)
+            throws IOException {
+
+        int offset = 0;
+
+        if(alignment == Alignment.CENTER) {
+            offset =  columnWidth / 2 - getTextWidth(text, font, fontSize) / 2;
+        } else if(alignment == Alignment.LEFT) {
+            offset = 3;
+        }
+        return offset;
+    }
+
+    private int getTextWidth(String text, PDFont font, float fontSize) throws IOException {
+
+        return (int)(font.getStringWidth(text) / 1000 * fontSize);
     }
 }

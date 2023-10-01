@@ -3,7 +3,6 @@ package pl.koneckimarcin.electricalprotocolsmanager.pdf.service;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPageContentStream;
 import org.springframework.stereotype.Service;
-import pl.koneckimarcin.electricalprotocolsmanager.pdf.Font;
 import pl.koneckimarcin.electricalprotocolsmanager.pdf.model.PdfHeading;
 
 import java.io.IOException;
@@ -11,16 +10,12 @@ import java.io.IOException;
 @Service
 public class PdfHeadingService {
 
-    private final int headingXposition = 53;
-    private final int headingYposition = 790;
-    private final int headingLeading = 12;
+    private final int headingYposition = 750;
     private final int headingFontSize = 10;
 
-    private PdfTextService textService;
     private PdfTableComponent tableComponent;
 
-    public PdfHeadingService(PdfTextService textService, PdfTableComponent tableComponent) {
-        this.textService = textService;
+    public PdfHeadingService(PdfTableComponent tableComponent) {
         this.tableComponent = tableComponent;
     }
 
@@ -35,10 +30,7 @@ public class PdfHeadingService {
             content = new PDPageContentStream(document, document.getPage(i),
                     PDPageContentStream.AppendMode.APPEND, false);
 
-            tableComponent.addHeaderTable(content); // add empty table cell
-
-            textService.addMultipleLineOfText(content, heading.getHeadingTextData(), headingXposition, headingYposition, headingLeading,
-                    Font.font, headingFontSize); // add header text
+            tableComponent.addHeaderTable(content, heading.getHeadingTextData(), headingYposition, headingFontSize);
 
             content.close();
         }

@@ -5,6 +5,7 @@ import org.apache.pdfbox.pdmodel.font.PDFont;
 import org.springframework.stereotype.Component;
 import pl.koneckimarcin.electricalprotocolsmanager.measurement.MeasurementMain;
 import pl.koneckimarcin.electricalprotocolsmanager.measurement.data.TextData;
+import pl.koneckimarcin.electricalprotocolsmanager.pdf.Alignment;
 import pl.koneckimarcin.electricalprotocolsmanager.pdf.Font;
 import pl.koneckimarcin.electricalprotocolsmanager.pdf.model.PdfTitlePage;
 import pl.koneckimarcin.electricalprotocolsmanager.pdf.model.Table;
@@ -23,7 +24,7 @@ public class PdfTableComponent {
     private int yPosMeas; // y position for measurements tables
     private int yPosTitle; // y position for title page tables
     private int yPosElec; // y position for electricians data page
-    private final int[] oneCellTable = new int[]{500};
+    private final int[] oneColTable = new int[]{500};
 
     public PdfTableComponent(PdfTableService pdfTableService, PdfTextService textService) {
         this.pdfTableService = pdfTableService;
@@ -37,48 +38,45 @@ public class PdfTableComponent {
 
         yPosTitle = 660; // start position for 1st table component
         // add title
-        addTableComponent(content, oneCellTable, 25, yPosTitle,
-                List.of("Protokol z pomiarow ochronnych"),
-                140, commonColor, 12, Font.font); // add method for centering
+        addTableComponentTest(content, oneColTable, 25, yPosTitle,
+                List.of(TextData.titlePageText.get(9)), Alignment.LEFT, commonColor,
+                12, Font.font); // add method for centering
         // add document number
         yPosTitle -= 40;
-        textService.addSingleLineOfText(content, titlePageData.getDocumentNumber(), 220, yPosTitle, Font.font, 14);
+        textService.addSingleLineOfTextAlignment(content, titlePageData.getDocumentNumber(), yPosTitle,
+                Alignment.CENTER, Font.font, 14);
         // add customer name
         yPosTitle -= 60;
-        addTableComponent(content, oneCellTable, 40, yPosTitle, // add method for empty table
-                List.of(""), 140, commonColor, 12, Font.font);
-        textService.addMultipleLineOfText(content, List.of(TextData.titlePageText.get(0), titlePageData.getCustomerName()),
-                53, yPosTitle + 20, 10, Font.font, 10);
+        addTableComponentWithMultilineText(content, oneColTable, 40, yPosTitle,
+                List.of(List.of(TextData.titlePageText.get(0), titlePageData.getCustomerName())),
+                3, commonColor, 10, Font.font); // replace with getter
         // add measurement place
         yPosTitle -= 50;
-        addTableComponent(content, oneCellTable, 40, yPosTitle,
-                List.of(""), 140, commonColor, 12, Font.font);
-        textService.addMultipleLineOfText(content, List.of(TextData.titlePageText.get(1), titlePageData.getMeasurementPlace()),
-                53, yPosTitle + 25, 10, Font.font, 10);
+        addTableComponentWithMultilineText(content, oneColTable, 40, yPosTitle,
+                List.of(List.of(TextData.titlePageText.get(1), titlePageData.getMeasurementPlace())),
+                3, commonColor, 10, Font.font); // replace with getter
         // add measurement data
         yPosTitle -= 70;
-        addTableComponent(content, oneCellTable, 60, yPosTitle,
-                List.of(""), 140, commonColor, 12, Font.font);
-        textService.addMultipleLineOfText(content, titlePageData.getTitlePageMeasurementTextData(),
-                53, yPosTitle + 45, 12, Font.font, 10);
+        addTableComponentWithMultilineText(content, oneColTable, 60, yPosTitle,
+                List.of(titlePageData.getTitlePageMeasurementTextData()), // replace with getter
+                3, commonColor, 10, Font.font);
         // add decision
         yPosTitle -= 240;
-        addTableComponent(content, oneCellTable, 200, yPosTitle,
-                List.of(""), 140, commonColor, 12, Font.font);
-        textService.addMultipleLineOfText(content, List.of(TextData.titlePageText.get(8), titlePageData.getDecisionDescription()),
-                53, yPosTitle + 185, 12, Font.font, 10);
+        addTableComponentWithMultilineText(content, oneColTable, 200, yPosTitle,
+                List.of(List.of(TextData.titlePageText.get(8), titlePageData.getDecisionDescription())),
+                3, commonColor, 10, Font.font);
     }
 
     public void addMeasurementTable(PDPageContentStream content, MeasurementMain measurementMain) throws IOException {
 
         yPosMeas = 700; // start position for 1st table component
         // add cascade name without measurement name
-        addTableComponent(content, oneCellTable, 25, yPosMeas,
+        addTableComponent(content, oneColTable, 25, yPosMeas,
                 List.of(measurementMain.getMeasurementMainCascadeNameWithoutMeasurementName()),
                 3, commonColor, 12, Font.font);
         yPosMeas -= 30;
         // add measurement name
-        addTableComponent(content, oneCellTable, 25, yPosMeas, List.of(measurementMain.getMeasurementName()),
+        addTableComponent(content, oneColTable, 25, yPosMeas, List.of(measurementMain.getMeasurementName()),
                 200, commonColor, 12, Font.font);
         yPosMeas -= 30;
         // add cascadeTable
@@ -89,7 +87,7 @@ public class PdfTableComponent {
                 3, headerColor, 10, Font.font);
         yPosMeas -= 30;
         // add main parameters
-        addTableComponent(content, oneCellTable, 25, yPosMeas,
+        addTableComponent(content, oneColTable, 25, yPosMeas,
                 List.of(measurementMain.getPropertiesNamesAndValues()), 3, commonColor, 8, Font.font);
         // add entry parameters
         yPosMeas -= 30;
@@ -104,13 +102,13 @@ public class PdfTableComponent {
     public void addElectricianPageTable(PDPageContentStream content, List<Electrician> electricians) throws IOException {
         // add header
         yPosElec = 720;
-        addTableComponent(content, oneCellTable, 22, yPosElec, List.of(TextData.electriciansPageText.get(2)),
+        addTableComponent(content, oneColTable, 22, yPosElec, List.of(TextData.electriciansPageText.get(2)),
                 170, commonColor, 12, Font.font);
         // add table header
         yPosElec -= 30;
         int[] headerCellWidths = new int[]{50, 60, 100, 70, 70, 150}; // to do: automatic calculation
         addTableComponent(content, headerCellWidths, 25, yPosElec,
-                TextData.electricianPdfTableHeaders,3, headerColor, 10, Font.font);
+                TextData.electricianPdfTableHeaders, 3, headerColor, 10, Font.font);
         // add electrician data
         yPosElec -= 70;
         for (Electrician electrician : electricians) {
@@ -120,13 +118,14 @@ public class PdfTableComponent {
         }
     }
 
-    public void addHeaderTable(PDPageContentStream content) throws IOException {
-        addTableComponent(content, oneCellTable, 60, 750, List.of(""), 3, commonColor,
-                10, Font.font);
+    public void addHeaderTable(PDPageContentStream content, List<String> headingText, int yPos, int fontSize) throws IOException {
+
+        addTableComponentWithMultilineText(content, oneColTable, 60, yPos,
+                List.of(headingText), 3, commonColor, fontSize, Font.font);
     }
 
     public void addFooterTable(PDPageContentStream content) throws IOException {
-        addTableComponent(content, oneCellTable, 1, 50, List.of(""), 3, commonColor,
+        addTableComponent(content, oneColTable, 1, 50, List.of(""), 3, commonColor,
                 10, Font.font);
     }
 
@@ -139,6 +138,17 @@ public class PdfTableComponent {
             table.addCell(textData.get(i).toString(), alignment, backgroundColor, fontSize, fontType);
         }
     }
+
+    private void addTableComponentTest(PDPageContentStream content, int[] cellWidths, int cellHeight, int yPos, List<Object> textData,
+                                       Alignment alignment, Color backgroundColor, int fontSize, PDFont fontType) throws IOException {
+
+        Table table = new Table(content);
+        table.setTable(cellWidths, cellHeight, yPos);
+        for (int i = 0; i < cellWidths.length; i++) {
+            table.addCellAlignment(textData.get(i).toString(), alignment, backgroundColor, fontSize, fontType);
+        }
+    }
+
     private void addTableComponentWithMultilineText(PDPageContentStream content, int[] cellWidths, int cellHeight,
                                                     int yPos, List<List<String>> textData, int alignment, Color backgroundColor,
                                                     int fontSize, PDFont fontType) throws IOException {

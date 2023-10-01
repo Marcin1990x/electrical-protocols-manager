@@ -58,8 +58,8 @@ public class PdfHeading {
         StringBuilder builder = new StringBuilder();
 
         List<String> headingTextData = new ArrayList<>();
-        headingTextData.add(documentNumber + "                            " + TextData.headerText.get(0)
-                + measurementDate.toString()); // hardcoded spaces for now
+        headingTextData.add(documentNumber);
+        headingTextData.add(TextData.headerText.get(0) + measurementDate.toString());
         for (Electrician electrician : electricians) {
             builder.append(electrician.getFirstName()).append(" ").append(electrician.getLastName()).append("; ");
         }

@@ -13,7 +13,8 @@ public class TextData {
 
     public static List<String> titlePageText =
             List.of("Zleceniodawca: ", "Miejsce przeprowadzenia pomiarow: ", "Rodzaj pomiarow: ", "Pogoda: ",
-                    "Data pomiarow: ", "Data nastepnych pomiarow: ", "Instalacja: ", "Wykonawcy pomiarow:", "Orzeczenie: ");
+                    "Data pomiarow: ", "Data nastepnych pomiarow: ", "Instalacja: ", "Wykonawcy pomiarow:", "Orzeczenie: "
+            , "Protokol z pomiarow ochronnych");
 
     public static List<String> legendPageText =
             List.of("Legenda:");

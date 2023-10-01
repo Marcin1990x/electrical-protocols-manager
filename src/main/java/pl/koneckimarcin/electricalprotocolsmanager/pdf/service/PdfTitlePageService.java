@@ -4,6 +4,7 @@ import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPageContentStream;
 import org.springframework.stereotype.Service;
 import pl.koneckimarcin.electricalprotocolsmanager.measurement.data.TextData;
+import pl.koneckimarcin.electricalprotocolsmanager.pdf.Alignment;
 import pl.koneckimarcin.electricalprotocolsmanager.pdf.Font;
 import pl.koneckimarcin.electricalprotocolsmanager.pdf.model.PdfTitlePage;
 
@@ -27,9 +28,11 @@ public class PdfTitlePageService {
         content = new PDPageContentStream(document, document.getPage(0),
                 PDPageContentStream.AppendMode.APPEND, false);
 
-        textService.addSingleLineOfText(content, TextData.titlePageText.get(7), 220, 780, Font.font, 10);
-        textService.addMultipleLineOfText(content, titlePageData.getElectriciansTextData(), 220, 765,
-                10, Font.font, 10); // add method for centering
+        textService.addSingleLineOfTextAlignment(content, TextData.titlePageText.get(7),
+                780, Alignment.CENTER, Font.font, 10);
+
+        textService.addMultipleLineOfTextAlignment(content, titlePageData.getElectriciansTextData(), 765,
+                Alignment.CENTER, 10, Font.font, 10); // add method for centering
 
         tableComponent.addTitlePageTable(content, titlePageData);
 
