@@ -23,10 +23,12 @@ public class PdfTitlePage {
     private LocalDate nextMeasurementDate;
     private TypeOfInstallation typeOfInstallation;
     private String decisionDescription;
+    private String comments;
 
     public PdfTitlePage(List<Electrician> electricians, String documentNumber, String title, String customerName,
                         String measurementPlace, TypeOfMeasurement typeOfMeasurement, TypeOfWeather typeOfWeather,
-                        LocalDate measurementDate, TypeOfInstallation typeOfInstallation, String decisionDescription) {
+                        LocalDate measurementDate, TypeOfInstallation typeOfInstallation, String decisionDescription,
+                        String comments) {
         this.electricians = electricians;
         this.documentNumber = documentNumber;
         this.title = title;
@@ -37,6 +39,7 @@ public class PdfTitlePage {
         this.measurementDate = measurementDate;
         this.typeOfInstallation = typeOfInstallation;
         this.decisionDescription = decisionDescription;
+        this.comments = comments;
         setNextMeasurementDate();
     }
 
@@ -68,6 +71,62 @@ public class PdfTitlePage {
         return decisionDescription;
     }
 
+    public String getComments() {
+        return comments;
+    }
+
+    public String getTypeOfMeasurement() {
+
+        String result = "";
+
+        switch(this.typeOfMeasurement){
+            case PERIODIC -> result = TextData.TypeOfMeasurementText.get(0);
+            case NEW_INSTALLATION ->  result = TextData.TypeOfMeasurementText.get(1);
+            case AFTER_RENOVATION -> result = TextData.TypeOfMeasurementText.get(2);
+        }
+        return result;
+    }
+
+    public String getTypeOfWeather() {
+
+        String result = "";
+
+        switch(this.typeOfWeather){
+            case SUNNY -> result = TextData.TypeOfWeatherText.get(0);
+            case CLOUDY ->  result = TextData.TypeOfWeatherText.get(1);
+            case RAINY -> result = TextData.TypeOfWeatherText.get(2);
+        }
+        return result;
+    }
+    public String getTypeOfInstallation() {
+
+        String result = "";
+
+        switch(this.typeOfInstallation){
+            case NEW -> result = TextData.TypeOfInstallationText.get(0);
+            case MODIFICATED ->  result = TextData.TypeOfInstallationText.get(1);
+            case EXPANDED -> result = TextData.TypeOfInstallationText.get(2);
+            case EXISTING -> result = TextData.TypeOfInstallationText.get(3);
+        }
+        return result;
+    }
+
+    public List<String> getHeadingTextData() {
+
+        StringBuilder builder = new StringBuilder();
+
+        List<String> headingTextData = new ArrayList<>();
+        headingTextData.add(this.documentNumber);
+        headingTextData.add(TextData.headerText.get(0) + this.measurementDate.toString());
+        for (Electrician electrician : this.electricians) {
+            builder.append(electrician.getFirstName()).append(" ").append(electrician.getLastName()).append("; ");
+        }
+        headingTextData.add(TextData.headerText.get(1) + builder.substring(0, builder.length() - 2));
+        headingTextData.add(TextData.headerText.get(2) + this.measurementPlace);
+
+        return headingTextData;
+    }
+
     public List<String> getElectriciansTextData() {
 
         List<String> electriciansText = new ArrayList<>();
@@ -81,14 +140,26 @@ public class PdfTitlePage {
     public List<String> getTitlePageMeasurementTextData() {
 
         List<String> measurementTextData = new ArrayList<>();
-        measurementTextData.add(TextData.titlePageText.get(2) + TypeOfMeasurement.PERIODIC +
-                "                                     " + TextData.titlePageText.get(3) + TypeOfWeather.CLOUDY);
+        measurementTextData.add(TextData.titlePageText.get(2) + this.getTypeOfMeasurement() +
+                "                             " + TextData.titlePageText.get(3) + this.getTypeOfWeather());
         measurementTextData.add(TextData.titlePageText.get(4) + measurementDate.toString() +
                 "                   " +
                 TextData.titlePageText.get(5) + nextMeasurementDate.toString());
         measurementTextData.add(TextData.titlePageText.get(6));
-        measurementTextData.add(TypeOfInstallation.EXISTING.toString());
+        measurementTextData.add(this.getTypeOfInstallation());
 
         return measurementTextData;
+    }
+
+    public List<String> getDecisionTextData() {
+
+        List<String> decisionTextData = new ArrayList<>();
+        decisionTextData.add(TextData.titlePageText.get(8));
+        decisionTextData.add(this.getDecisionDescription());
+        decisionTextData.add(""); // empty line
+        decisionTextData.add(TextData.titlePageText.get(10));
+        decisionTextData.add(this.getComments());
+
+        return decisionTextData;
     }
 }

@@ -39,7 +39,7 @@ public class PdfTableComponent {
         yPosTitle = 660; // start position for 1st table component
         // add title
         addTableComponentTest(content, oneColTable, 25, yPosTitle,
-                List.of(TextData.titlePageText.get(9)), Alignment.LEFT, commonColor,
+                List.of(TextData.titlePageText.get(9)), Alignment.CENTER, commonColor,
                 12, Font.font); // add method for centering
         // add document number
         yPosTitle -= 40;
@@ -63,8 +63,8 @@ public class PdfTableComponent {
         // add decision
         yPosTitle -= 240;
         addTableComponentWithMultilineText(content, oneColTable, 200, yPosTitle,
-                List.of(List.of(TextData.titlePageText.get(8), titlePageData.getDecisionDescription())),
-                3, commonColor, 10, Font.font);
+                //List.of(List.of(TextData.titlePageText.get(8), titlePageData.getDecisionDescription())),
+                List.of(titlePageData.getDecisionTextData()), 3, commonColor, 10, Font.font);
     }
 
     public void addMeasurementTable(PDPageContentStream content, MeasurementMain measurementMain) throws IOException {

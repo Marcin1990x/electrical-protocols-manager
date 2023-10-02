@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 import pl.koneckimarcin.electricalprotocolsmanager.measurement.*;
 import pl.koneckimarcin.electricalprotocolsmanager.measurement.protectionAgainstElectricShockByAutomaticShutdown.ProtectionAgainstElectricShockByAutomaticShutdown;
 import pl.koneckimarcin.electricalprotocolsmanager.measurement.protectionAgainstElectricShockByAutomaticShutdown.ProtectionMeasurementEntry;
-import pl.koneckimarcin.electricalprotocolsmanager.pdf.model.PdfHeading;
 import pl.koneckimarcin.electricalprotocolsmanager.pdf.model.PdfTitlePage;
 import pl.koneckimarcin.electricalprotocolsmanager.pdf.service.*;
 import pl.koneckimarcin.electricalprotocolsmanager.structure.model.Building;
@@ -100,16 +99,9 @@ public class PdfGenerator {
                 TypeOfWeather.CLOUDY,
                 LocalDate.now(),
                 TypeOfInstallation.EXISTING,
-                "1. Instalacja nadaje sie do uzytku"
+                "1. Instalacja nadaje sie do uzytku",
+                "1. W dwoch gniazdach brak napiecia"
         );
-
-        PdfHeading headingData = new PdfHeading(
-                titlePageData.getDocumentNumber(),
-                titlePageData.getMeasurementDate(),
-                titlePageData.getElectricians(),
-                titlePageData.getMeasurementPlace()
-        );
-
         Building buildingTest = new Building("Domek");
 
         Floor downFloor = new Floor("Down floor");
@@ -151,9 +143,9 @@ public class PdfGenerator {
         //add title page
         titlePageService.addTitlePage(doc, titlePageData);
         //add headers
-        headingService.addHeading(doc, headingData);
+        headingService.addHeading(doc, titlePageData.getHeadingTextData());
         //add footers
-        footerService.addFooter(doc, headingData);
+        footerService.addFooter(doc, titlePageData.getDocumentNumber());
         //add measurements
         measurementDataService.addMeasurementDataTableTest(doc, buildingTest, pagesCount);
         //add legend page/pages

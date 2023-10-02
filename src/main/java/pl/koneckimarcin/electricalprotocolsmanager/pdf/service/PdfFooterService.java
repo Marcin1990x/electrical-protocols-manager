@@ -4,7 +4,6 @@ import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPageContentStream;
 import org.springframework.stereotype.Service;
 import pl.koneckimarcin.electricalprotocolsmanager.pdf.Font;
-import pl.koneckimarcin.electricalprotocolsmanager.pdf.model.PdfHeading;
 
 import java.io.IOException;
 
@@ -21,7 +20,7 @@ public class PdfFooterService {
 
     private final int footerFontSize = 9;
 
-    public void addFooter(PDDocument document, PdfHeading heading) throws IOException {
+    public void addFooter(PDDocument document, String documentNumber) throws IOException {
 
         int pagesCount = document.getNumberOfPages();
 
@@ -35,7 +34,7 @@ public class PdfFooterService {
             tableComponent.addFooterTable(content);
 
             textService.addSingleLineOfText(content,
-                    heading.getDocumentNumber() + "  " +  (i + 1) + "/" + pagesCount, 450, 40,
+                    documentNumber + "  " +  (i + 1) + "/" + pagesCount, 450, 40,
                             Font.font, footerFontSize);
 
             content.close();

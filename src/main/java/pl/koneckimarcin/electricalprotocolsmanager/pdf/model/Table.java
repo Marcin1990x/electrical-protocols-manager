@@ -78,8 +78,8 @@ public class Table {
         content.beginText();
         content.setNonStrokingColor(fontColor);
         content.setFont(font, fontSize);
-        content.setLeading(10); // extract
-        content.newLineAtOffset(xPos + alignment, yPos + cellHeight - (fontSize * 2));
+        content.setLeading(12); // extract
+        content.newLineAtOffset(xPos + alignment, yPos + cellHeight - fontSize -4);
         for(String textLine : text) {
             content.showText(textLine);
             content.newLine();

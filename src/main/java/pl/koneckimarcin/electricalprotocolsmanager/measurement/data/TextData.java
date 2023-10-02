@@ -14,7 +14,7 @@ public class TextData {
     public static List<String> titlePageText =
             List.of("Zleceniodawca: ", "Miejsce przeprowadzenia pomiarow: ", "Rodzaj pomiarow: ", "Pogoda: ",
                     "Data pomiarow: ", "Data nastepnych pomiarow: ", "Instalacja: ", "Wykonawcy pomiarow:", "Orzeczenie: "
-            , "Protokol z pomiarow ochronnych");
+            , "Protokol z pomiarow ochronnych", "Uwagi do orzeczenia:");
 
     public static List<String> legendPageText =
             List.of("Legenda:");
@@ -24,4 +24,13 @@ public class TextData {
 
     public static List<String> electriciansPageText =
             List.of("Prace kontrolno-pomiarowe", "Swiadectwo kwalifikacyjne SEP", "Osoby wykonujace pomiary:");
+
+    public static List<String> TypeOfMeasurementText =
+            List.of("Badania okresowe", "Nowa instalacja", "Po remoncie");
+
+    public static List<String> TypeOfWeatherText =
+            List.of("Sloneczna", "Pochmurna", "Deszczowa");
+
+    public static List<String> TypeOfInstallationText =
+            List.of("Nowa", "Modyfikacja", "Rozbudowa", "Istniejaca");
 }
