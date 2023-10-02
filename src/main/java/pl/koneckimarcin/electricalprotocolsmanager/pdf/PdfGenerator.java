@@ -31,11 +31,12 @@ public class PdfGenerator {
     private final PdfLegendService legendService;
     private final PdfTheoryService theoryService;
     private final PdfElectricianPageService electricianPageService;
+    private final PdfStatisticPageService statisticPageService;
 
     public PdfGenerator(PdfService pdfService, PdfHeadingService headingService, PdfFooterService footerService,
                         PdfMeasurementDataService measurementDataService, PdfTitlePageService titlePageService,
                         PdfLegendService legendService, PdfTheoryService theoryService,
-                        PdfElectricianPageService electricianPageService) {
+                        PdfElectricianPageService electricianPageService, PdfStatisticPageService statisticPageService) {
         this.pdfService = pdfService;
         this.headingService = headingService;
         this.footerService = footerService;
@@ -44,6 +45,7 @@ public class PdfGenerator {
         this.legendService = legendService;
         this.theoryService = theoryService;
         this.electricianPageService = electricianPageService;
+        this.statisticPageService = statisticPageService;
     }
 
     public void createPdfDocument(String directory) throws IOException {
@@ -133,7 +135,7 @@ public class PdfGenerator {
         //add pages for title, theory...
 
         //create pages
-        for (int i = 0; i < pagesCount + 5; i++) { // +1 for title page, +1 for legend page, +2 for theory, +1 for electricians
+        for (int i = 0; i < pagesCount + 6; i++) { // +1 for title page, +1 for legend page, +2 for theory, +1 for electricians, +1 for statistics
             PDPage page = new PDPage(PDRectangle.A4);
             doc.addPage(page);
         }
@@ -154,6 +156,8 @@ public class PdfGenerator {
         theoryService.addTheory(doc, 7, 2); // hardcoded page
         //add electricians page
         electricianPageService.addData(doc, List.of(electrician, electrician2), 9); // hardcoded page
+        //add statistic page LAST !!!
+        statisticPageService.addStatisticDate(doc, buildingTest, 10); // hardcoded page
 
         doc.save(file);
         doc.close();

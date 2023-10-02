@@ -25,12 +25,18 @@ public class TextData {
     public static List<String> electriciansPageText =
             List.of("Prace kontrolno-pomiarowe", "Swiadectwo kwalifikacyjne SEP", "Osoby wykonujace pomiary:");
 
-    public static List<String> TypeOfMeasurementText =
+    public static List<String> typeOfMeasurementText =
             List.of("Badania okresowe", "Nowa instalacja", "Po remoncie");
 
-    public static List<String> TypeOfWeatherText =
+    public static List<String> typeOfWeatherText =
             List.of("Sloneczna", "Pochmurna", "Deszczowa");
 
-    public static List<String> TypeOfInstallationText =
+    public static List<String> typeOfInstallationText =
             List.of("Nowa", "Modyfikacja", "Rozbudowa", "Istniejaca");
+
+    public static List<String> statisticPageText =
+            List.of("Statystyki");
+
+    public static List<String> protectionMeasurementStatisticText =
+            List.of("Punktow pomiarowych: ", "Pozytywnych wynikow: ", "Przebadano obiektow/pomieszczen: ");
 }

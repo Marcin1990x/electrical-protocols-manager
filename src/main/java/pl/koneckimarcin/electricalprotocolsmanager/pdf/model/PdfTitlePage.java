@@ -80,9 +80,9 @@ public class PdfTitlePage {
         String result = "";
 
         switch(this.typeOfMeasurement){
-            case PERIODIC -> result = TextData.TypeOfMeasurementText.get(0);
-            case NEW_INSTALLATION ->  result = TextData.TypeOfMeasurementText.get(1);
-            case AFTER_RENOVATION -> result = TextData.TypeOfMeasurementText.get(2);
+            case PERIODIC -> result = TextData.typeOfMeasurementText.get(0);
+            case NEW_INSTALLATION ->  result = TextData.typeOfMeasurementText.get(1);
+            case AFTER_RENOVATION -> result = TextData.typeOfMeasurementText.get(2);
         }
         return result;
     }
@@ -92,9 +92,9 @@ public class PdfTitlePage {
         String result = "";
 
         switch(this.typeOfWeather){
-            case SUNNY -> result = TextData.TypeOfWeatherText.get(0);
-            case CLOUDY ->  result = TextData.TypeOfWeatherText.get(1);
-            case RAINY -> result = TextData.TypeOfWeatherText.get(2);
+            case SUNNY -> result = TextData.typeOfWeatherText.get(0);
+            case CLOUDY ->  result = TextData.typeOfWeatherText.get(1);
+            case RAINY -> result = TextData.typeOfWeatherText.get(2);
         }
         return result;
     }
@@ -103,10 +103,10 @@ public class PdfTitlePage {
         String result = "";
 
         switch(this.typeOfInstallation){
-            case NEW -> result = TextData.TypeOfInstallationText.get(0);
-            case MODIFICATED ->  result = TextData.TypeOfInstallationText.get(1);
-            case EXPANDED -> result = TextData.TypeOfInstallationText.get(2);
-            case EXISTING -> result = TextData.TypeOfInstallationText.get(3);
+            case NEW -> result = TextData.typeOfInstallationText.get(0);
+            case MODIFICATED ->  result = TextData.typeOfInstallationText.get(1);
+            case EXPANDED -> result = TextData.typeOfInstallationText.get(2);
+            case EXISTING -> result = TextData.typeOfInstallationText.get(3);
         }
         return result;
     }

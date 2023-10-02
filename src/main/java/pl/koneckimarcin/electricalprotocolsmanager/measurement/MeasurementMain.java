@@ -113,4 +113,11 @@ public abstract class MeasurementMain {
                 ", networkType=" + networkType +
                 '}';
     }
+
+    public int[] getMeasurementStatistics() {
+
+        int[] statistics = new int[2];
+
+        return statistics;
+    }
 }

@@ -3,6 +3,7 @@ package pl.koneckimarcin.electricalprotocolsmanager.measurement.protectionAgains
 import pl.koneckimarcin.electricalprotocolsmanager.measurement.MeasurementEntry;
 import pl.koneckimarcin.electricalprotocolsmanager.measurement.MeasurementMain;
 import pl.koneckimarcin.electricalprotocolsmanager.measurement.NetworkType;
+import pl.koneckimarcin.electricalprotocolsmanager.measurement.Result;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -72,5 +73,24 @@ public class ProtectionAgainstElectricShockByAutomaticShutdown extends Measureme
                 ", specificField1=" + specificField1 +
                 ", specificField2=" + specificField2 +
                 '}';
+    }
+
+    @Override
+    public int[] getMeasurementStatistics() {
+
+        int[] statistics = new int[2];
+        statistics[0] = calculateMeasurePoints();
+        statistics[1] = calculatePositiveResults();
+
+        return statistics;
+    }
+
+    private int calculateMeasurePoints() {
+
+        return this.getMeasurementEntries().size();
+    }
+    private int calculatePositiveResults() {
+
+        return (int)this.getMeasurementEntries().stream().filter(entry -> entry.getResult() == Result.POSITIVE).count();
     }
 }
