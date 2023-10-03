@@ -21,6 +21,7 @@ public class ProtectionMeasurementEntry extends MeasurementEntry {
         this.specificField1 = specificField1;
         this.specificField2 = specificField2;
         this.specificField3 = specificField3;
+
     }
 
     public int getSpecificField1() {

@@ -14,7 +14,7 @@ public class SecondMeasurementMain extends MeasurementMain {
     public SecondMeasurementMain(List<MeasurementEntry> measurementEntries,
                                  int commonMainField1, int commonMainField2, int commonMainField3,
                                  NetworkType networkType, int specificField1, int specificField2) {
-        super(measurementEntries, commonMainField1, commonMainField2, commonMainField3, networkType);
+        super(commonMainField1, commonMainField2, commonMainField3, networkType);
         this.specificField1 = specificField1;
         this.specificField2 = specificField2;
     }

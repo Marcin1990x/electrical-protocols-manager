@@ -16,9 +16,10 @@ public abstract class MeasurementMain {
 
     private NetworkType networkType;
 
-    public MeasurementMain(List<MeasurementEntry> measurementEntries, int commonMainField1,
+    private MeasurementMainStatistic statistic;
+
+    public MeasurementMain(int commonMainField1,
                            int commonMainField2, int commonMainField3, NetworkType networkType) {
-        this.measurementEntries = measurementEntries;
         this.commonMainField1 = commonMainField1;
         this.commonMainField2 = commonMainField2;
         this.commonMainField3 = commonMainField3;
@@ -80,7 +81,7 @@ public abstract class MeasurementMain {
     public String getMeasurementMainCascadeNameWithoutMeasurementName() {
 
         String result = this.measurementMainCascadeName.replace(this.measurementName, "");
-        return result.substring(0 , result.length()-1);
+        return result.substring(0, result.length() - 1);
     }
 
     public List<String> getMeasurementsMainTextData() {
@@ -91,10 +92,14 @@ public abstract class MeasurementMain {
         measurementsTextData.add("Common main 3: " + getCommonMainField3());
         measurementsTextData.add("Network type: " + getNetworkType().toString());
 
-        for(MeasurementEntry entry : getMeasurementEntries()){
+        for (MeasurementEntry entry : getMeasurementEntries()) {
             measurementsTextData.addAll(entry.getMeasurementEntriesTextData());
         }
         return measurementsTextData;
+    }
+
+    public MeasurementMainStatistic getStatistic() {
+        return statistic;
     }
 
     public String getPropertiesNamesAndValues() {
@@ -103,6 +108,7 @@ public abstract class MeasurementMain {
                 ", CommonMainField3 = " + this.commonMainField3 +
                 ", NetworkType = " + this.networkType.name();
     }
+
     @Override
     public String toString() {
         return "MeasurementMain{" +
@@ -112,12 +118,6 @@ public abstract class MeasurementMain {
                 ", commonMainField3=" + commonMainField3 +
                 ", networkType=" + networkType +
                 '}';
-    }
 
-    public int[] getMeasurementStatistics() {
-
-        int[] statistics = new int[2];
-
-        return statistics;
     }
 }

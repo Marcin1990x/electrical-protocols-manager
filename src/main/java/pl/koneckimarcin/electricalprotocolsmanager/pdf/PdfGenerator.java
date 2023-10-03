@@ -60,24 +60,29 @@ public class PdfGenerator {
                         Result.NEGATIVE, 10, 10, 'C');
 
         ProtectionAgainstElectricShockByAutomaticShutdown protection =
-                new ProtectionAgainstElectricShockByAutomaticShutdown(List.of(measurement1, measurement2), 1,
+                new ProtectionAgainstElectricShockByAutomaticShutdown(1,
                         10, 20, NetworkType.TNS, 2, 4);
+        protection.setMeasurementEntries(List.of(measurement1, measurement2));
 
         ProtectionAgainstElectricShockByAutomaticShutdown protection2 =
-                new ProtectionAgainstElectricShockByAutomaticShutdown(List.of(measurement1, measurement2), 3,
+                new ProtectionAgainstElectricShockByAutomaticShutdown(3,
                         12, 24, NetworkType.TNS, 2, 40);
+        protection2.setMeasurementEntries(List.of(measurement1, measurement2));
 
         ProtectionAgainstElectricShockByAutomaticShutdown protection3 =
-                new ProtectionAgainstElectricShockByAutomaticShutdown(List.of(measurement1, measurement2), 3,
+                new ProtectionAgainstElectricShockByAutomaticShutdown(3,
                         12, 24, NetworkType.TNS, 2, 40);
+        protection3.setMeasurementEntries(List.of(measurement1, measurement2));
 
         ProtectionAgainstElectricShockByAutomaticShutdown protection4 =
-                new ProtectionAgainstElectricShockByAutomaticShutdown(List.of(measurement1, measurement2), 3,
+                new ProtectionAgainstElectricShockByAutomaticShutdown(3,
                         12, 24, NetworkType.TNS, 2, 40);
+        protection4.setMeasurementEntries(List.of(measurement1, measurement2));
 
         ProtectionAgainstElectricShockByAutomaticShutdown protection5 =
-                new ProtectionAgainstElectricShockByAutomaticShutdown(List.of(measurement1, measurement2), 3,
+                new ProtectionAgainstElectricShockByAutomaticShutdown(3,
                         12, 24, NetworkType.TNS, 2, 40);
+        protection5.setMeasurementEntries(List.of(measurement1, measurement2));
 
         Electrician electrician = new Electrician(
                 "Elektryk", "Pierwszy",

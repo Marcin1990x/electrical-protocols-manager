@@ -13,13 +13,25 @@ public class ProtectionAgainstElectricShockByAutomaticShutdown extends Measureme
     private final String measurementName = "Measurement Name 1";
     private int specificField1;
     private int specificField2;
+    private ProtectionMeasurementStatistic statistic;
 
-    public ProtectionAgainstElectricShockByAutomaticShutdown(List<MeasurementEntry> measurementEntries,
-                                                             int commonMainField1, int commonMainField2, int commonMainField3,
+    public ProtectionAgainstElectricShockByAutomaticShutdown(int commonMainField1, int commonMainField2, int commonMainField3,
                                                              NetworkType networkType, int specificField1, int specificField2) {
-        super(measurementEntries, commonMainField1, commonMainField2, commonMainField3, networkType);
+        super(commonMainField1, commonMainField2, commonMainField3, networkType);
         this.specificField1 = specificField1;
         this.specificField2 = specificField2;
+        setStatistic(this.measurementName);
+    }
+
+    @Override
+    public void setMeasurementEntries(List<MeasurementEntry> measurementEntries) {
+        for (MeasurementEntry entry : measurementEntries) {
+            this.statistic.addMeasuringPoint();
+            if (entry.getResult() == Result.POSITIVE) {
+                this.statistic.addPositiveResult();
+            }
+        }
+        super.setMeasurementEntries(measurementEntries);
     }
 
     public int getSpecificField1() {
@@ -75,22 +87,12 @@ public class ProtectionAgainstElectricShockByAutomaticShutdown extends Measureme
                 '}';
     }
 
+    private void setStatistic(String name) {
+        this.statistic = new ProtectionMeasurementStatistic(name);
+    }
+
     @Override
-    public int[] getMeasurementStatistics() {
-
-        int[] statistics = new int[2];
-        statistics[0] = calculateMeasurePoints();
-        statistics[1] = calculatePositiveResults();
-
-        return statistics;
-    }
-
-    private int calculateMeasurePoints() {
-
-        return this.getMeasurementEntries().size();
-    }
-    private int calculatePositiveResults() {
-
-        return (int)this.getMeasurementEntries().stream().filter(entry -> entry.getResult() == Result.POSITIVE).count();
+    public ProtectionMeasurementStatistic getStatistic() {
+        return statistic;
     }
 }
