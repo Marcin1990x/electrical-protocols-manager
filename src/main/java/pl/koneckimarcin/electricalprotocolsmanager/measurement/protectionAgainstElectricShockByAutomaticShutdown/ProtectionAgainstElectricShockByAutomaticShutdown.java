@@ -1,9 +1,7 @@
 package pl.koneckimarcin.electricalprotocolsmanager.measurement.protectionAgainstElectricShockByAutomaticShutdown;
 
-import pl.koneckimarcin.electricalprotocolsmanager.measurement.MeasurementEntry;
 import pl.koneckimarcin.electricalprotocolsmanager.measurement.MeasurementMain;
 import pl.koneckimarcin.electricalprotocolsmanager.measurement.NetworkType;
-import pl.koneckimarcin.electricalprotocolsmanager.measurement.Result;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,25 +11,12 @@ public class ProtectionAgainstElectricShockByAutomaticShutdown extends Measureme
     private final String measurementName = "Measurement Name 1";
     private int specificField1;
     private int specificField2;
-    private ProtectionMeasurementStatistic statistic;
 
     public ProtectionAgainstElectricShockByAutomaticShutdown(int commonMainField1, int commonMainField2, int commonMainField3,
                                                              NetworkType networkType, int specificField1, int specificField2) {
         super(commonMainField1, commonMainField2, commonMainField3, networkType);
         this.specificField1 = specificField1;
         this.specificField2 = specificField2;
-        setStatistic(this.measurementName);
-    }
-
-    @Override
-    public void setMeasurementEntries(List<MeasurementEntry> measurementEntries) {
-        for (MeasurementEntry entry : measurementEntries) {
-            this.statistic.addMeasuringPoint();
-            if (entry.getResult() == Result.POSITIVE) {
-                this.statistic.addPositiveResult();
-            }
-        }
-        super.setMeasurementEntries(measurementEntries);
     }
 
     public int getSpecificField1() {
@@ -85,14 +70,5 @@ public class ProtectionAgainstElectricShockByAutomaticShutdown extends Measureme
                 ", specificField1=" + specificField1 +
                 ", specificField2=" + specificField2 +
                 '}';
-    }
-
-    private void setStatistic(String name) {
-        this.statistic = new ProtectionMeasurementStatistic(name);
-    }
-
-    @Override
-    public ProtectionMeasurementStatistic getStatistic() {
-        return statistic;
     }
 }

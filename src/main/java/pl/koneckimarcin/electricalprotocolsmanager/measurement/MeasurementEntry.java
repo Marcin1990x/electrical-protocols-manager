@@ -10,7 +10,6 @@ public abstract class MeasurementEntry {
     private int commonField3;
 
     private String commonField4;
-
     private Result result;
 
     public MeasurementEntry(int commonField1, int commonField2, int commonField3, String commonField4, Result result) {

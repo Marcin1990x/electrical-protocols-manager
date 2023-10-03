@@ -16,8 +16,6 @@ public abstract class MeasurementMain {
 
     private NetworkType networkType;
 
-    private MeasurementMainStatistic statistic;
-
     public MeasurementMain(int commonMainField1,
                            int commonMainField2, int commonMainField3, NetworkType networkType) {
         this.commonMainField1 = commonMainField1;
@@ -83,7 +81,6 @@ public abstract class MeasurementMain {
         String result = this.measurementMainCascadeName.replace(this.measurementName, "");
         return result.substring(0, result.length() - 1);
     }
-
     public List<String> getMeasurementsMainTextData() {
 
         List<String> measurementsTextData = new ArrayList<>();
@@ -97,18 +94,12 @@ public abstract class MeasurementMain {
         }
         return measurementsTextData;
     }
-
-    public MeasurementMainStatistic getStatistic() {
-        return statistic;
-    }
-
     public String getPropertiesNamesAndValues() {
         return "CommonMainField1 = " + this.commonMainField1 +
                 ", CommonMainField2 = " + this.commonMainField2 +
                 ", CommonMainField3 = " + this.commonMainField3 +
                 ", NetworkType = " + this.networkType.name();
     }
-
     @Override
     public String toString() {
         return "MeasurementMain{" +
@@ -118,6 +109,5 @@ public abstract class MeasurementMain {
                 ", commonMainField3=" + commonMainField3 +
                 ", networkType=" + networkType +
                 '}';
-
     }
 }

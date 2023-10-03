@@ -1,7 +1,9 @@
 package pl.koneckimarcin.electricalprotocolsmanager.measurement.statistic;
 
 import org.springframework.stereotype.Service;
+import pl.koneckimarcin.electricalprotocolsmanager.measurement.MeasurementEntry;
 import pl.koneckimarcin.electricalprotocolsmanager.measurement.MeasurementMain;
+import pl.koneckimarcin.electricalprotocolsmanager.measurement.Result;
 import pl.koneckimarcin.electricalprotocolsmanager.measurement.data.TextData;
 import pl.koneckimarcin.electricalprotocolsmanager.structure.model.Building;
 
@@ -26,16 +28,25 @@ public class StatisticService {
 
         int totalMeasuringPoints = 0;
         int totalPositiveResults = 0;
+        int measuredObjects = 0;
 
         List<String> statisticsTextData = new ArrayList<>();
 
         for(MeasurementMain measurement : measurements) {
-            totalMeasuringPoints += measurement.getStatistic().getTotalMeasuringPoints();
-            totalPositiveResults += measurement.getStatistic().getTotalPositiveResults();
+            totalMeasuringPoints += measurement.getMeasurementEntries().size();
+            for (MeasurementEntry entry : measurement.getMeasurementEntries()){
+                if(entry.getResult() == Result.POSITIVE){
+                    totalPositiveResults ++;
+                }
+            }
         }
+
+        measuredObjects = measurements.size();
+
         statisticsTextData.add(measurements.get(0).getMeasurementName());
         statisticsTextData.add(TextData.protectionMeasurementStatisticText.get(0) + totalMeasuringPoints);
         statisticsTextData.add(TextData.protectionMeasurementStatisticText.get(1) + totalPositiveResults);
+        statisticsTextData.add(TextData.protectionMeasurementStatisticText.get(2) + measuredObjects);
 
         return statisticsTextData;
     }
