@@ -53,35 +53,36 @@ public class PdfGenerator {
         ////////////////////////////// temporary place for data
 
         ProtectionMeasurementEntry measurement1 =
-                new ProtectionMeasurementEntry(0, 0, 0, "Measure1",
-                        Result.POSITIVE, 10, 10, 'D');
+                new ProtectionMeasurementEntry(1, "", "Pokoj 1 GN 1", "S301", 'B', 16.0f,
+                                            80.0f, 0.37f, 2.88f, 621.61f, Result.POSITIVE);
+
         ProtectionMeasurementEntry measurement2 =
-                new ProtectionMeasurementEntry(2, 3, 4, "Measure2",
-                        Result.NEGATIVE, 10, 10, 'C');
+                new ProtectionMeasurementEntry(2, "", "Pokoj 1 GN 2", "S301", 'B', 16.0f,
+                        80.0f, 0.32f, 2.88f, 547.50f, Result.NEGATIVE);
 
         ProtectionAgainstElectricShockByAutomaticShutdown protection =
-                new ProtectionAgainstElectricShockByAutomaticShutdown(1,
-                        10, 20, NetworkType.TNS, 2, 4);
+                new ProtectionAgainstElectricShockByAutomaticShutdown(230,
+                        50, 1.0f, 0.20f,  NetworkType.TNS);
         protection.setMeasurementEntries(List.of(measurement1, measurement2));
 
         ProtectionAgainstElectricShockByAutomaticShutdown protection2 =
-                new ProtectionAgainstElectricShockByAutomaticShutdown(3,
-                        12, 24, NetworkType.TNS, 2, 40);
+                new ProtectionAgainstElectricShockByAutomaticShutdown(230,
+                        50, 1.0f, 0.20f,  NetworkType.TNS);
         protection2.setMeasurementEntries(List.of(measurement1, measurement2));
 
         ProtectionAgainstElectricShockByAutomaticShutdown protection3 =
-                new ProtectionAgainstElectricShockByAutomaticShutdown(3,
-                        12, 24, NetworkType.TNS, 2, 40);
+                new ProtectionAgainstElectricShockByAutomaticShutdown(230,
+                        50, 1.0f, 0.20f,  NetworkType.TNS);
         protection3.setMeasurementEntries(List.of(measurement1, measurement2));
 
         ProtectionAgainstElectricShockByAutomaticShutdown protection4 =
-                new ProtectionAgainstElectricShockByAutomaticShutdown(3,
-                        12, 24, NetworkType.TNS, 2, 40);
+                new ProtectionAgainstElectricShockByAutomaticShutdown(230,
+                        50, 1.0f, 0.20f,  NetworkType.TNS);
         protection4.setMeasurementEntries(List.of(measurement1, measurement2));
 
         ProtectionAgainstElectricShockByAutomaticShutdown protection5 =
-                new ProtectionAgainstElectricShockByAutomaticShutdown(3,
-                        12, 24, NetworkType.TNS, 2, 40);
+                new ProtectionAgainstElectricShockByAutomaticShutdown(230,
+                        50, 1.0f, 0.20f,  NetworkType.TNS);
         protection5.setMeasurementEntries(List.of(measurement1, measurement2));
 
         Electrician electrician = new Electrician(

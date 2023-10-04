@@ -1,6 +1,7 @@
 package pl.koneckimarcin.electricalprotocolsmanager.measurement;
 
-import java.util.ArrayList;
+import pl.koneckimarcin.electricalprotocolsmanager.measurement.data.TextData;
+
 import java.util.List;
 
 public abstract class MeasurementMain {
@@ -10,17 +11,18 @@ public abstract class MeasurementMain {
     private String measurementName = "";
     private String measurementMainCascadeName;
 
-    private int commonMainField1;
-    private int commonMainField2;
-    private int commonMainField3;
+    private int un;
+    private int ui;
+    private float ko;
+    private float ta;
 
     private NetworkType networkType;
 
-    public MeasurementMain(int commonMainField1,
-                           int commonMainField2, int commonMainField3, NetworkType networkType) {
-        this.commonMainField1 = commonMainField1;
-        this.commonMainField2 = commonMainField2;
-        this.commonMainField3 = commonMainField3;
+    public MeasurementMain(int un, int ui, float ko, float ta, NetworkType networkType) {
+        this.un = un;
+        this.ui = ui;
+        this.ko = ko;
+        this.ta = ta;
         this.networkType = networkType;
     }
 
@@ -32,48 +34,11 @@ public abstract class MeasurementMain {
         this.measurementEntries = measurementEntries;
     }
 
-    public int getCommonMainField1() {
-        return commonMainField1;
-    }
-
-    public void setCommonMainField1(int commonMainField1) {
-        this.commonMainField1 = commonMainField1;
-    }
-
-    public int getCommonMainField2() {
-        return commonMainField2;
-    }
-
-    public void setCommonMainField2(int commonMainField2) {
-        this.commonMainField2 = commonMainField2;
-    }
-
-    public int getCommonMainField3() {
-        return commonMainField3;
-    }
-
-    public void setCommonMainField3(int commonMainField3) {
-        this.commonMainField3 = commonMainField3;
-    }
-
-    public NetworkType getNetworkType() {
-        return networkType;
-    }
-
-    public void setNetworkType(NetworkType networkType) {
-        this.networkType = networkType;
-    }
-
     public void setMeasurementMainCascadeName(String roomCascadeName) {
         this.measurementMainCascadeName = roomCascadeName + "/" + this.measurementName;
     }
-
     public String getMeasurementName() {
         return measurementName;
-    }
-
-    public String getMeasurementMainCascadeName() {
-        return measurementMainCascadeName;
     }
 
     public String getMeasurementMainCascadeNameWithoutMeasurementName() {
@@ -81,32 +46,25 @@ public abstract class MeasurementMain {
         String result = this.measurementMainCascadeName.replace(this.measurementName, "");
         return result.substring(0, result.length() - 1);
     }
-    public List<String> getMeasurementsMainTextData() {
 
-        List<String> measurementsTextData = new ArrayList<>();
-        measurementsTextData.add("Common main 1: " + getCommonMainField1());
-        measurementsTextData.add("Common main 2: " + getCommonMainField2());
-        measurementsTextData.add("Common main 3: " + getCommonMainField3());
-        measurementsTextData.add("Network type: " + getNetworkType().toString());
-
-        for (MeasurementEntry entry : getMeasurementEntries()) {
-            measurementsTextData.addAll(entry.getMeasurementEntriesTextData());
-        }
-        return measurementsTextData;
-    }
     public String getPropertiesNamesAndValues() {
-        return "CommonMainField1 = " + this.commonMainField1 +
-                ", CommonMainField2 = " + this.commonMainField2 +
-                ", CommonMainField3 = " + this.commonMainField3 +
-                ", NetworkType = " + this.networkType.name();
+        return TextData.measurementMainLabels.get(0) + " = " + this.un + " V " +
+                TextData.measurementMainLabels.get(1) + " = " + this.ui + " V " +
+                TextData.measurementMainLabels.get(2) + " = " + this.ko +
+                TextData.measurementMainLabels.get(3) + " = " + this.ta + " s " +
+                TextData.measurementMainLabels.get(4) + " = " + this.networkType.name();
     }
+
     @Override
     public String toString() {
         return "MeasurementMain{" +
                 "measurementEntries=" + measurementEntries +
-                ", commonMainField1=" + commonMainField1 +
-                ", commonMainField2=" + commonMainField2 +
-                ", commonMainField3=" + commonMainField3 +
+                ", measurementName='" + measurementName + '\'' +
+                ", measurementMainCascadeName='" + measurementMainCascadeName + '\'' +
+                ", un=" + un +
+                ", ui=" + ui +
+                ", ko=" + ko +
+                ", ta=" + ta +
                 ", networkType=" + networkType +
                 '}';
     }

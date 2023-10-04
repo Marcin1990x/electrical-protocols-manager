@@ -1,5 +1,7 @@
 package pl.koneckimarcin.electricalprotocolsmanager.measurement;
 
+import pl.koneckimarcin.electricalprotocolsmanager.measurement.data.TextData;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,7 +19,7 @@ public class MeasurementLegend {
 
         List<String> legend = new ArrayList<>();
 
-        if (this.measurementName.equals("Measurement Name 1")) {
+        if (this.measurementName.equals(TextData.measurementsMainNames.get(0))) {
             legend = List.of("Legend1", "Legend2", "Legend3", "Legend4");
         }
         return legend;

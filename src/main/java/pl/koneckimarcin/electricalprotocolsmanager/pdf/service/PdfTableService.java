@@ -39,7 +39,7 @@ public class PdfTableService {
 
     private int calculateCellQuantity(String measurementName) {
 
-        if (measurementName.equals("Measurement Name 1")) { // case for each measurement main
+        if (measurementName.equals(TextData.measurementsMainNames.get(0))) { // case for each measurement main
             return TextData.protectionAgainstElectricShockByAutomaticShutdownEntryHeaders.size();
         } else if (measurementName.equals("ElectricianTable headers")) {
             return TextData.electricianPdfTableHeaders.size();

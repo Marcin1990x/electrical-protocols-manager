@@ -2,37 +2,16 @@ package pl.koneckimarcin.electricalprotocolsmanager.measurement.protectionAgains
 
 import pl.koneckimarcin.electricalprotocolsmanager.measurement.MeasurementMain;
 import pl.koneckimarcin.electricalprotocolsmanager.measurement.NetworkType;
-
-import java.util.ArrayList;
-import java.util.List;
+import pl.koneckimarcin.electricalprotocolsmanager.measurement.data.TextData;
 
 public class ProtectionAgainstElectricShockByAutomaticShutdown extends MeasurementMain {
 
-    private final String measurementName = "Measurement Name 1";
-    private int specificField1;
-    private int specificField2;
+    private final String measurementName = TextData.measurementsMainNames.get(0);
 
-    public ProtectionAgainstElectricShockByAutomaticShutdown(int commonMainField1, int commonMainField2, int commonMainField3,
-                                                             NetworkType networkType, int specificField1, int specificField2) {
-        super(commonMainField1, commonMainField2, commonMainField3, networkType);
-        this.specificField1 = specificField1;
-        this.specificField2 = specificField2;
-    }
+    //increment id
 
-    public int getSpecificField1() {
-        return specificField1;
-    }
-
-    public void setSpecificField1(int specificField1) {
-        this.specificField1 = specificField1;
-    }
-
-    public int getSpecificField2() {
-        return specificField2;
-    }
-
-    public void setSpecificField2(int specificField2) {
-        this.specificField2 = specificField2;
+    public ProtectionAgainstElectricShockByAutomaticShutdown(int un, int ui, float ko, float ta, NetworkType networkType) {
+        super(un, ui, ko, ta, networkType);
     }
 
     public String getMeasurementName() {
@@ -40,35 +19,14 @@ public class ProtectionAgainstElectricShockByAutomaticShutdown extends Measureme
     }
 
     @Override
-    public String getMeasurementMainCascadeName() {
-        return super.getMeasurementMainCascadeName() + this.getMeasurementName();
-    }
-
-    @Override
-    public List<String> getMeasurementsMainTextData() {
-
-        List<String> measurementsTextData = new ArrayList<>();
-        measurementsTextData.add(getMeasurementMainCascadeName());
-        measurementsTextData.add("Specific main 1: " + getSpecificField1());
-        measurementsTextData.add("Specific main 2: " + getSpecificField2());
-        measurementsTextData.addAll(super.getMeasurementsMainTextData());
-
-        return measurementsTextData;
-    }
-
-    @Override
     public String getPropertiesNamesAndValues() {
-        return super.getPropertiesNamesAndValues() +
-                ", SpecificField1 = " + this.specificField1 +
-                ", SpecificField2 = " + this.specificField2;
+        return super.getPropertiesNamesAndValues();
     }
 
     @Override
     public String toString() {
         return "ProtectionAgainstElectricShockByAutomaticShutdown{" +
-                "name='" + measurementName + '\'' +
-                ", specificField1=" + specificField1 +
-                ", specificField2=" + specificField2 +
+                "measurementName='" + measurementName + '\'' +
                 '}';
     }
 }

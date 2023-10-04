@@ -1,3 +1,4 @@
+/*
 package pl.koneckimarcin.electricalprotocolsmanager.measurement.secondMeasurement;
 
 import pl.koneckimarcin.electricalprotocolsmanager.measurement.MeasurementEntry;
@@ -52,3 +53,4 @@ public class SecondMeasurementEntry extends MeasurementEntry {
                 '}';
     }
 }
+*/

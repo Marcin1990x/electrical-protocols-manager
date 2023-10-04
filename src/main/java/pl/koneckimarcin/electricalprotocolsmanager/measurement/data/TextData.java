@@ -4,9 +4,17 @@ import java.util.List;
 
 public class TextData {
 
+    public static List<String> resultEnumText = List.of("Pozytywny", "Negatywny");
+
+    public static List<String> measurementsMainNames = List.of("(TN-C, TN-S) Badanie ochrony przed porazeniem" +
+            " przez samoczynne wylaczenie");
+
+    public static List<String> measurementMainLabels =
+            List.of("Un", "UI", "ko", "ta", "Typ sieci");
+
     public static List<Object> protectionAgainstElectricShockByAutomaticShutdownEntryHeaders =
-            List.of("CommonField1", "CommonField2", "CommonField3", "CommonField4", "Result", "SpecificField1",
-                    "SpecificField2", "SpecificField3");
+            List.of("Lp.", "Symbol", "Badany punkt", "Wylacznik", "Typ", "In[A]",
+                    "Ia[A]", "Zs[om]", "Za[om]", "Ik[A]", "Ocena");
 
     public static List<String> headerText =
             List.of("Data pomiarow: ", "Wykonawca pomiarow: ", "Miejsce przeprowadzenia pomiarow: ");

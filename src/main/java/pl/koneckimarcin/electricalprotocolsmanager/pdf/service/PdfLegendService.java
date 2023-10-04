@@ -38,13 +38,13 @@ public class PdfLegendService {
 
         MeasurementLegend legend;
 
-        textService.addSingleLineOfText(content, TextData.legendPageText.get(0), xPos, yPos, Font.font, 14);
+        textService.addSingleLineOfText(content, TextData.legendPageText.get(0), xPos, yPos, Font.font, 12);
 
         yPos -= 20;
 
         for (String measure : measurementsListForLegend) {
             legend = new MeasurementLegend(measure);
-            textService.addSingleLineOfText(content, legend.getMeasurementName(), xPos, yPos, Font.font, 14);
+            textService.addSingleLineOfText(content, legend.getMeasurementName(), xPos, yPos, Font.font, 12);
             yPos -= 20;
             textService.addMultipleLineOfText(content, legend.getLegendText(), xPos, 680, 12, Font.font, 10);
             yPos -= 20;

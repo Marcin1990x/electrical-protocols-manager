@@ -76,19 +76,19 @@ public class PdfTableComponent {
                 3, commonColor, 12, Font.font);
         yPosMeas -= 30;
         // add measurement name
-        addTableComponent(content, oneColTable, 25, yPosMeas, List.of(measurementMain.getMeasurementName()),
-                200, commonColor, 12, Font.font);
+        addTableComponentTest(content, oneColTable, 25, yPosMeas, List.of(measurementMain.getMeasurementName()),
+                Alignment.CENTER, commonColor, 11, Font.font);
         yPosMeas -= 30;
         // add cascadeTable
         // add header
         int[] headerCellWidths = pdfTableService.calculateCellSizes(measurementMain.getMeasurementName(), 10);
-        addTableComponent(content, headerCellWidths, 25, yPosMeas,
+        addTableComponentTest(content, headerCellWidths, 25, yPosMeas,
                 TextData.protectionAgainstElectricShockByAutomaticShutdownEntryHeaders,
-                3, headerColor, 10, Font.font);
+                Alignment.CENTER, headerColor, 8, Font.font);
         yPosMeas -= 30;
         // add main parameters
-        addTableComponent(content, oneColTable, 25, yPosMeas,
-                List.of(measurementMain.getPropertiesNamesAndValues()), 3, commonColor, 8, Font.font);
+        addTableComponentTest(content, oneColTable, 25, yPosMeas,
+                List.of(measurementMain.getPropertiesNamesAndValues()), Alignment.LEFT, commonColor, 9, Font.font);
         // add entry parameters
         yPosMeas -= 30;
         for (int j = 0; j < measurementMain.getMeasurementEntries().size(); j++) {

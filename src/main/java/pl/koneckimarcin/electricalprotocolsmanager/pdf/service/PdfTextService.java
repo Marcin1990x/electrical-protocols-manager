@@ -84,7 +84,7 @@ public class PdfTextService {
 
         List<Object> headers = new ArrayList<>();
 
-        if(nameForCalculation.equals("Measurement Name 1")) {
+        if(nameForCalculation.equals(TextData.measurementsMainNames.get(0))) {
             headers = TextData.protectionAgainstElectricShockByAutomaticShutdownEntryHeaders;
         } else if (nameForCalculation.equals("ElectricianTable headers")) {
             headers = TextData.electricianPdfTableHeaders;

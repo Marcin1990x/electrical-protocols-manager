@@ -32,11 +32,16 @@ public class PdfStatisticPageService {
                 PDPageContentStream.AppendMode.APPEND, false);
 
         textService.addSingleLineOfTextAlignment(content, TextData.statisticPageText.get(0), yPos,
-                Alignment.CENTER, Font.font, 14);
+                Alignment.CENTER, Font.font, 13);
         yPos -= 40;
         List<String> measurementsStatistics = statisticService.getMeasurementsStatistics(building);
-        textService.addMultipleLineOfTextAlignment(content, measurementsStatistics, yPos, Alignment.LEFT,
-                12, Font.font, 10);
+        textService.addSingleLineOfTextAlignment(content, measurementsStatistics.get(0), yPos,
+                Alignment.LEFT, Font.font, 12);
+        yPos -= 20;
+        textService.addMultipleLineOfTextAlignment(content, measurementsStatistics.subList(1, measurementsStatistics.size()),
+                yPos, Alignment.LEFT,12, Font.font, 10);
+
+        // add summary for different measurements
 
         content.close();
     }
