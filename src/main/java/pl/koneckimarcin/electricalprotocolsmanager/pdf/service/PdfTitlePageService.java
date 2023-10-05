@@ -29,7 +29,7 @@ public class PdfTitlePageService {
                 PDPageContentStream.AppendMode.APPEND, false);
 
         textService.addSingleLineOfTextAlignment(content, TextData.titlePageText.get(7),
-                780, Alignment.CENTER, Font.font, 10);
+                780, Alignment.CENTER, Font.fontBold, 10);
 
         textService.addMultipleLineOfTextAlignment(content, titlePageData.getElectriciansTextData(), 765,
                 Alignment.CENTER, 10, Font.font, 10); // add method for centering

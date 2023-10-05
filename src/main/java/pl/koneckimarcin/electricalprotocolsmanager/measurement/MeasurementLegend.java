@@ -20,7 +20,7 @@ public class MeasurementLegend {
         List<String> legend = new ArrayList<>();
 
         if (this.measurementName.equals(TextData.measurementsMainNames.get(0))) {
-            legend = List.of("Legend1", "Legend2", "Legend3", "Legend4");
+            legend = TextData.protectionAgainstElectricShockByAutomaticShutdownLegendText;
         }
         return legend;
     }

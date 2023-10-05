@@ -7,4 +7,5 @@ import org.apache.pdfbox.pdmodel.font.Standard14Fonts;
 public class Font {
 
     public static PDFont font = new PDType1Font(Standard14Fonts.FontName.COURIER);
+    public static PDFont fontBold = new PDType1Font(Standard14Fonts.FontName.COURIER_BOLD);
 }

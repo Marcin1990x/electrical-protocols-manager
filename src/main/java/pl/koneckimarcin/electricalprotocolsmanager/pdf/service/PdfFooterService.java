@@ -3,6 +3,7 @@ package pl.koneckimarcin.electricalprotocolsmanager.pdf.service;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPageContentStream;
 import org.springframework.stereotype.Service;
+import pl.koneckimarcin.electricalprotocolsmanager.pdf.Alignment;
 import pl.koneckimarcin.electricalprotocolsmanager.pdf.Font;
 
 import java.io.IOException;
@@ -33,9 +34,9 @@ public class PdfFooterService {
 
             tableComponent.addFooterTable(content);
 
-            textService.addSingleLineOfText(content,
-                    documentNumber + "  " +  (i + 1) + "/" + pagesCount, 450, 40,
-                            Font.font, footerFontSize);
+            textService.addSingleLineOfTextAlignment(content,
+                    documentNumber + "  " +  (i + 1) + "/" + pagesCount, 40, Alignment.RIGHT,
+                    Font.font, footerFontSize);
 
             content.close();
         }

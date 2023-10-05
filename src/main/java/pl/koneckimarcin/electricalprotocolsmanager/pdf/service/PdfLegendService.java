@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import pl.koneckimarcin.electricalprotocolsmanager.measurement.MeasurementMain;
 import pl.koneckimarcin.electricalprotocolsmanager.measurement.data.TextData;
 import pl.koneckimarcin.electricalprotocolsmanager.measurement.MeasurementLegend;
+import pl.koneckimarcin.electricalprotocolsmanager.pdf.Alignment;
 import pl.koneckimarcin.electricalprotocolsmanager.pdf.Font;
 
 import java.io.IOException;
@@ -38,15 +39,18 @@ public class PdfLegendService {
 
         MeasurementLegend legend;
 
-        textService.addSingleLineOfText(content, TextData.legendPageText.get(0), xPos, yPos, Font.font, 12);
+        textService.addSingleLineOfTextAlignment(content, TextData.legendPageText.get(0), yPos,
+                Alignment.LEFT, Font.fontBold, 12);
 
         yPos -= 20;
 
         for (String measure : measurementsListForLegend) {
             legend = new MeasurementLegend(measure);
-            textService.addSingleLineOfText(content, legend.getMeasurementName(), xPos, yPos, Font.font, 12);
+            textService.addSingleLineOfTextAlignment(content, legend.getMeasurementName(), yPos,
+                    Alignment.LEFT, Font.fontBold, 11);
             yPos -= 20;
-            textService.addMultipleLineOfText(content, legend.getLegendText(), xPos, 680, 12, Font.font, 10);
+            textService.addMultipleLineOfTextAlignment(content, legend.getLegendText(), yPos,
+                    Alignment.LEFT, 12, Font.font, 10);
             yPos -= 20;
         }
         content.close();

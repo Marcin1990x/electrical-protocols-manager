@@ -41,6 +41,8 @@ public class PdfTableService {
 
         if (measurementName.equals(TextData.measurementsMainNames.get(0))) { // case for each measurement main
             return TextData.protectionAgainstElectricShockByAutomaticShutdownEntryHeaders.size();
+        } else if (measurementName.equals(TextData.measurementsMainNames.get(1))){
+            return TextData.circuitInsulationResistanceTnsHeaders.size();
         } else if (measurementName.equals("ElectricianTable headers")) {
             return TextData.electricianPdfTableHeaders.size();
         } else {

@@ -4,17 +4,34 @@ import java.util.List;
 
 public class TextData {
 
-    public static List<String> resultEnumText = List.of("Pozytywny", "Negatywny");
+    public static List<String> resultEnumText = List.of("Pozytywna", "Negatywna");
 
     public static List<String> measurementsMainNames = List.of("(TN-C, TN-S) Badanie ochrony przed porazeniem" +
-            " przez samoczynne wylaczenie");
+            " przez samoczynne wylaczenie",
+            "(TN-S) Badanie rezystancji izolacji obwodow");
 
-    public static List<String> measurementMainLabels =
+    public static List<String> circuitInsulationResistanceTnsLabels =
+            List.of("Uiso");
+
+    public static List<Object> circuitInsulationResistanceTnsHeaders =
+            List.of("Lp.", "Symbol", "Nazwa obwodu", "L1-L2[Mom]", "L2-L3[Mom]", "L3-L1[Mom]",
+                    "L1-PE[Mom]", "L2-PE[Mom]", "L3-PE[Mom]", "L1-N[Mom]", "L2-N[Mom]", "L3-N[Mom]",
+                    "N-PE[Mom]", "Ra", "Ocena");
+
+    public static List<String> protectionAgainstElectricShockByAutomaticShutdownLabels =
             List.of("Un", "UI", "ko", "ta", "Typ sieci");
 
     public static List<Object> protectionAgainstElectricShockByAutomaticShutdownEntryHeaders =
             List.of("Lp.", "Symbol", "Badany punkt", "Wylacznik", "Typ", "In[A]",
                     "Ia[A]", "Zs[om]", "Za[om]", "Ik[A]", "Ocena");
+
+    public static List<String> protectionAgainstElectricShockByAutomaticShutdownLegendText =
+            List.of("Wylacznik : Nazwa elementu zabezpieczajacego obwod", "Typ : Charakterystyka bezpiecznika",
+                    "In[A] : Prad nominalny bezpiecznika", "Ia[A] : Prad powodujacy wyzwolenie bezpiecznika",
+                    "Zs[om] : Zmierzona impedancja petli zwarciowej",
+                    "Za[om] : Wartosc wymagana impedancji petli zwarciowej: Za = (Uo/Ia)",
+                    "Ik[A] : Prad zwarcia wyliczony: Ik = Uo/Zs",
+                    "Ocena: Ocena pomiaru: - pozytywna gdy: Zs<=Za lub Ud<=UI");
 
     public static List<String> headerText =
             List.of("Data pomiarow: ", "Wykonawca pomiarow: ", "Miejsce przeprowadzenia pomiarow: ");

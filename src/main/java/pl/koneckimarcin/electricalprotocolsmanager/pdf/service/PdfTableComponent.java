@@ -40,11 +40,11 @@ public class PdfTableComponent {
         // add title
         addTableComponentTest(content, oneColTable, 25, yPosTitle,
                 List.of(TextData.titlePageText.get(9)), Alignment.CENTER, commonColor,
-                12, Font.font); // add method for centering
+                12, Font.fontBold); // add method for centering
         // add document number
         yPosTitle -= 40;
         textService.addSingleLineOfTextAlignment(content, titlePageData.getDocumentNumber(), yPosTitle,
-                Alignment.CENTER, Font.font, 14);
+                Alignment.CENTER, Font.fontBold, 14);
         // add customer name
         yPosTitle -= 60;
         addTableComponentWithMultilineText(content, oneColTable, 40, yPosTitle,
@@ -58,12 +58,11 @@ public class PdfTableComponent {
         // add measurement data
         yPosTitle -= 70;
         addTableComponentWithMultilineText(content, oneColTable, 60, yPosTitle,
-                List.of(titlePageData.getTitlePageMeasurementTextData()), // replace with getter
+                List.of(titlePageData.getTitlePageMeasurementTextData()),
                 3, commonColor, 10, Font.font);
         // add decision
         yPosTitle -= 240;
         addTableComponentWithMultilineText(content, oneColTable, 200, yPosTitle,
-                //List.of(List.of(TextData.titlePageText.get(8), titlePageData.getDecisionDescription())),
                 List.of(titlePageData.getDecisionTextData()), 3, commonColor, 10, Font.font);
     }
 
@@ -73,7 +72,7 @@ public class PdfTableComponent {
         // add cascade name without measurement name
         addTableComponent(content, oneColTable, 25, yPosMeas,
                 List.of(measurementMain.getMeasurementMainCascadeNameWithoutMeasurementName()),
-                3, commonColor, 12, Font.font);
+                3, commonColor, 12, Font.fontBold);
         yPosMeas -= 30;
         // add measurement name
         addTableComponentTest(content, oneColTable, 25, yPosMeas, List.of(measurementMain.getMeasurementName()),
@@ -84,7 +83,7 @@ public class PdfTableComponent {
         int[] headerCellWidths = pdfTableService.calculateCellSizes(measurementMain.getMeasurementName(), 10);
         addTableComponentTest(content, headerCellWidths, 25, yPosMeas,
                 TextData.protectionAgainstElectricShockByAutomaticShutdownEntryHeaders,
-                Alignment.CENTER, headerColor, 8, Font.font);
+                Alignment.CENTER, headerColor, 8, Font.fontBold);
         yPosMeas -= 30;
         // add main parameters
         addTableComponentTest(content, oneColTable, 25, yPosMeas,
@@ -103,12 +102,12 @@ public class PdfTableComponent {
         // add header
         yPosElec = 720;
         addTableComponent(content, oneColTable, 22, yPosElec, List.of(TextData.electriciansPageText.get(2)),
-                170, commonColor, 12, Font.font);
+                170, commonColor, 11, Font.font);
         // add table header
         yPosElec -= 30;
         int[] headerCellWidths = new int[]{50, 60, 100, 70, 70, 150}; // to do: automatic calculation
         addTableComponent(content, headerCellWidths, 25, yPosElec,
-                TextData.electricianPdfTableHeaders, 3, headerColor, 10, Font.font);
+                TextData.electricianPdfTableHeaders, 3, headerColor, 10, Font.fontBold);
         // add electrician data
         yPosElec -= 70;
         for (Electrician electrician : electricians) {

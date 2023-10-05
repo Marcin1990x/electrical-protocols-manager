@@ -7,14 +7,32 @@ import java.util.List;
 
 public class ProtectionMeasurementEntry extends MeasurementEntry {
 
-    public ProtectionMeasurementEntry(int id, String symbol, String measuringPoint, String cutout, char type, float in,
-                                      float ia, float zs, float za, float ik, Result result) {
-        super(id, symbol, measuringPoint, cutout, type, in, ia, zs, za, ik, result);
+    private String measuringPoint;
+    private String cutout;
+    private char type;
+    private float in;
+    private float ia;
+    private float zs;
+    private float za;
+    private float ik;
+
+    public ProtectionMeasurementEntry(int id, String symbol, Result result, String measuringPoint,
+                                      String cutout, char type, float in, float ia, float zs,
+                                      float za, float ik) {
+        super(id, symbol, result);
+        this.measuringPoint = measuringPoint;
+        this.cutout = cutout;
+        this.type = type;
+        this.in = in;
+        this.ia = ia;
+        this.zs = zs;
+        this.za = za;
+        this.ik = ik;
     }
 
     @Override
     public List<Object> getEntryResultList() {
-
-        return super.getEntryResultList();
+        return List.of(super.getId(), super.getSymbol(), this.measuringPoint, this.cutout, this.type, this.in,
+                this.ia, this.zs, this.za, this.ik, super.getResult().getName());
     }
 }

@@ -8,25 +8,30 @@ public class ProtectionAgainstElectricShockByAutomaticShutdown extends Measureme
 
     private final String measurementName = TextData.measurementsMainNames.get(0);
 
-    //increment id
+    private int un;
+    private int ui;
+    private float ko;
+    private float ta;
+    private NetworkType networkType;
 
     public ProtectionAgainstElectricShockByAutomaticShutdown(int un, int ui, float ko, float ta, NetworkType networkType) {
-        super(un, ui, ko, ta, networkType);
-    }
-
-    public String getMeasurementName() {
-        return measurementName;
+        this.un = un;
+        this.ui = ui;
+        this.ko = ko;
+        this.ta = ta;
+        this.networkType = networkType;
     }
 
     @Override
     public String getPropertiesNamesAndValues() {
-        return super.getPropertiesNamesAndValues();
+        return TextData.protectionAgainstElectricShockByAutomaticShutdownLabels.get(0) + " = " + this.un + " V " +
+                TextData.protectionAgainstElectricShockByAutomaticShutdownLabels.get(1) + " = " + this.ui + " V " +
+                TextData.protectionAgainstElectricShockByAutomaticShutdownLabels.get(2) + " = " + this.ko + " " +
+                TextData.protectionAgainstElectricShockByAutomaticShutdownLabels.get(3) + " = " + this.ta + "s " +
+                TextData.protectionAgainstElectricShockByAutomaticShutdownLabels.get(4) + " = " + this.networkType.name();
     }
 
-    @Override
-    public String toString() {
-        return "ProtectionAgainstElectricShockByAutomaticShutdown{" +
-                "measurementName='" + measurementName + '\'' +
-                '}';
+    public String getMeasurementName() {
+        return measurementName;
     }
 }

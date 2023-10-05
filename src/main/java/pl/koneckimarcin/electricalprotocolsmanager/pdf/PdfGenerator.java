@@ -5,6 +5,8 @@ import org.apache.pdfbox.pdmodel.PDPage;
 import org.apache.pdfbox.pdmodel.common.PDRectangle;
 import org.springframework.stereotype.Service;
 import pl.koneckimarcin.electricalprotocolsmanager.measurement.*;
+import pl.koneckimarcin.electricalprotocolsmanager.measurement.circuitInsulationResistanceTns.CircuitInsulationResistanceTns;
+import pl.koneckimarcin.electricalprotocolsmanager.measurement.circuitInsulationResistanceTns.CircuitInsulationResistanceTnsEntry;
 import pl.koneckimarcin.electricalprotocolsmanager.measurement.protectionAgainstElectricShockByAutomaticShutdown.ProtectionAgainstElectricShockByAutomaticShutdown;
 import pl.koneckimarcin.electricalprotocolsmanager.measurement.protectionAgainstElectricShockByAutomaticShutdown.ProtectionMeasurementEntry;
 import pl.koneckimarcin.electricalprotocolsmanager.pdf.model.PdfTitlePage;
@@ -52,13 +54,22 @@ public class PdfGenerator {
 
         ////////////////////////////// temporary place for data
 
+        CircuitInsulationResistanceTnsEntry measurement3 = new CircuitInsulationResistanceTnsEntry(
+                1, "", Result.POSITIVE, "", 978, 1044, 1048, 909,
+                975, 1079, 1002, 994, 1040, 988, 10.0f);
+
+        CircuitInsulationResistanceTns insulation1 = new CircuitInsulationResistanceTns(500);
+        insulation1.setMeasurementEntries(List.of(measurement3));
+
         ProtectionMeasurementEntry measurement1 =
-                new ProtectionMeasurementEntry(1, "", "Pokoj 1 GN 1", "S301", 'B', 16.0f,
-                                            80.0f, 0.37f, 2.88f, 621.61f, Result.POSITIVE);
+                new ProtectionMeasurementEntry(1, "", Result.POSITIVE, "Pokoj 1 GN 1",
+                        "S301", 'B', 16.0f,
+                        80.0f, 0.37f, 2.88f, 621.61f);
 
         ProtectionMeasurementEntry measurement2 =
-                new ProtectionMeasurementEntry(2, "", "Pokoj 1 GN 2", "S301", 'B', 16.0f,
-                        80.0f, 0.32f, 2.88f, 547.50f, Result.NEGATIVE);
+                new ProtectionMeasurementEntry(2, "", Result.NEGATIVE, "Pokoj 1 GN 2",
+                        "S301", 'B', 16.0f,
+                        80.0f, 0.32f, 2.88f, 547.50f);
 
         ProtectionAgainstElectricShockByAutomaticShutdown protection =
                 new ProtectionAgainstElectricShockByAutomaticShutdown(230,
@@ -125,6 +136,7 @@ public class PdfGenerator {
 
         downFloor.addRoom(bath);
         bath.addMeasurementMain(protection);
+        bed.addMeasurementMain(insulation1);
         downFloor.addRoom(salon);
         salon.addMeasurementMain(protection2);
         salon.addMeasurementMain(protection3);

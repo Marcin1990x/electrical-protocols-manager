@@ -99,6 +99,8 @@ public class Table {
             offset =  columnWidth / 2 - getTextWidth(text, font, fontSize) / 2;
         } else if(alignment == Alignment.LEFT) {
             offset = 3;
+        } else if(alignment == Alignment.RIGHT) {
+            offset = columnWidth - getTextWidth(text, font, fontSize);
         }
         return offset;
     }
