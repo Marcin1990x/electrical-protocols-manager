@@ -1,4 +1,5 @@
 package pl.koneckimarcin.electricalprotocolsmanager.measurement.circuitInsulationResistanceTns;
+
 import pl.koneckimarcin.electricalprotocolsmanager.measurement.MeasurementMain;
 import pl.koneckimarcin.electricalprotocolsmanager.measurement.data.TextData;
 
@@ -18,7 +19,6 @@ public class CircuitInsulationResistanceTns extends MeasurementMain {
         return TextData.circuitInsulationResistanceTnsLabels.get(0) + " = " + this.uiso + " V ";
     }
 
-    @Override
     public String getMeasurementName() {
         return measurementName;
     }

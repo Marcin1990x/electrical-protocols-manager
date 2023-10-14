@@ -20,7 +20,7 @@ public class PdfMeasurementDataService {
         this.tableComponent = tableComponent;
     }
 
-    public void addMeasurementDataTableTest(PDDocument document, Building building, int measurementPagesCount) throws IOException {
+    public void addMeasurementDataTable(PDDocument document, Building building, int measurementPagesCount) throws IOException {
 
         PDPageContentStream content;
 

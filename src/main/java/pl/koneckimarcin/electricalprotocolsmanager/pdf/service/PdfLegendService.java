@@ -3,9 +3,9 @@ package pl.koneckimarcin.electricalprotocolsmanager.pdf.service;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPageContentStream;
 import org.springframework.stereotype.Service;
+import pl.koneckimarcin.electricalprotocolsmanager.measurement.MeasurementLegend;
 import pl.koneckimarcin.electricalprotocolsmanager.measurement.MeasurementMain;
 import pl.koneckimarcin.electricalprotocolsmanager.measurement.data.TextData;
-import pl.koneckimarcin.electricalprotocolsmanager.measurement.MeasurementLegend;
 import pl.koneckimarcin.electricalprotocolsmanager.pdf.Alignment;
 import pl.koneckimarcin.electricalprotocolsmanager.pdf.Font;
 
@@ -49,9 +49,8 @@ public class PdfLegendService {
             textService.addSingleLineOfTextAlignment(content, legend.getMeasurementName(), yPos,
                     Alignment.LEFT, Font.fontBold, 11);
             yPos -= 20;
-            textService.addMultipleLineOfTextAlignment(content, legend.getLegendText(), yPos,
+            yPos += -20 + textService.addMultipleLineOfTextAlignment(content, legend.getLegendText(), yPos,
                     Alignment.LEFT, 12, Font.font, 10);
-            yPos -= 20;
         }
         content.close();
     }

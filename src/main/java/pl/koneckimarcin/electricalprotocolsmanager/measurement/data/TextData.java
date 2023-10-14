@@ -7,7 +7,7 @@ public class TextData {
     public static List<String> resultEnumText = List.of("Pozytywna", "Negatywna");
 
     public static List<String> measurementsMainNames = List.of("(TN-C, TN-S) Badanie ochrony przed porazeniem" +
-            " przez samoczynne wylaczenie",
+                    " przez samoczynne wylaczenie",
             "(TN-S) Badanie rezystancji izolacji obwodow");
 
     public static List<String> circuitInsulationResistanceTnsLabels =
@@ -17,6 +17,20 @@ public class TextData {
             List.of("Lp.", "Symbol", "Nazwa obwodu", "L1-L2[Mom]", "L2-L3[Mom]", "L3-L1[Mom]",
                     "L1-PE[Mom]", "L2-PE[Mom]", "L3-PE[Mom]", "L1-N[Mom]", "L2-N[Mom]", "L3-N[Mom]",
                     "N-PE[Mom]", "Ra", "Ocena");
+
+    public static List<String> circuitInsulationResistanceTnsLegendText =
+            List.of("L1-L2 [Mom] : Zmierzona rezystancja izolacji pomiedzy obwodami L1 i L2",
+                    "L2-L3 [Mom] : Zmierzona rezystancja izolacji pomiedzy obwodami L2 i L3",
+                    "L3-L1 [Mom] : Zmierzona rezystancja izolacji pomiedzy obwodami L3 i L1",
+                    "L1-PE [Mom] : Zmierzona rezystancja izolacji pomiedzy obwodami L1 i PE",
+                    "L2-PE [Mom] : Zmierzona rezystancja izolacji pomiedzy obwodami L2 i PE",
+                    "L3-PE [Mom] : Zmierzona rezystancja izolacji pomiedzy obwodami L3 i PE",
+                    "L1-N [Mom] : Zmierzona rezystancja izolacji pomiedzy obwodami L1 i N",
+                    "L2-N [Mom] : Zmierzona rezystancja izolacji pomiedzy obwodami L2 i N",
+                    "L3-N [Mom] : Zmierzona rezystancja izolacji pomiedzy obwodami L3 i N",
+                    "N-PE [Mom] : Zmierzona rezystancja izolacji pomiedzy obwodami N i PE",
+                    "Ra [Mom] : Wartosc rezystancji wymaganej",
+                    "Ocena : Ocena pomiaru: pozytywna gdy kazda zmierzona rezystancja jest wieksza od Ra");
 
     public static List<String> protectionAgainstElectricShockByAutomaticShutdownLabels =
             List.of("Un", "UI", "ko", "ta", "Typ sieci");
@@ -39,7 +53,7 @@ public class TextData {
     public static List<String> titlePageText =
             List.of("Zleceniodawca: ", "Miejsce przeprowadzenia pomiarow: ", "Rodzaj pomiarow: ", "Pogoda: ",
                     "Data pomiarow: ", "Data nastepnych pomiarow: ", "Instalacja: ", "Wykonawcy pomiarow:", "Orzeczenie: "
-            , "Protokol z pomiarow ochronnych", "Uwagi do orzeczenia:");
+                    , "Protokol z pomiarow ochronnych", "Uwagi do orzeczenia:");
 
     public static List<String> legendPageText =
             List.of("Legenda:");

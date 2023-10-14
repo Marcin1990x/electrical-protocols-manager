@@ -73,27 +73,27 @@ public class PdfGenerator {
 
         ProtectionAgainstElectricShockByAutomaticShutdown protection =
                 new ProtectionAgainstElectricShockByAutomaticShutdown(230,
-                        50, 1.0f, 0.20f,  NetworkType.TNS);
+                        50, 1.0f, 0.20f, NetworkType.TNS);
         protection.setMeasurementEntries(List.of(measurement1, measurement2));
 
         ProtectionAgainstElectricShockByAutomaticShutdown protection2 =
                 new ProtectionAgainstElectricShockByAutomaticShutdown(230,
-                        50, 1.0f, 0.20f,  NetworkType.TNS);
+                        50, 1.0f, 0.20f, NetworkType.TNS);
         protection2.setMeasurementEntries(List.of(measurement1, measurement2));
 
         ProtectionAgainstElectricShockByAutomaticShutdown protection3 =
                 new ProtectionAgainstElectricShockByAutomaticShutdown(230,
-                        50, 1.0f, 0.20f,  NetworkType.TNS);
+                        50, 1.0f, 0.20f, NetworkType.TNS);
         protection3.setMeasurementEntries(List.of(measurement1, measurement2));
 
         ProtectionAgainstElectricShockByAutomaticShutdown protection4 =
                 new ProtectionAgainstElectricShockByAutomaticShutdown(230,
-                        50, 1.0f, 0.20f,  NetworkType.TNS);
+                        50, 1.0f, 0.20f, NetworkType.TNS);
         protection4.setMeasurementEntries(List.of(measurement1, measurement2));
 
         ProtectionAgainstElectricShockByAutomaticShutdown protection5 =
                 new ProtectionAgainstElectricShockByAutomaticShutdown(230,
-                        50, 1.0f, 0.20f,  NetworkType.TNS);
+                        50, 1.0f, 0.20f, NetworkType.TNS);
         protection5.setMeasurementEntries(List.of(measurement1, measurement2));
 
         Electrician electrician = new Electrician(
@@ -131,17 +131,19 @@ public class PdfGenerator {
 
         Room bath = new Room("Laznia");
         Room salon = new Room("Salon");
+        Room test = new Room("Test");
         Room bed = new Room("Sypialnia");
         Room cloth = new Room("Garderoba");
 
         downFloor.addRoom(bath);
+        downFloor.addRoom(test);
         bath.addMeasurementMain(protection);
-        bed.addMeasurementMain(insulation1);
         downFloor.addRoom(salon);
         salon.addMeasurementMain(protection2);
         salon.addMeasurementMain(protection3);
         upperFloor.addRoom(bed);
         bed.addMeasurementMain(protection4);
+        bed.addMeasurementMain(insulation1);
         upperFloor.addRoom(cloth);
         cloth.addMeasurementMain(protection5);
 
@@ -167,15 +169,15 @@ public class PdfGenerator {
         //add footers
         footerService.addFooter(doc, titlePageData.getDocumentNumber());
         //add measurements
-        measurementDataService.addMeasurementDataTableTest(doc, buildingTest, pagesCount);
+        measurementDataService.addMeasurementDataTable(doc, buildingTest, pagesCount);
         //add legend page/pages
-        legendService.addLegendData(doc, 6, buildingTest.getMeasurementMainList()); // hardcoded page
+        legendService.addLegendData(doc, pagesCount + 1, buildingTest.getMeasurementMainList()); // hardcoded page
         //add theory page/pages
-        theoryService.addTheory(doc, 7, 2); // hardcoded page
+        theoryService.addTheory(doc, pagesCount + 2, 2); // hardcoded page
         //add electricians page
-        electricianPageService.addData(doc, List.of(electrician, electrician2), 9); // hardcoded page
+        electricianPageService.addData(doc, List.of(electrician, electrician2), pagesCount + 4); // hardcoded page
         //add statistic page LAST !!!
-        statisticPageService.addStatisticDate(doc, buildingTest, 10); // hardcoded page
+        statisticPageService.addStatisticDate(doc, buildingTest, pagesCount + 5); // hardcoded page
 
         doc.save(file);
         doc.close();

@@ -44,6 +44,21 @@ public class Building {
         return measurementMainList;
     }
 
+    public int getRoomsCount() { // method if version each room on one separate page will be necessary
+
+        int totalRoomsWithMeasurements = 0;
+
+        for (Floor floor : floors) {
+            for (Room room : floor.getRooms()) {
+                if (room.getMeasurementMains().size() > 0) {
+                    totalRoomsWithMeasurements++;
+                }
+            }
+        }
+        return totalRoomsWithMeasurements;
+    }
+
+
     @Override
     public String toString() {
         return "Building{" +
