@@ -21,7 +21,7 @@ public class StatisticService {
 
         List<MeasurementMain> measurementList = building.getMeasurementMainList();
 
-        List<String> distinctMeasurementMainNames = extractDistinctNames(measurementList);
+        List<String> distinctMeasurementMainNames = building.extractMeasurementMainDistrictNames();
 
         for (String measurement : distinctMeasurementMainNames ) {
 
@@ -101,14 +101,6 @@ public class StatisticService {
         statisticsTextData.add(TextData.circuitInsulationTnsMeasurementStatisticText.get(3) + measuredObjects);
 
         return statisticsTextData;
-    }
-
-    private List<String> extractDistinctNames(List<MeasurementMain> measurementMainList) {
-
-        return measurementMainList.stream()
-                .map(MeasurementMain::getMeasurementName)
-                .distinct()
-                .toList();
     }
     private List<MeasurementMain> extractMeasurementMainByName(String name, List<MeasurementMain> measurementMainList) {
 

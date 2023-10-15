@@ -4,6 +4,7 @@ import pl.koneckimarcin.electricalprotocolsmanager.measurement.MeasurementMain;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class Building {
 
@@ -57,8 +58,14 @@ public class Building {
         }
         return totalRoomsWithMeasurements;
     }
+    public List<String> extractMeasurementMainDistrictNames(){
 
-
+        return this.getMeasurementMainList()
+                .stream()
+                .map(MeasurementMain::getMeasurementName)
+                .distinct()
+                .collect(Collectors.toList());
+    }
     @Override
     public String toString() {
         return "Building{" +

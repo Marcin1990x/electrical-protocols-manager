@@ -1,8 +1,6 @@
 package pl.koneckimarcin.electricalprotocolsmanager.pdf;
 
 import org.apache.pdfbox.pdmodel.PDDocument;
-import org.apache.pdfbox.pdmodel.PDPage;
-import org.apache.pdfbox.pdmodel.common.PDRectangle;
 import org.springframework.stereotype.Service;
 import pl.koneckimarcin.electricalprotocolsmanager.measurement.*;
 import pl.koneckimarcin.electricalprotocolsmanager.measurement.circuitInsulationResistanceTns.CircuitInsulationResistanceTns;
@@ -155,33 +153,37 @@ public class PdfGenerator {
 
         PDDocument doc = new PDDocument();
         //count pages for rooms measurements
-        int pagesCount = pdfService.calculateNumberOfPages(buildingTest);
+        int pagesCountMeasurements = pdfService.calculateNumberOfMeasurementsPages(buildingTest);
+        //count pages for theory
+        int pagesCountTheory = pdfService.calculateNumberOfTheoryPages(buildingTest);
         //add pages for title, theory...
 
-        //create pages
-        for (int i = 0; i < pagesCount + 6; i++) { // +1 for title page, +1 for legend page, +2 for theory, +1 for electricians, +1 for statistics
-            PDPage page = new PDPage(PDRectangle.A4);
-            doc.addPage(page);
-        }
 
         File file = new File(directory);
 
         //add title page
+        pdfService.addPages(doc, 1);
         titlePageService.addTitlePage(doc, titlePageData);
+        //add measurements
+        pdfService.addPages(doc, pagesCountMeasurements);
+        measurementDataService.addMeasurementDataTable(doc, buildingTest, pagesCountMeasurements);
+        //add legend page/pages
+        pdfService.addPages(doc, 1);
+        legendService.addLegendData(doc, doc.getNumberOfPages() - 1, buildingTest.getMeasurementMainList());
+        //add theory page/pages
+
+        pdfService.addPages(doc, pagesCountTheory);
+        theoryService.addTheory(doc, doc.getNumberOfPages(), pagesCountTheory, buildingTest);
+        //add electricians page
+        pdfService.addPages(doc, 1);
+        electricianPageService.addData(doc, List.of(electrician, electrician2), doc.getNumberOfPages() - 1);
+        //add statistic page
+        pdfService.addPages(doc, 1);
+        statisticPageService.addStatisticDate(doc, buildingTest, doc.getNumberOfPages() - 1);
         //add headers
         headingService.addHeading(doc, titlePageData.getHeadingTextData());
         //add footers
         footerService.addFooter(doc, titlePageData.getDocumentNumber());
-        //add measurements
-        measurementDataService.addMeasurementDataTable(doc, buildingTest, pagesCount);
-        //add legend page/pages
-        legendService.addLegendData(doc, pagesCount + 1, buildingTest.getMeasurementMainList()); // hardcoded page
-        //add theory page/pages
-        theoryService.addTheory(doc, pagesCount + 2, 2); // hardcoded page
-        //add electricians page
-        electricianPageService.addData(doc, List.of(electrician, electrician2), pagesCount + 4); // hardcoded page
-        //add statistic page LAST !!!
-        statisticPageService.addStatisticDate(doc, buildingTest, pagesCount + 5); // hardcoded page
 
         doc.save(file);
         doc.close();
