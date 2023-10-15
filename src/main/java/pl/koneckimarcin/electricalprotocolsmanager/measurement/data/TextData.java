@@ -78,4 +78,8 @@ public class TextData {
 
     public static List<String> protectionMeasurementStatisticText =
             List.of("Punktow pomiarowych: ", "Pozytywnych wynikow: ", "Przebadano obiektow/pomieszczen: ");
+
+    public static List<String> circuitInsulationTnsMeasurementStatisticText =
+            List.of("Obwodow 1-fazowych: ", "Obwodow 3-fazowych: ", "Pozytywnych wynikow: ",
+                    "Przebadano obiektow/pomieszczen: ");
 }

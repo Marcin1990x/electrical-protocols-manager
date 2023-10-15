@@ -38,6 +38,18 @@ public class CircuitInsulationResistanceTnsEntry extends MeasurementEntry {
         this.ra = ra;
     }
 
+    public int getL1l2() {
+        return l1l2;
+    }
+
+    public int getL2l3() {
+        return l2l3;
+    }
+
+    public int getL3l1() {
+        return l3l1;
+    }
+
     @Override
     public List<Object> getEntryResultList() {
         return List.of(super.getId(), super.getSymbol(), this.circuitName, this.l1l2, this.l2l3, this.l3l1,

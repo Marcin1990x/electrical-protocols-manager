@@ -59,6 +59,18 @@ public class Table {
         content.setFont(font, fontSize);
         content.newLineAtOffset(xPos + calculateAlignmentPosition(alignment, columnWidths[columnPosition],
                 text, font, fontSize), yPos + 10);
+/*        // new functionality - if text extends cell size
+        if(getTextWidth(text, font, fontSize) > columnWidths[columnPosition]){
+            int mid = text.length() / 2;
+            List<String> halfs = List.of(text.substring(0, mid), text.substring(mid));
+            for(String half : halfs){
+                content.showText(half);
+                content.newLine();
+            }
+        } else {
+            content.showText(text);
+        }
+        // new functionality - if text extends cell size*/
         content.showText(text);
         content.endText();
 

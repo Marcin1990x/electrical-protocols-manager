@@ -39,7 +39,7 @@ public class PdfStatisticPageService {
             textService.addSingleLineOfTextAlignment(content, statistics.get(0).toString(), yPos,
                     Alignment.LEFT, Font.font, 12);
             yPos -= 20;
-            textService.addMultipleLineOfTextAlignment(content, statistics.subList(1, statistics.size()),
+            yPos += - 20 + textService.addMultipleLineOfTextAlignment(content, statistics.subList(1, statistics.size()),
                     yPos, Alignment.LEFT,12, Font.font, 10);
         }
         content.close();

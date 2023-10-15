@@ -82,7 +82,6 @@ public class PdfTableComponent {
         // add header
         int[] headerCellWidths = pdfTableService.calculateCellSizes(measurementMain.getMeasurementName(), 10);
         addTableComponentTest(content, headerCellWidths, 25, yPosMeas,
-                //TextData.protectionAgainstElectricShockByAutomaticShutdownEntryHeaders,
                 textService.getMeasurementEntryTableHeaders(measurementMain.getMeasurementName()),
                 Alignment.CENTER, headerColor, 8, Font.fontBold);
         yPosMeas -= 30;

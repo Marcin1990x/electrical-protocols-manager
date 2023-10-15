@@ -54,12 +54,16 @@ public class PdfGenerator {
 
         ////////////////////////////// temporary place for data
 
-        CircuitInsulationResistanceTnsEntry measurement3 = new CircuitInsulationResistanceTnsEntry(
-                1, "", Result.POSITIVE, "", 978, 1044, 1048, 909,
+        MeasurementEntry measurement3 = new CircuitInsulationResistanceTnsEntry(
+                1, "", Result.POSITIVE, "Obwod 1", 978, 1044, 1048, 909,
                 975, 1079, 1002, 994, 1040, 988, 10.0f);
 
+        MeasurementEntry measurement4 = new CircuitInsulationResistanceTnsEntry(
+                2, "", Result.POSITIVE, "Obwod 2", 0, 0, 0, 0,
+                975, 0, 0, 994, 0, 988, 10.0f);
+
         CircuitInsulationResistanceTns insulation1 = new CircuitInsulationResistanceTns(500);
-        insulation1.setMeasurementEntries(List.of(measurement3));
+        insulation1.setMeasurementEntries(List.of(measurement3, measurement4));
 
         ProtectionMeasurementEntry measurement1 =
                 new ProtectionMeasurementEntry(1, "", Result.POSITIVE, "Pokoj 1 GN 1",
