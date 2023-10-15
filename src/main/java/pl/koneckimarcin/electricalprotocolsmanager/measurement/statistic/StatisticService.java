@@ -13,15 +13,30 @@ import java.util.List;
 @Service
 public class StatisticService {
 
-    public List<String> getMeasurementsStatistics(Building building) {
+    public List<List<String>> getMeasurementsStatistics(Building building) {
 
-        List<String> measurementsStatisticTextData;
+        List<List<String>> measurementsStatisticTextDataLists = new ArrayList<>();
 
         List<MeasurementMain> measurementList = building.getMeasurementMainList();
 
-        measurementsStatisticTextData =  getProtectionMeasurementStatisticTextData(measurementList);
+        List<String> measurementsDistinct = measurementList
+                .stream()
+                .map(MeasurementMain::getMeasurementName)
+                .distinct()
+                .toList();
 
-        return measurementsStatisticTextData;
+        for (String measurement : measurementsDistinct ) {
+            if(measurement.equals(TextData.measurementsMainNames.get(0))) {
+                List<MeasurementMain> list = measurementList
+                        .stream()
+                        .filter(measurementMain -> measurementMain.getMeasurementName()
+                                .equals(TextData.measurementsMainNames.get(0))).toList();
+                measurementsStatisticTextDataLists.add(getProtectionMeasurementStatisticTextData(list));
+            } else {
+                throw new IllegalArgumentException("No statistic creation method for this measurement main name.");
+            }
+        }
+        return measurementsStatisticTextDataLists;
     }
 
     private List<String> getProtectionMeasurementStatisticTextData(List<MeasurementMain> measurements) {

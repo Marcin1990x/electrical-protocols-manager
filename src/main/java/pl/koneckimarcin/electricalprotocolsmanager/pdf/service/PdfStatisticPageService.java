@@ -34,15 +34,14 @@ public class PdfStatisticPageService {
         textService.addSingleLineOfTextAlignment(content, TextData.statisticPageText.get(0), yPos,
                 Alignment.CENTER, Font.font, 13);
         yPos -= 40;
-        List<String> measurementsStatistics = statisticService.getMeasurementsStatistics(building);
-        textService.addSingleLineOfTextAlignment(content, measurementsStatistics.get(0), yPos,
-                Alignment.LEFT, Font.font, 12);
-        yPos -= 20;
-        textService.addMultipleLineOfTextAlignment(content, measurementsStatistics.subList(1, measurementsStatistics.size()),
-                yPos, Alignment.LEFT,12, Font.font, 10);
-
-        // add summary for different measurements
-
+        List<List<String>> measurementsStatistics = statisticService.getMeasurementsStatistics(building);
+        for(List statistics : measurementsStatistics){
+            textService.addSingleLineOfTextAlignment(content, statistics.get(0).toString(), yPos,
+                    Alignment.LEFT, Font.font, 12);
+            yPos -= 20;
+            textService.addMultipleLineOfTextAlignment(content, statistics.subList(1, statistics.size()),
+                    yPos, Alignment.LEFT,12, Font.font, 10);
+        }
         content.close();
     }
 }
