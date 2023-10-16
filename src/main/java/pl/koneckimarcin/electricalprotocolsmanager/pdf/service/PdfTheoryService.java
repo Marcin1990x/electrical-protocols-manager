@@ -19,7 +19,7 @@ public class PdfTheoryService {
         PDPageContentStream content;
         PDImageXObject image;
 
-        List<String> measurementDistinctNames = building.extractMeasurementMainDistrictNames();
+        List<String> measurementDistinctNames = building.extractMeasurementMainDistinctNames();
         List<String> theoryImagesDirectories = getTheoryImagesDirList(measurementDistinctNames);
 
         int theoryImage = 0;
@@ -40,12 +40,16 @@ public class PdfTheoryService {
 
         List<String> directories = new ArrayList<>();
 
+        boolean circuitFlag = false;
+
         for(String name : measurementsNames) {
             if(name.equals(TextData.measurementsMainNames.get(0))){
                 directories.add("src/main/resources/theoryImages/protect1.jpg");
                 directories.add("src/main/resources/theoryImages/protect2.jpg");
-            } else if(name.equals(TextData.measurementsMainNames.get(1))) {
-                directories.add("src/main/resources/theoryImages/insulation.jpg");
+            } else if(name.equals(TextData.measurementsMainNames.get(1)) ||
+                    name.equals(TextData.measurementsMainNames.get(2))) {
+                if(!circuitFlag) directories.add("src/main/resources/theoryImages/insulation.jpg");
+                circuitFlag = true;
             } else {
                 throw new IllegalArgumentException("No theory image directory for this measurement name.");
             }

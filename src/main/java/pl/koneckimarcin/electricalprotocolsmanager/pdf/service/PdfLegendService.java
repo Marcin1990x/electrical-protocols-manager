@@ -44,13 +44,15 @@ public class PdfLegendService {
 
         yPos -= 20;
 
+        int loop = 1; // generates yPos offset
         for (String measure : measurementsListForLegend) {
             legend = new MeasurementLegend(measure);
             textService.addSingleLineOfTextAlignment(content, legend.getMeasurementName(), yPos,
                     Alignment.LEFT, Font.fontBold, 11);
             yPos -= 20;
-            yPos += -20 + textService.addMultipleLineOfTextAlignment(content, legend.getLegendText(), yPos,
+            yPos += (loop * (-20)) + textService.addMultipleLineOfTextAlignment(content, legend.getLegendText(), yPos,
                     Alignment.LEFT, 12, Font.font, 10);
+            loop ++;
         }
         content.close();
     }

@@ -26,14 +26,18 @@ public class PdfService {
     public int calculateNumberOfTheoryPages(Building building) {
 
         int count = 0;
+        boolean circuitFlag = false;
 
-        List<String> distinctNames = building.extractMeasurementMainDistrictNames();
+        List<String> distinctNames = building.extractMeasurementMainDistinctNames();
 
         for(String name : distinctNames) {
             if(name.equals(TextData.measurementsMainNames.get(0))) {
                 count += 2;
-            } else if(name.equals(TextData.measurementsMainNames.get(1))) {
-                count++;
+            } else if(name.equals(TextData.measurementsMainNames.get(1)) ||
+                        name.equals(TextData.measurementsMainNames.get(2))
+            ) {
+                if(!circuitFlag) count++;
+                circuitFlag = true;
             } else {
                 throw new IllegalArgumentException("No theory pages for this measuremement name.");
             }

@@ -3,6 +3,8 @@ package pl.koneckimarcin.electricalprotocolsmanager.pdf;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.springframework.stereotype.Service;
 import pl.koneckimarcin.electricalprotocolsmanager.measurement.*;
+import pl.koneckimarcin.electricalprotocolsmanager.measurement.circuitInsulationResistanceTnc.CircuitInsulationResistanceTnc;
+import pl.koneckimarcin.electricalprotocolsmanager.measurement.circuitInsulationResistanceTnc.CircuitInsulationResistanceTncEntry;
 import pl.koneckimarcin.electricalprotocolsmanager.measurement.circuitInsulationResistanceTns.CircuitInsulationResistanceTns;
 import pl.koneckimarcin.electricalprotocolsmanager.measurement.circuitInsulationResistanceTns.CircuitInsulationResistanceTnsEntry;
 import pl.koneckimarcin.electricalprotocolsmanager.measurement.protectionAgainstElectricShockByAutomaticShutdown.ProtectionAgainstElectricShockByAutomaticShutdown;
@@ -60,8 +62,14 @@ public class PdfGenerator {
                 2, "", Result.POSITIVE, "Obwod 2", 0, 0, 0, 0,
                 975, 0, 0, 994, 0, 988, 10.0f);
 
+        MeasurementEntry measurement5 = new CircuitInsulationResistanceTncEntry(3, "", Result.POSITIVE,
+                "Obwod tnc", 10, 20, 30, 40, 50, 60, 0.2f);
+
         CircuitInsulationResistanceTns insulation1 = new CircuitInsulationResistanceTns(500);
         insulation1.setMeasurementEntries(List.of(measurement3, measurement4));
+
+        CircuitInsulationResistanceTnc insulation2 = new CircuitInsulationResistanceTnc(500);
+        insulation2.setMeasurementEntries(List.of(measurement5));
 
         ProtectionMeasurementEntry measurement1 =
                 new ProtectionMeasurementEntry(1, "", Result.POSITIVE, "Pokoj 1 GN 1",
@@ -139,6 +147,7 @@ public class PdfGenerator {
 
         downFloor.addRoom(bath);
         downFloor.addRoom(test);
+        test.addMeasurementMain(insulation2);
         bath.addMeasurementMain(protection);
         downFloor.addRoom(salon);
         salon.addMeasurementMain(protection2);
@@ -171,7 +180,6 @@ public class PdfGenerator {
         pdfService.addPages(doc, 1);
         legendService.addLegendData(doc, doc.getNumberOfPages() - 1, buildingTest.getMeasurementMainList());
         //add theory page/pages
-
         pdfService.addPages(doc, pagesCountTheory);
         theoryService.addTheory(doc, doc.getNumberOfPages(), pagesCountTheory, buildingTest);
         //add electricians page

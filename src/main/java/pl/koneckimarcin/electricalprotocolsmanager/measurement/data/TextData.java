@@ -8,15 +8,20 @@ public class TextData {
 
     public static List<String> measurementsMainNames = List.of("(TN-C, TN-S) Badanie ochrony przed porazeniem" +
                     " przez samoczynne wylaczenie",
-            "(TN-S) Badanie rezystancji izolacji obwodow");
+            "(TN-S) Badanie rezystancji izolacji obwodow",
+            "(TN-C) Badanie rezystancji izolacji obwodow");
 
-    public static List<String> circuitInsulationResistanceTnsLabels =
+    public static List<String> circuitInsulationResistanceLabels =
             List.of("Uiso");
 
     public static List<Object> circuitInsulationResistanceTnsHeaders =
             List.of("Lp.", "Symbol", "Nazwa obwodu", "L1-L2[Mom]", "L2-L3[Mom]", "L3-L1[Mom]",
                     "L1-PE[Mom]", "L2-PE[Mom]", "L3-PE[Mom]", "L1-N[Mom]", "L2-N[Mom]", "L3-N[Mom]",
                     "N-PE[Mom]", "Ra", "Ocena");
+
+    public static List<Object> circuitInsulationResistanceTncHeaders =
+            List.of("Lp.", "Symbol", "Nazwa obwodu", "L1-L2[Mom]", "L2-L3[Mom]", "L3-L1[Mom]",
+                    "L1-PEN[Mom]", "L2-PEN[Mom]", "L3-PEN[Mom]", "Ra", "Ocena");
 
     public static List<String> circuitInsulationResistanceTnsLegendText =
             List.of("L1-L2 [Mom] : Zmierzona rezystancja izolacji pomiedzy obwodami L1 i L2",
@@ -29,6 +34,16 @@ public class TextData {
                     "L2-N [Mom] : Zmierzona rezystancja izolacji pomiedzy obwodami L2 i N",
                     "L3-N [Mom] : Zmierzona rezystancja izolacji pomiedzy obwodami L3 i N",
                     "N-PE [Mom] : Zmierzona rezystancja izolacji pomiedzy obwodami N i PE",
+                    "Ra [Mom] : Wartosc rezystancji wymaganej",
+                    "Ocena : Ocena pomiaru: pozytywna gdy kazda zmierzona rezystancja jest wieksza od Ra");
+
+    public static List<String> circuitInsulationResistanceTncLegendText =
+            List.of("L1-L2 [Mom] : Zmierzona rezystancja izolacji pomiedzy obwodami L1 i L2",
+                    "L2-L3 [Mom] : Zmierzona rezystancja izolacji pomiedzy obwodami L2 i L3",
+                    "L3-L1 [Mom] : Zmierzona rezystancja izolacji pomiedzy obwodami L3 i L1",
+                    "L1-PEN [Mom] : Zmierzona rezystancja izolacji pomiedzy obwodami L1 i PEN",
+                    "L2-PEN [Mom] : Zmierzona rezystancja izolacji pomiedzy obwodami L2 i PEN",
+                    "L3-PEN [Mom] : Zmierzona rezystancja izolacji pomiedzy obwodami L3 i PEN",
                     "Ra [Mom] : Wartosc rezystancji wymaganej",
                     "Ocena : Ocena pomiaru: pozytywna gdy kazda zmierzona rezystancja jest wieksza od Ra");
 
@@ -79,7 +94,7 @@ public class TextData {
     public static List<String> protectionMeasurementStatisticText =
             List.of("Punktow pomiarowych: ", "Pozytywnych wynikow: ", "Przebadano obiektow/pomieszczen: ");
 
-    public static List<String> circuitInsulationTnsMeasurementStatisticText =
+    public static List<String> circuitInsulationMeasurementStatisticText =
             List.of("Obwodow 1-fazowych: ", "Obwodow 3-fazowych: ", "Pozytywnych wynikow: ",
                     "Przebadano obiektow/pomieszczen: ");
 }

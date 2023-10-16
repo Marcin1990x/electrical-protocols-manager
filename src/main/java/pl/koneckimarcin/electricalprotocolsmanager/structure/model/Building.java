@@ -58,7 +58,7 @@ public class Building {
         }
         return totalRoomsWithMeasurements;
     }
-    public List<String> extractMeasurementMainDistrictNames(){
+    public List<String> extractMeasurementMainDistinctNames(){
 
         return this.getMeasurementMainList()
                 .stream()

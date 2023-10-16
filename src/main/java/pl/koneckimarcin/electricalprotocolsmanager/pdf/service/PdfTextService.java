@@ -58,15 +58,18 @@ public class PdfTextService {
         return headersWidth;
     }
 
-    public List<Object> getHeadersForCalculation(String nameForCalculation) {
+    public List<Object> getHeadersForCalculation(String nameForCalculation) { // same method as below
 
-        List<Object> headers = new ArrayList<>();
+        List<Object> headers;
 
         if (nameForCalculation.equals(TextData.measurementsMainNames.get(0))) {
             headers = TextData.protectionAgainstElectricShockByAutomaticShutdownEntryHeaders;
         } else if (nameForCalculation.equals(TextData.measurementsMainNames.get(1))) {
             headers = TextData.circuitInsulationResistanceTnsHeaders;
-        } else if (nameForCalculation.equals("ElectricianTable headers")) {
+        } else if (nameForCalculation.equals(TextData.measurementsMainNames.get(2))) {
+            headers = TextData.circuitInsulationResistanceTncHeaders;
+        }
+        else if (nameForCalculation.equals("ElectricianTable headers")) {
             headers = TextData.electricianPdfTableHeaders;
         } else {
             throw new IllegalArgumentException("No table headers created for this measurement name");
@@ -89,14 +92,16 @@ public class PdfTextService {
         return offset;
     }
 
-    public List<Object> getMeasurementEntryTableHeaders(String measurementName) {
+    public List<Object> getMeasurementEntryTableHeaders(String measurementName) { // same method as above
 
-        List<Object> tableHeaders = new ArrayList<>();
+        List<Object> tableHeaders;
 
         if (measurementName.equals(TextData.measurementsMainNames.get(0))) {
             tableHeaders = TextData.protectionAgainstElectricShockByAutomaticShutdownEntryHeaders;
         } else if (measurementName.equals(TextData.measurementsMainNames.get(1))) {
             tableHeaders = TextData.circuitInsulationResistanceTnsHeaders;
+        } else if (measurementName.equals(TextData.measurementsMainNames.get(2))) {
+            tableHeaders = TextData.circuitInsulationResistanceTncHeaders;
         } else {
             throw new IllegalArgumentException("No entry table headers for this measurement main name.");
         }
