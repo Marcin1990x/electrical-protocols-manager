@@ -6,10 +6,12 @@ public class TextData {
 
     public static List<String> resultEnumText = List.of("Pozytywna", "Negatywna");
 
-    public static List<String> measurementsMainNames = List.of("(TN-C, TN-S) Badanie ochrony przed porazeniem" +
-                    " przez samoczynne wylaczenie",
+    public static List<String> measurementsMainNames = List.of(
+            "(TN-C, TN-S) Badanie ochrony przed porazeniem przez samoczynne wylaczenie",
             "(TN-S) Badanie rezystancji izolacji obwodow",
-            "(TN-C) Badanie rezystancji izolacji obwodow");
+            "(TN-C) Badanie rezystancji izolacji obwodow",
+            "Parametry zabezpieczen roznicowopradowych"
+    );
 
     public static List<String> circuitInsulationResistanceLabels =
             List.of("Uiso");

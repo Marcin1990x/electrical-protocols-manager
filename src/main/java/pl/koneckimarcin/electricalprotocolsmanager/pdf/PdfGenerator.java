@@ -7,6 +7,8 @@ import pl.koneckimarcin.electricalprotocolsmanager.measurement.circuitInsulation
 import pl.koneckimarcin.electricalprotocolsmanager.measurement.circuitInsulationResistanceTnc.CircuitInsulationResistanceTncEntry;
 import pl.koneckimarcin.electricalprotocolsmanager.measurement.circuitInsulationResistanceTns.CircuitInsulationResistanceTns;
 import pl.koneckimarcin.electricalprotocolsmanager.measurement.circuitInsulationResistanceTns.CircuitInsulationResistanceTnsEntry;
+import pl.koneckimarcin.electricalprotocolsmanager.measurement.residualCurrentProtectionParameters.ResidualCurrentProtectionParameters;
+import pl.koneckimarcin.electricalprotocolsmanager.measurement.residualCurrentProtectionParameters.ResidualCurrentProtectionParametersEntry;
 import pl.koneckimarcin.electricalprotocolsmanager.measurement.protectionAgainstElectricShockByAutomaticShutdown.ProtectionAgainstElectricShockByAutomaticShutdown;
 import pl.koneckimarcin.electricalprotocolsmanager.measurement.protectionAgainstElectricShockByAutomaticShutdown.ProtectionMeasurementEntry;
 import pl.koneckimarcin.electricalprotocolsmanager.pdf.model.PdfTitlePage;
@@ -65,11 +67,17 @@ public class PdfGenerator {
         MeasurementEntry measurement5 = new CircuitInsulationResistanceTncEntry(3, "", Result.POSITIVE,
                 "Obwod tnc", 10, 20, 30, 40, 50, 60, 0.2f);
 
+        MeasurementEntry measurement6 = new ResidualCurrentProtectionParametersEntry(3, "", Result.NEGATIVE,
+                "Tescik", "A", "AC", 10, 10, 20, 30, 40, 10);
+
         CircuitInsulationResistanceTns insulation1 = new CircuitInsulationResistanceTns(500);
         insulation1.setMeasurementEntries(List.of(measurement3, measurement4));
 
         CircuitInsulationResistanceTnc insulation2 = new CircuitInsulationResistanceTnc(500);
         insulation2.setMeasurementEntries(List.of(measurement5));
+
+        ResidualCurrentProtectionParameters residual1 = new ResidualCurrentProtectionParameters();
+        residual1.setMeasurementEntries(List.of(measurement6));
 
         ProtectionMeasurementEntry measurement1 =
                 new ProtectionMeasurementEntry(1, "", Result.POSITIVE, "Pokoj 1 GN 1",
@@ -148,6 +156,7 @@ public class PdfGenerator {
         downFloor.addRoom(bath);
         downFloor.addRoom(test);
         test.addMeasurementMain(insulation2);
+        test.addMeasurementMain(residual1);
         bath.addMeasurementMain(protection);
         downFloor.addRoom(salon);
         salon.addMeasurementMain(protection2);

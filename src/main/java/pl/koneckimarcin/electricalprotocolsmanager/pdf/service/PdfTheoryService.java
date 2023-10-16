@@ -50,7 +50,10 @@ public class PdfTheoryService {
                     name.equals(TextData.measurementsMainNames.get(2))) {
                 if(!circuitFlag) directories.add("src/main/resources/theoryImages/insulation.jpg");
                 circuitFlag = true;
-            } else {
+            } else if(name.equals(TextData.measurementsMainNames.get(3))) {
+                directories.add("src/main/resources/theoryImages/residual.jpg");
+            }
+            else {
                 throw new IllegalArgumentException("No theory image directory for this measurement name.");
             }
         }
