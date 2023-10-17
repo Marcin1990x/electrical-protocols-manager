@@ -43,17 +43,22 @@ public class PdfTableService {
 
     private int calculateCellQuantity(String measurementName) throws InvalidObjectException {
 
+        int cellQuantity;
+
         if (measurementName.equals(TextData.measurementsMainNames.get(0))) { // case for each measurement main
-            return TextData.protectionAgainstElectricShockByAutomaticShutdownEntryHeaders.size();
+            cellQuantity =  TextData.protectionAgainstElectricShockByAutomaticShutdownEntryHeaders.size();
         } else if (measurementName.equals(TextData.measurementsMainNames.get(1))){
-            return TextData.circuitInsulationResistanceTnsHeaders.size();
+            cellQuantity =  TextData.circuitInsulationResistanceTnsHeaders.size();
         } else if (measurementName.equals(TextData.measurementsMainNames.get(2))){
-            return TextData.circuitInsulationResistanceTncHeaders.size();
+            cellQuantity =  TextData.circuitInsulationResistanceTncHeaders.size();
+        } else if (measurementName.equals(TextData.measurementsMainNames.get(3))){
+            cellQuantity =  TextData.residualCurrentProtectionHeaders.size();
         } else if (measurementName.equals("ElectricianTable headers")) {
-            return TextData.electricianPdfTableHeaders.size();
+            cellQuantity =  TextData.electricianPdfTableHeaders.size();
         } else {
             // check if error name is correct
             throw new InvalidObjectException("Cell quantity for: " + measurementName + " is 0.");
         }
+        return cellQuantity;
     }
 }

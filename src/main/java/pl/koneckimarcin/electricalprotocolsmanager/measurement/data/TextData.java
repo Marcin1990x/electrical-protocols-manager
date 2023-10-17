@@ -16,6 +16,10 @@ public class TextData {
     public static List<String> circuitInsulationResistanceLabels =
             List.of("Uiso");
 
+    public static List<Object> residualCurrentProtectionHeaders =
+            List.of("Lp.", "Symbol", "Badany punkt", "Wylacznik RCD", "Typ", "In[mA]",
+                    "Ia[mA]", "ta[ms]", "t rcd[ms]", "Ub[V]", "Ui[V]", "Ocena");
+
     public static List<Object> circuitInsulationResistanceTnsHeaders =
             List.of("Lp.", "Symbol", "Nazwa obwodu", "L1-L2[Mom]", "L2-L3[Mom]", "L3-L1[Mom]",
                     "L1-PE[Mom]", "L2-PE[Mom]", "L3-PE[Mom]", "L1-N[Mom]", "L2-N[Mom]", "L3-N[Mom]",
@@ -24,6 +28,19 @@ public class TextData {
     public static List<Object> circuitInsulationResistanceTncHeaders =
             List.of("Lp.", "Symbol", "Nazwa obwodu", "L1-L2[Mom]", "L2-L3[Mom]", "L3-L1[Mom]",
                     "L1-PEN[Mom]", "L2-PEN[Mom]", "L3-PEN[Mom]", "Ra", "Ocena");
+
+    public static List<String> residualCurrentProtectionLegendText =
+            List.of(
+                    "Wylacznik RCD : Nazwa elementu zabezpieczajacego obwod",
+                    "Typ : Charakterystyka bezpiecznika",
+                    "In [mA] : Roznicowy prad wylaczajacy",
+                    "Ia [mA] : Prad powodujacy wylaczenie RCD",
+                    "ta [ms] : Wymagany czas wylaczenia RCD",
+                    "trcd [ms] : Zmierzony czas wylaczenia RCD",
+                    "Ub [V] : Napiecie dotykowe zmierzone",
+                    "Ui [V] : Dopuszczalne napiecie dotykowe bezpieczne",
+                    "Ocena : Ocena pomiaru: - pozytywna gdy: Ub <= Ui, tRCD < ta, 1/2In < Ia < In"
+            );
 
     public static List<String> circuitInsulationResistanceTnsLegendText =
             List.of("L1-L2 [Mom] : Zmierzona rezystancja izolacji pomiedzy obwodami L1 i L2",
@@ -95,6 +112,9 @@ public class TextData {
 
     public static List<String> protectionMeasurementStatisticText =
             List.of("Punktow pomiarowych: ", "Pozytywnych wynikow: ", "Przebadano obiektow/pomieszczen: ");
+
+    public static List<String> residualCurrentProtectionStatisticText =
+            List.of("Punktow pomiarowych: ", "Pozytywnych wynikow: ", "Negatywnych wynikow: ");
 
     public static List<String> circuitInsulationMeasurementStatisticText =
             List.of("Obwodow 1-fazowych: ", "Obwodow 3-fazowych: ", "Pozytywnych wynikow: ",
