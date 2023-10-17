@@ -5,6 +5,7 @@ import java.util.List;
 public class TextData {
 
     public static List<String> resultEnumText = List.of("Pozytywna", "Negatywna");
+    public static List<String> resultContinuityText = List.of("Zachowana", "Niezachowana");
 
     public static List<String> measurementsMainNames = List.of(
             "(TN-C, TN-S) Badanie ochrony przed porazeniem przez samoczynne wylaczenie",
