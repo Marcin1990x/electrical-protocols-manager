@@ -43,9 +43,14 @@ public class StatisticService {
                         .add(getCircuitInsulationTncMeasurementStatisticTextData(list));
             } else if (measurement.equals(TextData.measurementsMainNames.get(3))) {
                 List<MeasurementMain> list =
-                        extractMeasurementMainListByName(TextData.measurementsMainNames.get(2), measurementList);
+                        extractMeasurementMainListByName(TextData.measurementsMainNames.get(3), measurementList);
                 measurementsStatisticTextDataLists
                         .add(getResidualCurrentProtectionStatisticTextData(list));
+            } else if (measurement.equals(TextData.measurementsMainNames.get(4))) {
+                List<MeasurementMain> list =
+                        extractMeasurementMainListByName(TextData.measurementsMainNames.get(4), measurementList);
+                measurementsStatisticTextDataLists
+                        .add(getSoilResistanceStatisticTextData(list));
             } else {
                 throw new IllegalArgumentException("No statistic creation method for this measurement main name.");
             }
@@ -165,12 +170,32 @@ public class StatisticService {
                 }
             }
         }
-
         statisticsTextData.add(measurements.get(0).getMeasurementName());
         statisticsTextData.add(TextData.residualCurrentProtectionStatisticText.get(0) + measurementPoints);
         statisticsTextData.add(TextData.residualCurrentProtectionStatisticText.get(1) + totalPositiveResults);
         statisticsTextData.add(TextData.residualCurrentProtectionStatisticText.get(2)
                 + (measurementPoints - totalPositiveResults));
+
+        return statisticsTextData;
+    }
+    private List<String> getSoilResistanceStatisticTextData(List<MeasurementMain> measurements) {
+
+        int measurementPoints = 0;
+        int totalNoneResults = 0;
+
+        List<String> statisticsTextData = new ArrayList<>();
+
+        for (MeasurementMain measurement : measurements) {
+            for (MeasurementEntry entry : measurement.getMeasurementEntries()) {
+                measurementPoints++;
+                if (entry.getResult() == Result.NONE) {
+                    totalNoneResults++;
+                }
+            }
+        }
+        statisticsTextData.add(measurements.get(0).getMeasurementName());
+        statisticsTextData.add(TextData.soilResistanceStatisticText.get(0) + measurementPoints);
+        statisticsTextData.add(TextData.soilResistanceStatisticText.get(1) + totalNoneResults);
 
         return statisticsTextData;
     }

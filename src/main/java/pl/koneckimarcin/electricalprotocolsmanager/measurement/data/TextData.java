@@ -10,11 +10,15 @@ public class TextData {
             "(TN-C, TN-S) Badanie ochrony przed porazeniem przez samoczynne wylaczenie",
             "(TN-S) Badanie rezystancji izolacji obwodow",
             "(TN-C) Badanie rezystancji izolacji obwodow",
-            "Parametry zabezpieczen roznicowopradowych"
+            "Parametry zabezpieczen roznicowopradowych",
+            "Badanie rezystywnosci gruntu"
     );
 
     public static List<String> circuitInsulationResistanceLabels =
             List.of("Uiso");
+
+    public static List<Object> soilResistanceHeaders =
+            List.of("Lp.", "Symbol", "Badany punkt", "L[m]", "d[m]", "p[OMm]");
 
     public static List<Object> residualCurrentProtectionHeaders =
             List.of("Lp.", "Symbol", "Badany punkt", "Wylacznik RCD", "Typ", "In[mA]",
@@ -28,6 +32,13 @@ public class TextData {
     public static List<Object> circuitInsulationResistanceTncHeaders =
             List.of("Lp.", "Symbol", "Nazwa obwodu", "L1-L2[Mom]", "L2-L3[Mom]", "L3-L1[Mom]",
                     "L1-PEN[Mom]", "L2-PEN[Mom]", "L3-PEN[Mom]", "Ra", "Ocena");
+
+    public static List<String> soilResistanceLegendText =
+            List.of(
+                    "L [m] : Odleglosc miedzy sondami",
+                    "d [m] : Glebokosc pomiaru",
+                    "p [OMm] : Rezystywnosc gruntu"
+            );
 
     public static List<String> residualCurrentProtectionLegendText =
             List.of(
@@ -115,6 +126,9 @@ public class TextData {
 
     public static List<String> residualCurrentProtectionStatisticText =
             List.of("Punktow pomiarowych: ", "Pozytywnych wynikow: ", "Negatywnych wynikow: ");
+
+    public static List<String> soilResistanceStatisticText =
+            List.of("Punktow pomiarowych: ", "Nieustalonych wynikow: ");
 
     public static List<String> circuitInsulationMeasurementStatisticText =
             List.of("Obwodow 1-fazowych: ", "Obwodow 3-fazowych: ", "Pozytywnych wynikow: ",

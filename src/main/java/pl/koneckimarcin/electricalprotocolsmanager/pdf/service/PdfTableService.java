@@ -53,9 +53,13 @@ public class PdfTableService {
             cellQuantity =  TextData.circuitInsulationResistanceTncHeaders.size();
         } else if (measurementName.equals(TextData.measurementsMainNames.get(3))){
             cellQuantity =  TextData.residualCurrentProtectionHeaders.size();
-        } else if (measurementName.equals("ElectricianTable headers")) {
+        } else if (measurementName.equals(TextData.measurementsMainNames.get(4))){
+            cellQuantity =  TextData.soilResistanceHeaders.size();
+        }
+        else if (measurementName.equals("ElectricianTable headers")) {
             cellQuantity =  TextData.electricianPdfTableHeaders.size();
-        } else {
+        }
+        else {
             // check if error name is correct
             throw new InvalidObjectException("Cell quantity for: " + measurementName + " is 0.");
         }

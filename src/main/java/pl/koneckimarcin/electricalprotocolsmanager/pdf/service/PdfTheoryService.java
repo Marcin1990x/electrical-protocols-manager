@@ -52,7 +52,7 @@ public class PdfTheoryService {
                 circuitFlag = true;
             } else if(name.equals(TextData.measurementsMainNames.get(3))) {
                 directories.add("src/main/resources/theoryImages/residual.jpg");
-            }
+            } else if(name.equals(TextData.measurementsMainNames.get(4))) {}
             else {
                 throw new IllegalArgumentException("No theory image directory for this measurement name.");
             }

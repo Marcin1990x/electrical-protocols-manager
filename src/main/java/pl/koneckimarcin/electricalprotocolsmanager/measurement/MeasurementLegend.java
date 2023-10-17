@@ -27,6 +27,8 @@ public class MeasurementLegend {
             legend = TextData.circuitInsulationResistanceTncLegendText;
         } else if (this.measurementName.equals(TextData.measurementsMainNames.get(3))) {
             legend = TextData.residualCurrentProtectionLegendText;
+        } else if (this.measurementName.equals(TextData.measurementsMainNames.get(4))) {
+            legend = TextData.soilResistanceLegendText;
         } else {
             throw new IllegalArgumentException("No legend text for this measurement main name.");
         }

@@ -40,7 +40,8 @@ public class PdfService {
                 circuitFlag = true;
             } else if(name.equals(TextData.measurementsMainNames.get(3))) {
                 count++;
-            } else {
+            } else if(name.equals(TextData.measurementsMainNames.get(4))) {}
+            else {
                 throw new IllegalArgumentException("No theory pages for this measuremement name.");
             }
         }

@@ -11,6 +11,8 @@ import pl.koneckimarcin.electricalprotocolsmanager.measurement.residualCurrentPr
 import pl.koneckimarcin.electricalprotocolsmanager.measurement.residualCurrentProtectionParameters.ResidualCurrentProtectionParametersEntry;
 import pl.koneckimarcin.electricalprotocolsmanager.measurement.protectionAgainstElectricShockByAutomaticShutdown.ProtectionAgainstElectricShockByAutomaticShutdown;
 import pl.koneckimarcin.electricalprotocolsmanager.measurement.protectionAgainstElectricShockByAutomaticShutdown.ProtectionMeasurementEntry;
+import pl.koneckimarcin.electricalprotocolsmanager.measurement.soilResistance.SoilResistance;
+import pl.koneckimarcin.electricalprotocolsmanager.measurement.soilResistance.SoilResistanceEntry;
 import pl.koneckimarcin.electricalprotocolsmanager.pdf.model.PdfTitlePage;
 import pl.koneckimarcin.electricalprotocolsmanager.pdf.service.*;
 import pl.koneckimarcin.electricalprotocolsmanager.structure.model.Building;
@@ -69,6 +71,12 @@ public class PdfGenerator {
 
         MeasurementEntry measurement6 = new ResidualCurrentProtectionParametersEntry(3, "", Result.NEGATIVE,
                 "Tescik", "A", "AC", 10, 10, 20, 30, 40, 10);
+
+        MeasurementEntry measurement7 = new SoilResistanceEntry(10, "Dupa", "Kupa",
+                100, 70, 100);
+
+        SoilResistance soil1 = new SoilResistance();
+        soil1.setMeasurementEntries(List.of(measurement7));
 
         CircuitInsulationResistanceTns insulation1 = new CircuitInsulationResistanceTns(500);
         insulation1.setMeasurementEntries(List.of(measurement3, measurement4));
@@ -157,6 +165,7 @@ public class PdfGenerator {
         downFloor.addRoom(test);
         test.addMeasurementMain(insulation2);
         test.addMeasurementMain(residual1);
+        test.addMeasurementMain(soil1);
         bath.addMeasurementMain(protection);
         downFloor.addRoom(salon);
         salon.addMeasurementMain(protection2);

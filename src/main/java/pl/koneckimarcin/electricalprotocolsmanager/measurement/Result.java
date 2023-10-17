@@ -4,7 +4,7 @@ import pl.koneckimarcin.electricalprotocolsmanager.measurement.data.TextData;
 
 public enum Result {
 
-    POSITIVE(TextData.resultEnumText.get(0)), NEGATIVE(TextData.resultEnumText.get(1));
+    POSITIVE(TextData.resultEnumText.get(0)), NEGATIVE(TextData.resultEnumText.get(1)), NONE("None");
     private final String name;
 
     Result(String name) {
