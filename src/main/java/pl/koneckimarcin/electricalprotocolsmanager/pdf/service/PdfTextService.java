@@ -72,6 +72,8 @@ public class PdfTextService {
             headers = TextData.residualCurrentProtectionHeaders;
         } else if (nameForCalculation.equals(TextData.measurementsMainNames.get(4))){
             headers =  TextData.soilResistanceHeaders;
+        } else if (nameForCalculation.equals(TextData.measurementsMainNames.get(5))){
+            headers =  TextData.continuityOfSmallResistanceHeaders;
         }
         else if (nameForCalculation.equals("ElectricianTable headers")) {
             headers = TextData.electricianPdfTableHeaders;
@@ -110,6 +112,8 @@ public class PdfTextService {
             tableHeaders = TextData.residualCurrentProtectionHeaders;
         } else if (measurementName.equals(TextData.measurementsMainNames.get(4))){
             tableHeaders =  TextData.soilResistanceHeaders;
+        } else if (measurementName.equals(TextData.measurementsMainNames.get(5))){
+            tableHeaders =  TextData.continuityOfSmallResistanceHeaders;
         } else {
             throw new IllegalArgumentException("No entry table headers for this measurement main name.");
         }

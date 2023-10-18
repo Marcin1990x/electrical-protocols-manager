@@ -55,6 +55,8 @@ public class PdfTableService {
             cellQuantity =  TextData.residualCurrentProtectionHeaders.size();
         } else if (measurementName.equals(TextData.measurementsMainNames.get(4))){
             cellQuantity =  TextData.soilResistanceHeaders.size();
+        } else if (measurementName.equals(TextData.measurementsMainNames.get(5))){
+            cellQuantity =  TextData.continuityOfSmallResistanceHeaders.size();
         }
         else if (measurementName.equals("ElectricianTable headers")) {
             cellQuantity =  TextData.electricianPdfTableHeaders.size();

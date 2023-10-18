@@ -7,6 +7,8 @@ import pl.koneckimarcin.electricalprotocolsmanager.measurement.circuitInsulation
 import pl.koneckimarcin.electricalprotocolsmanager.measurement.circuitInsulationResistanceTnc.CircuitInsulationResistanceTncEntry;
 import pl.koneckimarcin.electricalprotocolsmanager.measurement.circuitInsulationResistanceTns.CircuitInsulationResistanceTns;
 import pl.koneckimarcin.electricalprotocolsmanager.measurement.circuitInsulationResistanceTns.CircuitInsulationResistanceTnsEntry;
+import pl.koneckimarcin.electricalprotocolsmanager.measurement.continuityOfSmallResistancy.ContinuityOfSmallResistance;
+import pl.koneckimarcin.electricalprotocolsmanager.measurement.continuityOfSmallResistancy.ContinuityOfSmallResistanceEntry;
 import pl.koneckimarcin.electricalprotocolsmanager.measurement.residualCurrentProtectionParameters.ResidualCurrentProtectionParameters;
 import pl.koneckimarcin.electricalprotocolsmanager.measurement.residualCurrentProtectionParameters.ResidualCurrentProtectionParametersEntry;
 import pl.koneckimarcin.electricalprotocolsmanager.measurement.protectionAgainstElectricShockByAutomaticShutdown.ProtectionAgainstElectricShockByAutomaticShutdown;
@@ -75,8 +77,14 @@ public class PdfGenerator {
         MeasurementEntry measurement7 = new SoilResistanceEntry(10, "Dupa", "Kupa",
                 100, 70, 100);
 
+        MeasurementEntry mesurement8 = new ContinuityOfSmallResistanceEntry(10, "", Result.POSITIVE,
+                "Dupa", Continuity.PRESERVED, 10.0f, 10.2f);
+
         SoilResistance soil1 = new SoilResistance();
         soil1.setMeasurementEntries(List.of(measurement7));
+
+        ContinuityOfSmallResistance continuity = new ContinuityOfSmallResistance();
+        continuity.setMeasurementEntries(List.of(mesurement8));
 
         CircuitInsulationResistanceTns insulation1 = new CircuitInsulationResistanceTns(500);
         insulation1.setMeasurementEntries(List.of(measurement3, measurement4));
@@ -167,6 +175,7 @@ public class PdfGenerator {
         test.addMeasurementMain(residual1);
         test.addMeasurementMain(soil1);
         bath.addMeasurementMain(protection);
+        bath.addMeasurementMain(continuity);
         downFloor.addRoom(salon);
         salon.addMeasurementMain(protection2);
         salon.addMeasurementMain(protection3);

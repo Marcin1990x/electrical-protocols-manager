@@ -45,12 +45,17 @@ public class StatisticService {
                 List<MeasurementMain> list =
                         extractMeasurementMainListByName(TextData.measurementsMainNames.get(3), measurementList);
                 measurementsStatisticTextDataLists
-                        .add(getResidualCurrentProtectionStatisticTextData(list));
+                        .add(getCommonStatisticTextData(list));
             } else if (measurement.equals(TextData.measurementsMainNames.get(4))) {
                 List<MeasurementMain> list =
                         extractMeasurementMainListByName(TextData.measurementsMainNames.get(4), measurementList);
                 measurementsStatisticTextDataLists
                         .add(getSoilResistanceStatisticTextData(list));
+            } else if (measurement.equals(TextData.measurementsMainNames.get(5))) {
+                List<MeasurementMain> list =
+                        extractMeasurementMainListByName(TextData.measurementsMainNames.get(5), measurementList);
+                measurementsStatisticTextDataLists
+                        .add(getCommonStatisticTextData(list));
             } else {
                 throw new IllegalArgumentException("No statistic creation method for this measurement main name.");
             }
@@ -155,7 +160,7 @@ public class StatisticService {
         return statisticsTextData;
     }
 
-    private List<String> getResidualCurrentProtectionStatisticTextData(List<MeasurementMain> measurements) {
+    private List<String> getCommonStatisticTextData(List<MeasurementMain> measurements) {
 
         int measurementPoints = 0;
         int totalPositiveResults = 0;
@@ -171,9 +176,9 @@ public class StatisticService {
             }
         }
         statisticsTextData.add(measurements.get(0).getMeasurementName());
-        statisticsTextData.add(TextData.residualCurrentProtectionStatisticText.get(0) + measurementPoints);
-        statisticsTextData.add(TextData.residualCurrentProtectionStatisticText.get(1) + totalPositiveResults);
-        statisticsTextData.add(TextData.residualCurrentProtectionStatisticText.get(2)
+        statisticsTextData.add(TextData.commonStatisticText.get(0) + measurementPoints);
+        statisticsTextData.add(TextData.commonStatisticText.get(1) + totalPositiveResults);
+        statisticsTextData.add(TextData.commonStatisticText.get(2)
                 + (measurementPoints - totalPositiveResults));
 
         return statisticsTextData;

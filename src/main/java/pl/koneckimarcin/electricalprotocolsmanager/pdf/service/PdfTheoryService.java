@@ -14,6 +14,8 @@ import java.util.List;
 @Service
 public class PdfTheoryService {
 
+    private final String dir = "src/main/resources/theoryImages/";
+
     public void addTheory(PDDocument document, int startPage, int pages, Building building) throws IOException {
 
         PDPageContentStream content;
@@ -44,16 +46,18 @@ public class PdfTheoryService {
 
         for(String name : measurementsNames) {
             if(name.equals(TextData.measurementsMainNames.get(0))){
-                directories.add("src/main/resources/theoryImages/protect1.jpg");
-                directories.add("src/main/resources/theoryImages/protect2.jpg");
+                directories.add(dir + "protect1.jpg");
+                directories.add(dir + "protect2.jpg");
             } else if(name.equals(TextData.measurementsMainNames.get(1)) ||
                     name.equals(TextData.measurementsMainNames.get(2))) {
-                if(!circuitFlag) directories.add("src/main/resources/theoryImages/insulation.jpg");
+                if(!circuitFlag) directories.add(dir + "insulation.jpg");
                 circuitFlag = true;
             } else if(name.equals(TextData.measurementsMainNames.get(3))) {
-                directories.add("src/main/resources/theoryImages/residual.jpg");
-            } else if(name.equals(TextData.measurementsMainNames.get(4))) {}
-            else {
+                directories.add(dir + "residual.jpg");
+            } else if(name.equals(TextData.measurementsMainNames.get(4))) {
+            } else if(name.equals(TextData.measurementsMainNames.get(5))) {
+                directories.add(dir + "continuity.jpg");
+            }else {
                 throw new IllegalArgumentException("No theory image directory for this measurement name.");
             }
         }
