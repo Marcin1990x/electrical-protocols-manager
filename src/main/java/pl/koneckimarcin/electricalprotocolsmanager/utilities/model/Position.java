@@ -1,6 +1,17 @@
 package pl.koneckimarcin.electricalprotocolsmanager.utilities.model;
 
+import pl.koneckimarcin.electricalprotocolsmanager.measurement.data.TextData;
+
 public enum Position {
 
-    MEASURER, CHECKER;
+    MEASURER(TextData.positionEnumText.get(0)), CHECKER(TextData.positionEnumText.get(1));
+
+    private final String name;
+
+    Position(String name) {
+        this.name = name;
+    }
+    public String getName() {
+        return name;
+    }
 }

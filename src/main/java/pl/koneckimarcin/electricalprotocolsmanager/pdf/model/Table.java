@@ -26,25 +26,6 @@ public class Table {
         this.cellHeight = cellHeight;
         this.yPos = yPos;
     }
-    public void addCell(String text, int alignment, Color fillColor, int fontSize, PDFont font) throws IOException {
-
-        Color fontColor = new Color(0, 0, 0);
-
-        content.setNonStrokingColor(fillColor);
-
-        content.addRect(xPos, yPos, columnWidths[columnPosition], cellHeight);
-
-        content.fillAndStroke();
-        content.beginText();
-        content.setNonStrokingColor(fontColor);
-        content.setFont(font, fontSize);
-        content.newLineAtOffset(xPos + alignment, yPos + 10);
-        content.showText(text);
-        content.endText();
-
-        xPos = xPos + columnWidths[columnPosition];
-        columnPosition++;
-    }
     public void addCellAlignment(String text, Alignment alignment, Color fillColor, int fontSize, PDFont font) throws IOException {
 
         Color fontColor = new Color(0, 0, 0);
@@ -59,8 +40,9 @@ public class Table {
         content.setFont(font, fontSize);
         content.newLineAtOffset(xPos + calculateAlignmentPosition(alignment, columnWidths[columnPosition],
                 text, font, fontSize), yPos + 10);
-/*        // new functionality - if text extends cell size
-        if(getTextWidth(text, font, fontSize) > columnWidths[columnPosition]){
+        // new functionality - if text extends cell size
+        int textWidth = getTextWidth(text, font, fontSize);
+        if((textWidth > columnWidths[columnPosition]) && (textWidth > 20)){
             int mid = text.length() / 2;
             List<String> halfs = List.of(text.substring(0, mid), text.substring(mid));
             for(String half : halfs){
@@ -70,8 +52,8 @@ public class Table {
         } else {
             content.showText(text);
         }
-        // new functionality - if text extends cell size*/
-        content.showText(text);
+        // new functionality - if text extends cell size
+        //content.showText(text);
         content.endText();
 
         xPos = xPos + columnWidths[columnPosition];

@@ -68,7 +68,7 @@ public class Electrician {
                 List.of(this.lastName),
                 List.of(this.electricianAddress),
                 this.permissionList,
-                List.of(this.position.toString()),
+                List.of(this.position.getName()),
                 this.signature);
     }
 }

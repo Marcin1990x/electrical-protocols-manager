@@ -24,7 +24,7 @@ public class ContinuityOfSmallResistanceEntry extends MeasurementEntry {
 
     @Override
     public List<Object> getEntryResultList() {
-        return List.of(super.getId(), super.getSymbol(), this.measuringPoint, this.continuity, this.rs, this.ra,
-                super.getResult().getName());
+        return List.of(super.getId(), super.getSymbol(), this.measuringPoint, this.continuity.getName(),
+                this.rs, this.ra, super.getResult().getName());
     }
 }

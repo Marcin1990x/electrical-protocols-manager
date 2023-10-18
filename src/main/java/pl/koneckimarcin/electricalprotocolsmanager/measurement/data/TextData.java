@@ -5,7 +5,8 @@ import java.util.List;
 public class TextData {
 
     public static List<String> resultEnumText = List.of("Pozytywna", "Negatywna");
-    public static List<String> resultContinuityText = List.of("Zachowana", "Niezachowana");
+    public static List<String> positionEnumText = List.of("Pomiarowiec", "Sprawdzajacy");
+    public static List<String> continuityEnumText = List.of("Zachowana", "Niezachowana");
 
     public static List<String> measurementsMainNames = List.of(
             "(TN-C, TN-S) Badanie ochrony przed porazeniem przez samoczynne wylaczenie",
@@ -20,7 +21,7 @@ public class TextData {
             List.of("Uiso");
 
     public static List<Object> continuityOfSmallResistanceHeaders =
-            List.of("Lp.", "Symbol", "Badany punkt", "Rs[Om]", "Ra[om]", "Ciaglosc", "Ocena");
+            List.of("Lp.", "Symbol", "Badany punkt", "Ciaglosc", "Rs[Om]", "Ra[om]", "Ocena");
 
     public static List<Object> soilResistanceHeaders =
             List.of("Lp.", "Symbol", "Badany punkt", "L[m]", "d[m]", "p[OMm]");

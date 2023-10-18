@@ -12,11 +12,9 @@ import java.util.List;
 @Service
 public class PdfMeasurementDataService {
 
-    private PdfTextService textService;
     private PdfTableComponent tableComponent;
 
-    public PdfMeasurementDataService(PdfTextService textService, PdfTableComponent tableComponent) {
-        this.textService = textService;
+    public PdfMeasurementDataService(PdfTableComponent tableComponent) {
         this.tableComponent = tableComponent;
     }
 
