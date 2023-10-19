@@ -3,14 +3,10 @@ package pl.koneckimarcin.electricalprotocolsmanager.pdf.service;
 import org.apache.pdfbox.pdmodel.PDPageContentStream;
 import org.apache.pdfbox.pdmodel.font.PDFont;
 import org.springframework.stereotype.Service;
-import org.springframework.util.StringUtils;
 import pl.koneckimarcin.electricalprotocolsmanager.measurement.data.TextData;
 import pl.koneckimarcin.electricalprotocolsmanager.pdf.Alignment;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Comparator;
 import java.util.List;
 
 @Service
@@ -46,59 +42,6 @@ public class PdfTextService {
         return yPosOffset;
     }
 
-    public List<Integer> calculateHeadersWidth(List<Object> headers, PDFont font, int fontSize) throws IOException {
-
-        List<Integer> headersWidth = new ArrayList<>();
-        int totalSize = 0;
-        int width;
-
-        for (Object header : headers) {
-            width = getTextWidth(header.toString(), font, fontSize);
-            headersWidth.add(width);
-        }
-        totalSize = getTotalWidthOfTextList(headers, font, fontSize);
-
-        if(totalSize >= 450){
-            headersWidth.clear();
-            for (Object header : headers) {
-                String[] split;
-                if(header.toString().contains(" ")) {
-                    split = StringUtils.split(header.toString(), " ");
-                    header = Arrays.stream(split).max(Comparator.comparing(String::length))
-                            .get();
-                }
-                width = getTextWidth(header.toString(), font, fontSize);
-                headersWidth.add(width);
-            }
-        }
-        return headersWidth;
-    }
-
-    public List<Object> getHeadersForCalculation(String nameForCalculation) { // same method as below
-
-        List<Object> headers;
-
-        if (nameForCalculation.equals(TextData.measurementsMainNames.get(0))) {
-            headers = TextData.protectionAgainstElectricShockByAutomaticShutdownEntryHeaders;
-        } else if (nameForCalculation.equals(TextData.measurementsMainNames.get(1))) {
-            headers = TextData.circuitInsulationResistanceTnsHeaders;
-        } else if (nameForCalculation.equals(TextData.measurementsMainNames.get(2))) {
-            headers = TextData.circuitInsulationResistanceTncHeaders;
-        } else if (nameForCalculation.equals(TextData.measurementsMainNames.get(3))) {
-            headers = TextData.residualCurrentProtectionHeaders;
-        } else if (nameForCalculation.equals(TextData.measurementsMainNames.get(4))){
-            headers =  TextData.soilResistanceHeaders;
-        } else if (nameForCalculation.equals(TextData.measurementsMainNames.get(5))){
-            headers =  TextData.continuityOfSmallResistanceHeaders;
-        }
-        else if (nameForCalculation.equals("ElectricianTable headers")) {
-            headers = TextData.electricianPdfTableHeaders;
-        } else {
-            throw new IllegalArgumentException("No table headers created for this measurement name");
-        }
-        return headers;
-    }
-
     private int calculateAlignmentPosition(Alignment alignment, String text, PDFont font, int fontSize)
             throws IOException {
 
@@ -114,7 +57,7 @@ public class PdfTextService {
         return offset;
     }
 
-    public List<Object> getMeasurementEntryTableHeaders(String measurementName) { // same method as above
+    public List<Object> getMeasurementEntryTableHeaders(String measurementName) {
 
         List<Object> tableHeaders;
 
@@ -126,23 +69,14 @@ public class PdfTextService {
             tableHeaders = TextData.circuitInsulationResistanceTncHeaders;
         } else if (measurementName.equals(TextData.measurementsMainNames.get(3))) {
             tableHeaders = TextData.residualCurrentProtectionHeaders;
-        } else if (measurementName.equals(TextData.measurementsMainNames.get(4))){
-            tableHeaders =  TextData.soilResistanceHeaders;
-        } else if (measurementName.equals(TextData.measurementsMainNames.get(5))){
-            tableHeaders =  TextData.continuityOfSmallResistanceHeaders;
+        } else if (measurementName.equals(TextData.measurementsMainNames.get(4))) {
+            tableHeaders = TextData.soilResistanceHeaders;
+        } else if (measurementName.equals(TextData.measurementsMainNames.get(5))) {
+            tableHeaders = TextData.continuityOfSmallResistanceHeaders;
         } else {
             throw new IllegalArgumentException("No entry table headers for this measurement main name.");
         }
         return tableHeaders;
-    }
-
-    public int getTotalWidthOfTextList(List<Object> textList, PDFont font, float fontSize) throws IOException {
-
-        int size = 0;
-        for(Object text : textList) {
-            size += getTextWidth(text.toString(), font, fontSize);
-        }
-        return size;
     }
 
     private int getTextWidth(String text, PDFont font, float fontSize) throws IOException {

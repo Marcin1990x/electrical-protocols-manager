@@ -35,6 +35,13 @@ public class Table {
 
         content.setNonStrokingColor(fillColor);
 
+        int textWidth = getTextWidth(text, font, fontSize);
+        boolean splitNeeded = columnWidths[columnPosition] - textWidth < 10 && text.contains(" ");
+        int yPosText = yPos + 10;
+
+        if(splitNeeded)
+            yPosText += 5;
+
         content.addRect(xPos, yPos, columnWidths[columnPosition], cellHeight);
 
         content.fillAndStroke();
@@ -43,12 +50,12 @@ public class Table {
         content.setFont(font, fontSize);
 
         content.newLineAtOffset(xPos + calculateAlignmentPosition(alignment, columnWidths[columnPosition],
-                text, font, fontSize), yPos + 10);
+                text, font, fontSize, splitNeeded), yPosText);
 
-        int textWidth = getTextWidth(text, font, fontSize);
+        if (splitNeeded) {
 
-        if (columnWidths[columnPosition] - textWidth < 10 && text.contains(" ")) {
             content.setLeading(10);
+
             String[] splitted;
             if (text.contains(" ")) {
                 splitted = StringUtils.split(text, " ");
@@ -93,12 +100,17 @@ public class Table {
         columnPosition++;
     }
 
-    private int calculateAlignmentPosition(Alignment alignment, int columnWidth, String text, PDFont font, int fontSize)
-            throws IOException {
+    private int calculateAlignmentPosition(Alignment alignment, int columnWidth, String text, PDFont font,
+                                           int fontSize, boolean split) throws IOException {
 
         int offset = 0;
 
         if (alignment == Alignment.CENTER) {
+            if(split) {
+                String[] splitted = StringUtils.split(text, " ");
+                text = splitted[0]; // avoid null pointer
+                // find longer !
+            }
             offset = columnWidth / 2 - getTextWidth(text, font, fontSize) / 2;
         } else if (alignment == Alignment.LEFT) {
             offset = 3;

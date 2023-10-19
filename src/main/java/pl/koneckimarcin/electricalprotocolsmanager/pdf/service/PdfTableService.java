@@ -21,7 +21,7 @@ public class PdfTableService {
         if (measurementName.equals(TextData.measurementsMainNames.get(0))) {
             cellSizes = new int[]{20, 55, 85, 55, 30, 35, 35, 40, 40, 40, 65};
         } else if (measurementName.equals(TextData.measurementsMainNames.get(1))) {
-            cellSizes = new int[]{20, 40, 70, 30, 30, 30, 30, 30, 30, 30, 30, 25, 25, 25, 55};
+            cellSizes = new int[]{20, 35, 65, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 50};
         } else if (measurementName.equals(TextData.measurementsMainNames.get(2))) {
             cellSizes = new int[]{20, 55, 85, 40, 39, 39, 39, 39, 39, 40, 65};
         } else if (measurementName.equals(TextData.measurementsMainNames.get(3))) {
