@@ -2,6 +2,7 @@ package pl.koneckimarcin.electricalprotocolsmanager.pdf.model;
 
 import org.apache.pdfbox.pdmodel.PDPageContentStream;
 import org.apache.pdfbox.pdmodel.font.PDFont;
+import org.springframework.util.StringUtils;
 import pl.koneckimarcin.electricalprotocolsmanager.pdf.Alignment;
 
 import java.awt.*;
@@ -26,7 +27,9 @@ public class Table {
         this.cellHeight = cellHeight;
         this.yPos = yPos;
     }
-    public void addCellAlignment(String text, Alignment alignment, Color fillColor, int fontSize, PDFont font) throws IOException {
+
+    public void addCellAlignment(String text, Alignment alignment, Color fillColor, int fontSize, PDFont font)
+            throws IOException {
 
         Color fontColor = new Color(0, 0, 0);
 
@@ -38,27 +41,33 @@ public class Table {
         content.beginText();
         content.setNonStrokingColor(fontColor);
         content.setFont(font, fontSize);
+
         content.newLineAtOffset(xPos + calculateAlignmentPosition(alignment, columnWidths[columnPosition],
                 text, font, fontSize), yPos + 10);
-        // new functionality - if text extends cell size
+
         int textWidth = getTextWidth(text, font, fontSize);
-        if((textWidth > columnWidths[columnPosition]) && (textWidth > 20)){
-            int mid = text.length() / 2;
-            List<String> halfs = List.of(text.substring(0, mid), text.substring(mid));
-            for(String half : halfs){
-                content.showText(half);
-                content.newLine();
+
+        if (columnWidths[columnPosition] - textWidth < 10 && text.contains(" ")) {
+            content.setLeading(10);
+            String[] splitted;
+            if (text.contains(" ")) {
+                splitted = StringUtils.split(text, " ");
+                for (String half : splitted) {
+                    content.showText(half);
+                    content.newLine();
+                }
+            } else {
+                content.showText(text);
             }
+            content.endText();
         } else {
             content.showText(text);
+            content.endText();
         }
-        // new functionality - if text extends cell size
-        //content.showText(text);
-        content.endText();
-
         xPos = xPos + columnWidths[columnPosition];
         columnPosition++;
     }
+
     public void addCellWithMultilineText(List<String> text, int alignment, Color fillColor, int fontSize, PDFont font)
             throws IOException {
 
@@ -73,8 +82,8 @@ public class Table {
         content.setNonStrokingColor(fontColor);
         content.setFont(font, fontSize);
         content.setLeading(12); // extract
-        content.newLineAtOffset(xPos + alignment, yPos + cellHeight - fontSize -4);
-        for(String textLine : text) {
+        content.newLineAtOffset(xPos + alignment, yPos + cellHeight - fontSize - 4);
+        for (String textLine : text) {
             content.showText(textLine);
             content.newLine();
         }
@@ -89,11 +98,11 @@ public class Table {
 
         int offset = 0;
 
-        if(alignment == Alignment.CENTER) {
-            offset =  columnWidth / 2 - getTextWidth(text, font, fontSize) / 2;
-        } else if(alignment == Alignment.LEFT) {
+        if (alignment == Alignment.CENTER) {
+            offset = columnWidth / 2 - getTextWidth(text, font, fontSize) / 2;
+        } else if (alignment == Alignment.LEFT) {
             offset = 3;
-        } else if(alignment == Alignment.RIGHT) {
+        } else if (alignment == Alignment.RIGHT) {
             offset = columnWidth - getTextWidth(text, font, fontSize);
         }
         return offset;
@@ -101,6 +110,6 @@ public class Table {
 
     private int getTextWidth(String text, PDFont font, float fontSize) throws IOException {
 
-        return (int)(font.getStringWidth(text) / 1000 * fontSize);
+        return (int) (font.getStringWidth(text) / 1000 * fontSize);
     }
 }

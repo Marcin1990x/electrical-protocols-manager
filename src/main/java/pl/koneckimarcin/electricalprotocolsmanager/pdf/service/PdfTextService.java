@@ -3,11 +3,14 @@ package pl.koneckimarcin.electricalprotocolsmanager.pdf.service;
 import org.apache.pdfbox.pdmodel.PDPageContentStream;
 import org.apache.pdfbox.pdmodel.font.PDFont;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 import pl.koneckimarcin.electricalprotocolsmanager.measurement.data.TextData;
 import pl.koneckimarcin.electricalprotocolsmanager.pdf.Alignment;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
 
 @Service
@@ -43,17 +46,30 @@ public class PdfTextService {
         return yPosOffset;
     }
 
-    private int getTextWidth(String text, PDFont font, float fontSize) throws IOException {
-
-        return (int) (font.getStringWidth(text) / 1000 * fontSize);
-    }
-
     public List<Integer> calculateHeadersWidth(List<Object> headers, PDFont font, int fontSize) throws IOException {
 
         List<Integer> headersWidth = new ArrayList<>();
+        int totalSize = 0;
+        int width;
 
         for (Object header : headers) {
-            headersWidth.add(getTextWidth(header.toString(), font, fontSize));
+            width = getTextWidth(header.toString(), font, fontSize);
+            headersWidth.add(width);
+        }
+        totalSize = getTotalWidthOfTextList(headers, font, fontSize);
+
+        if(totalSize >= 450){
+            headersWidth.clear();
+            for (Object header : headers) {
+                String[] split;
+                if(header.toString().contains(" ")) {
+                    split = StringUtils.split(header.toString(), " ");
+                    header = Arrays.stream(split).max(Comparator.comparing(String::length))
+                            .get();
+                }
+                width = getTextWidth(header.toString(), font, fontSize);
+                headersWidth.add(width);
+            }
         }
         return headersWidth;
     }
@@ -118,5 +134,19 @@ public class PdfTextService {
             throw new IllegalArgumentException("No entry table headers for this measurement main name.");
         }
         return tableHeaders;
+    }
+
+    public int getTotalWidthOfTextList(List<Object> textList, PDFont font, float fontSize) throws IOException {
+
+        int size = 0;
+        for(Object text : textList) {
+            size += getTextWidth(text.toString(), font, fontSize);
+        }
+        return size;
+    }
+
+    private int getTextWidth(String text, PDFont font, float fontSize) throws IOException {
+
+        return (int) (font.getStringWidth(text) / 1000 * fontSize);
     }
 }

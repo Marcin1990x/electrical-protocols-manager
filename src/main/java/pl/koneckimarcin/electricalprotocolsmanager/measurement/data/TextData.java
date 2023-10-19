@@ -31,13 +31,13 @@ public class TextData {
                     "Ia[mA]", "ta[ms]", "t rcd[ms]", "Ub[V]", "Ui[V]", "Ocena");
 
     public static List<Object> circuitInsulationResistanceTnsHeaders =
-            List.of("Lp.", "Symbol", "Nazwa obwodu", "L1-L2[Mom]", "L2-L3[Mom]", "L3-L1[Mom]",
-                    "L1-PE[Mom]", "L2-PE[Mom]", "L3-PE[Mom]", "L1-N[Mom]", "L2-N[Mom]", "L3-N[Mom]",
-                    "N-PE[Mom]", "Ra", "Ocena");
+            List.of("Lp.", "Symbol", "Nazwa obwodu", "L1-L2 [Mom]", "L2-L3 [Mom]", "L3-L1 [Mom]",
+                    "L1-PE [Mom]", "L2-PE [Mom]", "L3-PE [Mom]", "L1-N [Mom]", "L2-N [Mom]", "L3-N [Mom]",
+                    "N-PE [Mom]", "Ra", "Ocena");
 
     public static List<Object> circuitInsulationResistanceTncHeaders =
-            List.of("Lp.", "Symbol", "Nazwa obwodu", "L1-L2[Mom]", "L2-L3[Mom]", "L3-L1[Mom]",
-                    "L1-PEN[Mom]", "L2-PEN[Mom]", "L3-PEN[Mom]", "Ra", "Ocena");
+            List.of("Lp.", "Symbol", "Nazwa obwodu", "L1-L2 [Mom]", "L2-L3 [Mom]", "L3-L1 [Mom]",
+                    "L1-PEN [Mom]", "L2-PEN [Mom]", "L3-PEN [Mom]", "Ra", "Ocena");
 
     public static List<String> continuityOfSmallResistanceLegendText =
             List.of(

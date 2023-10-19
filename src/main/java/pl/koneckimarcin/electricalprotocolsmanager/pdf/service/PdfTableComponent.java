@@ -80,7 +80,7 @@ public class PdfTableComponent {
         yPosMeas -= 30;
         // add cascadeTable
         // add header
-        int[] headerCellWidths = pdfTableService.getCellSizes(measurementMain.getMeasurementName(), 10);
+        int[] headerCellWidths = pdfTableService.getCellSizes(measurementMain.getMeasurementName());
         addTableComponent(content, headerCellWidths, 25, yPosMeas,
                 textService.getMeasurementEntryTableHeaders(measurementMain.getMeasurementName()),
                 Alignment.CENTER, headerColor, 8, Font.fontBold);
@@ -139,6 +139,7 @@ public class PdfTableComponent {
             table.addCellAlignment(textData.get(i).toString(), alignment, backgroundColor, fontSize, fontType);
         }
     }
+
     private void addTableComponentWithMultilineText(PDPageContentStream content, int[] cellWidths, int cellHeight,
                                                     int yPos, List<List<String>> textData, int alignment, Color backgroundColor,
                                                     int fontSize, PDFont fontType) throws IOException {
