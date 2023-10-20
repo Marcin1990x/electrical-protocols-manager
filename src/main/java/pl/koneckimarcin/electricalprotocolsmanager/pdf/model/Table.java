@@ -7,6 +7,8 @@ import pl.koneckimarcin.electricalprotocolsmanager.pdf.Alignment;
 
 import java.awt.*;
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
 
 public class Table {
@@ -107,15 +109,16 @@ public class Table {
 
         if (alignment == Alignment.CENTER) {
             if(split) {
-                String[] splitted = StringUtils.split(text, " ");
-                text = splitted[0]; // avoid null pointer
-                // find longer !
+                text = getSplittedText(text);
             }
             offset = columnWidth / 2 - getTextWidth(text, font, fontSize) / 2;
         } else if (alignment == Alignment.LEFT) {
             offset = 3;
         } else if (alignment == Alignment.RIGHT) {
-            offset = columnWidth - getTextWidth(text, font, fontSize);
+            if(split) {
+                text = getSplittedText(text);
+            }
+            offset = -3 + columnWidth - getTextWidth(text, font, fontSize);
         }
         return offset;
     }
@@ -123,5 +126,13 @@ public class Table {
     private int getTextWidth(String text, PDFont font, float fontSize) throws IOException {
 
         return (int) (font.getStringWidth(text) / 1000 * fontSize);
+    }
+    private String getSplittedText(String textToSplit) {
+
+        String[] splitted = StringUtils.split(textToSplit, " ");
+        if(splitted != null) {
+            textToSplit =  Arrays.stream(splitted).max(Comparator.comparing(String::length)).orElseThrow();
+        }
+        return textToSplit;
     }
 }
