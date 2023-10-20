@@ -8,10 +8,9 @@ public abstract class MeasurementEntry {
     private String symbol;
     private Result result;
 
-    public MeasurementEntry(int id, String symbol, Result result) {
+    public MeasurementEntry(int id, String symbol) {
         this.id = id;
         this.symbol = symbol;
-        this.result = result;
     }
 
     public int getId() {
@@ -23,7 +22,12 @@ public abstract class MeasurementEntry {
     }
 
     public Result getResult() {
-        return result;
+        if (result != null) return result;
+        else return Result.NONE;
+    }
+
+    public void setResult(Result result) {
+        this.result = result;
     }
 
     public List<Object> getEntryResultList() {

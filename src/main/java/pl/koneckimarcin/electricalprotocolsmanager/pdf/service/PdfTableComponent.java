@@ -83,10 +83,10 @@ public class PdfTableComponent {
         int[] headerCellWidths = pdfTableService.getCellSizes(measurementMain.getMeasurementName());
         addTableComponent(content, headerCellWidths, 25, yPosMeas,
                 textService.getMeasurementEntryTableHeaders(measurementMain.getMeasurementName()),
-                Alignment.RIGHT, headerColor, 8, Font.fontBold);
+                Alignment.CENTER, headerColor, 8, Font.fontBold);
         yPosMeas -= 30;
         // add main parameters
-        if(!measurementMain.getPropertiesNamesAndValues().isEmpty()) {
+        if (!measurementMain.getPropertiesNamesAndValues().isEmpty()) {
             addTableComponent(content, oneColTable, 25, yPosMeas,
                     List.of(measurementMain.getPropertiesNamesAndValues()), Alignment.LEFT,
                     commonColor, 9, Font.font);
@@ -130,6 +130,7 @@ public class PdfTableComponent {
         addTableComponent(content, oneColTable, 1, 50, List.of(""), Alignment.RIGHT,
                 commonColor, 10, Font.font);
     }
+
     private void addTableComponent(PDPageContentStream content, int[] cellWidths, int cellHeight, int yPos, List<Object> textData,
                                    Alignment alignment, Color backgroundColor, int fontSize, PDFont fontType) throws IOException {
 

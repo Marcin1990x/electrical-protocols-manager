@@ -26,11 +26,10 @@ public class PdfTableService {
             cellSizes = new int[]{20, 55, 85, 40, 39, 39, 39, 39, 39, 40, 65};
         } else if (measurementName.equals(TextData.measurementsMainNames.get(3))) {
             cellSizes = new int[]{20, 50, 80, 55, 30, 30, 30, 40, 40, 30, 30, 65};
-        } else if (
-                measurementName.equals(TextData.measurementsMainNames.get(4))
-                || measurementName.equals(TextData.measurementsMainNames.get(5))
-        ) {
+        } else if (measurementName.equals(TextData.measurementsMainNames.get(4))) {
             cellSizes = new int[]{20, 50, 100, 110, 110, 110};
+        } else if (measurementName.equals(TextData.measurementsMainNames.get(5))) {
+            cellSizes = new int[]{20, 50, 100, 105, 80, 80, 65};
         } else {
             // check if error name is correct
             throw new InvalidObjectException("No cell sizes prepared for: " + measurementName);

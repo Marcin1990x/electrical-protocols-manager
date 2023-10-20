@@ -13,13 +13,22 @@ public class ContinuityOfSmallResistanceEntry extends MeasurementEntry {
     private float rs;
     private float ra;
 
-    public ContinuityOfSmallResistanceEntry(int id, String symbol, Result result, String measuringPoint,
+    public ContinuityOfSmallResistanceEntry(int id, String symbol, String measuringPoint,
                                             Continuity continuity, float rs, float ra) {
-        super(id, symbol, result);
+        super(id, symbol);
         this.measuringPoint = measuringPoint;
         this.continuity = continuity;
         this.rs = rs;
         this.ra = ra;
+        setResult();
+    }
+
+    private void setResult() {
+        if (this.rs <= this.ra) {
+            super.setResult(Result.POSITIVE);
+        } else {
+            super.setResult(Result.NEGATIVE);
+        }
     }
 
     @Override

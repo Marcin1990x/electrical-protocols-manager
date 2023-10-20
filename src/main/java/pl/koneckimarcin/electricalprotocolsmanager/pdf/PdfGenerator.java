@@ -61,24 +61,24 @@ public class PdfGenerator {
         ////////////////////////////// temporary place for data
 
         MeasurementEntry measurement3 = new CircuitInsulationResistanceTnsEntry(
-                1, "", Result.POSITIVE, "Obwod 1", 978, 1044, 1048, 909,
+                1, "", "Obwod 1", 9, 1044, 1048, 909,
                 975, 1079, 1002, 994, 1040, 988, 10.0f);
 
         MeasurementEntry measurement4 = new CircuitInsulationResistanceTnsEntry(
-                2, "", Result.POSITIVE, "Obwod 2", 0, 0, 0, 0,
+                2, "", "Obwod 2", 0, 0, 0, 0,
                 975, 0, 0, 994, 0, 988, 10.0f);
 
-        MeasurementEntry measurement5 = new CircuitInsulationResistanceTncEntry(3, "", Result.POSITIVE,
-                "Obwod tnc", 10, 20, 30, 40, 50, 60, 0.2f);
+        MeasurementEntry measurement5 = new CircuitInsulationResistanceTncEntry(3, "",
+                "Obwod tnc", 10, 20, 30, 40, 50, 60, 11);
 
-        MeasurementEntry measurement6 = new ResidualCurrentProtectionParametersEntry(3, "", Result.NEGATIVE,
-                "Tescik", "A", "AC", 10, 10, 20, 30, 40, 10);
+        MeasurementEntry measurement6 = new ResidualCurrentProtectionParametersEntry(3, "",
+                "Tescik", "A", "[A]", 10, 11, 20, 18, 9, 10);
 
         MeasurementEntry measurement7 = new SoilResistanceEntry(10, "Dupa", "Kupa",
-                100, 70, 100);
+                9, 70);
 
-        MeasurementEntry mesurement8 = new ContinuityOfSmallResistanceEntry(10, "", Result.POSITIVE,
-                "Dupa", Continuity.PRESERVED, 10.0f, 10.2f);
+        MeasurementEntry mesurement8 = new ContinuityOfSmallResistanceEntry(10, "",
+                "Dupa", Continuity.PRESERVED, 9.0f, 10.2f);
 
         SoilResistance soil1 = new SoilResistance();
         soil1.setMeasurementEntries(List.of(measurement7));
@@ -96,14 +96,12 @@ public class PdfGenerator {
         residual1.setMeasurementEntries(List.of(measurement6));
 
         ProtectionMeasurementEntry measurement1 =
-                new ProtectionMeasurementEntry(1, "", Result.POSITIVE, "Pokoj 1 GN 1",
-                        "S301", 'B', 16.0f,
-                        80.0f, 0.37f, 2.88f, 621.61f);
+                new ProtectionMeasurementEntry(1, "", 230, "Pokoj 1 GN 1",
+                        "S301", 'B', 10.0f,0.37f);
 
         ProtectionMeasurementEntry measurement2 =
-                new ProtectionMeasurementEntry(2, "", Result.NEGATIVE, "Pokoj 1 GN 2",
-                        "S301", 'B', 16.0f,
-                        80.0f, 0.32f, 2.88f, 547.50f);
+                new ProtectionMeasurementEntry(2, "", 230, "Pokoj 1 GN 2",
+                        "S301", 'D', 10.0f,3f);
 
         ProtectionAgainstElectricShockByAutomaticShutdown protection =
                 new ProtectionAgainstElectricShockByAutomaticShutdown(230,
@@ -111,17 +109,17 @@ public class PdfGenerator {
         protection.setMeasurementEntries(List.of(measurement1, measurement2));
 
         ProtectionAgainstElectricShockByAutomaticShutdown protection2 =
-                new ProtectionAgainstElectricShockByAutomaticShutdown(230,
+                new ProtectionAgainstElectricShockByAutomaticShutdown( 230,
                         50, 1.0f, 0.20f, NetworkType.TNS);
         protection2.setMeasurementEntries(List.of(measurement1, measurement2));
 
         ProtectionAgainstElectricShockByAutomaticShutdown protection3 =
-                new ProtectionAgainstElectricShockByAutomaticShutdown(230,
+                new ProtectionAgainstElectricShockByAutomaticShutdown( 230,
                         50, 1.0f, 0.20f, NetworkType.TNS);
         protection3.setMeasurementEntries(List.of(measurement1, measurement2));
 
         ProtectionAgainstElectricShockByAutomaticShutdown protection4 =
-                new ProtectionAgainstElectricShockByAutomaticShutdown(230,
+                new ProtectionAgainstElectricShockByAutomaticShutdown( 230,
                         50, 1.0f, 0.20f, NetworkType.TNS);
         protection4.setMeasurementEntries(List.of(measurement1, measurement2));
 

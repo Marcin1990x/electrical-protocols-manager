@@ -17,10 +17,10 @@ public class ResidualCurrentProtectionParametersEntry extends MeasurementEntry {
     private int ub;
     private int ui;
 
-    public ResidualCurrentProtectionParametersEntry(int id, String symbol, Result result, String measuringPoint,
+    public ResidualCurrentProtectionParametersEntry(int id, String symbol, String measuringPoint,
                                                     String circuitBreaker, String type, int in, int ia, int ta,
                                                     int trcd, int ub, int ui) {
-        super(id, symbol, result);
+        super(id, symbol);
         this.measuringPoint = measuringPoint;
         this.circuitBreaker = circuitBreaker;
         this.type = type;
@@ -30,6 +30,33 @@ public class ResidualCurrentProtectionParametersEntry extends MeasurementEntry {
         this.trcd = trcd;
         this.ub = ub;
         this.ui = ui;
+        setResult(this.type);
+    }
+
+    private void setResult(String type) {
+
+        Result result = Result.NONE;
+
+        switch (type) {
+            case "[AC]" -> {
+                if (this.ub <= this.ui && this.trcd < this.ta && ((this.ia >= this.in / 2) && (this.ia <= this.in))) {
+                    result = Result.POSITIVE;
+                } else result = Result.NEGATIVE;
+            }
+            case "[A]" -> {
+                if (this.ub <= this.ui && this.trcd < this.ta &&
+                        ((this.ia >= this.in * 0.35) && (this.ia <= this.in * 1.4))) {
+                    result = Result.POSITIVE;
+                } else result = Result.NEGATIVE;
+            }
+            case "[B]" -> {
+                if (this.ub <= this.ui && this.trcd < this.ta &&
+                        ((this.ia >= this.in / 2) && (this.ia <= this.in * 2))) {
+                    result = Result.POSITIVE;
+                } else result = Result.NEGATIVE;
+            }
+        }
+        setResult(result);
     }
 
     @Override
