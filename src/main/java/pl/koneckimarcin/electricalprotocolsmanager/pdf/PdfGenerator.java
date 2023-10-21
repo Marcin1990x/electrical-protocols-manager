@@ -9,10 +9,10 @@ import pl.koneckimarcin.electricalprotocolsmanager.measurement.circuitInsulation
 import pl.koneckimarcin.electricalprotocolsmanager.measurement.circuitInsulationResistanceTns.CircuitInsulationResistanceTnsEntry;
 import pl.koneckimarcin.electricalprotocolsmanager.measurement.continuityOfSmallResistancy.ContinuityOfSmallResistance;
 import pl.koneckimarcin.electricalprotocolsmanager.measurement.continuityOfSmallResistancy.ContinuityOfSmallResistanceEntry;
-import pl.koneckimarcin.electricalprotocolsmanager.measurement.residualCurrentProtectionParameters.ResidualCurrentProtectionParameters;
-import pl.koneckimarcin.electricalprotocolsmanager.measurement.residualCurrentProtectionParameters.ResidualCurrentProtectionParametersEntry;
 import pl.koneckimarcin.electricalprotocolsmanager.measurement.protectionAgainstElectricShockByAutomaticShutdown.ProtectionAgainstElectricShockByAutomaticShutdown;
 import pl.koneckimarcin.electricalprotocolsmanager.measurement.protectionAgainstElectricShockByAutomaticShutdown.ProtectionMeasurementEntry;
+import pl.koneckimarcin.electricalprotocolsmanager.measurement.residualCurrentProtectionParameters.ResidualCurrentProtectionParameters;
+import pl.koneckimarcin.electricalprotocolsmanager.measurement.residualCurrentProtectionParameters.ResidualCurrentProtectionParametersEntry;
 import pl.koneckimarcin.electricalprotocolsmanager.measurement.soilResistance.SoilResistance;
 import pl.koneckimarcin.electricalprotocolsmanager.measurement.soilResistance.SoilResistanceEntry;
 import pl.koneckimarcin.electricalprotocolsmanager.pdf.model.PdfTitlePage;
@@ -97,11 +97,11 @@ public class PdfGenerator {
 
         ProtectionMeasurementEntry measurement1 =
                 new ProtectionMeasurementEntry(1, "", 230, "Pokoj 1 GN 1",
-                        "S301", 'B', 10.0f,0.37f);
+                        "S301", 'B', 10.0f, 0.37f);
 
         ProtectionMeasurementEntry measurement2 =
                 new ProtectionMeasurementEntry(2, "", 230, "Pokoj 1 GN 2",
-                        "S301", 'D', 10.0f,3f);
+                        "S301", 'D', 10.0f, 3f);
 
         ProtectionAgainstElectricShockByAutomaticShutdown protection =
                 new ProtectionAgainstElectricShockByAutomaticShutdown(230,
@@ -109,17 +109,17 @@ public class PdfGenerator {
         protection.setMeasurementEntries(List.of(measurement1, measurement2));
 
         ProtectionAgainstElectricShockByAutomaticShutdown protection2 =
-                new ProtectionAgainstElectricShockByAutomaticShutdown( 230,
+                new ProtectionAgainstElectricShockByAutomaticShutdown(230,
                         50, 1.0f, 0.20f, NetworkType.TNS);
         protection2.setMeasurementEntries(List.of(measurement1, measurement2));
 
         ProtectionAgainstElectricShockByAutomaticShutdown protection3 =
-                new ProtectionAgainstElectricShockByAutomaticShutdown( 230,
+                new ProtectionAgainstElectricShockByAutomaticShutdown(230,
                         50, 1.0f, 0.20f, NetworkType.TNS);
         protection3.setMeasurementEntries(List.of(measurement1, measurement2));
 
         ProtectionAgainstElectricShockByAutomaticShutdown protection4 =
-                new ProtectionAgainstElectricShockByAutomaticShutdown( 230,
+                new ProtectionAgainstElectricShockByAutomaticShutdown(230,
                         50, 1.0f, 0.20f, NetworkType.TNS);
         protection4.setMeasurementEntries(List.of(measurement1, measurement2));
 
