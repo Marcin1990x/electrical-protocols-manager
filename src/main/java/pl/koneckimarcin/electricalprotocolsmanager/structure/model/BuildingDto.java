@@ -8,7 +8,6 @@ import java.util.List;
 public class BuildingDto {
 
     @Id
-    //@Column(name = "building_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
@@ -28,7 +27,6 @@ public class BuildingDto {
     public List<FloorDto> getFloors() {
         return floors;
     }
-
     public void setBuildingName(String buildingName) {
         this.buildingName = buildingName;
     }
@@ -38,4 +36,6 @@ public class BuildingDto {
         this.floors.add(floor);
         floor.setFloorCascadeName(this.buildingName);
     }
+
+
 }

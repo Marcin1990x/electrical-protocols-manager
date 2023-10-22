@@ -2,12 +2,13 @@ package pl.koneckimarcin.electricalprotocolsmanager.structure.model;
 
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity
 public class FloorDto {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    //@Column(name = "floor_id")
     private int id;
 
     private String floorCascadeName;
@@ -15,8 +16,10 @@ public class FloorDto {
     private String floorName;
 
     @ManyToOne
-    //@JoinColumn(name = "building_id")
     private BuildingDto buildingDto;
+
+    @OneToMany
+    private List<RoomDto> rooms;
 
     public void setFloorName(String floorName) {
         this.floorName = floorName;
@@ -34,7 +37,15 @@ public class FloorDto {
         return floorCascadeName;
     }
 
+    public List<RoomDto> getRooms() {
+        return rooms;
+    }
+
     public void setFloorCascadeName(String buildingName) {
         this.floorCascadeName = buildingName + "/" + this.floorName;
+    }
+    public void addRoom(RoomDto room) {
+        this.rooms.add(room);
+        room.setRoomCascadeName(this.floorCascadeName);
     }
 }
