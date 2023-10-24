@@ -5,7 +5,7 @@ import org.apache.pdfbox.pdmodel.PDPageContentStream;
 import org.apache.pdfbox.pdmodel.graphics.image.PDImageXObject;
 import org.springframework.stereotype.Service;
 import pl.koneckimarcin.electricalprotocolsmanager.measurement.data.TextData;
-import pl.koneckimarcin.electricalprotocolsmanager.structure.model.Building;
+import pl.koneckimarcin.electricalprotocolsmanager.structure.building.Building;
 
 import java.io.IOException;
 import java.util.ArrayList;

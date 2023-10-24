@@ -1,7 +1,7 @@
 package pl.koneckimarcin.electricalprotocolsmanager.measurement.continuityOfSmallResistancy;
 
 import pl.koneckimarcin.electricalprotocolsmanager.measurement.Continuity;
-import pl.koneckimarcin.electricalprotocolsmanager.measurement.MeasurementEntry;
+import pl.koneckimarcin.electricalprotocolsmanager.measurement.entry.MeasurementEntry;
 import pl.koneckimarcin.electricalprotocolsmanager.measurement.Result;
 
 import java.util.List;

@@ -1,6 +1,7 @@
-package pl.koneckimarcin.electricalprotocolsmanager.measurement;
+package pl.koneckimarcin.electricalprotocolsmanager.measurement.main;
 
-import java.io.Serializable;
+import pl.koneckimarcin.electricalprotocolsmanager.measurement.entry.MeasurementEntry;
+
 import java.util.List;
 
 public abstract class MeasurementMain {

@@ -1,6 +1,8 @@
-package pl.koneckimarcin.electricalprotocolsmanager.structure.model;
+package pl.koneckimarcin.electricalprotocolsmanager.structure.floor;
 
 import jakarta.persistence.*;
+import pl.koneckimarcin.electricalprotocolsmanager.structure.building.BuildingDto;
+import pl.koneckimarcin.electricalprotocolsmanager.structure.room.RoomDto;
 
 import java.util.List;
 
@@ -47,5 +49,18 @@ public class FloorDto {
     public void addRoom(RoomDto room) {
         this.rooms.add(room);
         room.setRoomCascadeName(this.floorCascadeName);
+    }
+    public int calculateMainMeasurementsCount() {
+
+        int count = 0;
+
+        //check if one page is enough
+
+        for (RoomDto room : getRooms()) {
+            if (room.getMeasurementMains().size() > 0) {
+                count += room.getMeasurementMains().size(); // every measurement on new page
+            }
+        }
+        return count;
     }
 }

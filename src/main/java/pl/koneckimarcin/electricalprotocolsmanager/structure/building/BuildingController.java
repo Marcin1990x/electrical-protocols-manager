@@ -1,10 +1,8 @@
-package pl.koneckimarcin.electricalprotocolsmanager.structure.controller;
+package pl.koneckimarcin.electricalprotocolsmanager.structure.building;
 
 import org.springframework.web.bind.annotation.*;
-import pl.koneckimarcin.electricalprotocolsmanager.structure.model.BuildingDto;
-import pl.koneckimarcin.electricalprotocolsmanager.structure.model.FloorDto;
-import pl.koneckimarcin.electricalprotocolsmanager.structure.reposiitory.BuildingDtoRepository;
-import pl.koneckimarcin.electricalprotocolsmanager.structure.reposiitory.FloorDtoRepository;
+import pl.koneckimarcin.electricalprotocolsmanager.structure.floor.FloorDto;
+import pl.koneckimarcin.electricalprotocolsmanager.structure.floor.FloorDtoRepository;
 
 import java.io.InvalidObjectException;
 import java.util.List;

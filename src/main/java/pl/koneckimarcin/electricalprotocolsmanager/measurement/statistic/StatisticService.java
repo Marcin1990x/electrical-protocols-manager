@@ -1,13 +1,13 @@
 package pl.koneckimarcin.electricalprotocolsmanager.measurement.statistic;
 
 import org.springframework.stereotype.Service;
-import pl.koneckimarcin.electricalprotocolsmanager.measurement.MeasurementEntry;
-import pl.koneckimarcin.electricalprotocolsmanager.measurement.MeasurementMain;
+import pl.koneckimarcin.electricalprotocolsmanager.measurement.entry.MeasurementEntry;
+import pl.koneckimarcin.electricalprotocolsmanager.measurement.main.MeasurementMain;
 import pl.koneckimarcin.electricalprotocolsmanager.measurement.Result;
-import pl.koneckimarcin.electricalprotocolsmanager.measurement.circuitInsulationResistanceTnc.CircuitInsulationResistanceTncEntry;
+import pl.koneckimarcin.electricalprotocolsmanager.measurement.circuitInsulationResistanceTnc.entry.CircuitInsulationResistanceTncEntry;
 import pl.koneckimarcin.electricalprotocolsmanager.measurement.circuitInsulationResistanceTns.CircuitInsulationResistanceTnsEntry;
 import pl.koneckimarcin.electricalprotocolsmanager.measurement.data.TextData;
-import pl.koneckimarcin.electricalprotocolsmanager.structure.model.Building;
+import pl.koneckimarcin.electricalprotocolsmanager.structure.building.Building;
 
 import java.util.ArrayList;
 import java.util.List;

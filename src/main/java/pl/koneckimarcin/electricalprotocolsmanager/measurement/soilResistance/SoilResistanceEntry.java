@@ -1,6 +1,6 @@
 package pl.koneckimarcin.electricalprotocolsmanager.measurement.soilResistance;
 
-import pl.koneckimarcin.electricalprotocolsmanager.measurement.MeasurementEntry;
+import pl.koneckimarcin.electricalprotocolsmanager.measurement.entry.MeasurementEntry;
 
 import java.util.List;
 

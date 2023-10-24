@@ -1,6 +1,6 @@
-package pl.koneckimarcin.electricalprotocolsmanager.structure.model;
+package pl.koneckimarcin.electricalprotocolsmanager.structure.room;
 
-import pl.koneckimarcin.electricalprotocolsmanager.measurement.MeasurementMain;
+import pl.koneckimarcin.electricalprotocolsmanager.measurement.main.MeasurementMain;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,13 +41,5 @@ public class Room {
     public void setRoomCascadeName(String floorCascadeName) {
 
         this.roomCascadeName = floorCascadeName + "/" + this.roomName;
-    }
-    @Override
-    public String toString() {
-        return "Room{" +
-                "measurementMains=" + measurementMains +
-                ", roomName='" + roomName + '\'' +
-                ", roomCascadeName='" + roomCascadeName + '\'' +
-                '}';
     }
 }

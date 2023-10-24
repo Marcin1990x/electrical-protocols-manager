@@ -1,6 +1,8 @@
-package pl.koneckimarcin.electricalprotocolsmanager.structure.model;
+package pl.koneckimarcin.electricalprotocolsmanager.structure.building;
 
-import pl.koneckimarcin.electricalprotocolsmanager.measurement.MeasurementMain;
+import pl.koneckimarcin.electricalprotocolsmanager.measurement.main.MeasurementMain;
+import pl.koneckimarcin.electricalprotocolsmanager.structure.floor.Floor;
+import pl.koneckimarcin.electricalprotocolsmanager.structure.room.Room;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,20 +46,6 @@ public class Building {
         }
         return measurementMainList;
     }
-
-    public int getRoomsCount() { // method if version each room on one separate page will be necessary
-
-        int totalRoomsWithMeasurements = 0;
-
-        for (Floor floor : floors) {
-            for (Room room : floor.getRooms()) {
-                if (room.getMeasurementMains().size() > 0) {
-                    totalRoomsWithMeasurements++;
-                }
-            }
-        }
-        return totalRoomsWithMeasurements;
-    }
     public List<String> extractMeasurementMainDistinctNames(){
 
         return this.getMeasurementMainList()
@@ -65,12 +53,5 @@ public class Building {
                 .map(MeasurementMain::getMeasurementName)
                 .distinct()
                 .collect(Collectors.toList());
-    }
-    @Override
-    public String toString() {
-        return "Building{" +
-                "floors=" + floors +
-                ", buildingName='" + buildingName + '\'' +
-                '}';
     }
 }

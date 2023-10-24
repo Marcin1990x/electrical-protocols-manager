@@ -1,4 +1,6 @@
-package pl.koneckimarcin.electricalprotocolsmanager.measurement;
+package pl.koneckimarcin.electricalprotocolsmanager.measurement.entry;
+
+import pl.koneckimarcin.electricalprotocolsmanager.measurement.Result;
 
 import java.util.List;
 

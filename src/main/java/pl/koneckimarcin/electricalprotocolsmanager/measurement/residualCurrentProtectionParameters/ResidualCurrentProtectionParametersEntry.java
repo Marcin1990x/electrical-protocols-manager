@@ -1,6 +1,6 @@
 package pl.koneckimarcin.electricalprotocolsmanager.measurement.residualCurrentProtectionParameters;
 
-import pl.koneckimarcin.electricalprotocolsmanager.measurement.MeasurementEntry;
+import pl.koneckimarcin.electricalprotocolsmanager.measurement.entry.MeasurementEntry;
 import pl.koneckimarcin.electricalprotocolsmanager.measurement.Result;
 
 import java.util.List;

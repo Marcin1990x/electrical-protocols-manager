@@ -3,12 +3,13 @@ package pl.koneckimarcin.electricalprotocolsmanager.pdf;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.springframework.stereotype.Service;
 import pl.koneckimarcin.electricalprotocolsmanager.measurement.*;
-import pl.koneckimarcin.electricalprotocolsmanager.measurement.circuitInsulationResistanceTnc.CircuitInsulationResistanceTnc;
-import pl.koneckimarcin.electricalprotocolsmanager.measurement.circuitInsulationResistanceTnc.CircuitInsulationResistanceTncEntry;
+import pl.koneckimarcin.electricalprotocolsmanager.measurement.circuitInsulationResistanceTnc.main.CircuitInsulationResistanceTnc;
+import pl.koneckimarcin.electricalprotocolsmanager.measurement.circuitInsulationResistanceTnc.entry.CircuitInsulationResistanceTncEntry;
 import pl.koneckimarcin.electricalprotocolsmanager.measurement.circuitInsulationResistanceTns.CircuitInsulationResistanceTns;
 import pl.koneckimarcin.electricalprotocolsmanager.measurement.circuitInsulationResistanceTns.CircuitInsulationResistanceTnsEntry;
 import pl.koneckimarcin.electricalprotocolsmanager.measurement.continuityOfSmallResistancy.ContinuityOfSmallResistance;
 import pl.koneckimarcin.electricalprotocolsmanager.measurement.continuityOfSmallResistancy.ContinuityOfSmallResistanceEntry;
+import pl.koneckimarcin.electricalprotocolsmanager.measurement.entry.MeasurementEntry;
 import pl.koneckimarcin.electricalprotocolsmanager.measurement.protectionAgainstElectricShockByAutomaticShutdown.ProtectionAgainstElectricShockByAutomaticShutdown;
 import pl.koneckimarcin.electricalprotocolsmanager.measurement.protectionAgainstElectricShockByAutomaticShutdown.ProtectionMeasurementEntry;
 import pl.koneckimarcin.electricalprotocolsmanager.measurement.residualCurrentProtectionParameters.ResidualCurrentProtectionParameters;
@@ -17,9 +18,10 @@ import pl.koneckimarcin.electricalprotocolsmanager.measurement.soilResistance.So
 import pl.koneckimarcin.electricalprotocolsmanager.measurement.soilResistance.SoilResistanceEntry;
 import pl.koneckimarcin.electricalprotocolsmanager.pdf.model.PdfTitlePage;
 import pl.koneckimarcin.electricalprotocolsmanager.pdf.service.*;
-import pl.koneckimarcin.electricalprotocolsmanager.structure.model.Building;
-import pl.koneckimarcin.electricalprotocolsmanager.structure.model.Floor;
-import pl.koneckimarcin.electricalprotocolsmanager.structure.model.Room;
+import pl.koneckimarcin.electricalprotocolsmanager.structure.building.Building;
+import pl.koneckimarcin.electricalprotocolsmanager.structure.floor.Floor;
+import pl.koneckimarcin.electricalprotocolsmanager.structure.room.Room;
+import pl.koneckimarcin.electricalprotocolsmanager.structure.building.BuildingDtoRepository;
 import pl.koneckimarcin.electricalprotocolsmanager.utilities.model.Electrician;
 import pl.koneckimarcin.electricalprotocolsmanager.utilities.model.Position;
 
@@ -41,10 +43,13 @@ public class PdfGenerator {
     private final PdfElectricianPageService electricianPageService;
     private final PdfStatisticPageService statisticPageService;
 
+    private final BuildingDtoRepository buildingDtoRepository;
+
     public PdfGenerator(PdfService pdfService, PdfHeadingService headingService, PdfFooterService footerService,
                         PdfMeasurementDataService measurementDataService, PdfTitlePageService titlePageService,
                         PdfLegendService legendService, PdfTheoryService theoryService,
-                        PdfElectricianPageService electricianPageService, PdfStatisticPageService statisticPageService) {
+                        PdfElectricianPageService electricianPageService, PdfStatisticPageService statisticPageService,
+                        BuildingDtoRepository buildingDtoRepository) {
         this.pdfService = pdfService;
         this.headingService = headingService;
         this.footerService = footerService;
@@ -54,6 +59,7 @@ public class PdfGenerator {
         this.theoryService = theoryService;
         this.electricianPageService = electricianPageService;
         this.statisticPageService = statisticPageService;
+        this.buildingDtoRepository = buildingDtoRepository;
     }
 
     public void createPdfDocument(String directory) throws IOException {
@@ -191,8 +197,6 @@ public class PdfGenerator {
         //count pages for theory
         int pagesCountTheory = pdfService.calculateNumberOfTheoryPages(buildingTest);
         //add pages for title, theory...
-
-
         File file = new File(directory);
 
         //add title page

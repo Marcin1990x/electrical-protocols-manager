@@ -1,4 +1,6 @@
-package pl.koneckimarcin.electricalprotocolsmanager.structure.model;
+package pl.koneckimarcin.electricalprotocolsmanager.structure.floor;
+
+import pl.koneckimarcin.electricalprotocolsmanager.structure.room.Room;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -60,18 +62,5 @@ public class Floor {
 
     public void setFloorCascadeName(String buildingName) {
         this.floorCascadeName = buildingName + "/" + this.floorName;
-    }
-
-    private void setRoomCascadeName(String floorCascadeName, Room room) {
-        room.setRoomCascadeName(floorName);
-    }
-
-    @Override
-    public String toString() {
-        return "Floor{" +
-                "rooms=" + rooms +
-                ", floorName='" + floorName + '\'' +
-                ", floorCascadeName='" + floorCascadeName + '\'' +
-                '}';
     }
 }

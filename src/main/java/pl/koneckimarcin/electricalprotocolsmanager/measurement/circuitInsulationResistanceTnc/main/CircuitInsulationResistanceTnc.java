@@ -1,7 +1,7 @@
-package pl.koneckimarcin.electricalprotocolsmanager.measurement.circuitInsulationResistanceTnc;
+package pl.koneckimarcin.electricalprotocolsmanager.measurement.circuitInsulationResistanceTnc.main;
 
-import pl.koneckimarcin.electricalprotocolsmanager.measurement.MeasurementMain;
 import pl.koneckimarcin.electricalprotocolsmanager.measurement.data.TextData;
+import pl.koneckimarcin.electricalprotocolsmanager.measurement.main.MeasurementMain;
 
 
 public class CircuitInsulationResistanceTnc extends MeasurementMain {

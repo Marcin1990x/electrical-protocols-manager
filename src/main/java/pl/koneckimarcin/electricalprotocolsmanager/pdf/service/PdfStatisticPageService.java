@@ -7,7 +7,7 @@ import pl.koneckimarcin.electricalprotocolsmanager.measurement.data.TextData;
 import pl.koneckimarcin.electricalprotocolsmanager.measurement.statistic.StatisticService;
 import pl.koneckimarcin.electricalprotocolsmanager.pdf.Alignment;
 import pl.koneckimarcin.electricalprotocolsmanager.pdf.Font;
-import pl.koneckimarcin.electricalprotocolsmanager.structure.model.Building;
+import pl.koneckimarcin.electricalprotocolsmanager.structure.building.Building;
 
 import java.io.IOException;
 import java.util.List;
