@@ -1,4 +1,4 @@
-package pl.koneckimarcin.electricalprotocolsmanager.measurement.continuityOfSmallResistancy;
+package pl.koneckimarcin.electricalprotocolsmanager.measurement.continuityOfSmallResistancy.entry;
 
 import pl.koneckimarcin.electricalprotocolsmanager.measurement.Continuity;
 import pl.koneckimarcin.electricalprotocolsmanager.measurement.entry.MeasurementEntry;
