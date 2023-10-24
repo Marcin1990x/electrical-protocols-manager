@@ -1,4 +1,4 @@
-package pl.koneckimarcin.electricalprotocolsmanager.measurement.circuitInsulationResistanceTns;
+package pl.koneckimarcin.electricalprotocolsmanager.measurement.circuitInsulationResistanceTns.entry;
 
 import pl.koneckimarcin.electricalprotocolsmanager.measurement.entry.MeasurementEntry;
 import pl.koneckimarcin.electricalprotocolsmanager.measurement.Result;
@@ -51,6 +51,7 @@ public class CircuitInsulationResistanceTnsEntry extends MeasurementEntry {
         return l3l1;
     }
 
+
     private void setResult() {
         if (this.l1l2 >= this.ra && this.l2l3 >= this.ra && this.l3l1 >= this.ra && this.l1pe >= this.ra
                 && this.l2pe >= this.ra && this.l3pe >= this.ra && this.l1n >= this.ra && this.l2n >= this.ra
@@ -60,6 +61,7 @@ public class CircuitInsulationResistanceTnsEntry extends MeasurementEntry {
             super.setResult(Result.NEGATIVE);
         }
     }
+
 
     @Override
     public List<Object> getEntryResultList() {

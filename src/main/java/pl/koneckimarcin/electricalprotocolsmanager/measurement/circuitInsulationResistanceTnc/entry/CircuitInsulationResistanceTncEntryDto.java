@@ -116,6 +116,8 @@ public class CircuitInsulationResistanceTncEntryDto extends MeasurementEntryDto 
             super.setResult(Result.NEGATIVE);
         }
     }
+
+    @JsonIgnore
     @Override
     public List<Object> getEntryResultList() {
         return List.of(super.getId(), super.getSymbol(), this.circuitName, this.l1l2, this.l2l3, this.l3l1,

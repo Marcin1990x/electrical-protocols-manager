@@ -9,7 +9,6 @@ import java.io.IOException;
 @RestController
 public class MainController {
 
-
     private PdfGenerator pdfGenerator;
 
     public MainController(PdfGenerator pdfGenerator) {
