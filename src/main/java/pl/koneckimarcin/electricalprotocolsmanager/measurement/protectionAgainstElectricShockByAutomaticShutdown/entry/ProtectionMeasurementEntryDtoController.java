@@ -24,6 +24,10 @@ public class ProtectionMeasurementEntryDtoController
     @Override
     public ProtectionMeasurementEntryDto addEntry(ProtectionMeasurementEntryDto entry) {
 
+        entry.setIa();
+        entry.setZa();
+        entry.setIk();
+        entry.setResult();
         entryRepository.save(entry);
         return entry;
     }

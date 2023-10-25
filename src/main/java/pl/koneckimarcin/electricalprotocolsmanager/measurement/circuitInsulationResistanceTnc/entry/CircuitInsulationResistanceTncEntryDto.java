@@ -29,21 +29,6 @@ public class CircuitInsulationResistanceTncEntryDto extends MeasurementEntryDto 
     public CircuitInsulationResistanceTncEntryDto() {
     }
 
-    public CircuitInsulationResistanceTncEntryDto(int id, String symbol, String circuitName,
-                                                  int l1l2, int l2l3, int l3l1, int l1pen, int l2pen, int l3pen,
-                                                  float ra) {
-        super(id, symbol);
-        this.circuitName = circuitName;
-        this.l1l2 = l1l2;
-        this.l2l3 = l2l3;
-        this.l3l1 = l3l1;
-        this.l1pen = l1pen;
-        this.l2pen = l2pen;
-        this.l3pen = l3pen;
-        this.ra = ra;
-        setResult();
-    }
-
     public void setCircuitName(String circuitName) {
         this.circuitName = circuitName;
     }
@@ -116,8 +101,6 @@ public class CircuitInsulationResistanceTncEntryDto extends MeasurementEntryDto 
             super.setResult(Result.NEGATIVE);
         }
     }
-
-    @JsonIgnore
     @Override
     public List<Object> getEntryResultList() {
         return List.of(super.getId(), super.getSymbol(), this.circuitName, this.l1l2, this.l2l3, this.l3l1,

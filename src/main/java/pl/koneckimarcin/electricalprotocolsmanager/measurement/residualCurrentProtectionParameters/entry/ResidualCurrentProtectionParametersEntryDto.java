@@ -1,6 +1,5 @@
 package pl.koneckimarcin.electricalprotocolsmanager.measurement.residualCurrentProtectionParameters.entry;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
 import jakarta.persistence.ManyToOne;
@@ -16,7 +15,7 @@ public class ResidualCurrentProtectionParametersEntryDto extends MeasurementEntr
 
     private String measuringPoint;
     private String circuitBreaker;
-    private String type;
+    private String rcdType;
     private int iNom;
     private int ia;
     private int ta;
@@ -30,22 +29,6 @@ public class ResidualCurrentProtectionParametersEntryDto extends MeasurementEntr
     public ResidualCurrentProtectionParametersEntryDto() {
     }
 
-    public ResidualCurrentProtectionParametersEntryDto(int id, String symbol, String measuringPoint,
-                                                       String circuitBreaker, String type, int iNom, int ia, int ta,
-                                                       int trcd, int ub, int ui) {
-        super(id, symbol);
-        this.measuringPoint = measuringPoint;
-        this.circuitBreaker = circuitBreaker;
-        this.type = type;
-        this.iNom = iNom;
-        this.ia = ia;
-        this.ta = ta;
-        this.trcd = trcd;
-        this.ub = ub;
-        this.ui = ui;
-        setResult(this.type);
-    }
-
     public void setMeasuringPoint(String measuringPoint) {
         this.measuringPoint = measuringPoint;
     }
@@ -54,8 +37,8 @@ public class ResidualCurrentProtectionParametersEntryDto extends MeasurementEntr
         this.circuitBreaker = circuitBreaker;
     }
 
-    public void setType(String type) {
-        this.type = type;
+    public void setRcdType(String rcdType) {
+        this.rcdType = rcdType;
     }
 
     public void setiNom(int iNom) {
@@ -90,8 +73,8 @@ public class ResidualCurrentProtectionParametersEntryDto extends MeasurementEntr
         return circuitBreaker;
     }
 
-    public String getType() {
-        return type;
+    public String getRcdType() {
+        return rcdType;
     }
 
     public int getiNom() {
@@ -118,11 +101,11 @@ public class ResidualCurrentProtectionParametersEntryDto extends MeasurementEntr
         return ui;
     }
 
-    private void setResult(String type) {
+    public void setResult() {
 
         Result result = Result.NONE;
 
-        switch (type) {
+        switch (this.rcdType) {
             case "[AC]" -> {
                 if (this.ub <= this.ui && this.trcd < this.ta && ((this.ia >= this.iNom / 2) && (this.ia <= this.iNom))) {
                     result = Result.POSITIVE;
@@ -144,10 +127,9 @@ public class ResidualCurrentProtectionParametersEntryDto extends MeasurementEntr
         setResult(result);
     }
 
-    @JsonIgnore
     @Override
     public List<Object> getEntryResultList() {
-        return List.of(super.getId(), super.getSymbol(), this.measuringPoint, this.circuitBreaker, this.type,
+        return List.of(super.getId(), super.getSymbol(), this.measuringPoint, this.circuitBreaker, this.rcdType,
                 this.iNom, this.ia, this.ta, this.trcd, this.ub, this.ui, super.getResult().getName());
     }
 }

@@ -1,12 +1,9 @@
 package pl.koneckimarcin.electricalprotocolsmanager.measurement.soilResistance.entry;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
 import jakarta.persistence.ManyToOne;
-import pl.koneckimarcin.electricalprotocolsmanager.measurement.entry.MeasurementEntry;
 import pl.koneckimarcin.electricalprotocolsmanager.measurement.entry.MeasurementEntryDto;
-import pl.koneckimarcin.electricalprotocolsmanager.measurement.soilResistance.main.SoilResistance;
 import pl.koneckimarcin.electricalprotocolsmanager.measurement.soilResistance.main.SoilResistanceDto;
 
 import java.util.List;
@@ -24,14 +21,6 @@ public class SoilResistanceEntryDto extends MeasurementEntryDto {
     private SoilResistanceDto main;
 
     public SoilResistanceEntryDto() {
-    }
-
-    public SoilResistanceEntryDto(int id, String symbol, String measuringPoint, float l, float p) {
-        super(id, symbol);
-        this.measuringPoint = measuringPoint;
-        this.l = l;
-        this.d = this.l * 0.7f;
-        this.p = p;
     }
 
     public void setMeasuringPoint(String measuringPoint) {
@@ -66,7 +55,6 @@ public class SoilResistanceEntryDto extends MeasurementEntryDto {
         return p;
     }
 
-    @JsonIgnore
     @Override
     public List<Object> getEntryResultList() {
         return List.of(super.getId(), super.getSymbol(), this.measuringPoint, this.l,

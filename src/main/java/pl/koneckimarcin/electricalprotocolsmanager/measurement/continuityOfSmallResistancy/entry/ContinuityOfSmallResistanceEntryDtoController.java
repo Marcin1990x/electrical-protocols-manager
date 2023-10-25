@@ -24,6 +24,7 @@ public class ContinuityOfSmallResistanceEntryDtoController
     @Override
     public ContinuityOfSmallResistanceEntryDto addEntry(ContinuityOfSmallResistanceEntryDto entry) {
 
+        entry.setResult();
         entryRepository.save(entry);
         return entry;
     }

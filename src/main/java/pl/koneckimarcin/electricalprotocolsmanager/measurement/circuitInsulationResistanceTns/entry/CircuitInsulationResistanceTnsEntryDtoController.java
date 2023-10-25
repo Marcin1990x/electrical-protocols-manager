@@ -24,6 +24,7 @@ public class CircuitInsulationResistanceTnsEntryDtoController
     @Override
     public CircuitInsulationResistanceTnsEntryDto addEntry(CircuitInsulationResistanceTnsEntryDto entry) {
 
+        entry.setResult();
         entryRepository.save(entry);
         return entry;
     }

@@ -1,7 +1,8 @@
 package pl.koneckimarcin.electricalprotocolsmanager.measurement.continuityOfSmallResistancy.entry;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import jakarta.persistence.*;
+import jakarta.persistence.DiscriminatorValue;
+import jakarta.persistence.Entity;
+import jakarta.persistence.ManyToOne;
 import pl.koneckimarcin.electricalprotocolsmanager.measurement.Continuity;
 import pl.koneckimarcin.electricalprotocolsmanager.measurement.Result;
 import pl.koneckimarcin.electricalprotocolsmanager.measurement.continuityOfSmallResistancy.main.ContinuityOfSmallResistanceDto;
@@ -22,16 +23,6 @@ public class ContinuityOfSmallResistanceEntryDto extends MeasurementEntryDto {
     private ContinuityOfSmallResistanceDto main;
 
     private ContinuityOfSmallResistanceEntryDto() {
-    }
-
-    public ContinuityOfSmallResistanceEntryDto(int id, String symbol, String measuringPoint,
-                                               Continuity continuity, float rs, float ra) {
-        super(id, symbol);
-        this.measuringPoint = measuringPoint;
-        this.continuity = continuity;
-        this.rs = rs;
-        this.ra = ra;
-        setResult();
     }
 
     public String getMeasuringPoint() {
@@ -66,7 +57,7 @@ public class ContinuityOfSmallResistanceEntryDto extends MeasurementEntryDto {
         this.ra = ra;
     }
 
-    private void setResult() {
+    public void setResult() {
         if (this.rs <= this.ra) {
             super.setResult(Result.POSITIVE);
         } else {
@@ -74,7 +65,6 @@ public class ContinuityOfSmallResistanceEntryDto extends MeasurementEntryDto {
         }
     }
 
-    @JsonIgnore // check why ?
     @Override
     public List<Object> getEntryResultList() {
         return List.of(super.getId(), super.getSymbol(), this.measuringPoint, this.continuity.getName(),

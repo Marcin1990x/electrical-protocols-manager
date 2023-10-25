@@ -24,6 +24,7 @@ public class ResidualCurrentProtectionParametersEntryDtoController
     @Override
     public ResidualCurrentProtectionParametersEntryDto addEntry(ResidualCurrentProtectionParametersEntryDto entry) {
 
+        entry.setResult();
         entryRepository.save(entry);
         return entry;
     }
