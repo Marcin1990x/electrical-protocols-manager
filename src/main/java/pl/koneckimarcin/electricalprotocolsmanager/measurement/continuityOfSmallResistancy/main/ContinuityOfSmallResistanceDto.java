@@ -21,8 +21,6 @@ public class ContinuityOfSmallResistanceDto extends MeasurementMainDto {
     public ContinuityOfSmallResistanceDto() {
     }
 
-    ;
-
     public List<ContinuityOfSmallResistanceEntryDto> getEntries() {
         return entries;
     }

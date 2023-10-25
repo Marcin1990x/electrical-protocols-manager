@@ -1,4 +1,4 @@
-package pl.koneckimarcin.electricalprotocolsmanager.measurement.soilResistance;
+package pl.koneckimarcin.electricalprotocolsmanager.measurement.soilResistance.entry;
 
 import pl.koneckimarcin.electricalprotocolsmanager.measurement.entry.MeasurementEntry;
 

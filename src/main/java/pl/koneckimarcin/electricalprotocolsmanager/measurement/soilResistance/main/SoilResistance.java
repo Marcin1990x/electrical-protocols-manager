@@ -1,4 +1,4 @@
-package pl.koneckimarcin.electricalprotocolsmanager.measurement.soilResistance;
+package pl.koneckimarcin.electricalprotocolsmanager.measurement.soilResistance.main;
 
 import pl.koneckimarcin.electricalprotocolsmanager.measurement.main.MeasurementMain;
 import pl.koneckimarcin.electricalprotocolsmanager.measurement.data.TextData;

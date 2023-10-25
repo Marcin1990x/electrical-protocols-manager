@@ -1,4 +1,4 @@
-package pl.koneckimarcin.electricalprotocolsmanager.measurement.protectionAgainstElectricShockByAutomaticShutdown;
+package pl.koneckimarcin.electricalprotocolsmanager.measurement.protectionAgainstElectricShockByAutomaticShutdown.entry;
 
 import pl.koneckimarcin.electricalprotocolsmanager.measurement.entry.MeasurementEntry;
 import pl.koneckimarcin.electricalprotocolsmanager.measurement.Result;

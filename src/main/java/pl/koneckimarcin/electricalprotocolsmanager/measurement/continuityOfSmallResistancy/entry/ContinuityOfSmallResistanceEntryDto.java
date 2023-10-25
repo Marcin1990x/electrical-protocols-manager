@@ -1,9 +1,7 @@
 package pl.koneckimarcin.electricalprotocolsmanager.measurement.continuityOfSmallResistancy.entry;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import jakarta.persistence.DiscriminatorValue;
-import jakarta.persistence.Entity;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.*;
 import pl.koneckimarcin.electricalprotocolsmanager.measurement.Continuity;
 import pl.koneckimarcin.electricalprotocolsmanager.measurement.Result;
 import pl.koneckimarcin.electricalprotocolsmanager.measurement.continuityOfSmallResistancy.main.ContinuityOfSmallResistanceDto;
@@ -23,7 +21,7 @@ public class ContinuityOfSmallResistanceEntryDto extends MeasurementEntryDto {
     @ManyToOne
     private ContinuityOfSmallResistanceDto main;
 
-    public ContinuityOfSmallResistanceEntryDto() {
+    private ContinuityOfSmallResistanceEntryDto() {
     }
 
     public ContinuityOfSmallResistanceEntryDto(int id, String symbol, String measuringPoint,

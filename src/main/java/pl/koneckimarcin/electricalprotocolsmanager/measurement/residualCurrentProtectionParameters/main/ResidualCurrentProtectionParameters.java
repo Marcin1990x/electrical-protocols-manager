@@ -1,4 +1,4 @@
-package pl.koneckimarcin.electricalprotocolsmanager.measurement.residualCurrentProtectionParameters;
+package pl.koneckimarcin.electricalprotocolsmanager.measurement.residualCurrentProtectionParameters.main;
 
 import pl.koneckimarcin.electricalprotocolsmanager.measurement.main.MeasurementMain;
 import pl.koneckimarcin.electricalprotocolsmanager.measurement.data.TextData;

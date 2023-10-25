@@ -8,7 +8,7 @@ import java.util.List;
 
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@DiscriminatorColumn(name = "type", discriminatorType = DiscriminatorType.INTEGER)
+@DiscriminatorColumn(name = "test", discriminatorType = DiscriminatorType.INTEGER)
 public class MeasurementEntryDto {
 
     @Id
