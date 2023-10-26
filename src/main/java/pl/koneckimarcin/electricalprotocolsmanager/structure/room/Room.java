@@ -1,19 +1,41 @@
 package pl.koneckimarcin.electricalprotocolsmanager.structure.room;
 
+import jakarta.persistence.*;
 import pl.koneckimarcin.electricalprotocolsmanager.measurement.main.MeasurementMain;
+import pl.koneckimarcin.electricalprotocolsmanager.structure.floor.Floor;
 
-import java.util.ArrayList;
 import java.util.List;
 
+@Entity
 public class Room {
 
-    private List<MeasurementMain> measurementMains = new ArrayList<>();
-
-    private String roomName;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
 
     private String roomCascadeName;
 
-    public Room(String roomName) {
+    private String roomName;
+
+    @OneToMany
+    private List<MeasurementMain> measurementMains;
+
+    @ManyToOne
+    private Floor floorDto;
+
+    public int getId() {
+        return id;
+    }
+
+    public String getRoomCascadeName() {
+        return roomCascadeName;
+    }
+
+    public String getRoomName() {
+        return roomName;
+    }
+
+    public void setRoomName(String roomName) {
         this.roomName = roomName;
     }
 
@@ -26,20 +48,7 @@ public class Room {
         measurementMain.setMeasurementMainCascadeName(this.roomCascadeName);
     }
 
-    public String getRoomName() {
-        return roomName;
-    }
-
-    public void setRoomName(String roomName) {
-        this.roomName = roomName;
-    }
-
-    public String getRoomCascadeName() {
-        return roomCascadeName;
-    }
-
     public void setRoomCascadeName(String floorCascadeName) {
-
         this.roomCascadeName = floorCascadeName + "/" + this.roomName;
     }
 }

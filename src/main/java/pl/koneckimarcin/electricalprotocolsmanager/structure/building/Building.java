@@ -1,5 +1,6 @@
 package pl.koneckimarcin.electricalprotocolsmanager.structure.building;
 
+import jakarta.persistence.*;
 import pl.koneckimarcin.electricalprotocolsmanager.measurement.main.MeasurementMain;
 import pl.koneckimarcin.electricalprotocolsmanager.structure.floor.Floor;
 import pl.koneckimarcin.electricalprotocolsmanager.structure.room.Room;
@@ -8,32 +9,38 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Entity
 public class Building {
 
-    private List<Floor> floors = new ArrayList<>();
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
 
     private String buildingName;
 
-    public Building(String buildingName) {
-        this.buildingName = buildingName;
-    }
+    @OneToMany
+    private List<Floor> floors = new ArrayList<>();
 
-    public List<Floor> getFloors() {
-        return floors;
-    }
-
-    public void addFloor(Floor floor) {
-
-        this.floors.add(floor);
-        floor.setFloorCascadeName(this.buildingName);
+    public int getId() {
+        return id;
     }
 
     public String getBuildingName() {
         return buildingName;
     }
 
+    public List<Floor> getFloors() {
+        return floors;
+    }
+
     public void setBuildingName(String buildingName) {
         this.buildingName = buildingName;
+    }
+
+    public void addFloor(Floor floor) {
+
+        this.floors.add(floor);
+        floor.setFloorCascadeName(this.buildingName);
     }
 
     public List<MeasurementMain> getMeasurementMainList() {
@@ -46,7 +53,8 @@ public class Building {
         }
         return measurementMainList;
     }
-    public List<String> extractMeasurementMainDistinctNames(){
+
+    public List<String> extractMeasurementMainDistinctNames() {
 
         return this.getMeasurementMainList()
                 .stream()

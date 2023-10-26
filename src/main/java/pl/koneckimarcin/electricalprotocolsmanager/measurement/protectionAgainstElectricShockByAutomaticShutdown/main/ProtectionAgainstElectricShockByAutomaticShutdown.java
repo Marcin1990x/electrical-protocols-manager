@@ -1,9 +1,18 @@
 package pl.koneckimarcin.electricalprotocolsmanager.measurement.protectionAgainstElectricShockByAutomaticShutdown.main;
 
-import pl.koneckimarcin.electricalprotocolsmanager.measurement.main.MeasurementMain;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.DiscriminatorValue;
+import jakarta.persistence.Entity;
+import jakarta.persistence.OneToMany;
 import pl.koneckimarcin.electricalprotocolsmanager.measurement.NetworkType;
 import pl.koneckimarcin.electricalprotocolsmanager.measurement.data.TextData;
+import pl.koneckimarcin.electricalprotocolsmanager.measurement.main.MeasurementMain;
+import pl.koneckimarcin.electricalprotocolsmanager.measurement.protectionAgainstElectricShockByAutomaticShutdown.entry.ProtectionMeasurementEntry;
 
+import java.util.List;
+
+@Entity
+@DiscriminatorValue("0")
 public class ProtectionAgainstElectricShockByAutomaticShutdown extends MeasurementMain {
 
     private final String measurementName = TextData.measurementsMainNames.get(0);
@@ -14,6 +23,12 @@ public class ProtectionAgainstElectricShockByAutomaticShutdown extends Measureme
     private float ta;
     private NetworkType networkType;
 
+    @OneToMany
+    private List<ProtectionMeasurementEntry> entries;
+
+    public ProtectionAgainstElectricShockByAutomaticShutdown() {
+    }
+
     public ProtectionAgainstElectricShockByAutomaticShutdown(int un, int ui, float ko, float ta, NetworkType networkType) {
         this.un = un;
         this.ui = ui;
@@ -22,6 +37,51 @@ public class ProtectionAgainstElectricShockByAutomaticShutdown extends Measureme
         this.networkType = networkType;
     }
 
+    public int getUn() {
+        return un;
+    }
+
+    public void setUn(int un) {
+        this.un = un;
+    }
+
+    public int getUi() {
+        return ui;
+    }
+
+    public void setUi(int ui) {
+        this.ui = ui;
+    }
+
+    public float getKo() {
+        return ko;
+    }
+
+    public void setKo(float ko) {
+        this.ko = ko;
+    }
+
+    public float getTa() {
+        return ta;
+    }
+
+    public void setTa(float ta) {
+        this.ta = ta;
+    }
+
+    public NetworkType getNetworkType() {
+        return networkType;
+    }
+
+    public void setNetworkType(NetworkType networkType) {
+        this.networkType = networkType;
+    }
+
+    public List<ProtectionMeasurementEntry> getEntries() {
+        return entries;
+    }
+
+    @JsonIgnore
     @Override
     public String getPropertiesNamesAndValues() {
         return TextData.protectionAgainstElectricShockByAutomaticShutdownLabels.get(0) + " = " + this.un + " V " +

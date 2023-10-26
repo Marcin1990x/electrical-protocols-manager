@@ -30,26 +30,26 @@ public class PdfService {
 
         List<String> distinctNames = building.extractMeasurementMainDistinctNames();
 
-        for(String name : distinctNames) {
-            if(name.equals(TextData.measurementsMainNames.get(0))) {
+        for (String name : distinctNames) {
+            if (name.equals(TextData.measurementsMainNames.get(0))) {
                 count += 2;
-            } else if(name.equals(TextData.measurementsMainNames.get(1)) ||
-                        name.equals(TextData.measurementsMainNames.get(2))
+            } else if (name.equals(TextData.measurementsMainNames.get(1)) ||
+                    name.equals(TextData.measurementsMainNames.get(2))
             ) {
-                if(!circuitFlag) count++;
+                if (!circuitFlag) count++;
                 circuitFlag = true;
-            } else if(name.equals(TextData.measurementsMainNames.get(3))) {
+            } else if (name.equals(TextData.measurementsMainNames.get(3))) {
                 count++;
-            } else if(name.equals(TextData.measurementsMainNames.get(5))) {
+            } else if (name.equals(TextData.measurementsMainNames.get(5))) {
                 count++;
-            }
-            else if(name.equals(TextData.measurementsMainNames.get(4))) {}
-            else {
+            } else if (name.equals(TextData.measurementsMainNames.get(4))) {
+            } else {
                 throw new IllegalArgumentException("No theory pages for this measuremement name.");
             }
         }
         return count;
     }
+
     public void addPages(PDDocument document, int pages) {
 
         for (int i = 0; i < pages; i++) {

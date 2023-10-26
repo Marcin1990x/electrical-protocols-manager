@@ -1,9 +1,15 @@
 package pl.koneckimarcin.electricalprotocolsmanager.measurement.soilResistance.entry;
 
+import jakarta.persistence.DiscriminatorValue;
+import jakarta.persistence.Entity;
+import jakarta.persistence.ManyToOne;
 import pl.koneckimarcin.electricalprotocolsmanager.measurement.entry.MeasurementEntry;
+import pl.koneckimarcin.electricalprotocolsmanager.measurement.soilResistance.main.SoilResistance;
 
 import java.util.List;
 
+@Entity
+@DiscriminatorValue("4")
 public class SoilResistanceEntry extends MeasurementEntry {
 
     private String measuringPoint;
@@ -11,12 +17,42 @@ public class SoilResistanceEntry extends MeasurementEntry {
     private float d;
     private float p;
 
-    public SoilResistanceEntry(int id, String symbol, String measuringPoint, float l, float p) {
-        super(id, symbol);
+    @ManyToOne
+    private SoilResistance main;
+
+    public SoilResistanceEntry() {
+    }
+
+    public void setMeasuringPoint(String measuringPoint) {
         this.measuringPoint = measuringPoint;
+    }
+
+    public void setL(float l) {
         this.l = l;
-        this.d = this.l * 0.7f;
+    }
+
+    public void setD(float d) {
+        this.d = d;
+    }
+
+    public void setP(float p) {
         this.p = p;
+    }
+
+    public String getMeasuringPoint() {
+        return measuringPoint;
+    }
+
+    public float getL() {
+        return l;
+    }
+
+    public float getD() {
+        return d;
+    }
+
+    public float getP() {
+        return p;
     }
 
     @Override

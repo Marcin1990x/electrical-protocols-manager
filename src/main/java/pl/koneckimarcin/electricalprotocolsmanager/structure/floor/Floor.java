@@ -1,51 +1,55 @@
 package pl.koneckimarcin.electricalprotocolsmanager.structure.floor;
 
+import jakarta.persistence.*;
+import pl.koneckimarcin.electricalprotocolsmanager.structure.building.Building;
 import pl.koneckimarcin.electricalprotocolsmanager.structure.room.Room;
 
-import java.util.ArrayList;
 import java.util.List;
 
+@Entity
 public class Floor {
 
-    private List<Room> rooms = new ArrayList<>();
-
-    private String floorName;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
 
     private String floorCascadeName;
 
-    public Floor(String floorName) {
+    private String floorName;
+
+    @ManyToOne
+    private Building buildingDto;
+
+    @OneToMany
+    private List<Room> rooms;
+
+    public void setFloorName(String floorName) {
         this.floorName = floorName;
     }
 
-    public List<Room> getRooms() {
-        return rooms;
-    }
-
-    public void addRoom(Room room) {
-        this.rooms.add(room);
-        room.setRoomCascadeName(this.floorCascadeName);
-    }
-
-    public String getBuildingName() {
-        return floorName;
-    }
-
-    public void setBuildingName(String buildingName) {
-        this.floorName = buildingName;
+    public int getId() {
+        return id;
     }
 
     public String getFloorName() {
         return floorName;
     }
 
-    public void setFloorName(String floorName) {
-        this.floorName = floorName;
-    }
-
     public String getFloorCascadeName() {
         return floorCascadeName;
     }
 
+    public List<Room> getRooms() {
+        return rooms;
+    }
+
+    public void setFloorCascadeName(String buildingName) {
+        this.floorCascadeName = buildingName + "/" + this.floorName;
+    }
+    public void addRoom(Room room) {
+        this.rooms.add(room);
+        room.setRoomCascadeName(this.floorCascadeName);
+    }
     public int calculateMainMeasurementsCount() {
 
         int count = 0;
@@ -58,9 +62,5 @@ public class Floor {
             }
         }
         return count;
-    }
-
-    public void setFloorCascadeName(String buildingName) {
-        this.floorCascadeName = buildingName + "/" + this.floorName;
     }
 }

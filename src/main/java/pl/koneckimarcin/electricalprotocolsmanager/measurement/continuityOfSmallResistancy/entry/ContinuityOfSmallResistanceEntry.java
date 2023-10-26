@@ -1,11 +1,17 @@
 package pl.koneckimarcin.electricalprotocolsmanager.measurement.continuityOfSmallResistancy.entry;
 
+import jakarta.persistence.DiscriminatorValue;
+import jakarta.persistence.Entity;
+import jakarta.persistence.ManyToOne;
 import pl.koneckimarcin.electricalprotocolsmanager.measurement.Continuity;
-import pl.koneckimarcin.electricalprotocolsmanager.measurement.entry.MeasurementEntry;
 import pl.koneckimarcin.electricalprotocolsmanager.measurement.Result;
+import pl.koneckimarcin.electricalprotocolsmanager.measurement.continuityOfSmallResistancy.main.ContinuityOfSmallResistance;
+import pl.koneckimarcin.electricalprotocolsmanager.measurement.entry.MeasurementEntry;
 
 import java.util.List;
 
+@Entity
+@DiscriminatorValue("5")
 public class ContinuityOfSmallResistanceEntry extends MeasurementEntry {
 
     private String measuringPoint;
@@ -13,17 +19,45 @@ public class ContinuityOfSmallResistanceEntry extends MeasurementEntry {
     private float rs;
     private float ra;
 
-    public ContinuityOfSmallResistanceEntry(int id, String symbol, String measuringPoint,
-                                            Continuity continuity, float rs, float ra) {
-        super(id, symbol);
-        this.measuringPoint = measuringPoint;
-        this.continuity = continuity;
-        this.rs = rs;
-        this.ra = ra;
-        setResult();
+    @ManyToOne
+    private ContinuityOfSmallResistance main;
+
+    private ContinuityOfSmallResistanceEntry() {
     }
 
-    private void setResult() {
+    public String getMeasuringPoint() {
+        return measuringPoint;
+    }
+
+    public void setMeasuringPoint(String measuringPoint) {
+        this.measuringPoint = measuringPoint;
+    }
+
+    public Continuity getContinuity() {
+        return continuity;
+    }
+
+    public void setContinuity(Continuity continuity) {
+        this.continuity = continuity;
+    }
+
+    public float getRs() {
+        return rs;
+    }
+
+    public void setRs(float rs) {
+        this.rs = rs;
+    }
+
+    public float getRa() {
+        return ra;
+    }
+
+    public void setRa(float ra) {
+        this.ra = ra;
+    }
+
+    public void setResult() {
         if (this.rs <= this.ra) {
             super.setResult(Result.POSITIVE);
         } else {

@@ -1,14 +1,25 @@
 package pl.koneckimarcin.electricalprotocolsmanager.measurement.soilResistance.main;
 
-import pl.koneckimarcin.electricalprotocolsmanager.measurement.main.MeasurementMain;
+import jakarta.persistence.DiscriminatorValue;
+import jakarta.persistence.Entity;
+import jakarta.persistence.OneToMany;
 import pl.koneckimarcin.electricalprotocolsmanager.measurement.data.TextData;
+import pl.koneckimarcin.electricalprotocolsmanager.measurement.main.MeasurementMain;
+import pl.koneckimarcin.electricalprotocolsmanager.measurement.soilResistance.entry.SoilResistanceEntry;
 
+import java.util.List;
 
+@Entity
+@DiscriminatorValue("4")
 public class SoilResistance extends MeasurementMain {
 
     private final String measurementName = TextData.measurementsMainNames.get(4);
 
-    public SoilResistance(){}
+    @OneToMany
+    private List<SoilResistanceEntry> entries;
+
+    public SoilResistance() {
+    }
 
     public String getMeasurementName() {
         return measurementName;

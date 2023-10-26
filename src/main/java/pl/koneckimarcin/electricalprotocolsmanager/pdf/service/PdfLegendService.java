@@ -4,8 +4,8 @@ import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPageContentStream;
 import org.springframework.stereotype.Service;
 import pl.koneckimarcin.electricalprotocolsmanager.measurement.MeasurementLegend;
-import pl.koneckimarcin.electricalprotocolsmanager.measurement.main.MeasurementMain;
 import pl.koneckimarcin.electricalprotocolsmanager.measurement.data.TextData;
+import pl.koneckimarcin.electricalprotocolsmanager.measurement.main.MeasurementMain;
 import pl.koneckimarcin.electricalprotocolsmanager.pdf.Alignment;
 import pl.koneckimarcin.electricalprotocolsmanager.pdf.Font;
 
@@ -51,7 +51,7 @@ public class PdfLegendService {
             yPos -= 15;
             yPos += -20 + textService.addMultipleLineOfTextAlignment(content, legend.getLegendText(), yPos,
                     Alignment.LEFT, 12, Font.font, 10);
-            if(yPos <= 50)
+            if (yPos <= 50)
                 throw new IOException("Text outside available area.");
         }
         content.close();

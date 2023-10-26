@@ -1,14 +1,28 @@
 package pl.koneckimarcin.electricalprotocolsmanager.measurement.entry;
 
+import jakarta.persistence.*;
 import pl.koneckimarcin.electricalprotocolsmanager.measurement.Result;
+import pl.koneckimarcin.electricalprotocolsmanager.measurement.main.MeasurementMain;
 
 import java.util.List;
 
-public abstract class MeasurementEntry {
+@Entity
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name = "test", discriminatorType = DiscriminatorType.INTEGER)
+public class MeasurementEntry {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+
     private String symbol;
     private Result result;
+
+    @ManyToOne
+    private MeasurementMain measurementMain;
+
+    public MeasurementEntry() {
+    }
 
     public MeasurementEntry(int id, String symbol) {
         this.id = id;

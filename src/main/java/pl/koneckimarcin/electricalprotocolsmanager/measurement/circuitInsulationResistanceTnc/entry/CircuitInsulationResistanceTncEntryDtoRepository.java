@@ -5,5 +5,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface CircuitInsulationResistanceTncEntryDtoRepository
-        extends JpaRepository<CircuitInsulationResistanceTncEntryDto, Integer> {
+        extends JpaRepository<CircuitInsulationResistanceTncEntry, Integer> {
 }

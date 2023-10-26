@@ -1,17 +1,31 @@
 package pl.koneckimarcin.electricalprotocolsmanager.measurement.main;
 
+import jakarta.persistence.*;
 import pl.koneckimarcin.electricalprotocolsmanager.measurement.entry.MeasurementEntry;
+import pl.koneckimarcin.electricalprotocolsmanager.structure.room.Room;
 
 import java.util.List;
 
+@Entity
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name = "test", discriminatorType = DiscriminatorType.INTEGER)
 public abstract class MeasurementMain {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
+
+    @OneToMany
     private List<MeasurementEntry> measurementEntries;
 
-    private String measurementName = "";
-    private String measurementMainCascadeName;
+    @ManyToOne
+    private Room room;
 
-    public MeasurementMain() {
+    private String measurementName = "";
+    private String measurementMainCascadeName = "";
+
+    public int getId() {
+        return id;
     }
 
     public String getPropertiesNamesAndValues() {
@@ -22,8 +36,8 @@ public abstract class MeasurementMain {
         return measurementEntries;
     }
 
-    public void setMeasurementEntries(List<MeasurementEntry> measurementEntries) {
-        this.measurementEntries = measurementEntries;
+    public void addEntry(MeasurementEntry entry) {
+        this.measurementEntries.add(entry);
     }
 
     public void setMeasurementMainCascadeName(String roomCascadeName) {
@@ -36,7 +50,12 @@ public abstract class MeasurementMain {
 
     public String getMeasurementMainCascadeNameWithoutMeasurementName() {
 
-        String result = this.measurementMainCascadeName.replace(this.measurementName, "");
-        return result.substring(0, result.length() - 1);
+        String result = "";
+
+        if(!this.measurementMainCascadeName.equals("")) {
+            result = this.measurementMainCascadeName.replace(this.measurementName, "");
+            result = result.substring(0, result.length() - 1);
+        }
+        return result;
     }
 }

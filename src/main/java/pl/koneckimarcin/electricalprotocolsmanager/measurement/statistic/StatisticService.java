@@ -1,12 +1,12 @@
 package pl.koneckimarcin.electricalprotocolsmanager.measurement.statistic;
 
 import org.springframework.stereotype.Service;
-import pl.koneckimarcin.electricalprotocolsmanager.measurement.entry.MeasurementEntry;
-import pl.koneckimarcin.electricalprotocolsmanager.measurement.main.MeasurementMain;
 import pl.koneckimarcin.electricalprotocolsmanager.measurement.Result;
 import pl.koneckimarcin.electricalprotocolsmanager.measurement.circuitInsulationResistanceTnc.entry.CircuitInsulationResistanceTncEntry;
 import pl.koneckimarcin.electricalprotocolsmanager.measurement.circuitInsulationResistanceTns.entry.CircuitInsulationResistanceTnsEntry;
 import pl.koneckimarcin.electricalprotocolsmanager.measurement.data.TextData;
+import pl.koneckimarcin.electricalprotocolsmanager.measurement.entry.MeasurementEntry;
+import pl.koneckimarcin.electricalprotocolsmanager.measurement.main.MeasurementMain;
 import pl.koneckimarcin.electricalprotocolsmanager.structure.building.Building;
 
 import java.util.ArrayList;
@@ -183,6 +183,7 @@ public class StatisticService {
 
         return statisticsTextData;
     }
+
     private List<String> getSoilResistanceStatisticTextData(List<MeasurementMain> measurements) {
 
         int measurementPoints = 0;

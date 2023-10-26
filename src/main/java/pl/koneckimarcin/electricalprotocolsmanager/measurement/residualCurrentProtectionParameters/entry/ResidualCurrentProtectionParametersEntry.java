@@ -1,57 +1,125 @@
 package pl.koneckimarcin.electricalprotocolsmanager.measurement.residualCurrentProtectionParameters.entry;
 
-import pl.koneckimarcin.electricalprotocolsmanager.measurement.entry.MeasurementEntry;
+import jakarta.persistence.DiscriminatorValue;
+import jakarta.persistence.Entity;
+import jakarta.persistence.ManyToOne;
 import pl.koneckimarcin.electricalprotocolsmanager.measurement.Result;
+import pl.koneckimarcin.electricalprotocolsmanager.measurement.entry.MeasurementEntry;
+import pl.koneckimarcin.electricalprotocolsmanager.measurement.residualCurrentProtectionParameters.main.ResidualCurrentProtectionParameters;
 
 import java.util.List;
 
+@Entity
+@DiscriminatorValue("3")
 public class ResidualCurrentProtectionParametersEntry extends MeasurementEntry {
 
     private String measuringPoint;
     private String circuitBreaker;
-    private String type;
-    private int in;
+    private String rcdType;
+    private int iNom;
     private int ia;
     private int ta;
     private int trcd;
     private int ub;
     private int ui;
 
-    public ResidualCurrentProtectionParametersEntry(int id, String symbol, String measuringPoint,
-                                                    String circuitBreaker, String type, int in, int ia, int ta,
-                                                    int trcd, int ub, int ui) {
-        super(id, symbol);
-        this.measuringPoint = measuringPoint;
-        this.circuitBreaker = circuitBreaker;
-        this.type = type;
-        this.in = in;
-        this.ia = ia;
-        this.ta = ta;
-        this.trcd = trcd;
-        this.ub = ub;
-        this.ui = ui;
-        setResult(this.type);
+    @ManyToOne
+    private ResidualCurrentProtectionParameters main;
+
+    public ResidualCurrentProtectionParametersEntry() {
     }
 
-    private void setResult(String type) {
+    public void setMeasuringPoint(String measuringPoint) {
+        this.measuringPoint = measuringPoint;
+    }
+
+    public void setCircuitBreaker(String circuitBreaker) {
+        this.circuitBreaker = circuitBreaker;
+    }
+
+    public void setRcdType(String rcdType) {
+        this.rcdType = rcdType;
+    }
+
+    public void setiNom(int iNom) {
+        this.iNom = iNom;
+    }
+
+    public void setIa(int ia) {
+        this.ia = ia;
+    }
+
+    public void setTa(int ta) {
+        this.ta = ta;
+    }
+
+    public void setTrcd(int trcd) {
+        this.trcd = trcd;
+    }
+
+    public void setUb(int ub) {
+        this.ub = ub;
+    }
+
+    public void setUi(int ui) {
+        this.ui = ui;
+    }
+
+    public String getMeasuringPoint() {
+        return measuringPoint;
+    }
+
+    public String getCircuitBreaker() {
+        return circuitBreaker;
+    }
+
+    public String getRcdType() {
+        return rcdType;
+    }
+
+    public int getiNom() {
+        return iNom;
+    }
+
+    public int getIa() {
+        return ia;
+    }
+
+    public int getTa() {
+        return ta;
+    }
+
+    public int getTrcd() {
+        return trcd;
+    }
+
+    public int getUb() {
+        return ub;
+    }
+
+    public int getUi() {
+        return ui;
+    }
+
+    public void setResult() {
 
         Result result = Result.NONE;
 
-        switch (type) {
+        switch (this.rcdType) {
             case "[AC]" -> {
-                if (this.ub <= this.ui && this.trcd < this.ta && ((this.ia >= this.in / 2) && (this.ia <= this.in))) {
+                if (this.ub <= this.ui && this.trcd < this.ta && ((this.ia >= this.iNom / 2) && (this.ia <= this.iNom))) {
                     result = Result.POSITIVE;
                 } else result = Result.NEGATIVE;
             }
             case "[A]" -> {
                 if (this.ub <= this.ui && this.trcd < this.ta &&
-                        ((this.ia >= this.in * 0.35) && (this.ia <= this.in * 1.4))) {
+                        ((this.ia >= this.iNom * 0.35) && (this.ia <= this.iNom * 1.4))) {
                     result = Result.POSITIVE;
                 } else result = Result.NEGATIVE;
             }
             case "[B]" -> {
                 if (this.ub <= this.ui && this.trcd < this.ta &&
-                        ((this.ia >= this.in / 2) && (this.ia <= this.in * 2))) {
+                        ((this.ia >= this.iNom / 2) && (this.ia <= this.iNom * 2))) {
                     result = Result.POSITIVE;
                 } else result = Result.NEGATIVE;
             }
@@ -61,7 +129,7 @@ public class ResidualCurrentProtectionParametersEntry extends MeasurementEntry {
 
     @Override
     public List<Object> getEntryResultList() {
-        return List.of(super.getId(), super.getSymbol(), this.measuringPoint, this.circuitBreaker, this.type,
-                this.in, this.ia, this.ta, this.trcd, this.ub, this.ui, super.getResult().getName());
+        return List.of(super.getId(), super.getSymbol(), this.measuringPoint, this.circuitBreaker, this.rcdType,
+                this.iNom, this.ia, this.ta, this.trcd, this.ub, this.ui, super.getResult().getName());
     }
 }

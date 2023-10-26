@@ -1,8 +1,8 @@
 package pl.koneckimarcin.electricalprotocolsmanager.structure.room;
 
 import org.springframework.web.bind.annotation.*;
-import pl.koneckimarcin.electricalprotocolsmanager.measurement.main.MeasurementMainDto;
-import pl.koneckimarcin.electricalprotocolsmanager.measurement.main.MeasurementMainDtoRepository;
+import pl.koneckimarcin.electricalprotocolsmanager.measurement.main.MeasurementMain;
+import pl.koneckimarcin.electricalprotocolsmanager.measurement.main.MeasurementMainRepository;
 
 import java.io.InvalidObjectException;
 import java.util.List;
@@ -11,28 +11,28 @@ import java.util.Optional;
 @RestController
 public class RoomController {
 
-    private RoomDtoRepository roomDtoRepository;
-    private MeasurementMainDtoRepository mainDtoRepository;
+    private RoomRepository roomDtoRepository;
+    private MeasurementMainRepository mainDtoRepository;
 
-    public RoomController(RoomDtoRepository roomDtoRepository, MeasurementMainDtoRepository mainDtoRepository) {
+    public RoomController(RoomRepository roomDtoRepository, MeasurementMainRepository mainDtoRepository) {
         this.roomDtoRepository = roomDtoRepository;
         this.mainDtoRepository = mainDtoRepository;
     }
 
     @GetMapping("/rooms")
-    public List<pl.koneckimarcin.electricalprotocolsmanager.structure.room.RoomDto> getRooms() {
+    public List<Room> getRooms() {
 
         return roomDtoRepository.findAll();
     }
 
     @GetMapping("/rooms/{id}")
-    public Optional<pl.koneckimarcin.electricalprotocolsmanager.structure.room.RoomDto> getRoom(@PathVariable int id) {
+    public Optional<Room> getRoom(@PathVariable int id) {
 
         return roomDtoRepository.findById(id);
     }
 
     @PostMapping("/rooms")
-    public pl.koneckimarcin.electricalprotocolsmanager.structure.room.RoomDto addRoom(@RequestBody pl.koneckimarcin.electricalprotocolsmanager.structure.room.RoomDto room) {
+    public Room addRoom(@RequestBody Room room) {
 
         roomDtoRepository.save(room);
 
@@ -40,20 +40,20 @@ public class RoomController {
     }
 
     @PutMapping("/rooms/{roomId}")
-    public Optional<pl.koneckimarcin.electricalprotocolsmanager.structure.room.RoomDto> addEntryToMain
+    public Optional<Room> addEntryToMain
             (@PathVariable int roomId, @RequestParam int mainId)
             throws InvalidObjectException {
 
-        Optional<RoomDto> room = addMainToRoomLogic(roomId, mainId);
+        Optional<Room> room = addMainToRoomLogic(roomId, mainId);
         roomDtoRepository.save(room.get());
 
         return room;
     }
 
-    private Optional<RoomDto> addMainToRoomLogic(int roomId, int mainId) throws InvalidObjectException {
+    private Optional<Room> addMainToRoomLogic(int roomId, int mainId) throws InvalidObjectException {
 
-        Optional<MeasurementMainDto> entry = mainDtoRepository.findById(mainId);
-        Optional<RoomDto> room = roomDtoRepository.findById(roomId);
+        Optional<MeasurementMain> entry = mainDtoRepository.findById(mainId);
+        Optional<Room> room = roomDtoRepository.findById(roomId);
 
         if (entry.isPresent() && room.isPresent())
             room.get().addMeasurementMain(entry.get());
