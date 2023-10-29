@@ -3,6 +3,8 @@ package pl.koneckimarcin.electricalprotocolsmanager.measurement.continuityOfSmal
 import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
 import jakarta.persistence.ManyToOne;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
 import pl.koneckimarcin.electricalprotocolsmanager.measurement.Continuity;
 import pl.koneckimarcin.electricalprotocolsmanager.measurement.Result;
 import pl.koneckimarcin.electricalprotocolsmanager.measurement.continuityOfSmallResistancy.main.ContinuityOfSmallResistance;
@@ -14,9 +16,13 @@ import java.util.List;
 @DiscriminatorValue("5")
 public class ContinuityOfSmallResistanceEntry extends MeasurementEntry {
 
-    private String measuringPoint;
+
+    private String measuringPoint = "";
+    @NotNull(message = "This value is mandatory.")
     private Continuity continuity;
+    @Positive(message = "This value is mandatory.")
     private float rs;
+    @Positive(message = "This value is mandatory.")
     private float ra;
 
     @ManyToOne

@@ -3,6 +3,7 @@ package pl.koneckimarcin.electricalprotocolsmanager.measurement.soilResistance.e
 import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
 import jakarta.persistence.ManyToOne;
+import jakarta.validation.constraints.Positive;
 import pl.koneckimarcin.electricalprotocolsmanager.measurement.entry.MeasurementEntry;
 import pl.koneckimarcin.electricalprotocolsmanager.measurement.soilResistance.main.SoilResistance;
 
@@ -12,9 +13,12 @@ import java.util.List;
 @DiscriminatorValue("4")
 public class SoilResistanceEntry extends MeasurementEntry {
 
-    private String measuringPoint;
+    private String measuringPoint = "";
+    @Positive(message = "This value is mandatory.")
     private float l;
+    @Positive(message = "This value is mandatory.")
     private float d;
+    @Positive(message = "This value is mandatory.")
     private float p;
 
     @ManyToOne

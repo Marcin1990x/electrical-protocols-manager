@@ -1,6 +1,7 @@
 package pl.koneckimarcin.electricalprotocolsmanager.measurement.entry;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import pl.koneckimarcin.electricalprotocolsmanager.measurement.Result;
 import pl.koneckimarcin.electricalprotocolsmanager.measurement.main.MeasurementMain;
 
@@ -15,7 +16,7 @@ public class MeasurementEntry {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    private String symbol;
+    private String symbol = "";
     private Result result;
 
     @ManyToOne
@@ -24,8 +25,7 @@ public class MeasurementEntry {
     public MeasurementEntry() {
     }
 
-    public MeasurementEntry(int id, String symbol) {
-        this.id = id;
+    public void setSymbol(String symbol) {
         this.symbol = symbol;
     }
 
@@ -34,12 +34,11 @@ public class MeasurementEntry {
     }
 
     public String getSymbol() {
-        return symbol;
+        return this.symbol;
     }
 
     public Result getResult() {
-        if (result != null) return result;
-        else return Result.NONE;
+        return this.result;
     }
 
     public void setResult(Result result) {

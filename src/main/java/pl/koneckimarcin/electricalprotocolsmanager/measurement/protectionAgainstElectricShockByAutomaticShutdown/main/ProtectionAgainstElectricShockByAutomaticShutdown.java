@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
 import jakarta.persistence.OneToMany;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
 import pl.koneckimarcin.electricalprotocolsmanager.measurement.NetworkType;
 import pl.koneckimarcin.electricalprotocolsmanager.measurement.data.TextData;
 import pl.koneckimarcin.electricalprotocolsmanager.measurement.main.MeasurementMain;
@@ -17,10 +19,15 @@ public class ProtectionAgainstElectricShockByAutomaticShutdown extends Measureme
 
     private final String measurementName = TextData.measurementsMainNames.get(0);
 
+    @Positive(message = "This value is mandatory.")
     private int un;
+    @Positive(message = "This value is mandatory.")
     private int ui;
+    @Positive(message = "This value is mandatory.")
     private float ko;
+    @Positive(message = "This value is mandatory.")
     private float ta;
+    @NotNull(message = "This value is mandatory.")
     private NetworkType networkType;
 
     @OneToMany

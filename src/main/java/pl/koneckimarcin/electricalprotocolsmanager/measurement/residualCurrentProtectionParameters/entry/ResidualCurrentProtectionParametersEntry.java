@@ -3,6 +3,8 @@ package pl.koneckimarcin.electricalprotocolsmanager.measurement.residualCurrentP
 import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
 import jakarta.persistence.ManyToOne;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Positive;
 import pl.koneckimarcin.electricalprotocolsmanager.measurement.Result;
 import pl.koneckimarcin.electricalprotocolsmanager.measurement.entry.MeasurementEntry;
 import pl.koneckimarcin.electricalprotocolsmanager.measurement.residualCurrentProtectionParameters.main.ResidualCurrentProtectionParameters;
@@ -13,14 +15,22 @@ import java.util.List;
 @DiscriminatorValue("3")
 public class ResidualCurrentProtectionParametersEntry extends MeasurementEntry {
 
-    private String measuringPoint;
+    private String measuringPoint = "";
+    @NotBlank(message = "This value is mandatory.")
     private String circuitBreaker;
+    @NotBlank(message = "This value is mandatory.")
     private String rcdType;
+    @Positive(message = "This value is mandatory.")
     private int iNom;
+    @Positive(message = "This value is mandatory.")
     private int ia;
+    @Positive(message = "This value is mandatory.")
     private int ta;
+    @Positive(message = "This value is mandatory.")
     private int trcd;
+    @Positive(message = "This value is mandatory.")
     private int ub;
+    @Positive(message = "This value is mandatory.")
     private int ui;
 
     @ManyToOne

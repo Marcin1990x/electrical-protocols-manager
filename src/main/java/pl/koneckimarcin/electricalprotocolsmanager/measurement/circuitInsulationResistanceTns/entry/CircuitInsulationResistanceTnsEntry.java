@@ -3,6 +3,7 @@ package pl.koneckimarcin.electricalprotocolsmanager.measurement.circuitInsulatio
 import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
 import jakarta.persistence.ManyToOne;
+import jakarta.validation.constraints.Positive;
 import pl.koneckimarcin.electricalprotocolsmanager.measurement.Result;
 import pl.koneckimarcin.electricalprotocolsmanager.measurement.circuitInsulationResistanceTns.main.CircuitInsulationResistanceTns;
 import pl.koneckimarcin.electricalprotocolsmanager.measurement.entry.MeasurementEntry;
@@ -13,17 +14,28 @@ import java.util.List;
 @DiscriminatorValue("1")
 public class CircuitInsulationResistanceTnsEntry extends MeasurementEntry {
 
-    private String circuitName;
+    private String circuitName = "";
+    @Positive(message = "This value is mandatory.")
     private int l1l2;
+    @Positive(message = "This value is mandatory.")
     private int l2l3;
+    @Positive(message = "This value is mandatory.")
     private int l3l1;
+    @Positive(message = "This value is mandatory.")
     private int l1pe;
+    @Positive(message = "This value is mandatory.")
     private int l2pe;
+    @Positive(message = "This value is mandatory.")
     private int l3pe;
+    @Positive(message = "This value is mandatory.")
     private int l1n;
+    @Positive(message = "This value is mandatory.")
     private int l2n;
+    @Positive(message = "This value is mandatory.")
     private int l3n;
+    @Positive(message = "This value is mandatory.")
     private int npe;
+    @Positive(message = "This value is mandatory.")
     private float ra;
 
     @ManyToOne

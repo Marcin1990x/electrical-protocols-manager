@@ -3,6 +3,7 @@ package pl.koneckimarcin.electricalprotocolsmanager.measurement.circuitInsulatio
 import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
 import jakarta.persistence.OneToMany;
+import jakarta.validation.constraints.Positive;
 import pl.koneckimarcin.electricalprotocolsmanager.measurement.circuitInsulationResistanceTns.entry.CircuitInsulationResistanceTnsEntry;
 import pl.koneckimarcin.electricalprotocolsmanager.measurement.data.TextData;
 import pl.koneckimarcin.electricalprotocolsmanager.measurement.main.MeasurementMain;
@@ -20,6 +21,7 @@ public class CircuitInsulationResistanceTns extends MeasurementMain {
     @OneToMany
     private List<CircuitInsulationResistanceTnsEntry> entries;
 
+    @Positive(message = "This value is mandatory.")
     public int getUiso() {
         return uiso;
     }

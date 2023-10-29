@@ -3,6 +3,7 @@ package pl.koneckimarcin.electricalprotocolsmanager.measurement.protectionAgains
 import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
 import jakarta.persistence.ManyToOne;
+import jakarta.validation.constraints.*;
 import pl.koneckimarcin.electricalprotocolsmanager.measurement.Result;
 import pl.koneckimarcin.electricalprotocolsmanager.measurement.entry.MeasurementEntry;
 import pl.koneckimarcin.electricalprotocolsmanager.measurement.protectionAgainstElectricShockByAutomaticShutdown.main.ProtectionAgainstElectricShockByAutomaticShutdown;
@@ -13,12 +14,17 @@ import java.util.List;
 @DiscriminatorValue("0")
 public class ProtectionMeasurementEntry extends MeasurementEntry {
 
-    private String measuringPoint;
+
+    private String measuringPoint = "";
+    @NotBlank(message = "This value is mandatory.")
     private String cutout;
+    @Positive(message = "This value is mandatory.")
     private int uo;
-    private char type;
+    private char type = 'B'; // add custom validation
+    @Positive(message = "This value is mandatory.")
     private float iNom;
     private float ia;
+    @Positive(message = "This value is mandatory.")
     private float zs;
     private float za;
     private float ik;
