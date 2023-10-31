@@ -18,7 +18,7 @@ public class Building {
 
     private String buildingName;
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.REMOVE)
     private List<Floor> floors = new ArrayList<>();
 
     public int getId() {
@@ -41,6 +41,9 @@ public class Building {
 
         this.floors.add(floor);
         floor.setFloorCascadeName(this.buildingName);
+    }
+    public void removeFloor(Floor floor) {
+        this.floors.remove(floor);
     }
 
     public List<MeasurementMain> getMeasurementMainList() {

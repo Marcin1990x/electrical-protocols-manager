@@ -30,6 +30,12 @@ public class BuildingController {
         return buildingDtoRepository.findById(id);
     }
 
+    @DeleteMapping("/buildings/{id}")
+    public void deleteById(@PathVariable int id) {
+
+        buildingDtoRepository.deleteById(id);
+    }
+
     @PostMapping("/buildings")
     public Building addBuilding(@RequestBody Building building) {
 

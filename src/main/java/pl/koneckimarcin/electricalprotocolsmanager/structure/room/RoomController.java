@@ -38,6 +38,11 @@ public class RoomController {
 
         return room;
     }
+    @DeleteMapping("/rooms/{id}")
+    public void deleteById(@PathVariable int id) {
+
+        roomDtoRepository.deleteById(id);
+    }
 
     @PutMapping("/rooms/{roomId}")
     public Optional<Room> addEntryToMain

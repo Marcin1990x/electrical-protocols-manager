@@ -18,9 +18,9 @@ public class Floor {
     private String floorName;
 
     @ManyToOne
-    private Building buildingDto;
+    private Building building;
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.REMOVE)
     private List<Room> rooms;
 
     public void setFloorName(String floorName) {
