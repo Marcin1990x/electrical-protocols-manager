@@ -50,6 +50,9 @@ public class Floor {
         this.rooms.add(room);
         room.setRoomCascadeName(this.floorCascadeName);
     }
+    public void removeRoom(Room room) {
+        this.rooms.remove(room);
+    }
     public int calculateMainMeasurementsCount() {
 
         int count = 0;

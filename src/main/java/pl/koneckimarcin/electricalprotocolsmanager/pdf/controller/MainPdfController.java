@@ -9,14 +9,14 @@ import pl.koneckimarcin.electricalprotocolsmanager.structure.building.BuildingRe
 import java.io.IOException;
 
 @RestController
-public class MainController {
+public class MainPdfController {
 
     private PdfGenerator pdfGenerator;
     private BuildingRepository buildingDtoRepository;
 
     private Building building;
 
-    public MainController(PdfGenerator pdfGenerator, BuildingRepository buildingDtoRepository) {
+    public MainPdfController(PdfGenerator pdfGenerator, BuildingRepository buildingDtoRepository) {
         this.pdfGenerator = pdfGenerator;
         this.buildingDtoRepository = buildingDtoRepository;
     }

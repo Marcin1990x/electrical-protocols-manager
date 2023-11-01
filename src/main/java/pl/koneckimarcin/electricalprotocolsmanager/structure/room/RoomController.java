@@ -3,6 +3,10 @@ package pl.koneckimarcin.electricalprotocolsmanager.structure.room;
 import org.springframework.web.bind.annotation.*;
 import pl.koneckimarcin.electricalprotocolsmanager.measurement.main.MeasurementMain;
 import pl.koneckimarcin.electricalprotocolsmanager.measurement.main.MeasurementMainRepository;
+import pl.koneckimarcin.electricalprotocolsmanager.structure.building.Building;
+import pl.koneckimarcin.electricalprotocolsmanager.structure.building.BuildingRepository;
+import pl.koneckimarcin.electricalprotocolsmanager.structure.floor.Floor;
+import pl.koneckimarcin.electricalprotocolsmanager.structure.floor.FloorRepository;
 
 import java.io.InvalidObjectException;
 import java.util.List;
@@ -11,37 +15,42 @@ import java.util.Optional;
 @RestController
 public class RoomController {
 
-    private RoomRepository roomDtoRepository;
-    private MeasurementMainRepository mainDtoRepository;
+    private RoomRepository roomRepository;
+    private MeasurementMainRepository mainRepository;
+    private FloorRepository floorRepository;
 
-    public RoomController(RoomRepository roomDtoRepository, MeasurementMainRepository mainDtoRepository) {
-        this.roomDtoRepository = roomDtoRepository;
-        this.mainDtoRepository = mainDtoRepository;
+    public RoomController(RoomRepository roomRepository, MeasurementMainRepository mainRepository, FloorRepository floorRepository) {
+        this.roomRepository = roomRepository;
+        this.mainRepository = mainRepository;
+        this.floorRepository = floorRepository;
     }
 
     @GetMapping("/rooms")
     public List<Room> getRooms() {
 
-        return roomDtoRepository.findAll();
+        return roomRepository.findAll();
     }
 
     @GetMapping("/rooms/{id}")
     public Optional<Room> getRoom(@PathVariable int id) {
 
-        return roomDtoRepository.findById(id);
+        return roomRepository.findById(id);
     }
 
     @PostMapping("/rooms")
     public Room addRoom(@RequestBody Room room) {
 
-        roomDtoRepository.save(room);
+        roomRepository.save(room);
 
         return room;
     }
-    @DeleteMapping("/rooms/{id}")
-    public void deleteById(@PathVariable int id) {
+    @DeleteMapping("/rooms/{id}/{floorId}")
+    public void deleteById(@PathVariable int id, @PathVariable int floorId) {
 
-        roomDtoRepository.deleteById(id);
+        Optional<Floor> floor = floorRepository.findById(floorId);
+        Optional<Room> room = roomRepository.findById(id);
+        floor.get().removeRoom(room.get());
+        roomRepository.deleteById(id);
     }
 
     @PutMapping("/rooms/{roomId}")
@@ -50,15 +59,15 @@ public class RoomController {
             throws InvalidObjectException {
 
         Optional<Room> room = addMainToRoomLogic(roomId, mainId);
-        roomDtoRepository.save(room.get());
+        roomRepository.save(room.get());
 
         return room;
     }
 
     private Optional<Room> addMainToRoomLogic(int roomId, int mainId) throws InvalidObjectException {
 
-        Optional<MeasurementMain> entry = mainDtoRepository.findById(mainId);
-        Optional<Room> room = roomDtoRepository.findById(roomId);
+        Optional<MeasurementMain> entry = mainRepository.findById(mainId);
+        Optional<Room> room = roomRepository.findById(roomId);
 
         if (entry.isPresent() && room.isPresent())
             room.get().addMeasurementMain(entry.get());
