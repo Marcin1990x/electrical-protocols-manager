@@ -4,7 +4,7 @@ import pl.koneckimarcin.electricalprotocolsmanager.measurement.TypeOfInstallatio
 import pl.koneckimarcin.electricalprotocolsmanager.measurement.TypeOfMeasurement;
 import pl.koneckimarcin.electricalprotocolsmanager.measurement.TypeOfWeather;
 import pl.koneckimarcin.electricalprotocolsmanager.measurement.data.TextData;
-import pl.koneckimarcin.electricalprotocolsmanager.utilities.model.Electrician;
+import pl.koneckimarcin.electricalprotocolsmanager.utilities.electrician.Electrician;
 
 import java.time.LocalDate;
 import java.util.ArrayList;

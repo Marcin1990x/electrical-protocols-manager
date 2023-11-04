@@ -9,8 +9,7 @@ import pl.koneckimarcin.electricalprotocolsmanager.pdf.model.PdfTitlePage;
 import pl.koneckimarcin.electricalprotocolsmanager.pdf.service.*;
 import pl.koneckimarcin.electricalprotocolsmanager.structure.building.Building;
 import pl.koneckimarcin.electricalprotocolsmanager.structure.building.BuildingRepository;
-import pl.koneckimarcin.electricalprotocolsmanager.utilities.model.Electrician;
-import pl.koneckimarcin.electricalprotocolsmanager.utilities.model.Position;
+import pl.koneckimarcin.electricalprotocolsmanager.utilities.electrician.Electrician;
 
 import java.io.File;
 import java.io.IOException;
@@ -51,20 +50,20 @@ public class PdfGenerator {
 
     public void createPdfDocument(String directory, Building building) throws IOException {
 
-        Electrician electrician = new Electrician(
-                "Elektryk", "Pierwszy",
-                "Przykladowy adres 1",
-                List.of("E/244/10/20", "E/244/08/10"),
-                Position.CHECKER);
-        Electrician electrician2 = new Electrician(
-                "Elektryk", "Drugi",
-                "Przykladowy adres 100",
-                List.of("E/244/10/22", "E/244/90/10"),
-                Position.MEASURER);
+//        ElectricianDto electrician = new ElectricianDto(
+//                "Elektryk", "Pierwszy",
+//                "Przykladowy adres 1",
+//                List.of("E/244/10/20", "E/244/08/10"),
+//                Position.CHECKER);
+//        ElectricianDto electrician2 = new ElectricianDto(
+//                "Elektryk", "Drugi",
+//                "Przykladowy adres 100",
+//                List.of("E/244/10/22", "E/244/90/10"),
+//                Position.MEASURER);
 
 
         PdfTitlePage titlePageData = new PdfTitlePage(
-                List.of(electrician, electrician2),
+                List.of(new Electrician()),
                 "RAP-0005-2023",
                 "Protokol z pomiarow ochronnych",
                 "Klient kliencki",
@@ -99,7 +98,7 @@ public class PdfGenerator {
         theoryService.addTheory(doc, doc.getNumberOfPages(), pagesCountTheory, building);
         //add electricians page
         pdfService.addPages(doc, 1);
-        electricianPageService.addData(doc, List.of(electrician, electrician2), doc.getNumberOfPages() - 1);
+        electricianPageService.addData(doc, List.of(new Electrician()), doc.getNumberOfPages() - 1);
         //add statistic page
         pdfService.addPages(doc, 1);
         statisticPageService.addStatisticDate(doc, building, doc.getNumberOfPages() - 1);

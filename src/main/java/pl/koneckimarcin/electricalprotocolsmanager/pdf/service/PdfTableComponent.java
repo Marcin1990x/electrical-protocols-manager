@@ -9,7 +9,7 @@ import pl.koneckimarcin.electricalprotocolsmanager.pdf.Alignment;
 import pl.koneckimarcin.electricalprotocolsmanager.pdf.Font;
 import pl.koneckimarcin.electricalprotocolsmanager.pdf.model.PdfTitlePage;
 import pl.koneckimarcin.electricalprotocolsmanager.pdf.model.Table;
-import pl.koneckimarcin.electricalprotocolsmanager.utilities.model.Electrician;
+import pl.koneckimarcin.electricalprotocolsmanager.utilities.electrician.Electrician;
 
 import java.awt.*;
 import java.io.IOException;

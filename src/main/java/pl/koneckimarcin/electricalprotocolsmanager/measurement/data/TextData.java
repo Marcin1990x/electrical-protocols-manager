@@ -21,7 +21,7 @@ public class TextData {
             List.of("Uiso");
 
     public static List<Object> continuityOfSmallResistanceHeaders =
-            List.of("Lp.", "Symbol", "Badany punkt", "Ciaglosc", "Rs[Om]", "Ra[om]", "Ocena");
+            List.of("Lp.", "Symbol", "Badany punkt", "Ciaglosc", "Rs[om]", "Ra[om]", "Ocena");
 
     public static List<Object> soilResistanceHeaders =
             List.of("Lp.", "Symbol", "Badany punkt", "L[m]", "d[m]", "p[OMm]");

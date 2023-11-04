@@ -3,7 +3,7 @@ package pl.koneckimarcin.electricalprotocolsmanager.pdf.service;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPageContentStream;
 import org.springframework.stereotype.Service;
-import pl.koneckimarcin.electricalprotocolsmanager.utilities.model.Electrician;
+import pl.koneckimarcin.electricalprotocolsmanager.utilities.electrician.Electrician;
 
 import java.io.IOException;
 import java.util.List;
