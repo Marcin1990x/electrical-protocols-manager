@@ -23,17 +23,6 @@ public class ElectricianController {
         return repository.findAll();
     }
 
-    @GetMapping("/loadFromFile")
-    public void loadElectriciansFromFile() throws IOException {
-
-        List<Electrician> electricianList = electricianList = service.loadElectriciansFromFile();
-
-        for (Electrician electrician : electricianList) {
-            addElectricianFromFile(electrician);
-        }
-
-    }
-
     public void addElectricianFromFile(Electrician electrician) throws IOException {
 
         Electrician createdElectrician = null;
@@ -43,8 +32,6 @@ public class ElectricianController {
             repository.save(createdElectrician);
         }
     }
-
-
     @PostMapping()
     public Electrician addElectrician(@RequestBody Electrician electrician) throws IOException {
 
@@ -59,5 +46,22 @@ public class ElectricianController {
             service.saveElectriciansToFile();
         }
         return createdElectrician;
+    }
+
+    @DeleteMapping("/{id}")
+    public void deleteElectricianById(@PathVariable int id) throws IOException {
+
+        repository.deleteById(id);
+        service.saveElectriciansToFile();
+    }
+
+    @GetMapping("/loadFromFile")
+    public void loadElectriciansFromFile() throws IOException {
+
+        List<Electrician> electricianList = electricianList = service.loadElectriciansFromFile();
+
+        for (Electrician electrician : electricianList) {
+            addElectricianFromFile(electrician);
+        }
     }
 }

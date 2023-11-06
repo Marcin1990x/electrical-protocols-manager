@@ -17,7 +17,6 @@ public class Electrician {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @JsonIgnore
     private int id;
     @NotBlank(message = "This value is mandatory.")
     private String firstName;
@@ -32,6 +31,10 @@ public class Electrician {
     private List<String> signature = new ArrayList<>();
 
     public Electrician() {
+    }
+
+    public int getId() {
+        return id;
     }
 
     public String getFirstName() {
