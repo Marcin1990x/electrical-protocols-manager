@@ -1,5 +1,6 @@
 package pl.koneckimarcin.electricalprotocolsmanager.utilities.electrician;
 
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.stereotype.Service;
 
@@ -24,5 +25,15 @@ public class ElectricianService {
 
         File file = new File(("electricians.json"));
         mapper.writeValue(file, electricians);
+    }
+
+    public List<Electrician> loadElectriciansFromFile() throws IOException {
+
+        ObjectMapper mapper = new ObjectMapper();
+
+        List<Electrician> electricianList = mapper
+                .readValue(new File("electricians.json"), new TypeReference<List<Electrician>>() {});
+
+        return electricianList;
     }
 }

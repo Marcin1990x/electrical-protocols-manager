@@ -1,12 +1,8 @@
 package pl.koneckimarcin.electricalprotocolsmanager.utilities.electrician;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.web.bind.annotation.*;
 
-import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 @RestController
@@ -27,27 +23,41 @@ public class ElectricianController {
         return repository.findAll();
     }
 
-    @GetMapping("/test")
-    public void test() throws IOException {
+    @GetMapping("/loadFromFile")
+    public void loadElectriciansFromFile() throws IOException {
 
-        ObjectMapper mapper = new ObjectMapper();
+        List<Electrician> electricianList = electricianList = service.loadElectriciansFromFile();
 
-        //List<Electrician> testowe = new ArrayList<>(mapper.readValue(new File(("electricians.json")), Electrician.class));
+        for (Electrician electrician : electricianList) {
+            addElectricianFromFile(electrician);
+        }
 
-        //System.out.println(testowe);
+    }
+
+    public void addElectricianFromFile(Electrician electrician) throws IOException {
+
+        Electrician createdElectrician = null;
+
+        if (repository.findByLastName(electrician.getLastName()).size() == 0) {
+            createdElectrician = electrician;
+            repository.save(createdElectrician);
+        }
     }
 
 
     @PostMapping()
     public Electrician addElectrician(@RequestBody Electrician electrician) throws IOException {
 
-        Electrician createdElectrician = electrician;
-        createdElectrician.addSignature();
-        System.out.println(createdElectrician.getSignature());
-        repository.save(createdElectrician);
+        Electrician createdElectrician = null;
 
-        service.saveElectriciansToFile();
+        if (repository.findByLastName(electrician.getLastName()).size() == 0) {
 
+            createdElectrician = electrician;
+            createdElectrician.addSignature();
+            repository.save(createdElectrician);
+
+            service.saveElectriciansToFile();
+        }
         return createdElectrician;
     }
 }

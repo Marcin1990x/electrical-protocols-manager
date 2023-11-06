@@ -1,5 +1,6 @@
 package pl.koneckimarcin.electricalprotocolsmanager.utilities.electrician;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -16,6 +17,7 @@ public class Electrician {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @JsonIgnore
     private int id;
     @NotBlank(message = "This value is mandatory.")
     private String firstName;
@@ -82,13 +84,15 @@ public class Electrician {
         signature.add(TextData.electriciansPageText.get(0));
         signature.add(TextData.electriciansPageText.get(1));
         String permissions = "";
-        for(String permission : this.permissionList) {
+        for (String permission : this.permissionList) {
             permissions = permissions + permission + " ";
         }
         signature.add(permissions);
 
         return signature;
     }
+
+    @JsonIgnore
     public List<List<String>> getElectricianDataTextList() {
 
         return List.of(List.of(this.firstName),
@@ -97,5 +101,17 @@ public class Electrician {
                 this.permissionList,
                 List.of(this.position.getName()),
                 this.signature);
+    }
+
+    @Override
+    public String toString() {
+        return "Electrician{" +
+                "id=" + id +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", electricianAddress='" + electricianAddress + '\'' +
+                ", permissionList=" + permissionList +
+                ", position=" + position +
+                '}';
     }
 }
