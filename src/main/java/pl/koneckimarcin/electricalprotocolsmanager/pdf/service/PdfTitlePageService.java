@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 import pl.koneckimarcin.electricalprotocolsmanager.measurement.data.TextData;
 import pl.koneckimarcin.electricalprotocolsmanager.pdf.Alignment;
 import pl.koneckimarcin.electricalprotocolsmanager.pdf.Font;
-import pl.koneckimarcin.electricalprotocolsmanager.pdf.model.PdfTitlePage;
+import pl.koneckimarcin.electricalprotocolsmanager.pdf.titlePage.PdfTitlePage;
 
 import java.io.IOException;
 

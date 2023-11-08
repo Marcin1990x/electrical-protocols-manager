@@ -2,10 +2,6 @@ package pl.koneckimarcin.electricalprotocolsmanager.pdf;
 
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.springframework.stereotype.Service;
-import pl.koneckimarcin.electricalprotocolsmanager.measurement.TypeOfInstallation;
-import pl.koneckimarcin.electricalprotocolsmanager.measurement.TypeOfMeasurement;
-import pl.koneckimarcin.electricalprotocolsmanager.measurement.TypeOfWeather;
-import pl.koneckimarcin.electricalprotocolsmanager.pdf.model.PdfTitlePage;
 import pl.koneckimarcin.electricalprotocolsmanager.pdf.service.*;
 import pl.koneckimarcin.electricalprotocolsmanager.structure.building.Building;
 import pl.koneckimarcin.electricalprotocolsmanager.structure.building.BuildingRepository;
@@ -13,7 +9,6 @@ import pl.koneckimarcin.electricalprotocolsmanager.utilities.electrician.Electri
 
 import java.io.File;
 import java.io.IOException;
-import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -62,20 +57,6 @@ public class PdfGenerator {
 //                Position.MEASURER);
 
 
-        PdfTitlePage titlePageData = new PdfTitlePage(
-                List.of(new Electrician()),
-                "RAP-0005-2023",
-                "Protokol z pomiarow ochronnych",
-                "Klient kliencki",
-                "Domek nad jeziorem",
-                TypeOfMeasurement.PERIODIC,
-                TypeOfWeather.CLOUDY,
-                LocalDate.now(),
-                TypeOfInstallation.EXISTING,
-                "1. Instalacja nadaje sie do uzytku",
-                "1. W dwoch gniazdach brak napiecia"
-        );
-
         PDDocument doc = new PDDocument();
         //count pages for rooms measurements
         int pagesCountMeasurements = pdfService.calculateNumberOfMeasurementsPages(building);
@@ -86,7 +67,7 @@ public class PdfGenerator {
 
         //add title page
         pdfService.addPages(doc, 1);
-        titlePageService.addTitlePage(doc, titlePageData);
+        //titlePageService.addTitlePage(doc, titlePageData);
         //add measurements
         pdfService.addPages(doc, pagesCountMeasurements);
         measurementDataService.addMeasurementDataTable(doc, building, pagesCountMeasurements);
@@ -103,9 +84,9 @@ public class PdfGenerator {
         pdfService.addPages(doc, 1);
         statisticPageService.addStatisticDate(doc, building, doc.getNumberOfPages() - 1);
         //add headers
-        headingService.addHeading(doc, titlePageData.getHeadingTextData());
+        //headingService.addHeading(doc, titlePageData.getHeadingTextData());
         //add footers
-        footerService.addFooter(doc, titlePageData.getDocumentNumber());
+        //footerService.addFooter(doc, titlePageData.getDocumentNumber());
 
         doc.save(file);
         doc.close();

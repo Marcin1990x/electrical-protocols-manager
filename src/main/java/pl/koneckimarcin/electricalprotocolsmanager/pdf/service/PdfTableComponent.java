@@ -7,7 +7,7 @@ import pl.koneckimarcin.electricalprotocolsmanager.measurement.data.TextData;
 import pl.koneckimarcin.electricalprotocolsmanager.measurement.main.MeasurementMain;
 import pl.koneckimarcin.electricalprotocolsmanager.pdf.Alignment;
 import pl.koneckimarcin.electricalprotocolsmanager.pdf.Font;
-import pl.koneckimarcin.electricalprotocolsmanager.pdf.model.PdfTitlePage;
+import pl.koneckimarcin.electricalprotocolsmanager.pdf.titlePage.PdfTitlePage;
 import pl.koneckimarcin.electricalprotocolsmanager.pdf.model.Table;
 import pl.koneckimarcin.electricalprotocolsmanager.utilities.electrician.Electrician;
 

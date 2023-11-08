@@ -1,5 +1,9 @@
-package pl.koneckimarcin.electricalprotocolsmanager.pdf.model;
+package pl.koneckimarcin.electricalprotocolsmanager.pdf.titlePage;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import pl.koneckimarcin.electricalprotocolsmanager.measurement.TypeOfInstallation;
 import pl.koneckimarcin.electricalprotocolsmanager.measurement.TypeOfMeasurement;
 import pl.koneckimarcin.electricalprotocolsmanager.measurement.TypeOfWeather;
@@ -10,61 +14,82 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+@Entity
 public class PdfTitlePage {
 
-    private List<Electrician> electricians;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
+    @OneToMany
+    private List<Electrician> electricians = new ArrayList<>();
+    @NotBlank(message = "This value is mandatory.")
     private String documentNumber;
+    @NotBlank(message = "This value is mandatory.")
     private String title;
+    @NotBlank(message = "This value is mandatory.")
     private String customerName;
+    @NotBlank(message = "This value is mandatory.")
     private String measurementPlace;
+    @NotNull(message = "This value is mandatory.")
     private TypeOfMeasurement typeOfMeasurement;
+    @NotNull(message = "This value is mandatory.")
     private TypeOfWeather typeOfWeather;
+    @NotNull(message = "This value is mandatory.")
     private LocalDate measurementDate;
+    @NotNull(message = "This value is mandatory.")
     private LocalDate nextMeasurementDate;
+    @NotNull(message = "This value is mandatory.")
     private TypeOfInstallation typeOfInstallation;
+    @NotBlank(message = "This value is mandatory.")
     private String decisionDescription;
+    @NotBlank(message = "This value is mandatory.")
     private String comments;
 
-    public PdfTitlePage(List<Electrician> electricians, String documentNumber, String title, String customerName,
-                        String measurementPlace, TypeOfMeasurement typeOfMeasurement, TypeOfWeather typeOfWeather,
-                        LocalDate measurementDate, TypeOfInstallation typeOfInstallation, String decisionDescription,
-                        String comments) {
-        this.electricians = electricians;
-        this.documentNumber = documentNumber;
-        this.title = title;
-        this.customerName = customerName;
-        this.measurementPlace = measurementPlace;
-        this.typeOfMeasurement = typeOfMeasurement;
-        this.typeOfWeather = typeOfWeather;
-        this.measurementDate = measurementDate;
-        this.typeOfInstallation = typeOfInstallation;
-        this.decisionDescription = decisionDescription;
-        this.comments = comments;
-        setNextMeasurementDate();
+    public PdfTitlePage() {
     }
 
-    private void setNextMeasurementDate() {
-        this.nextMeasurementDate = this.measurementDate.plusYears(5);
-    }
-
-    public String getDocumentNumber() {
-        return documentNumber;
+    public int getId() {
+        return id;
     }
 
     public List<Electrician> getElectricians() {
         return electricians;
     }
 
+    public String getDocumentNumber() {
+        return documentNumber;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public String getCustomerName() {
+        return customerName;
+    }
+
     public String getMeasurementPlace() {
         return measurementPlace;
+    }
+
+    public TypeOfMeasurement getTypeOfMeasurement() {
+        return typeOfMeasurement;
+    }
+
+    public TypeOfWeather getTypeOfWeather() {
+        return typeOfWeather;
     }
 
     public LocalDate getMeasurementDate() {
         return measurementDate;
     }
 
-    public String getCustomerName() {
-        return customerName;
+    public LocalDate getNextMeasurementDate() {
+        return nextMeasurementDate;
+    }
+
+    public TypeOfInstallation getTypeOfInstallation() {
+        return typeOfInstallation;
     }
 
     public String getDecisionDescription() {
@@ -75,7 +100,62 @@ public class PdfTitlePage {
         return comments;
     }
 
-    public String getTypeOfMeasurement() {
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setDocumentNumber(String documentNumber) {
+        this.documentNumber = documentNumber;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public void setCustomerName(String customerName) {
+        this.customerName = customerName;
+    }
+
+    public void setMeasurementPlace(String measurementPlace) {
+        this.measurementPlace = measurementPlace;
+    }
+
+    public void setTypeOfMeasurement(TypeOfMeasurement typeOfMeasurement) {
+        this.typeOfMeasurement = typeOfMeasurement;
+    }
+
+    public void setTypeOfWeather(TypeOfWeather typeOfWeather) {
+        this.typeOfWeather = typeOfWeather;
+    }
+
+    public void setMeasurementDate(LocalDate measurementDate) {
+        this.measurementDate = measurementDate;
+    }
+
+    public void setNextMeasurementDate(LocalDate nextMeasurementDate) {
+        this.nextMeasurementDate = nextMeasurementDate;
+    }
+
+    public void setTypeOfInstallation(TypeOfInstallation typeOfInstallation) {
+        this.typeOfInstallation = typeOfInstallation;
+    }
+
+    public void setDecisionDescription(String decisionDescription) {
+        this.decisionDescription = decisionDescription;
+    }
+
+    public void setComments(String comments) {
+        this.comments = comments;
+    }
+
+    public void addElectrician(Electrician electrician) {
+        this.electricians.add(electrician);
+    }
+    public void removeElectrician(Electrician electrician) {
+        this.electricians.remove(electrician);
+    }
+
+    public String getTypeOfMeasurementPdf() {
 
         String result = "";
 
@@ -87,7 +167,7 @@ public class PdfTitlePage {
         return result;
     }
 
-    public String getTypeOfWeather() {
+    public String getTypeOfWeatherPdf() {
 
         String result = "";
 
@@ -98,7 +178,7 @@ public class PdfTitlePage {
         }
         return result;
     }
-    public String getTypeOfInstallation() {
+    public String getTypeOfInstallationPdf() {
 
         String result = "";
 
@@ -111,6 +191,7 @@ public class PdfTitlePage {
         return result;
     }
 
+    @JsonIgnore
     public List<String> getHeadingTextData() {
 
         StringBuilder builder = new StringBuilder();
@@ -140,13 +221,13 @@ public class PdfTitlePage {
     public List<String> getTitlePageMeasurementTextData() {
 
         List<String> measurementTextData = new ArrayList<>();
-        measurementTextData.add(TextData.titlePageText.get(2) + this.getTypeOfMeasurement() +
-                "                             " + TextData.titlePageText.get(3) + this.getTypeOfWeather());
+        measurementTextData.add(TextData.titlePageText.get(2) + this.getTypeOfMeasurementPdf() +
+                "                             " + TextData.titlePageText.get(3) + this.getTypeOfWeatherPdf());
         measurementTextData.add(TextData.titlePageText.get(4) + measurementDate.toString() +
                 "                   " +
                 TextData.titlePageText.get(5) + nextMeasurementDate.toString());
         measurementTextData.add(TextData.titlePageText.get(6));
-        measurementTextData.add(this.getTypeOfInstallation());
+        measurementTextData.add(this.getTypeOfInstallationPdf());
 
         return measurementTextData;
     }

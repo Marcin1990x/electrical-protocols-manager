@@ -1,13 +1,11 @@
 package pl.koneckimarcin.electricalprotocolsmanager.utilities.electrician;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import pl.koneckimarcin.electricalprotocolsmanager.measurement.data.TextData;
+import pl.koneckimarcin.electricalprotocolsmanager.pdf.titlePage.PdfTitlePage;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,6 +27,9 @@ public class Electrician {
     @NotNull(message = "This value is mandatory.")
     private Position position;
     private List<String> signature = new ArrayList<>();
+
+    @ManyToOne
+    private PdfTitlePage pdfTitlePage;
 
     public Electrician() {
     }
