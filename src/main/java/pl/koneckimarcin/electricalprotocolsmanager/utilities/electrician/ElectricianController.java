@@ -1,8 +1,10 @@
 package pl.koneckimarcin.electricalprotocolsmanager.utilities.electrician;
 
 import org.springframework.web.bind.annotation.*;
+import pl.koneckimarcin.electricalprotocolsmanager.pdf.titlePage.PdfTitlePageRepository;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -12,9 +14,13 @@ public class ElectricianController {
     ElectricianRepository repository;
     ElectricianService service;
 
-    public ElectricianController(ElectricianRepository repository, ElectricianService service) {
+    PdfTitlePageRepository titlePageRepository;
+
+    public ElectricianController(ElectricianRepository repository, ElectricianService service,
+                                 PdfTitlePageRepository titlePageRepository) {
         this.repository = repository;
         this.service = service;
+        this.titlePageRepository = titlePageRepository;
     }
 
     @GetMapping
@@ -22,6 +28,29 @@ public class ElectricianController {
 
         return repository.findAll();
     }
+    @GetMapping("/distinct")
+    public List<Electrician> getDistinctElectricians() {
+
+        List<Electrician> distinctElectricians = new ArrayList<>();
+
+        List<Electrician> allElectricians = getElectricians();
+        if(titlePageRepository.findAll().size() == 0) {
+            return allElectricians;
+        } else {
+            List<Electrician> addedElectricians = titlePageRepository.findAll()
+                    .stream().findFirst().get().getElectricians();
+            for(Electrician electrician : allElectricians) {
+                for(Electrician electricianAdded : addedElectricians) {
+                    if(!(electrician.getLastName().equals(electricianAdded.getLastName())
+                    && electrician.getFirstName().equals(electricianAdded.getFirstName()))){
+                        distinctElectricians.add(electrician);
+                    }
+                }
+            }
+            return distinctElectricians;
+        }
+    }
+
 
     public void addElectricianFromFile(Electrician electrician) throws IOException {
 

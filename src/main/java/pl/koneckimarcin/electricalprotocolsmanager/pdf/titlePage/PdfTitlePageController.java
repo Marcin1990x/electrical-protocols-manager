@@ -43,10 +43,14 @@ public class PdfTitlePageController {
 
         Optional<PdfTitlePage> titlePage = titlePageRepository.findById(id);
         Optional<Electrician> electricianToAdd = electricianRepository.findById(electricianId);
-        titlePage.get().addElectrician(electricianToAdd.get());
-
-        titlePageRepository.save(titlePage.get());
-
+        if(
+                titlePage.get().getElectricians().stream().noneMatch(electrician ->
+                        electrician.getFirstName().equals(electricianToAdd.get().getFirstName())
+                                && electrician.getLastName().equals(electricianToAdd.get().getLastName()))
+        ) {
+            titlePage.get().addElectrician(electricianToAdd.get());
+            titlePageRepository.save(titlePage.get());
+        }
         return titlePage.get();
     }
     @PutMapping("/remove/{id}")
