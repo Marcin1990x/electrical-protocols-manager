@@ -1,5 +1,6 @@
 package pl.koneckimarcin.electricalprotocolsmanager.structure.building;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import pl.koneckimarcin.electricalprotocolsmanager.measurement.main.MeasurementMain;
 import pl.koneckimarcin.electricalprotocolsmanager.structure.floor.Floor;
@@ -18,8 +19,8 @@ public class Building {
 
     private String buildingName;
 
-    @OneToMany(cascade = CascadeType.REMOVE)
-    private List<Floor> floors = new ArrayList<>();
+    @OneToMany(cascade = CascadeType.REMOVE, fetch = FetchType.EAGER)
+    private List<Floor> floors;
 
     public int getId() {
         return id;

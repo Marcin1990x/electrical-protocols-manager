@@ -36,12 +36,19 @@ public class BuildingController {
         buildingDtoRepository.deleteById(id);
     }
 
-    @PostMapping("/buildings")
+/*    @PostMapping("/buildings")
     public Building addBuilding(@RequestBody Building building) {
 
         buildingDtoRepository.save(building);
 
         return building;
+    }*/
+    @PostMapping("/buildings")
+    public void addBuilding(@RequestBody Building building) {
+
+        buildingDtoRepository.save(building);
+
+
     }
 
     @PutMapping("/buildings/{buildingId}")

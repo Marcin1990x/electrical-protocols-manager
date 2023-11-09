@@ -15,7 +15,7 @@ public abstract class MeasurementMain {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @OneToMany
+    @OneToMany(fetch = FetchType.EAGER)
     private List<MeasurementEntry> measurementEntries;
 
     @ManyToOne

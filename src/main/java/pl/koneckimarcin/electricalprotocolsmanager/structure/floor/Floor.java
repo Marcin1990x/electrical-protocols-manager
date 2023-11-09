@@ -20,7 +20,7 @@ public class Floor {
     @ManyToOne
     private Building building;
 
-    @OneToMany(cascade = CascadeType.REMOVE)
+    @OneToMany(cascade = CascadeType.REMOVE, fetch = FetchType.EAGER)
     private List<Room> rooms;
 
     public void setFloorName(String floorName) {

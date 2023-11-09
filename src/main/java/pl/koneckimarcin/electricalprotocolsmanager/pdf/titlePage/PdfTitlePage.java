@@ -20,7 +20,7 @@ public class PdfTitlePage {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    @OneToMany
+    @OneToMany(fetch = FetchType.EAGER)
     private List<Electrician> electricians = new ArrayList<>();
     @NotBlank(message = "This value is mandatory.")
     private String documentNumber;
@@ -40,9 +40,7 @@ public class PdfTitlePage {
     private LocalDate nextMeasurementDate;
     @NotNull(message = "This value is mandatory.")
     private TypeOfInstallation typeOfInstallation;
-    @NotBlank(message = "This value is mandatory.")
     private String decisionDescription;
-    @NotBlank(message = "This value is mandatory.")
     private String comments;
 
     public PdfTitlePage() {

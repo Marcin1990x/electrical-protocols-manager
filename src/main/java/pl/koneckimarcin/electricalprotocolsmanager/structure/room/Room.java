@@ -17,7 +17,7 @@ public class Room {
 
     private String roomName;
 
-    @OneToMany
+    @OneToMany(fetch = FetchType.EAGER)
     private List<MeasurementMain> measurementMains;
 
     @ManyToOne

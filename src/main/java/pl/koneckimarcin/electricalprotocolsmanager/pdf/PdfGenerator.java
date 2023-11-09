@@ -3,6 +3,7 @@ package pl.koneckimarcin.electricalprotocolsmanager.pdf;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.springframework.stereotype.Service;
 import pl.koneckimarcin.electricalprotocolsmanager.pdf.service.*;
+import pl.koneckimarcin.electricalprotocolsmanager.pdf.titlePage.PdfTitlePage;
 import pl.koneckimarcin.electricalprotocolsmanager.structure.building.Building;
 import pl.koneckimarcin.electricalprotocolsmanager.structure.building.BuildingRepository;
 import pl.koneckimarcin.electricalprotocolsmanager.utilities.electrician.Electrician;
@@ -43,19 +44,7 @@ public class PdfGenerator {
         this.buildingDtoRepository = buildingDtoRepository;
     }
 
-    public void createPdfDocument(String directory, Building building) throws IOException {
-
-//        ElectricianDto electrician = new ElectricianDto(
-//                "Elektryk", "Pierwszy",
-//                "Przykladowy adres 1",
-//                List.of("E/244/10/20", "E/244/08/10"),
-//                Position.CHECKER);
-//        ElectricianDto electrician2 = new ElectricianDto(
-//                "Elektryk", "Drugi",
-//                "Przykladowy adres 100",
-//                List.of("E/244/10/22", "E/244/90/10"),
-//                Position.MEASURER);
-
+    public void createPdfDocument(String directory, Building building, PdfTitlePage titlePageData) throws IOException {
 
         PDDocument doc = new PDDocument();
         //count pages for rooms measurements
@@ -67,7 +56,7 @@ public class PdfGenerator {
 
         //add title page
         pdfService.addPages(doc, 1);
-        //titlePageService.addTitlePage(doc, titlePageData);
+        titlePageService.addTitlePage(doc, titlePageData);
         //add measurements
         pdfService.addPages(doc, pagesCountMeasurements);
         measurementDataService.addMeasurementDataTable(doc, building, pagesCountMeasurements);
@@ -84,9 +73,9 @@ public class PdfGenerator {
         pdfService.addPages(doc, 1);
         statisticPageService.addStatisticDate(doc, building, doc.getNumberOfPages() - 1);
         //add headers
-        //headingService.addHeading(doc, titlePageData.getHeadingTextData());
+        headingService.addHeading(doc, titlePageData.getHeadingTextData());
         //add footers
-        //footerService.addFooter(doc, titlePageData.getDocumentNumber());
+        footerService.addFooter(doc, titlePageData.getDocumentNumber());
 
         doc.save(file);
         doc.close();
