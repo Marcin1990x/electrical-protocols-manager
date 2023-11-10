@@ -21,7 +21,7 @@ public class PdfFooterService {
 
     private final int footerFontSize = 9;
 
-    public void addFooter(PDDocument document, String documentNumber) throws IOException {
+    public void addFooter(PDDocument document, String documentNumber, Font font) throws IOException {
 
         int pagesCount = document.getNumberOfPages();
 
@@ -32,12 +32,11 @@ public class PdfFooterService {
             content = new PDPageContentStream(document, document.getPage(i),
                     PDPageContentStream.AppendMode.APPEND, false);
 
-            tableComponent.addFooterTable(content);
+            tableComponent.addFooterTable(content, font);
 
             textService.addSingleLineOfTextAlignment(content,
-                    documentNumber + "  " +  (i + 1) + "/" + pagesCount, 40, Alignment.RIGHT,
-                    Font.font, footerFontSize);
-
+                    documentNumber + " " + (i + 1) + "/" + pagesCount, 40, Alignment.RIGHT,
+                    font.getFontBold(), footerFontSize);
             content.close();
         }
     }

@@ -3,6 +3,7 @@ package pl.koneckimarcin.electricalprotocolsmanager.pdf.service;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPageContentStream;
 import org.springframework.stereotype.Service;
+import pl.koneckimarcin.electricalprotocolsmanager.pdf.Font;
 
 import java.io.IOException;
 import java.util.List;
@@ -19,7 +20,7 @@ public class PdfHeadingService {
         this.tableComponent = tableComponent;
     }
 
-    public void addHeading(PDDocument document, List<String> headingTextData) throws IOException {
+    public void addHeading(PDDocument document, List<String> headingTextData, Font font) throws IOException {
 
         int pagesCount = document.getNumberOfPages();
 
@@ -30,7 +31,7 @@ public class PdfHeadingService {
             content = new PDPageContentStream(document, document.getPage(i),
                     PDPageContentStream.AppendMode.APPEND, false);
 
-            tableComponent.addHeaderTable(content, headingTextData, headingYposition, headingFontSize);
+            tableComponent.addHeaderTable(content, headingTextData, headingYposition, headingFontSize, font);
 
             content.close();
         }

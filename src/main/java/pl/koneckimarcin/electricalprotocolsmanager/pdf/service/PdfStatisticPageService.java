@@ -24,7 +24,7 @@ public class PdfStatisticPageService {
         this.statisticService = statisticService;
     }
 
-    public void addStatisticDate(PDDocument document, Building building, int page) throws IOException {
+    public void addStatisticDate(PDDocument document, Building building, int page, Font font) throws IOException {
 
         PDPageContentStream content;
 
@@ -32,16 +32,17 @@ public class PdfStatisticPageService {
                 PDPageContentStream.AppendMode.APPEND, false);
 
         textService.addSingleLineOfTextAlignment(content, TextData.statisticPageText.get(0), yPos,
-                Alignment.CENTER, Font.font, 13);
+                Alignment.CENTER, font.getFont(), 13);
         yPos -= 40;
         List<List<String>> measurementsStatistics = statisticService.getMeasurementsStatistics(building);
         for (List statistics : measurementsStatistics) {
             textService.addSingleLineOfTextAlignment(content, statistics.get(0).toString(), yPos,
-                    Alignment.LEFT, Font.font, 12);
+                    Alignment.LEFT, font.getFont(), 12);
             yPos -= 20;
             yPos += -20 + textService.addMultipleLineOfTextAlignment(content, statistics.subList(1, statistics.size()),
-                    yPos, Alignment.LEFT, 12, Font.font, 10);
+                    yPos, Alignment.LEFT, 12, font.getFont(), 10);
         }
         content.close();
+        yPos = 720;
     }
 }

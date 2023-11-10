@@ -4,6 +4,7 @@ import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPageContentStream;
 import org.springframework.stereotype.Service;
 import pl.koneckimarcin.electricalprotocolsmanager.measurement.main.MeasurementMain;
+import pl.koneckimarcin.electricalprotocolsmanager.pdf.Font;
 import pl.koneckimarcin.electricalprotocolsmanager.structure.building.Building;
 
 import java.io.IOException;
@@ -18,7 +19,7 @@ public class PdfMeasurementDataService {
         this.tableComponent = tableComponent;
     }
 
-    public void addMeasurementDataTable(PDDocument document, Building building, int measurementPagesCount) throws IOException {
+    public void addMeasurementDataTable(PDDocument document, Building building, int measurementPagesCount, Font font) throws IOException {
 
         PDPageContentStream content;
 
@@ -29,7 +30,7 @@ public class PdfMeasurementDataService {
             content = new PDPageContentStream(document, document.getPage(i + 1),
                     PDPageContentStream.AppendMode.APPEND, false);
 
-            tableComponent.addMeasurementTable(content, measurementMainList.get(i));
+            tableComponent.addMeasurementTable(content, measurementMainList.get(i), font);
 
             content.close();
         }

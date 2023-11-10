@@ -21,7 +21,7 @@ public class PdfTitlePageService {
         this.textService = textService;
     }
 
-    public void addTitlePage(PDDocument document, PdfTitlePage titlePageData) throws IOException {
+    public void addTitlePage(PDDocument document, PdfTitlePage titlePageData, Font font) throws IOException {
 
         PDPageContentStream content;
 
@@ -29,12 +29,12 @@ public class PdfTitlePageService {
                 PDPageContentStream.AppendMode.APPEND, false);
 
         textService.addSingleLineOfTextAlignment(content, TextData.titlePageText.get(7),
-                780, Alignment.CENTER, Font.fontBold, 10);
+                780, Alignment.CENTER, font.getFontBold(), 10);
 
         textService.addMultipleLineOfTextAlignment(content, titlePageData.getElectriciansTextData(), 765,
-                Alignment.CENTER, 10, Font.font, 10); // add method for centering
+                Alignment.CENTER, 10, font.getFont(), 10); // add method for centering
 
-        tableComponent.addTitlePageTable(content, titlePageData);
+        tableComponent.addTitlePageTable(content, titlePageData, font);
 
         content.close();
     }

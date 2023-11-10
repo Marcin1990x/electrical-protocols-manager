@@ -24,7 +24,8 @@ public class PdfLegendService {
     private final int xPos = 53;
     private int yPos = 720;
 
-    public void addLegendData(PDDocument document, int legendPage, List<MeasurementMain> measurementMainList) throws IOException {
+    public void addLegendData(PDDocument document, int legendPage, List<MeasurementMain> measurementMainList, Font font)
+            throws IOException {
 
         PDPageContentStream content;
 
@@ -40,20 +41,21 @@ public class PdfLegendService {
         MeasurementLegend legend;
 
         textService.addSingleLineOfTextAlignment(content, TextData.legendPageText.get(0), yPos,
-                Alignment.LEFT, Font.fontBold, 12);
+                Alignment.LEFT, font.getFontBold(), 12);
 
         yPos -= 20;
 
         for (String measure : measurementsListForLegend) {
             legend = new MeasurementLegend(measure);
             textService.addSingleLineOfTextAlignment(content, legend.getMeasurementName(), yPos,
-                    Alignment.LEFT, Font.fontBold, 11);
+                    Alignment.LEFT, font.getFontBold(), 11);
             yPos -= 15;
             yPos += -20 + textService.addMultipleLineOfTextAlignment(content, legend.getLegendText(), yPos,
-                    Alignment.LEFT, 12, Font.font, 10);
+                    Alignment.LEFT, 12, font.getFont(), 10);
             if (yPos <= 50)
                 throw new IOException("Text outside available area.");
         }
         content.close();
+        yPos = 720;
     }
 }
