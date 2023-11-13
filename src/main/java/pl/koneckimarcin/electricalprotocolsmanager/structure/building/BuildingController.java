@@ -1,5 +1,7 @@
 package pl.koneckimarcin.electricalprotocolsmanager.structure.building;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pl.koneckimarcin.electricalprotocolsmanager.structure.floor.Floor;
 import pl.koneckimarcin.electricalprotocolsmanager.structure.floor.FloorRepository;
@@ -11,44 +13,40 @@ import java.util.Optional;
 @RestController
 public class BuildingController {
 
-    private BuildingRepository buildingDtoRepository;
+    private BuildingRepository buildingRepository;
     private FloorRepository floorDtoRepository;
 
-    public BuildingController(BuildingRepository buildingDtoRepository, FloorRepository floorDtoRepository) {
-        this.buildingDtoRepository = buildingDtoRepository;
+    public BuildingController(BuildingRepository buildingRepository, FloorRepository floorDtoRepository) {
+        this.buildingRepository = buildingRepository;
         this.floorDtoRepository = floorDtoRepository;
     }
 
     @GetMapping("/buildings")
     public List<Building> getBuildings() {
 
-        return buildingDtoRepository.findAll();
+        return buildingRepository.findAll();
     }
     @GetMapping("/buildings/{id}")
     public Optional<Building> getBuilding(@PathVariable int id) {
 
-        return buildingDtoRepository.findById(id);
+        return buildingRepository.findById(id);
     }
 
     @DeleteMapping("/buildings/{id}")
     public void deleteById(@PathVariable int id) {
 
-        buildingDtoRepository.deleteById(id);
+        buildingRepository.deleteById(id);
     }
 
-/*    @PostMapping("/buildings")
-    public Building addBuilding(@RequestBody Building building) {
-
-        buildingDtoRepository.save(building);
-
-        return building;
-    }*/
     @PostMapping("/buildings")
-    public void addBuilding(@RequestBody Building building) {
+    public ResponseEntity<String> addBuilding(@RequestBody Building building) {
 
-        buildingDtoRepository.save(building);
-
-
+        if(buildingRepository.findAll().size() == 0) {
+            buildingRepository.save(building);
+            return new ResponseEntity<>(HttpStatus.CREATED);
+        } else {
+            return new ResponseEntity<>("Error 102. You can create only one building.", HttpStatus.BAD_REQUEST);
+        }
     }
 
     @PutMapping("/buildings/{buildingId}")
@@ -56,7 +54,7 @@ public class BuildingController {
             throws InvalidObjectException {
 
         Optional<Building> building = addFloorToBuildingLogic(buildingId, floorId);
-        buildingDtoRepository.save(building.get());
+        buildingRepository.save(building.get());
 
         return building;
     }
@@ -64,7 +62,7 @@ public class BuildingController {
     private Optional<Building> addFloorToBuildingLogic(int buildingId, int floorId) throws InvalidObjectException {
 
         Optional<Floor> floor = floorDtoRepository.findById(floorId);
-        Optional<Building> building =  buildingDtoRepository.findById(buildingId);
+        Optional<Building> building =  buildingRepository.findById(buildingId);
 
         if(floor.isPresent() && building.isPresent())
             building.get().addFloor(floor.get());

@@ -3,9 +3,11 @@ package pl.koneckimarcin.electricalprotocolsmanager.utilities.electrician;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.stereotype.Service;
+import pl.koneckimarcin.electricalprotocolsmanager.pdf.titlePage.PdfTitlePage;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -35,5 +37,31 @@ public class ElectricianService {
                 .readValue(new File("electricians.json"), new TypeReference<List<Electrician>>() {});
 
         return electricianList;
+    }
+
+    public List<Electrician> retrieveDistinctElectricians(List<Electrician> allElectricians, List<PdfTitlePage> titlePageData) {
+
+        List<Electrician> distinctElectricians = new ArrayList<>();
+
+        if (titlePageData.size() == 0 ||
+                titlePageData.stream().findFirst().get().getElectricians().isEmpty()
+        ) {
+            return allElectricians;
+        } else {
+            List<Electrician> addedElectricians = titlePageData.stream().findFirst().get().getElectricians();
+
+            for (Electrician electrician : allElectricians) {
+                if(
+                        addedElectricians.stream()
+                                .filter(elec -> (
+                                        elec.getLastName().equals(electrician.getLastName()) &&
+                                                elec.getFirstName().equals(electrician.getFirstName())
+                                )).findFirst().isEmpty()
+                ){
+                    distinctElectricians.add(electrician);
+                }
+            }
+            return distinctElectricians;
+        }
     }
 }

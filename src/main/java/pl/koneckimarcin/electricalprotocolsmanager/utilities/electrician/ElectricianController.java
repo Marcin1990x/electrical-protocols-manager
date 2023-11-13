@@ -1,10 +1,12 @@
 package pl.koneckimarcin.electricalprotocolsmanager.utilities.electrician;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import pl.koneckimarcin.electricalprotocolsmanager.pdf.titlePage.PdfTitlePage;
 import pl.koneckimarcin.electricalprotocolsmanager.pdf.titlePage.PdfTitlePageRepository;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -28,27 +30,18 @@ public class ElectricianController {
 
         return repository.findAll();
     }
+
     @GetMapping("/distinct")
     public List<Electrician> getDistinctElectricians() {
 
-        List<Electrician> distinctElectricians = new ArrayList<>();
+        List<Electrician> distinctElectricians;
 
         List<Electrician> allElectricians = getElectricians();
-        if(titlePageRepository.findAll().size() == 0) {
-            return allElectricians;
-        } else {
-            List<Electrician> addedElectricians = titlePageRepository.findAll()
-                    .stream().findFirst().get().getElectricians();
-            for(Electrician electrician : allElectricians) {
-                for(Electrician electricianAdded : addedElectricians) {
-                    if(!(electrician.getLastName().equals(electricianAdded.getLastName())
-                    && electrician.getFirstName().equals(electricianAdded.getFirstName()))){
-                        distinctElectricians.add(electrician);
-                    }
-                }
-            }
-            return distinctElectricians;
-        }
+        List<PdfTitlePage> titlePageData = titlePageRepository.findAll();
+
+        distinctElectricians = service.retrieveDistinctElectricians(allElectricians, titlePageData);
+
+        return distinctElectricians;
     }
 
 
@@ -61,8 +54,9 @@ public class ElectricianController {
             repository.save(createdElectrician);
         }
     }
+
     @PostMapping()
-    public Electrician addElectrician(@RequestBody Electrician electrician) throws IOException {
+    public ResponseEntity<Object> addElectrician(@RequestBody Electrician electrician) throws IOException {
 
         Electrician createdElectrician = null;
 
@@ -73,15 +67,36 @@ public class ElectricianController {
             repository.save(createdElectrician);
 
             service.saveElectriciansToFile();
+            return new ResponseEntity<>(createdElectrician, HttpStatus.CREATED);
+        } else {
+            return new ResponseEntity<>(
+                    "Error 101. Electrician with last name '" + electrician.getLastName() + "' already exists.",
+                    HttpStatus.BAD_REQUEST);
         }
-        return createdElectrician;
     }
 
     @DeleteMapping("/{id}")
-    public void deleteElectricianById(@PathVariable int id) throws IOException {
+    public ResponseEntity<String> deleteElectricianById(@PathVariable int id) throws IOException {
 
-        repository.deleteById(id);
-        service.saveElectriciansToFile();
+        List<PdfTitlePage> titlePageData = titlePageRepository.findAll();
+
+        if (titlePageData.size() > 0) {
+            if (titlePageData.stream().findFirst()
+                    .get().getElectricians().stream()
+                    .filter(elec -> elec.getId() == id)
+                    .findFirst().isEmpty()) {
+                repository.deleteById(id);
+                service.saveElectriciansToFile();
+                return new ResponseEntity<>(HttpStatus.OK);
+            } else {
+                return new ResponseEntity<>("Error 100. Can not delete Electrician, " +
+                        "please first delete it from title page.", HttpStatus.BAD_REQUEST);
+            }
+        } else {
+            repository.deleteById(id);
+            service.saveElectriciansToFile();
+            return new ResponseEntity<>(HttpStatus.OK);
+        }
     }
 
     @GetMapping("/loadFromFile")
