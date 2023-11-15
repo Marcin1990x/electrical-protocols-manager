@@ -43,12 +43,31 @@ public class Room {
         return measurementMains;
     }
 
-    public void addMeasurementMain(MeasurementMain measurementMain) {
-        this.measurementMains.add(measurementMain);
-        measurementMain.setMeasurementMainCascadeName(this.roomCascadeName);
+    public boolean addMeasurementMain(MeasurementMain measurementMain) {
+
+        if(!checkForDuplicates(measurementMain)) {
+
+            this.measurementMains.add(measurementMain);
+            measurementMain.setMeasurementMainCascadeName(this.roomCascadeName);
+            return true;
+        }
+        return false;
     }
 
     public void setRoomCascadeName(String floorCascadeName) {
         this.roomCascadeName = floorCascadeName + "/" + this.roomName;
+    }
+
+    private boolean checkForDuplicates(MeasurementMain main) {
+
+        boolean isDuplicate = false;
+
+        for(MeasurementMain measurementMain : this.measurementMains){
+            if(measurementMain.getMeasurementName().equals(main.getMeasurementName())){
+                isDuplicate = true;
+                break;
+            }
+        }
+        return isDuplicate;
     }
 }

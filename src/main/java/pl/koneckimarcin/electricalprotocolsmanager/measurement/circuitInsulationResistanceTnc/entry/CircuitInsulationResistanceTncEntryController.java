@@ -1,6 +1,5 @@
 package pl.koneckimarcin.electricalprotocolsmanager.measurement.circuitInsulationResistanceTnc.entry;
 
-import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import pl.koneckimarcin.electricalprotocolsmanager.measurement.entry.MeasurementEntryController;
@@ -12,9 +11,9 @@ import java.util.List;
 public class CircuitInsulationResistanceTncEntryController
         implements MeasurementEntryController<CircuitInsulationResistanceTncEntry> {
 
-    private CircuitInsulationResistanceTncEntryDtoRepository entryRepository;
+    private CircuitInsulationResistanceTncEntryRepository entryRepository;
 
-    public CircuitInsulationResistanceTncEntryController(CircuitInsulationResistanceTncEntryDtoRepository entryRepository) {
+    public CircuitInsulationResistanceTncEntryController(CircuitInsulationResistanceTncEntryRepository entryRepository) {
         this.entryRepository = entryRepository;
     }
 

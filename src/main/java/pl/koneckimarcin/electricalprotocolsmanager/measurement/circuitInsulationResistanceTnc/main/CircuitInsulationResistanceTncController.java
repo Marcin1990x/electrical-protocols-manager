@@ -1,11 +1,10 @@
 package pl.koneckimarcin.electricalprotocolsmanager.measurement.circuitInsulationResistanceTnc.main;
 
-import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import pl.koneckimarcin.electricalprotocolsmanager.measurement.circuitInsulationResistanceTnc.entry.CircuitInsulationResistanceTncEntry;
-import pl.koneckimarcin.electricalprotocolsmanager.measurement.circuitInsulationResistanceTnc.entry.CircuitInsulationResistanceTncEntryDtoRepository;
+import pl.koneckimarcin.electricalprotocolsmanager.measurement.circuitInsulationResistanceTnc.entry.CircuitInsulationResistanceTncEntryRepository;
 import pl.koneckimarcin.electricalprotocolsmanager.measurement.main.MeasurementMainController;
 
 import java.util.List;
@@ -19,7 +18,7 @@ public class CircuitInsulationResistanceTncController
     @Autowired
     private CircuitInsulationResistanceTncRepository mainRepository;
     @Autowired
-    private CircuitInsulationResistanceTncEntryDtoRepository entryRepository;
+    private CircuitInsulationResistanceTncEntryRepository entryRepository;
 
 
     @Override

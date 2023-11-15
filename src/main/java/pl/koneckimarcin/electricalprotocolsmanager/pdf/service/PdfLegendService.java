@@ -46,12 +46,14 @@ public class PdfLegendService {
         yPos -= 20;
 
         for (String measure : measurementsListForLegend) {
+            System.out.println("przed " + yPos);
             legend = new MeasurementLegend(measure);
             textService.addSingleLineOfTextAlignment(content, legend.getMeasurementName(), yPos,
                     Alignment.LEFT, font.getFontBold(), 11);
             yPos -= 15;
             yPos += -20 + textService.addMultipleLineOfTextAlignment(content, legend.getLegendText(), yPos,
-                    Alignment.LEFT, 12, font.getFont(), 10);
+                    Alignment.LEFT, 11, font.getFont(), 10);
+            System.out.println("po  " + yPos);
             if (yPos <= 50)
                 throw new IOException("Text outside available area.");
         }

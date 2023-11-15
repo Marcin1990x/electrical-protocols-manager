@@ -3,8 +3,6 @@ package pl.koneckimarcin.electricalprotocolsmanager.structure.room;
 import org.springframework.web.bind.annotation.*;
 import pl.koneckimarcin.electricalprotocolsmanager.measurement.main.MeasurementMain;
 import pl.koneckimarcin.electricalprotocolsmanager.measurement.main.MeasurementMainRepository;
-import pl.koneckimarcin.electricalprotocolsmanager.structure.building.Building;
-import pl.koneckimarcin.electricalprotocolsmanager.structure.building.BuildingRepository;
 import pl.koneckimarcin.electricalprotocolsmanager.structure.floor.Floor;
 import pl.koneckimarcin.electricalprotocolsmanager.structure.floor.FloorRepository;
 
@@ -44,6 +42,7 @@ public class RoomController {
 
         return room;
     }
+
     @DeleteMapping("/rooms/{id}/{floorId}")
     public void deleteById(@PathVariable int id, @PathVariable int floorId) {
 
@@ -54,9 +53,9 @@ public class RoomController {
     }
 
     @PutMapping("/rooms/{roomId}")
-    public Optional<Room> addEntryToMain
-            (@PathVariable int roomId, @RequestParam int mainId)
-            throws InvalidObjectException {
+    public Optional<Room> addMainToRoom
+            (@PathVariable int roomId, @RequestParam int mainId) throws InvalidObjectException {
+
 
         Optional<Room> room = addMainToRoomLogic(roomId, mainId);
         roomRepository.save(room.get());
@@ -66,12 +65,13 @@ public class RoomController {
 
     private Optional<Room> addMainToRoomLogic(int roomId, int mainId) throws InvalidObjectException {
 
-        Optional<MeasurementMain> entry = mainRepository.findById(mainId);
+        Optional<MeasurementMain> main = mainRepository.findById(mainId);
         Optional<Room> room = roomRepository.findById(roomId);
 
-        if (entry.isPresent() && room.isPresent())
-            room.get().addMeasurementMain(entry.get());
-        else {
+        if (main.isPresent() && room.isPresent()) {
+            // todo error if not added because duplicated
+            boolean done = room.get().addMeasurementMain(main.get());
+        } else {
             throw new InvalidObjectException("Measurement with ID: " + mainId + " or " +
                     "Room with ID: " + roomId + " not found.");
         }

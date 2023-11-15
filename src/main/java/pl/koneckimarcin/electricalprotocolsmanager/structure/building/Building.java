@@ -1,6 +1,5 @@
 package pl.koneckimarcin.electricalprotocolsmanager.structure.building;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import pl.koneckimarcin.electricalprotocolsmanager.measurement.main.MeasurementMain;
 import pl.koneckimarcin.electricalprotocolsmanager.structure.floor.Floor;
