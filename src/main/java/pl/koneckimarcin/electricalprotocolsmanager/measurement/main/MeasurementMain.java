@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import pl.koneckimarcin.electricalprotocolsmanager.measurement.entry.MeasurementEntry;
 import pl.koneckimarcin.electricalprotocolsmanager.structure.room.Room;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -38,6 +39,24 @@ public abstract class MeasurementMain {
 
     public void addEntry(MeasurementEntry entry) {
         this.measurementEntries.add(entry);
+    }
+
+    public void removeEntry(MeasurementEntry entry) {
+        this.measurementEntries.remove(entry);
+    }
+
+    public void removeAllEntries(){
+        this.measurementEntries.clear();
+    }
+
+    public List<Integer> listEntriesId() {
+
+        List<Integer> entryIdList = new ArrayList<>();
+
+        for(MeasurementEntry entry : this.measurementEntries){
+            entryIdList.add(entry.getId());
+        }
+        return entryIdList;
     }
 
     public void setMeasurementMainCascadeName(String roomCascadeName) {
