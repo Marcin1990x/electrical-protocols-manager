@@ -33,7 +33,10 @@ public class PdfTheoryService {
             image = PDImageXObject.createFromFile(theoryImagesDirectories.get(theoryImage), document);
             theoryImage++;
 
-            content.drawImage(image, 30, 730 - image.getHeight());
+            int div = image.getWidth() / 500;
+            int yPos = image.getHeight()/div;
+
+            content.drawImage(image, 50, 730 - yPos, 500, image.getHeight()/div);
             content.close();
         }
     }
