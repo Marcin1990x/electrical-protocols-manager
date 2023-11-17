@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.RestController;
 import pl.koneckimarcin.electricalprotocolsmanager.measurement.main.MeasurementMainController;
 import pl.koneckimarcin.electricalprotocolsmanager.measurement.soilResistance.entry.SoilResistanceEntry;
 import pl.koneckimarcin.electricalprotocolsmanager.measurement.soilResistance.entry.SoilResistanceEntryRepository;
+import pl.koneckimarcin.electricalprotocolsmanager.structure.room.RoomRepository;
 
 import java.util.List;
 import java.util.Optional;
@@ -19,6 +20,8 @@ public class SoilResistanceController
     private SoilResistanceRepository mainRepository;
     @Autowired
     private SoilResistanceEntryRepository entryRepository;
+    @Autowired
+    private RoomRepository roomRepository;
 
     @Override
     public List<SoilResistance> getMains() {

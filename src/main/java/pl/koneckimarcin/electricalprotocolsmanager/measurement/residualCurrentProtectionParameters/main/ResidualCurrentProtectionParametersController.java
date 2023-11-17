@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.RestController;
 import pl.koneckimarcin.electricalprotocolsmanager.measurement.main.MeasurementMainController;
 import pl.koneckimarcin.electricalprotocolsmanager.measurement.residualCurrentProtectionParameters.entry.ResidualCurrentProtectionParametersEntry;
 import pl.koneckimarcin.electricalprotocolsmanager.measurement.residualCurrentProtectionParameters.entry.ResidualCurrentProtectionParametersEntryRepository;
+import pl.koneckimarcin.electricalprotocolsmanager.structure.room.RoomRepository;
 
 import java.util.List;
 import java.util.Optional;
@@ -19,6 +20,8 @@ public class ResidualCurrentProtectionParametersController
     private ResidualCurrentProtectionParametersRepository mainRepository;
     @Autowired
     private ResidualCurrentProtectionParametersEntryRepository entryRepository;
+    @Autowired
+    private RoomRepository roomRepository;
 
     @Override
     public List<ResidualCurrentProtectionParameters> getMains() {

@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.RestController;
 import pl.koneckimarcin.electricalprotocolsmanager.measurement.main.MeasurementMainController;
 import pl.koneckimarcin.electricalprotocolsmanager.measurement.protectionAgainstElectricShockByAutomaticShutdown.entry.ProtectionMeasurementEntry;
 import pl.koneckimarcin.electricalprotocolsmanager.measurement.protectionAgainstElectricShockByAutomaticShutdown.entry.ProtectionMeasurementEntryRepository;
+import pl.koneckimarcin.electricalprotocolsmanager.structure.room.RoomRepository;
 
 import java.util.List;
 import java.util.Optional;
@@ -19,6 +20,8 @@ public class ProtectionAgainstElectricShockByAutomaticShutdownController
     private ProtectionAgainstElectricShockByAutomaticShutdownRepository mainRepository;
     @Autowired
     private ProtectionMeasurementEntryRepository entryRepository;
+    @Autowired
+    private RoomRepository roomRepository;
 
     @Override
     public List<ProtectionAgainstElectricShockByAutomaticShutdown> getMains() {

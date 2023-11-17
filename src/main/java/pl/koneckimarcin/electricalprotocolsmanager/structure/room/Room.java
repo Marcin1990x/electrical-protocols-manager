@@ -53,6 +53,9 @@ public class Room {
         }
         return false;
     }
+    public void removeMeasurementMain(MeasurementMain mainToDelete) {
+        this.measurementMains.remove(mainToDelete);
+    }
 
     public void setRoomCascadeName(String floorCascadeName) {
         this.roomCascadeName = floorCascadeName + "/" + this.roomName;

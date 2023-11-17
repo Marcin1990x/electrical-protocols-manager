@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.RestController;
 import pl.koneckimarcin.electricalprotocolsmanager.measurement.continuityOfSmallResistancy.entry.ContinuityOfSmallResistanceEntry;
 import pl.koneckimarcin.electricalprotocolsmanager.measurement.continuityOfSmallResistancy.entry.ContinuityOfSmallResistanceEntryRepository;
 import pl.koneckimarcin.electricalprotocolsmanager.measurement.main.MeasurementMainController;
+import pl.koneckimarcin.electricalprotocolsmanager.structure.room.RoomRepository;
 
 import java.util.List;
 import java.util.Optional;
@@ -19,6 +20,8 @@ public class ContinuityOfSmallResistanceController
     private ContinuityOfSmallResistanceRepository mainRepository;
     @Autowired
     private ContinuityOfSmallResistanceEntryRepository entryRepository;
+    @Autowired
+    private RoomRepository roomRepository;
 
     @Override
     public List<ContinuityOfSmallResistance> getMains() {

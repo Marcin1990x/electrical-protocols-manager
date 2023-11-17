@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.RestController;
 import pl.koneckimarcin.electricalprotocolsmanager.measurement.circuitInsulationResistanceTnc.entry.CircuitInsulationResistanceTncEntry;
 import pl.koneckimarcin.electricalprotocolsmanager.measurement.circuitInsulationResistanceTnc.entry.CircuitInsulationResistanceTncEntryRepository;
 import pl.koneckimarcin.electricalprotocolsmanager.measurement.main.MeasurementMainController;
+import pl.koneckimarcin.electricalprotocolsmanager.structure.room.RoomRepository;
 
 import java.util.List;
 import java.util.Optional;
@@ -19,9 +20,11 @@ public class CircuitInsulationResistanceTncController
     private CircuitInsulationResistanceTncRepository mainRepository;
     @Autowired
     private CircuitInsulationResistanceTncEntryRepository entryRepository;
-
+    @Autowired
+    private RoomRepository roomRepository;
 
     @Override
+
     public List<CircuitInsulationResistanceTnc> getMains() {
 
         return mainRepository.findAll();

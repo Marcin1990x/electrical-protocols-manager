@@ -1,12 +1,12 @@
 package pl.koneckimarcin.electricalprotocolsmanager.measurement.circuitInsulationResistanceTns.main;
 
-import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import pl.koneckimarcin.electricalprotocolsmanager.measurement.circuitInsulationResistanceTns.entry.CircuitInsulationResistanceTnsEntry;
 import pl.koneckimarcin.electricalprotocolsmanager.measurement.circuitInsulationResistanceTns.entry.CircuitInsulationResistanceTnsEntryRepository;
 import pl.koneckimarcin.electricalprotocolsmanager.measurement.main.MeasurementMainController;
+import pl.koneckimarcin.electricalprotocolsmanager.structure.room.RoomRepository;
 
 import java.util.List;
 import java.util.Optional;
@@ -20,6 +20,8 @@ public class CircuitInsulationResistanceTnsController
     private CircuitInsulationResistanceTnsRepository mainRepository;
     @Autowired
     private CircuitInsulationResistanceTnsEntryRepository entryRepository;
+    @Autowired
+    private RoomRepository roomRepository;
 
     @Override
     public List<CircuitInsulationResistanceTns> getMains() {
