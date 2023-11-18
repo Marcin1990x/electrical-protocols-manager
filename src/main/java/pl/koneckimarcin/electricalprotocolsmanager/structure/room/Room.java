@@ -17,7 +17,7 @@ public class Room {
 
     private String roomName;
 
-    @OneToMany(fetch = FetchType.EAGER)
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
     private List<MeasurementMain> measurementMains;
 
     @ManyToOne

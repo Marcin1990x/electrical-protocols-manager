@@ -2,12 +2,10 @@ package pl.koneckimarcin.electricalprotocolsmanager.pdf;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
-import pl.koneckimarcin.electricalprotocolsmanager.pdf.PdfGenerator;
 import pl.koneckimarcin.electricalprotocolsmanager.pdf.titlePage.PdfTitlePage;
 import pl.koneckimarcin.electricalprotocolsmanager.pdf.titlePage.PdfTitlePageController;
 import pl.koneckimarcin.electricalprotocolsmanager.structure.building.Building;
 import pl.koneckimarcin.electricalprotocolsmanager.structure.building.BuildingController;
-import pl.koneckimarcin.electricalprotocolsmanager.structure.building.BuildingRepository;
 
 import java.io.IOException;
 
@@ -29,7 +27,7 @@ public class MainPdfController {
     }
 
     @GetMapping("/getData")
-    public void getData(){
+    public void getData() {
 
         building = buildingController.getBuildings().stream().findFirst().get();
         titlePageData = pdfTitlePageController.getTitlePage();

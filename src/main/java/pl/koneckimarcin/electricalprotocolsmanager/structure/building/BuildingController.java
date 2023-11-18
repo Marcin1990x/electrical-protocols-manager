@@ -38,6 +38,12 @@ public class BuildingController {
         buildingRepository.deleteById(id);
     }
 
+    @DeleteMapping("/buildings")
+    public void deleteAllBuildings() {
+
+        buildingRepository.deleteAll();
+    }
+
     @PostMapping("/buildings")
     public ResponseEntity<String> addBuilding(@RequestBody Building building) {
 
