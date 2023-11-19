@@ -1,11 +1,13 @@
 package pl.koneckimarcin.electricalprotocolsmanager.structure.building;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pl.koneckimarcin.electricalprotocolsmanager.structure.floor.Floor;
 import pl.koneckimarcin.electricalprotocolsmanager.structure.floor.FloorRepository;
 
+import java.io.IOException;
 import java.io.InvalidObjectException;
 import java.util.List;
 import java.util.Optional;
@@ -13,13 +15,12 @@ import java.util.Optional;
 @RestController
 public class BuildingController {
 
+    @Autowired
     private BuildingRepository buildingRepository;
+    @Autowired
     private FloorRepository floorDtoRepository;
-
-    public BuildingController(BuildingRepository buildingRepository, FloorRepository floorDtoRepository) {
-        this.buildingRepository = buildingRepository;
-        this.floorDtoRepository = floorDtoRepository;
-    }
+    @Autowired
+    private BuildingService service;
 
     @GetMapping("/buildings")
     public List<Building> getBuildings() {
@@ -77,5 +78,19 @@ public class BuildingController {
                                         "Floor with ID: " + floorId + " not found.");
         }
         return building;
+    }
+    @GetMapping("/buildings/saveToFile")
+    public String saveBuildingToFile(@RequestParam String projectName) throws IOException {
+
+        List<Building> buildings = buildingRepository.findAll();
+
+        return service.saveBuildingToFile(buildings, projectName);
+    }
+    @GetMapping("/buildings/savedList")
+    public List<String> loadSavedBuildingList() {
+
+        List<String> filesList = service.listFilesInDirectory();
+
+        return filesList;
     }
 }
