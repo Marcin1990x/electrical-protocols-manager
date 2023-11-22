@@ -1,5 +1,6 @@
 package pl.koneckimarcin.electricalprotocolsmanager.structure.building;
 
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.stereotype.Service;
 
@@ -33,5 +34,18 @@ public class BuildingService {
                 .map(File::getName)
                 .map(name -> name.substring(0, name.length() - 5))
                 .collect(Collectors.toList());
+    }
+
+    public Building loadBuildingFromFile(String projectName) throws IOException {
+
+        ObjectMapper mapper = new ObjectMapper();
+
+        Building building = mapper.readValue(new File("savedProjects\\" + projectName + ".json"),
+                new TypeReference<>() {
+                });
+
+        System.out.println(building);
+
+        return building;
     }
 }

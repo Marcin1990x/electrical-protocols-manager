@@ -21,7 +21,7 @@ public class Room {
     private List<MeasurementMain> measurementMains;
 
     @ManyToOne
-    private Floor floorDto;
+    private Floor floor;
 
     public int getId() {
         return id;
@@ -45,7 +45,7 @@ public class Room {
 
     public boolean addMeasurementMain(MeasurementMain measurementMain) {
 
-        if(!checkForDuplicates(measurementMain)) {
+        if (!checkForDuplicates(measurementMain)) {
 
             this.measurementMains.add(measurementMain);
             measurementMain.setMeasurementMainCascadeName(this.roomCascadeName);
@@ -53,6 +53,7 @@ public class Room {
         }
         return false;
     }
+
     public void removeMeasurementMain(MeasurementMain mainToDelete) {
         this.measurementMains.remove(mainToDelete);
     }
@@ -65,8 +66,8 @@ public class Room {
 
         boolean isDuplicate = false;
 
-        for(MeasurementMain measurementMain : this.measurementMains){
-            if(measurementMain.getMeasurementName().equals(main.getMeasurementName())){
+        for (MeasurementMain measurementMain : this.measurementMains) {
+            if (measurementMain.getMeasurementName().equals(main.getMeasurementName())) {
                 isDuplicate = true;
                 break;
             }

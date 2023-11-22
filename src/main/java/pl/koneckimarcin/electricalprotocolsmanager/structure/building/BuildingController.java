@@ -18,7 +18,7 @@ public class BuildingController {
     @Autowired
     private BuildingRepository buildingRepository;
     @Autowired
-    private FloorRepository floorDtoRepository;
+    private FloorRepository floorRepository;
     @Autowired
     private BuildingService service;
 
@@ -27,6 +27,7 @@ public class BuildingController {
 
         return buildingRepository.findAll();
     }
+
     @GetMapping("/buildings/{id}")
     public Optional<Building> getBuilding(@PathVariable int id) {
 
@@ -48,7 +49,7 @@ public class BuildingController {
     @PostMapping("/buildings")
     public ResponseEntity<String> addBuilding(@RequestBody Building building) {
 
-        if(buildingRepository.findAll().size() == 0) {
+        if (buildingRepository.findAll().size() == 0) {
             buildingRepository.save(building);
             return new ResponseEntity<>(HttpStatus.CREATED);
         } else {
@@ -57,7 +58,7 @@ public class BuildingController {
     }
 
     @PutMapping("/buildings/{buildingId}")
-    public Optional<Building> addFloorToBuilding(@PathVariable  int buildingId, @RequestParam int floorId)
+    public Optional<Building> addFloorToBuilding(@PathVariable int buildingId, @RequestParam int floorId)
             throws InvalidObjectException {
 
         Optional<Building> building = addFloorToBuildingLogic(buildingId, floorId);
@@ -68,17 +69,18 @@ public class BuildingController {
 
     private Optional<Building> addFloorToBuildingLogic(int buildingId, int floorId) throws InvalidObjectException {
 
-        Optional<Floor> floor = floorDtoRepository.findById(floorId);
-        Optional<Building> building =  buildingRepository.findById(buildingId);
+        Optional<Floor> floor = floorRepository.findById(floorId);
+        Optional<Building> building = buildingRepository.findById(buildingId);
 
-        if(floor.isPresent() && building.isPresent())
+        if (floor.isPresent() && building.isPresent())
             building.get().addFloor(floor.get());
         else {
             throw new InvalidObjectException("Building with ID: " + buildingId + " or " +
-                                        "Floor with ID: " + floorId + " not found.");
+                    "Floor with ID: " + floorId + " not found.");
         }
         return building;
     }
+
     @GetMapping("/buildings/saveToFile")
     public String saveBuildingToFile(@RequestParam String projectName) throws IOException {
 
@@ -86,11 +88,20 @@ public class BuildingController {
 
         return service.saveBuildingToFile(buildings, projectName);
     }
+
     @GetMapping("/buildings/savedList")
     public List<String> loadSavedBuildingList() {
 
         List<String> filesList = service.listFilesInDirectory();
 
         return filesList;
+    }
+
+    @GetMapping("/buildings/loadFromFileToDB")
+    public void loadFileToDb(@RequestParam String projectName) throws IOException {
+
+        Building building = service.loadBuildingFromFile(projectName);
+
+        addBuilding(building);
     }
 }
