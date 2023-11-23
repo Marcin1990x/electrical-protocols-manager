@@ -10,8 +10,14 @@ public class DatabaseBackupController {
     @Autowired
     private DatabaseBackupService service;
 
-    @GetMapping("test")
+    @GetMapping("dbBackup")
     public void test() {
         service.dumpTables();
+    }
+
+    @GetMapping("createSqlFile")
+    public void read() {
+
+        service.createQueries();
     }
 }
