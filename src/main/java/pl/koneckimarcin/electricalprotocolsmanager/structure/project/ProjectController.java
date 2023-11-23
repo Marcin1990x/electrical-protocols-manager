@@ -43,15 +43,15 @@ public class ProjectController {
         return projectRepository.save(project);
     }
 
-    @PutMapping("/{projectId}")
-    public Optional<Project> addFloorToBuilding(@PathVariable int projectId, @RequestParam int buildingId)
+    @PutMapping("/{projectName}")
+    public Project addFloorToBuilding(@PathVariable String projectName, @RequestParam int buildingId)
             throws InvalidObjectException {
 
-        Optional<Project> project = projectRepository.findById(projectId);
+        Project project = projectRepository.findByProjectName(projectName);
         Optional<Building> building = buildingRepository.findById(buildingId);
-        project.get().setBuilding(building.get());
+        project.setBuilding(building.get());
 
-        projectRepository.save(project.get());
+        projectRepository.save(project);
 
         return project;
     }
