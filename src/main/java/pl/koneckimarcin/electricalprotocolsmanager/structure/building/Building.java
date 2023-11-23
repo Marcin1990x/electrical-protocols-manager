@@ -3,6 +3,7 @@ package pl.koneckimarcin.electricalprotocolsmanager.structure.building;
 import jakarta.persistence.*;
 import pl.koneckimarcin.electricalprotocolsmanager.measurement.main.MeasurementMain;
 import pl.koneckimarcin.electricalprotocolsmanager.structure.floor.Floor;
+import pl.koneckimarcin.electricalprotocolsmanager.structure.project.Project;
 import pl.koneckimarcin.electricalprotocolsmanager.structure.room.Room;
 
 import java.util.ArrayList;
@@ -20,6 +21,9 @@ public class Building {
 
     @OneToMany(cascade = CascadeType.REMOVE, fetch = FetchType.EAGER)
     private List<Floor> floors;
+
+    @OneToOne(fetch = FetchType.EAGER)
+    private Project project;
 
     public int getId() {
         return id;
