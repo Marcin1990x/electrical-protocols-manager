@@ -54,13 +54,17 @@ public class DatabaseBackupService {
             for (String query : insertQueries) {
                 if (!(query.contains("BUILDING_FLOORS") || query.contains("FLOOR_ROOMS") ||
                         query.contains("MEASUREMENT_MAIN_MEASUREMENT_ENTRIES") || query.contains("ROOM_MEASUREMENT_MAINS")
+                        || (query.contains("PDF")) || query.contains("ELECTRICIAN")
                 )) {
                     fileWriter.write(query + System.lineSeparator());
+                } else if((query.contains("PDF")) || query.contains("ELECTRICIAN")){ // do nothing
                 } else {
                     joinQueries.add(query);
                 }}
-                for (String joinQuery : joinQueries)
+                for (String joinQuery : joinQueries){
                     fileWriter.write(joinQuery + System.lineSeparator());
+                }
+
                 fileWriter.close();
 
         } catch (IOException e) {

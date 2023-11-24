@@ -1,14 +1,14 @@
 package pl.koneckimarcin.electricalprotocolsmanager.structure.building;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pl.koneckimarcin.electricalprotocolsmanager.structure.floor.Floor;
 import pl.koneckimarcin.electricalprotocolsmanager.structure.floor.FloorRepository;
+import pl.koneckimarcin.electricalprotocolsmanager.structure.project.ProjectRepository;
 
 import java.io.IOException;
 import java.io.InvalidObjectException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -20,6 +20,8 @@ public class BuildingController {
     @Autowired
     private FloorRepository floorRepository;
     @Autowired
+    private ProjectRepository projectRepository;
+    @Autowired
     private BuildingService service;
 
     @GetMapping("/buildings")
@@ -28,15 +30,20 @@ public class BuildingController {
         return buildingRepository.findAll();
     }
 
+    // list for tests
     @GetMapping("/buildings/{id}")
-    public Optional<Building> getBuilding(@PathVariable int id) {
+    public List<Building> getBuilding(@PathVariable int id) {
 
-        return buildingRepository.findById(id);
+        List<Building> buildings = new ArrayList<>();
+        buildings.add(buildingRepository.findById(id).get());
+
+        return buildings;
     }
 
     @DeleteMapping("/buildings/{id}")
     public void deleteById(@PathVariable int id) {
 
+        projectRepository.findByBuildingId(id).setBuilding(null);
         buildingRepository.deleteById(id);
     }
 
@@ -47,14 +54,10 @@ public class BuildingController {
     }
 
     @PostMapping("/buildings")
-    public ResponseEntity<String> addBuilding(@RequestBody Building building) {
+    public Building addBuilding(@RequestBody Building building) {
 
-        if (buildingRepository.findAll().size() == 0) {
-            buildingRepository.save(building);
-            return new ResponseEntity<>(HttpStatus.CREATED);
-        } else {
-            return new ResponseEntity<>("Error 102. You can create only one building.", HttpStatus.BAD_REQUEST);
-        }
+        buildingRepository.save(building);
+        return building;
     }
 
     @PutMapping("/buildings/{buildingId}")

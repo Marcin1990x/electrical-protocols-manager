@@ -12,7 +12,9 @@ public class Project {
 
     private String projectName;
 
-    @OneToOne(cascade = CascadeType.REMOVE, fetch = FetchType.EAGER)
+
+    @OneToOne
+    @JoinColumn(name = "building_id")
     private Building building;
 
     public int getId() {

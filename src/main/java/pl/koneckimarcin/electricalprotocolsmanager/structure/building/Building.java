@@ -20,9 +20,9 @@ public class Building {
     private String buildingName;
 
     @OneToMany(cascade = CascadeType.REMOVE, fetch = FetchType.EAGER)
-    private List<Floor> floors;
+    private List<Floor> floors = new ArrayList<>();
 
-    @OneToOne(fetch = FetchType.EAGER)
+    @OneToOne(mappedBy = "building")
     private Project project;
 
     public int getId() {
@@ -46,6 +46,7 @@ public class Building {
         this.floors.add(floor);
         floor.setFloorCascadeName(this.buildingName);
     }
+
     public void removeFloor(Floor floor) {
         this.floors.remove(floor);
     }

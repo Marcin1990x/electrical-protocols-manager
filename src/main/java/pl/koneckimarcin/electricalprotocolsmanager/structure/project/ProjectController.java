@@ -17,18 +17,25 @@ public class ProjectController {
     private ProjectRepository projectRepository;
     @Autowired
     private BuildingRepository buildingRepository;
+    @Autowired
+    private ProjectService projectService;
 
 
-    @GetMapping("/buildings")
+    @GetMapping()
     public List<Project> getProjects() {
 
         return projectRepository.findAll();
     }
 
     @GetMapping("/{id}")
-    public Optional<Project> getProject(@PathVariable int id) {
+    public Optional<Project> getProjectById(@PathVariable int id) {
 
         return projectRepository.findById(id);
+    }
+    @GetMapping("/name={projectName}")
+    public Project getProjectByName(@PathVariable String projectName) {
+
+        return projectRepository.findByProjectName(projectName);
     }
 
     @DeleteMapping("/{id}")
