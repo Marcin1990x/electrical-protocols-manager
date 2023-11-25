@@ -6,7 +6,6 @@ import pl.koneckimarcin.electricalprotocolsmanager.structure.floor.Floor;
 import pl.koneckimarcin.electricalprotocolsmanager.structure.floor.FloorRepository;
 import pl.koneckimarcin.electricalprotocolsmanager.structure.project.ProjectRepository;
 
-import java.io.IOException;
 import java.io.InvalidObjectException;
 import java.util.ArrayList;
 import java.util.List;
@@ -82,29 +81,5 @@ public class BuildingController {
                     "Floor with ID: " + floorId + " not found.");
         }
         return building;
-    }
-
-    @GetMapping("/buildings/saveToFile")
-    public String saveBuildingToFile(@RequestParam String projectName) throws IOException {
-
-        List<Building> buildings = buildingRepository.findAll();
-
-        return service.saveBuildingToFile(buildings, projectName);
-    }
-
-    @GetMapping("/buildings/savedList")
-    public List<String> loadSavedBuildingList() {
-
-        List<String> filesList = service.listFilesInDirectory();
-
-        return filesList;
-    }
-
-    @GetMapping("/buildings/loadFromFileToDB")
-    public void loadFileToDb(@RequestParam String projectName) throws IOException {
-
-        Building building = service.loadBuildingFromFile(projectName);
-
-        addBuilding(building);
     }
 }

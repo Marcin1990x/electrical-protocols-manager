@@ -19,7 +19,7 @@ public class DatabaseBackupService {
 
     public void dumpTables() {
 
-        jdbcTemplate.queryForList("SCRIPT TO 'dbBackup.sql'");
+        jdbcTemplate.queryForList("SCRIPT TO 'actualSchema.sql'");
     }
 
     public void createQueries() {
@@ -32,7 +32,7 @@ public class DatabaseBackupService {
         BufferedReader reader = null;
         String line;
         try {
-            reader = new BufferedReader(new FileReader("dbBackup.sql"));
+            reader = new BufferedReader(new FileReader("actualSchema.sql"));
 
             while ((line = reader.readLine()) != null) {
                 builder.append(line);

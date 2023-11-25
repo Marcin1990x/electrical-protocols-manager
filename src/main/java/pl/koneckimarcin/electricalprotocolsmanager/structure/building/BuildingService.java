@@ -1,51 +1,22 @@
 package pl.koneckimarcin.electricalprotocolsmanager.structure.building;
 
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.io.File;
-import java.io.IOException;
-import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
+import pl.koneckimarcin.electricalprotocolsmanager.structure.project.ProjectRepository;
 
 @Service
 public class BuildingService {
 
-    public String saveBuildingToFile(List<Building> buildings, String projectName) throws IOException {
+    @Autowired
+    private ProjectRepository projectRepository;
+    @Autowired
+    private BuildingRepository buildingRepository;
 
-        ObjectMapper mapper = new ObjectMapper();
+    public Building retrieveByProjectName(String projectName) {
 
-        if (buildings.size() == 1) {
-            Building building = buildings.stream().findFirst().get();
-
-            File file = new File(("savedProjects\\" + projectName + ".json"));
-            mapper.writeValue(file, building);
-
-            return projectName;
-
-        } else return "not saved.";
-    }
-
-    public List<String> listFilesInDirectory() {
-
-        return Stream.of(new File("savedProjects\\").listFiles())
-                .map(File::getName)
-                .map(name -> name.substring(0, name.length() - 5))
-                .collect(Collectors.toList());
-    }
-
-    public Building loadBuildingFromFile(String projectName) throws IOException {
-
-        ObjectMapper mapper = new ObjectMapper();
-
-        Building building = mapper.readValue(new File("savedProjects\\" + projectName + ".json"),
-                new TypeReference<>() {
-                });
-
-        System.out.println(building);
-
-        return building;
+        if(projectRepository.findByProjectName(projectName).getBuilding() != null) {
+            int buildingId = projectRepository.findByProjectName(projectName).getBuilding().getId();
+            return buildingRepository.findById(buildingId).get();
+        } else return null;
     }
 }
