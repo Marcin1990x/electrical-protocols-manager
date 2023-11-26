@@ -138,8 +138,8 @@ public class ResidualCurrentProtectionParametersEntry extends MeasurementEntry {
     }
 
     @Override
-    public List<Object> getEntryResultList() {
-        return List.of(super.getId(), super.getSymbol(), this.measuringPoint, this.circuitBreaker, this.rcdType,
+    public List<Object> getEntryResultList(int lp) {
+        return List.of(lp, super.getSymbol(), this.measuringPoint, this.circuitBreaker, this.rcdType,
                 this.iNom, this.ia, this.ta, this.trcd, this.ub, this.ui, super.getResult().getName());
     }
 }

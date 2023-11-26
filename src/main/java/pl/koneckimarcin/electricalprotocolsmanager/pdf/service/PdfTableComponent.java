@@ -95,7 +95,7 @@ public class PdfTableComponent {
         // add entry parameters
         for (int j = 0; j < measurementMain.getMeasurementEntries().size(); j++) {
             addTableComponent(content, headerCellWidths, 25, yPosMeas,
-                    measurementMain.getMeasurementEntries().get(j).getEntryResultList(),
+                    measurementMain.getMeasurementEntries().get(j).getEntryResultList(j+1),
                     Alignment.LEFT, commonColor, 8, font.getFont());
             yPosMeas -= 25;
         }

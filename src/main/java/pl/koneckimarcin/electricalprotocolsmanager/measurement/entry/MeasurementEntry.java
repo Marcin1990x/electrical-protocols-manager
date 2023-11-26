@@ -45,7 +45,7 @@ public class MeasurementEntry {
         this.result = result;
     }
 
-    public List<Object> getEntryResultList() {
+    public List<Object> getEntryResultList(int lp) {
 
         return List.of(this.id, this.symbol, this.result.getName());
     }

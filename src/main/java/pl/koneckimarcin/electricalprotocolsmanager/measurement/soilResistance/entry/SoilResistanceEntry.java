@@ -60,8 +60,8 @@ public class SoilResistanceEntry extends MeasurementEntry {
     }
 
     @Override
-    public List<Object> getEntryResultList() {
-        return List.of(super.getId(), super.getSymbol(), this.measuringPoint, this.l,
+    public List<Object> getEntryResultList(int lp) {
+        return List.of(lp, super.getSymbol(), this.measuringPoint, this.l,
                 String.format("%.2f", this.d), this.p);
     }
 }

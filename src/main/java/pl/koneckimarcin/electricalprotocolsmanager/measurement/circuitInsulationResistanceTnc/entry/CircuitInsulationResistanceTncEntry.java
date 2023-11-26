@@ -111,8 +111,8 @@ public class CircuitInsulationResistanceTncEntry extends MeasurementEntry {
     }
 
     @Override
-    public List<Object> getEntryResultList() {
-        return List.of(super.getId(), super.getSymbol(), this.circuitName, this.l1l2, this.l2l3, this.l3l1,
+    public List<Object> getEntryResultList(int lp) {
+        return List.of(lp, super.getSymbol(), this.circuitName, this.l1l2, this.l2l3, this.l3l1,
                 this.l1pen, this.l2pen, this.l3pen, this.ra, super.getResult().getName());
     }
 }

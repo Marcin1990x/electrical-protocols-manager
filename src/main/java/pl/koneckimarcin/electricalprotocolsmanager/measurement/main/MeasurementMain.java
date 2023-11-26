@@ -1,6 +1,5 @@
 package pl.koneckimarcin.electricalprotocolsmanager.measurement.main;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import pl.koneckimarcin.electricalprotocolsmanager.measurement.entry.MeasurementEntry;
 import pl.koneckimarcin.electricalprotocolsmanager.structure.room.Room;
@@ -39,14 +38,16 @@ public abstract class MeasurementMain {
     }
 
     public void addEntry(MeasurementEntry entry) {
-        this.measurementEntries.add(entry);
+        if (this.measurementEntries.size() < 20) {
+            this.measurementEntries.add(entry);
+        }
     }
 
     public void removeEntry(MeasurementEntry entry) {
         this.measurementEntries.remove(entry);
     }
 
-    public void removeAllEntries(){
+    public void removeAllEntries() {
         this.measurementEntries.clear();
     }
 
@@ -54,7 +55,7 @@ public abstract class MeasurementMain {
 
         List<Integer> entryIdList = new ArrayList<>();
 
-        for(MeasurementEntry entry : this.measurementEntries){
+        for (MeasurementEntry entry : this.measurementEntries) {
             entryIdList.add(entry.getId());
         }
         return entryIdList;
@@ -72,7 +73,7 @@ public abstract class MeasurementMain {
 
         String result = "";
 
-        if(!this.measurementMainCascadeName.equals("")) {
+        if (!this.measurementMainCascadeName.equals("")) {
             result = this.measurementMainCascadeName.replace(this.measurementName, "");
             result = result.substring(0, result.length() - 1);
         }

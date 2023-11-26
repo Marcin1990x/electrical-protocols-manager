@@ -117,8 +117,8 @@ public class ProtectionMeasurementEntry extends MeasurementEntry {
     }
 
     @Override
-    public List<Object> getEntryResultList() {
-        return List.of(super.getId(), super.getSymbol(), this.measuringPoint, this.cutout, this.type, this.iNom,
+    public List<Object> getEntryResultList(int lp) {
+        return List.of(lp, super.getSymbol(), this.measuringPoint, this.cutout, this.type, this.iNom,
                 this.ia, this.zs, this.za, String.format("%.2f", this.ik), super.getResult().getName());
     }
 }

@@ -13,7 +13,7 @@ public class Project {
     private String projectName;
 
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.REMOVE)
     @JoinColumn(name = "building_id")
     private Building building;
 

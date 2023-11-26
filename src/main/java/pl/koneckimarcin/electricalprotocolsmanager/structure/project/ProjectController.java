@@ -43,6 +43,12 @@ public class ProjectController {
 
         projectRepository.deleteById(id);
     }
+    @DeleteMapping("/name={projectName}")
+    public void deleteByName(@PathVariable String projectName) {
+
+        Project project = projectRepository.findByProjectName(projectName);
+        projectRepository.deleteById(project.getId());
+    }
 
     @PostMapping()
     public Project addProject(@RequestBody Project project) {
