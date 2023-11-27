@@ -13,6 +13,7 @@ import pl.koneckimarcin.electricalprotocolsmanager.utilities.electrician.Electri
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 @Entity
 public class PdfTitlePage {
@@ -147,6 +148,7 @@ public class PdfTitlePage {
     }
 
     public void addElectrician(Electrician electrician) {
+        if(this.electricians.size() < 4)
         this.electricians.add(electrician);
     }
     public void removeElectrician(Electrician electrician) {
@@ -237,8 +239,24 @@ public class PdfTitlePage {
         decisionTextData.add(this.getDecisionDescription());
         decisionTextData.add(""); // empty line
         decisionTextData.add(TextData.titlePageText.get(10));
-        decisionTextData.add(this.getComments());
+        decisionTextData.addAll(splitTextByNewLine(this.getComments(), 10, 70));
 
         return decisionTextData;
+    }
+    private List<String> splitTextByNewLine(String text, int maxLines, int lineLength) {
+
+        List<String> result = new ArrayList<>();
+
+        Scanner scanner = new Scanner(text);
+        while(scanner.hasNextLine() && result.size() < maxLines){
+            String line = scanner.nextLine();
+            if(line.length() > lineLength){
+                result.add(line.substring(0, lineLength));
+                result.add(line.substring(lineLength));
+            } else {
+                result.add(line);
+            }
+        }
+        return  result;
     }
 }
