@@ -1,13 +1,15 @@
 package pl.koneckimarcin.electricalprotocolsmanager.backup;
 
+import org.apache.ibatis.jdbc.ScriptRunner;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.GetMapping;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,7 +31,7 @@ public class DatabaseBackupService {
         String result = "";
         StringBuilder builder = new StringBuilder(result);
 
-        BufferedReader reader = null;
+        BufferedReader reader;
         String line;
         try {
             reader = new BufferedReader(new FileReader("actualSchema.sql"));
@@ -48,24 +50,25 @@ public class DatabaseBackupService {
         List<String> joinQueries = new ArrayList<>();
 
 
-        FileWriter fileWriter = null;
+        FileWriter fileWriter;
         try {
-            fileWriter = new FileWriter("src/main/resources/data.sql");
+            fileWriter = new FileWriter("data.sql");
             for (String query : insertQueries) {
                 if (!(query.contains("BUILDING_FLOORS") || query.contains("FLOOR_ROOMS") ||
                         query.contains("MEASUREMENT_MAIN_MEASUREMENT_ENTRIES") || query.contains("ROOM_MEASUREMENT_MAINS")
                         || (query.contains("PDF")) || query.contains("ELECTRICIAN")
                 )) {
                     fileWriter.write(query + System.lineSeparator());
-                } else if((query.contains("PDF")) || query.contains("ELECTRICIAN")){ // do nothing
+                } else if ((query.contains("PDF")) || query.contains("ELECTRICIAN")) { // do nothing
                 } else {
                     joinQueries.add(query);
-                }}
-                for (String joinQuery : joinQueries){
-                    fileWriter.write(joinQuery + System.lineSeparator());
                 }
+            }
+            for (String joinQuery : joinQueries) {
+                fileWriter.write(joinQuery + System.lineSeparator());
+            }
 
-                fileWriter.close();
+            fileWriter.close();
 
         } catch (IOException e) {
             throw new RuntimeException(e);
