@@ -4,6 +4,7 @@ import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
 import jakarta.persistence.ManyToOne;
 import jakarta.validation.constraints.Positive;
+import pl.koneckimarcin.electricalprotocolsmanager.measurement.Common;
 import pl.koneckimarcin.electricalprotocolsmanager.measurement.Result;
 import pl.koneckimarcin.electricalprotocolsmanager.measurement.circuitInsulationResistanceTns.main.CircuitInsulationResistanceTns;
 import pl.koneckimarcin.electricalprotocolsmanager.measurement.entry.MeasurementEntry;
@@ -15,23 +16,14 @@ import java.util.List;
 public class CircuitInsulationResistanceTnsEntry extends MeasurementEntry {
 
     private String circuitName = "";
-    @Positive(message = "This value is mandatory.")
     private int l1l2;
-    @Positive(message = "This value is mandatory.")
     private int l2l3;
-    @Positive(message = "This value is mandatory.")
     private int l3l1;
-    @Positive(message = "This value is mandatory.")
     private int l1pe;
-    @Positive(message = "This value is mandatory.")
     private int l2pe;
-    @Positive(message = "This value is mandatory.")
     private int l3pe;
-    @Positive(message = "This value is mandatory.")
     private int l1n;
-    @Positive(message = "This value is mandatory.")
     private int l2n;
-    @Positive(message = "This value is mandatory.")
     private int l3n;
     @Positive(message = "This value is mandatory.")
     private int npe;
@@ -141,19 +133,46 @@ public class CircuitInsulationResistanceTnsEntry extends MeasurementEntry {
     }
 
     public void setResult() {
-        if (this.l1l2 >= this.ra && this.l2l3 >= this.ra && this.l3l1 >= this.ra && this.l1pe >= this.ra
-                && this.l2pe >= this.ra && this.l3pe >= this.ra && this.l1n >= this.ra && this.l2n >= this.ra
-                && this.l3n >= this.ra && this.npe >= this.ra) {
-            super.setResult(Result.POSITIVE);
-        } else {
-            super.setResult(Result.NEGATIVE);
+        if (this.l1pe > 0 && this.l2pe == 0) { // first phase
+            if (this.l1pe >= this.ra && this.l1n >= this.ra && this.npe >= this.ra) {
+                super.setResult(Result.POSITIVE);
+            } else super.setResult(Result.NEGATIVE);
+        } else if (this.l2pe > 0 && this.l1pe == 0) { // second phase
+            if (this.l2pe >= this.ra && this.l2n >= this.ra && this.npe >= this.ra) {
+                super.setResult(Result.POSITIVE);
+            } else super.setResult(Result.NEGATIVE);
+        } else if (this.l3pe > 0 && this.l1pe == 0) { // third phase
+            if (this.l3pe >= this.ra && this.l3n >= this.ra && this.npe >= this.ra) {
+                super.setResult(Result.POSITIVE);
+            } else super.setResult(Result.NEGATIVE);
+        } else { // three phase
+            if (this.l1l2 >= this.ra && this.l2l3 >= this.ra && this.l3l1 >= this.ra && this.l1pe >= this.ra
+                    && this.l2pe >= this.ra && this.l3pe >= this.ra && this.l1n >= this.ra && this.l2n >= this.ra
+                    && this.l3n >= this.ra && this.npe >= this.ra) {
+                super.setResult(Result.POSITIVE);
+            } else {
+                super.setResult(Result.NEGATIVE);
+            }
         }
     }
 
     @Override
     public List<Object> getEntryResultList(int lp) {
-        return List.of(lp, super.getSymbol(), this.circuitName, this.l1l2, this.l2l3, this.l3l1,
-                this.l1pe, this.l2pe, this.l3pe, this.l1n, this.l2n, this.l3n, this.npe, this.ra,
+        return List.of(
+                lp,
+                super.getSymbol(),
+                this.circuitName,
+                Common.emptyIfZero(this.l1l2),
+                Common.emptyIfZero(this.l2l3),
+                Common.emptyIfZero(this.l3l1),
+                Common.emptyIfZero(this.l1pe),
+                Common.emptyIfZero(this.l2pe),
+                Common.emptyIfZero(this.l3pe),
+                Common.emptyIfZero(this.l1n),
+                Common.emptyIfZero(this.l2n),
+                Common.emptyIfZero(this.l3n),
+                Common.emptyIfZero(this.npe),
+                this.ra,
                 super.getResult().getName());
     }
 }

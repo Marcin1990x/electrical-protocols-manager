@@ -222,9 +222,10 @@ public class PdfTitlePage {
 
         List<String> measurementTextData = new ArrayList<>();
         measurementTextData.add(TextData.titlePageText.get(2) + this.getTypeOfMeasurementPdf() +
-                "                             " + TextData.titlePageText.get(3) + this.getTypeOfWeatherPdf());
+                "                                                    "
+                + TextData.titlePageText.get(3) + this.getTypeOfWeatherPdf());
         measurementTextData.add(TextData.titlePageText.get(4) + measurementDate.toString() +
-                "                   " +
+                "                                                              " +
                 TextData.titlePageText.get(5) + nextMeasurementDate.toString());
         measurementTextData.add(TextData.titlePageText.get(6));
         measurementTextData.add(this.getTypeOfInstallationPdf());

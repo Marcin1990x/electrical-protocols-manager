@@ -4,6 +4,7 @@ import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
 import jakarta.persistence.ManyToOne;
 import jakarta.validation.constraints.Positive;
+import pl.koneckimarcin.electricalprotocolsmanager.measurement.Common;
 import pl.koneckimarcin.electricalprotocolsmanager.measurement.Result;
 import pl.koneckimarcin.electricalprotocolsmanager.measurement.circuitInsulationResistanceTnc.main.CircuitInsulationResistanceTnc;
 import pl.koneckimarcin.electricalprotocolsmanager.measurement.entry.MeasurementEntry;
@@ -16,17 +17,11 @@ public class CircuitInsulationResistanceTncEntry extends MeasurementEntry {
 
 
     private String circuitName = "";
-    @Positive(message = "This value is mandatory.")
     private int l1l2;
-    @Positive(message = "This value is mandatory.")
     private int l2l3;
-    @Positive(message = "This value is mandatory.")
     private int l3l1;
-    @Positive(message = "This value is mandatory.")
     private int l1pen;
-    @Positive(message = "This value is mandatory.")
     private int l2pen;
-    @Positive(message = "This value is mandatory.")
     private int l3pen;
     @Positive(message = "This value is mandatory.")
     private float ra;
@@ -102,17 +97,36 @@ public class CircuitInsulationResistanceTncEntry extends MeasurementEntry {
     }
 
     public void setResult() {
-        if (this.l1l2 >= this.ra && this.l2l3 >= this.ra && this.l3l1 >= this.ra && this.l1pen >= this.ra
-                && this.l2pen >= this.ra && this.l3pen >= this.ra) {
-            super.setResult(Result.POSITIVE);
+
+        if(this.l1pen > 0 && this.l2pen == 0) { // first phase
+            if (this.l1pen >= this.ra) super.setResult(Result.POSITIVE);
+                else super.setResult(Result.NEGATIVE);
+        } else if (this.l2pen > 0 && this.l1pen == 0) { // second phase
+            if (this.l2pen >= this.ra) super.setResult(Result.POSITIVE);
+            else super.setResult(Result.NEGATIVE);
+        } else if(this.l3pen > 0 && this.l2pen == 0) { // third phase
+            if (this.l3pen >= this.ra) super.setResult(Result.POSITIVE);
+            else super.setResult(Result.NEGATIVE);
         } else {
-            super.setResult(Result.NEGATIVE);
+            if (this.l1l2 >= this.ra && this.l2l3 >= this.ra && this.l3l1 >= this.ra && this.l1pen >= this.ra
+                    && this.l2pen >= this.ra && this.l3pen >= this.ra) super.setResult(Result.POSITIVE);
+            else super.setResult(Result.NEGATIVE);
         }
     }
 
     @Override
     public List<Object> getEntryResultList(int lp) {
-        return List.of(lp, super.getSymbol(), this.circuitName, this.l1l2, this.l2l3, this.l3l1,
-                this.l1pen, this.l2pen, this.l3pen, this.ra, super.getResult().getName());
+        return List.of(
+                lp,
+                super.getSymbol(),
+                this.circuitName,
+                Common.emptyIfZero(this.l1l2),
+                Common.emptyIfZero(this.l2l3),
+                Common.emptyIfZero(this.l3l1),
+                Common.emptyIfZero(this.l1pen),
+                Common.emptyIfZero(this.l2pen),
+                Common.emptyIfZero(this.l3pen),
+                this.ra,
+                super.getResult().getName());
     }
 }
