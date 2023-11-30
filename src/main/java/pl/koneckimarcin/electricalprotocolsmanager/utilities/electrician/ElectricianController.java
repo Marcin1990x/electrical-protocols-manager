@@ -44,17 +44,6 @@ public class ElectricianController {
         return distinctElectricians;
     }
 
-
-    public void addElectricianFromFile(Electrician electrician) throws IOException {
-
-        Electrician createdElectrician = null;
-
-        if (repository.findByLastName(electrician.getLastName()).size() == 0) {
-            createdElectrician = electrician;
-            repository.save(createdElectrician);
-        }
-    }
-
     @PostMapping()
     public ResponseEntity<Object> addElectrician(@RequestBody Electrician electrician) throws IOException {
 
@@ -65,8 +54,6 @@ public class ElectricianController {
             createdElectrician = electrician;
             createdElectrician.addSignature();
             repository.save(createdElectrician);
-
-            service.saveElectriciansToFile();
             return new ResponseEntity<>(createdElectrician, HttpStatus.CREATED);
         } else {
             return new ResponseEntity<>(
@@ -86,7 +73,6 @@ public class ElectricianController {
                     .filter(elec -> elec.getId() == id)
                     .findFirst().isEmpty()) {
                 repository.deleteById(id);
-                service.saveElectriciansToFile();
                 return new ResponseEntity<>(HttpStatus.OK);
             } else {
                 return new ResponseEntity<>("Error 100. Can not delete Electrician, " +
@@ -94,18 +80,7 @@ public class ElectricianController {
             }
         } else {
             repository.deleteById(id);
-            service.saveElectriciansToFile();
             return new ResponseEntity<>(HttpStatus.OK);
-        }
-    }
-
-    @GetMapping("/loadFromFile")
-    public void loadElectriciansFromFile() throws IOException {
-
-        List<Electrician> electricianList = electricianList = service.loadElectriciansFromFile();
-
-        for (Electrician electrician : electricianList) {
-            addElectricianFromFile(electrician);
         }
     }
 }
