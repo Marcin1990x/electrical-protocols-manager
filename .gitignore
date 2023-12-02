@@ -5,6 +5,13 @@ target/
 !**/src/main/**/target/
 !**/src/test/**/target/
 
+/pdf
+
+actualSchema.sql
+data.sql
+lol.pdf
+to do.txt
+
 ### STS ###
 .apt_generated
 .classpath

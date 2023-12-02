@@ -49,9 +49,9 @@ public class MainPdfController {
         pdfGenerator.createPdfDocument(pdfPath, building, titlePageData);
     }
 
-    @GetMapping("/copyPdf")
-    public void copyPdf() {
+    @GetMapping("/copyPdf/{fileName}")
+    public void copyPdf(@PathVariable String fileName) {
 
-        pdfService.copyFile();
+        pdfService.copyFile(fileName);
     }
 }

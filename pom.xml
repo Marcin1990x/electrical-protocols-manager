@@ -9,9 +9,6 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>pl.koneckimarcin</groupId>
-	<!--<artifactId>electrical-protocols-manager</artifactId>-->
-
-	<!-- -->
 	<artifactId>test</artifactId>
 	<packaging>jar</packaging>
 	<version>v1</version>
@@ -24,12 +21,8 @@
 		<frontend-maven-plugin.version>1.12.0</frontend-maven-plugin.version>
 	</properties>
 
-<!--	<version>0.0.1-SNAPSHOT</version>-->
 	<name>electrical-protocols-manager</name>
 	<description>Manager for electrical measurements protocols</description>
-<!--	<properties>
-		<java.version>17</java.version>
-	</properties>-->
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
