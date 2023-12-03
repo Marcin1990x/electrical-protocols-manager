@@ -29,7 +29,6 @@ public class BuildingController {
         return buildingRepository.findAll();
     }
 
-    // list for tests
     @GetMapping("/buildings/{id}")
     public List<Building> getBuilding(@PathVariable int id) {
 

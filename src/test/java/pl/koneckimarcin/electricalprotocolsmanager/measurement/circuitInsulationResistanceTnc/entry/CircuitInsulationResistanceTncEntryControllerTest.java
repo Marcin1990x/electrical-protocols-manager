@@ -1,6 +1,5 @@
 package pl.koneckimarcin.electricalprotocolsmanager.measurement.circuitInsulationResistanceTnc.entry;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.DisplayName;
@@ -13,6 +12,7 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import pl.koneckimarcin.electricalprotocolsmanager.measurement.circuitInsulationResistanceTnc.main.CircuitInsulationResistanceTncRepository;
 
 import java.util.List;
 
@@ -31,13 +31,15 @@ public class CircuitInsulationResistanceTncEntryControllerTest {
     private CircuitInsulationResistanceTncEntry entry = new CircuitInsulationResistanceTncEntry();
 
     @MockBean
-    private CircuitInsulationResistanceTncEntryRepository repository;
+    private CircuitInsulationResistanceTncEntryRepository entryRepository;
+    @MockBean
+    private CircuitInsulationResistanceTncRepository mainRepository;
 
     @Test
     @DisplayName("Should find all entries.")
     void shouldReturnAllEntries() throws Exception {
         //given
-        given(repository.findAll()).willReturn(List.of(entry, entry, entry));
+        given(entryRepository.findAll()).willReturn(List.of(entry, entry, entry));
         //when
         MvcResult mvcResult = mockMvc.perform(
                         MockMvcRequestBuilders
@@ -47,9 +49,11 @@ public class CircuitInsulationResistanceTncEntryControllerTest {
         //then
         String entriesJson = mvcResult.getResponse().getContentAsString();
         List<CircuitInsulationResistanceTncEntry> entries = new ObjectMapper()
-                .readValue(entriesJson, new TypeReference<>() {});
+                .readValue(entriesJson, new TypeReference<>() {
+                });
         assertThat(entries, hasSize(3));
     }
+
     @Test
     @DisplayName("Should save entry")
     void shouldSaveNewEntry() throws Exception {
@@ -63,16 +67,15 @@ public class CircuitInsulationResistanceTncEntryControllerTest {
         entry.setL3pen(10);
         entry.setRa(10); // do before each
         String entryJson = new ObjectMapper().writeValueAsString(entry);
-        given(repository.save(entry)).willReturn(entry);
+        given(entryRepository.save(entry)).willReturn(entry);
         //when
-        MvcResult mvcResult = mockMvc.perform(
-                MockMvcRequestBuilders
-                        .post("/2/entries")
-                        .content(entryJson)
-                        .contentType(MediaType.APPLICATION_JSON)
+        mockMvc.perform(
+                        MockMvcRequestBuilders
+                                .post("/2/entries")
+                                .content(entryJson)
+                                .contentType(MediaType.APPLICATION_JSON)
 
                 ).andExpect(status().isOk())
                 .andReturn();
-        //System.out.printl; // check if response body is ok
     }
 }

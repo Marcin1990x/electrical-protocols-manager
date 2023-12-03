@@ -37,6 +37,11 @@ public abstract class MeasurementMain {
         return measurementEntries;
     }
 
+    ////////////
+    public void setMeasurementEntries(List<MeasurementEntry> measurementEntries) {
+        this.measurementEntries = measurementEntries;
+    }
+
     public void addEntry(MeasurementEntry entry) {
         if (this.measurementEntries.size() < 20) {
             this.measurementEntries.add(entry);

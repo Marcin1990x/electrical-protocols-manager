@@ -42,7 +42,7 @@ public class PdfGenerator {
         this.buildingDtoRepository = buildingDtoRepository;
     }
 
-    public void createPdfDocument(String directory, Building building, PdfTitlePage titlePageData) throws IOException {
+    public String createPdfDocument(String directory, Building building, PdfTitlePage titlePageData) throws IOException {
 
         PDDocument doc = new PDDocument();
 
@@ -80,5 +80,7 @@ public class PdfGenerator {
 
         doc.save(file);
         doc.close();
+
+        return file.getAbsolutePath();
     }
 }

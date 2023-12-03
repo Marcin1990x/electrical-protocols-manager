@@ -9,11 +9,9 @@ import java.io.IOException;
 @Service
 public class MainPdfService {
 
-    private final String sourcePdfPath = "F:\\Programista\\Pomiary elektryczne\\electrical-protocols-manager-ui\\electrical-protocols-manager-ui\\src\\test.pdf";
+    public void copyFile(String fileName, String sourcePdfPath) {
 
-    public void copyFile(String fileName) {
-
-        final String destinationPdfPath = "pdf\\"+ fileName + ".pdf"; // folder z którego odpali się JAR
+        final String destinationPdfPath = "pdf\\"+ fileName + ".pdf";
 
         try {
             FileCopyUtils.copy(new File(sourcePdfPath), new File(destinationPdfPath));
