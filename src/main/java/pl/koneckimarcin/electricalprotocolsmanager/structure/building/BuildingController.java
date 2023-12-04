@@ -41,7 +41,7 @@ public class BuildingController {
     @DeleteMapping("/buildings/{id}")
     public void deleteById(@PathVariable int id) {
 
-        projectRepository.findByBuildingId(id).setBuilding(null);
+        service.deleteBuildingFromProject(id);
         buildingRepository.deleteById(id);
     }
 
@@ -62,23 +62,9 @@ public class BuildingController {
     public Optional<Building> addFloorToBuilding(@PathVariable int buildingId, @RequestParam int floorId)
             throws InvalidObjectException {
 
-        Optional<Building> building = addFloorToBuildingLogic(buildingId, floorId);
+        Optional<Building> building = service.addFloorToBuildingLogic(buildingId, floorId);
         buildingRepository.save(building.get());
 
-        return building;
-    }
-
-    private Optional<Building> addFloorToBuildingLogic(int buildingId, int floorId) throws InvalidObjectException {
-
-        Optional<Floor> floor = floorRepository.findById(floorId);
-        Optional<Building> building = buildingRepository.findById(buildingId);
-
-        if (floor.isPresent() && building.isPresent())
-            building.get().addFloor(floor.get());
-        else {
-            throw new InvalidObjectException("Building with ID: " + buildingId + " or " +
-                    "Floor with ID: " + floorId + " not found.");
-        }
         return building;
     }
 }

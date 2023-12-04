@@ -18,7 +18,7 @@ public class ApplicationController {
     public void schedule() {
         missedHeartbeats++;
         if(missedHeartbeats > 5) {
-            System.exit(0);
+            //System.exit(0);
         }
     }
 }
