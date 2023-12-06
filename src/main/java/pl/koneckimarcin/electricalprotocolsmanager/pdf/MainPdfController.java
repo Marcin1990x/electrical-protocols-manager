@@ -23,8 +23,8 @@ public class MainPdfController {
     @Autowired
     private MainPdfService pdfService;
 
-    private final String pdfPath = "F:\\Programista\\Pomiary elektryczne\\electrical-protocols-manager-ui\\electrical-protocols-manager-ui\\src\\test.pdf";
-    //private final String pdfPath = "pdf\\draft.pdf";
+    //private final String pdfPath = "F:\\Programista\\Pomiary elektryczne\\electrical-protocols-manager-ui\\electrical-protocols-manager-ui\\src\\test.pdf";
+    private final String pdfPath = "pdf\\new.pdf";
 
     private Building building;
     private PdfTitlePage titlePageData;

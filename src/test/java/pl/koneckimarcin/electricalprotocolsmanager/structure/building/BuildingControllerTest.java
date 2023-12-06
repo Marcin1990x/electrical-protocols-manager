@@ -10,13 +10,10 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
-import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import pl.koneckimarcin.electricalprotocolsmanager.structure.floor.Floor;
 
-import java.io.InvalidObjectException;
 import java.util.List;
 import java.util.Optional;
 
@@ -24,7 +21,6 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.hasSize;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.doNothing;
-import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -118,6 +114,7 @@ public class BuildingControllerTest {
                 .andDo(print())
                 .andExpect(status().isOk());
     }
+
     @Test
     @DisplayName("Should return added building and correct status.")
     public void shouldAddBuilding() throws Exception {
@@ -125,10 +122,10 @@ public class BuildingControllerTest {
         building.setBuildingName("House");
         //when then
         mockMvc.perform(
-                MockMvcRequestBuilders
-                        .post("/buildings")
-                        .content(mapper.writeValueAsString(building))
-                        .contentType(MediaType.APPLICATION_JSON)
+                        MockMvcRequestBuilders
+                                .post("/buildings")
+                                .content(mapper.writeValueAsString(building))
+                                .contentType(MediaType.APPLICATION_JSON)
 
                 )
                 .andDo(print())
@@ -136,6 +133,7 @@ public class BuildingControllerTest {
                 .andExpect(jsonPath("$.buildingName").value("House"))
                 .andReturn();
     }
+
     @Test
     @DisplayName("Should return bad request status when post without request body.")
     public void shouldThrowBadRequest() throws Exception {
@@ -149,8 +147,7 @@ public class BuildingControllerTest {
                 .andDo(print())
                 .andExpect(status().isBadRequest());
     }
-//    @Test
-//    @Sql(scripts = "testData.sql")
+//    @Test // status 500 ?
 //    @DisplayName("Should return building with added floor and correct status")
 //    public void shouldReturnBuildingWithAddedFloor() throws Exception {
 //        //given
@@ -159,13 +156,14 @@ public class BuildingControllerTest {
 //        Floor testFloor = new Floor();
 //        testFloor.setFloorName("TestFloor");
 //        building1.addFloor(testFloor);
-//        given(buildingService.addFloorToBuildingLogic(0, 0)).willReturn(Optional.of(building1));
+//        given(buildingService.addFloorToBuildingLogic(building1.getId(), testFloor.getId())).willReturn(Optional.of(building1));
+//
 //
 //        //when then
 //        mockMvc.perform(
 //                MockMvcRequestBuilders
-//                        .put("/buildings/0")
-//                        .param("floorId", "0")
+//                        .put("/buildings/" + building1.getId())
+//                        .param("floorId", String.valueOf(testFloor.getId()))
 //                )
 //                .andDo(print())
 //                .andExpect(status().isOk());
