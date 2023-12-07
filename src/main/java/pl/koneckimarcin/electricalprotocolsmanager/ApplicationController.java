@@ -17,8 +17,8 @@ public class ApplicationController {
     @Scheduled(fixedRate = 3000)
     public void schedule() {
         missedHeartbeats++;
-        if(missedHeartbeats > 5) {
-            //System.exit(0);
+        if(missedHeartbeats > 10) {
+            System.exit(0);
         }
     }
 }

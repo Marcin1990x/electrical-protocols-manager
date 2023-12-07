@@ -14,7 +14,8 @@ import java.util.List;
 @Service
 public class PdfTheoryService {
 
-    private final String dir = "src/main/resources/theoryImages/";
+    //private final String dir = "src/main/resources/theoryImages/"; // intellij
+    private final String dir = "theoryImages/"; // for jar
 
     public void addTheory(PDDocument document, int startPage, int pages, Building building) throws IOException {
 
