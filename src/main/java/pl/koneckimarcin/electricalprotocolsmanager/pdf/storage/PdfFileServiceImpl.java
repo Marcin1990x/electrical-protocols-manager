@@ -30,4 +30,10 @@ public class PdfFileServiceImpl implements PdfFileService {
             throw new RuntimeException("Could not save file: " + fileName);
         }
     }
+
+    @Override
+    public void deleteAll() {
+
+        repository.deleteAll();
+    }
 }

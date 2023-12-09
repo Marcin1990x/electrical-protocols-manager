@@ -6,4 +6,5 @@ public interface PdfFileService {
 
     PdfEntity loadFile();
     void addFile(MultipartFile file);
+    void deleteAll();
 }

@@ -1,4 +1,4 @@
-package pl.koneckimarcin.electricalprotocolsmanager.pdf.model;
+package pl.koneckimarcin.electricalprotocolsmanager.pdf.table;
 
 import org.apache.pdfbox.pdmodel.PDPageContentStream;
 import org.apache.pdfbox.pdmodel.font.PDFont;

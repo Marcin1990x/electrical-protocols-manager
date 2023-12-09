@@ -8,7 +8,7 @@ import pl.koneckimarcin.electricalprotocolsmanager.measurement.main.MeasurementM
 import pl.koneckimarcin.electricalprotocolsmanager.pdf.Alignment;
 import pl.koneckimarcin.electricalprotocolsmanager.pdf.Font;
 import pl.koneckimarcin.electricalprotocolsmanager.pdf.titlePage.PdfTitlePage;
-import pl.koneckimarcin.electricalprotocolsmanager.pdf.model.Table;
+import pl.koneckimarcin.electricalprotocolsmanager.pdf.table.Table;
 import pl.koneckimarcin.electricalprotocolsmanager.utilities.electrician.Electrician;
 
 import java.awt.*;

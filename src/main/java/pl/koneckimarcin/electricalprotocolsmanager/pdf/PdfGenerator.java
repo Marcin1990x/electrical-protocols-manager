@@ -1,48 +1,46 @@
 package pl.koneckimarcin.electricalprotocolsmanager.pdf;
 
 import org.apache.pdfbox.pdmodel.PDDocument;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pl.koneckimarcin.electricalprotocolsmanager.pdf.service.*;
+import pl.koneckimarcin.electricalprotocolsmanager.pdf.storage.PdfRepository;
 import pl.koneckimarcin.electricalprotocolsmanager.pdf.titlePage.PdfTitlePage;
 import pl.koneckimarcin.electricalprotocolsmanager.structure.building.Building;
 import pl.koneckimarcin.electricalprotocolsmanager.structure.building.BuildingRepository;
 
-import java.io.File;
 import java.io.IOException;
 
 @Service
 public class PdfGenerator {
 
-    private final PdfService pdfService;
-    private final PdfHeadingService headingService;
-    private final PdfFooterService footerService;
-    private final PdfMeasurementDataService measurementDataService;
-    private final PdfTitlePageService titlePageService;
-    private final PdfLegendService legendService;
-    private final PdfTheoryService theoryService;
-    private final PdfElectricianPageService electricianPageService;
-    private final PdfStatisticPageService statisticPageService;
+    @Autowired
+    private PdfService pdfService;
+    @Autowired
+    private PdfHeadingService headingService;
+    @Autowired
+    private PdfFooterService footerService;
+    @Autowired
+    private PdfMeasurementDataService measurementDataService;
+    @Autowired
+    private PdfTitlePageService titlePageService;
+    @Autowired
+    private PdfLegendService legendService;
+    @Autowired
+    private PdfTheoryService theoryService;
+    @Autowired
+    private PdfElectricianPageService electricianPageService;
+    @Autowired
+    private PdfStatisticPageService statisticPageService;
+    @Autowired
+    private PdfRepository pdfRepository;
+    @Autowired
+    private MainPdfService mainPdfService;
+    @Autowired
+    private BuildingRepository buildingRepository;
 
-    private final BuildingRepository buildingDtoRepository;
 
-    public PdfGenerator(PdfService pdfService, PdfHeadingService headingService, PdfFooterService footerService,
-                        PdfMeasurementDataService measurementDataService, PdfTitlePageService titlePageService,
-                        PdfLegendService legendService, PdfTheoryService theoryService,
-                        PdfElectricianPageService electricianPageService, PdfStatisticPageService statisticPageService,
-                        BuildingRepository buildingDtoRepository) {
-        this.pdfService = pdfService;
-        this.headingService = headingService;
-        this.footerService = footerService;
-        this.measurementDataService = measurementDataService;
-        this.titlePageService = titlePageService;
-        this.legendService = legendService;
-        this.theoryService = theoryService;
-        this.electricianPageService = electricianPageService;
-        this.statisticPageService = statisticPageService;
-        this.buildingDtoRepository = buildingDtoRepository;
-    }
-
-    public String createPdfDocument(String directory, Building building, PdfTitlePage titlePageData) throws IOException {
+    public void createPdfDocument(Building building, PdfTitlePage titlePageData) throws IOException {
 
         PDDocument doc = new PDDocument();
 
@@ -53,7 +51,6 @@ public class PdfGenerator {
         //count pages for theory
         int pagesCountTheory = pdfService.calculateNumberOfTheoryPages(building);
         //add pages for title, theory...
-        File file = new File(directory);
 
         //add title page
         pdfService.addPages(doc, 1);
@@ -78,9 +75,7 @@ public class PdfGenerator {
         //add footers
         footerService.addFooter(doc, titlePageData.getDocumentNumber(), font);
 
-        doc.save(file);
+        mainPdfService.saveFileToDb(doc);
         doc.close();
-
-        return file.getAbsolutePath();
     }
 }

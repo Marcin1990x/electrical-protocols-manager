@@ -23,9 +23,6 @@ public class MainPdfController {
     @Autowired
     private MainPdfService pdfService;
 
-    //private final String pdfPath = "F:\\Programista\\Pomiary elektryczne\\electrical-protocols-manager-ui\\electrical-protocols-manager-ui\\src\\test.pdf";
-    private final String pdfPath = "pdf\\new.pdf";
-
     private Building building;
     private PdfTitlePage titlePageData;
 
@@ -45,16 +42,14 @@ public class MainPdfController {
     }
 
     @GetMapping("/createPdf")
-    public String run() throws IOException {
+    public void run() throws IOException {
 
-        String path = pdfGenerator.createPdfDocument(pdfPath, building, titlePageData);
-
-        return path;
+        pdfGenerator.createPdfDocument(building, titlePageData);
     }
 
-    @GetMapping("/copyPdf/{fileName}")
-    public void copyPdf(@PathVariable String fileName) {
+    @GetMapping("/saveToFile/{fileName}")
+    public void saveToFile(@PathVariable String fileName) {
 
-        pdfService.copyFile(fileName, pdfPath);
+        pdfService.saveToFile(fileName);
     }
 }
