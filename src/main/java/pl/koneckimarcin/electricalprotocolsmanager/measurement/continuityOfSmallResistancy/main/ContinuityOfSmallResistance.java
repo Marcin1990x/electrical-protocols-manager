@@ -4,7 +4,7 @@ import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
 import jakarta.persistence.OneToMany;
 import pl.koneckimarcin.electricalprotocolsmanager.measurement.continuityOfSmallResistancy.entry.ContinuityOfSmallResistanceEntry;
-import pl.koneckimarcin.electricalprotocolsmanager.measurement.data.TextData;
+import pl.koneckimarcin.electricalprotocolsmanager.measurement.protocolTextData.TextsPL;
 import pl.koneckimarcin.electricalprotocolsmanager.measurement.main.MeasurementMain;
 
 import java.util.List;
@@ -13,7 +13,7 @@ import java.util.List;
 @DiscriminatorValue("5")
 public class ContinuityOfSmallResistance extends MeasurementMain {
 
-    private final String measurementName = TextData.measurementsMainNames.get(5);
+    private final String measurementName = TextsPL.measurementsMainNames.get(5);
 
     @OneToMany
     private List<ContinuityOfSmallResistanceEntry> entries;

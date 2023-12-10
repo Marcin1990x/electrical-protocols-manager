@@ -5,7 +5,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.OneToMany;
 import jakarta.validation.constraints.Positive;
 import pl.koneckimarcin.electricalprotocolsmanager.measurement.circuitInsulationResistanceTns.entry.CircuitInsulationResistanceTnsEntry;
-import pl.koneckimarcin.electricalprotocolsmanager.measurement.data.TextData;
+import pl.koneckimarcin.electricalprotocolsmanager.measurement.protocolTextData.TextsPL;
 import pl.koneckimarcin.electricalprotocolsmanager.measurement.main.MeasurementMain;
 
 import java.util.List;
@@ -14,7 +14,7 @@ import java.util.List;
 @DiscriminatorValue("1")
 public class CircuitInsulationResistanceTns extends MeasurementMain {
 
-    private final String measurementName = TextData.measurementsMainNames.get(1);
+    private final String measurementName = TextsPL.measurementsMainNames.get(1);
 
     private int uiso;
 
@@ -36,7 +36,7 @@ public class CircuitInsulationResistanceTns extends MeasurementMain {
 
     @Override
     public String getPropertiesNamesAndValues() {
-        return TextData.circuitInsulationResistanceLabels.get(0) + " = " + this.uiso + " V ";
+        return TextsPL.circuitInsulationResistanceLabels.get(0) + " = " + this.uiso + " V ";
     }
 
     public String getMeasurementName() {

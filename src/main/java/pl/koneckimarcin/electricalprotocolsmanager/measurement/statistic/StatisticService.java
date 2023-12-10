@@ -4,7 +4,7 @@ import org.springframework.stereotype.Service;
 import pl.koneckimarcin.electricalprotocolsmanager.measurement.Result;
 import pl.koneckimarcin.electricalprotocolsmanager.measurement.circuitInsulationResistanceTnc.entry.CircuitInsulationResistanceTncEntry;
 import pl.koneckimarcin.electricalprotocolsmanager.measurement.circuitInsulationResistanceTns.entry.CircuitInsulationResistanceTnsEntry;
-import pl.koneckimarcin.electricalprotocolsmanager.measurement.data.TextData;
+import pl.koneckimarcin.electricalprotocolsmanager.measurement.protocolTextData.TextsPL;
 import pl.koneckimarcin.electricalprotocolsmanager.measurement.entry.MeasurementEntry;
 import pl.koneckimarcin.electricalprotocolsmanager.measurement.main.MeasurementMain;
 import pl.koneckimarcin.electricalprotocolsmanager.structure.building.Building;
@@ -26,34 +26,34 @@ public class StatisticService {
 
         for (String measurement : distinctMeasurementMainNames) {
 
-            if (measurement.equals(TextData.measurementsMainNames.get(0))) {
+            if (measurement.equals(TextsPL.measurementsMainNames.get(0))) {
                 List<MeasurementMain> list =
-                        extractMeasurementMainListByName(TextData.measurementsMainNames.get(0), measurementList);
+                        extractMeasurementMainListByName(TextsPL.measurementsMainNames.get(0), measurementList);
                 measurementsStatisticTextDataLists
                         .add(getProtectionMeasurementStatisticTextData(list));
-            } else if (measurement.equals(TextData.measurementsMainNames.get(1))) {
+            } else if (measurement.equals(TextsPL.measurementsMainNames.get(1))) {
                 List<MeasurementMain> list =
-                        extractMeasurementMainListByName(TextData.measurementsMainNames.get(1), measurementList);
+                        extractMeasurementMainListByName(TextsPL.measurementsMainNames.get(1), measurementList);
                 measurementsStatisticTextDataLists
                         .add(getCircuitInsulationTnsMeasurementStatisticTextData(list));
-            } else if (measurement.equals(TextData.measurementsMainNames.get(2))) {
+            } else if (measurement.equals(TextsPL.measurementsMainNames.get(2))) {
                 List<MeasurementMain> list =
-                        extractMeasurementMainListByName(TextData.measurementsMainNames.get(2), measurementList);
+                        extractMeasurementMainListByName(TextsPL.measurementsMainNames.get(2), measurementList);
                 measurementsStatisticTextDataLists
                         .add(getCircuitInsulationTncMeasurementStatisticTextData(list));
-            } else if (measurement.equals(TextData.measurementsMainNames.get(3))) {
+            } else if (measurement.equals(TextsPL.measurementsMainNames.get(3))) {
                 List<MeasurementMain> list =
-                        extractMeasurementMainListByName(TextData.measurementsMainNames.get(3), measurementList);
+                        extractMeasurementMainListByName(TextsPL.measurementsMainNames.get(3), measurementList);
                 measurementsStatisticTextDataLists
                         .add(getCommonStatisticTextData(list));
-            } else if (measurement.equals(TextData.measurementsMainNames.get(4))) {
+            } else if (measurement.equals(TextsPL.measurementsMainNames.get(4))) {
                 List<MeasurementMain> list =
-                        extractMeasurementMainListByName(TextData.measurementsMainNames.get(4), measurementList);
+                        extractMeasurementMainListByName(TextsPL.measurementsMainNames.get(4), measurementList);
                 measurementsStatisticTextDataLists
                         .add(getSoilResistanceStatisticTextData(list));
-            } else if (measurement.equals(TextData.measurementsMainNames.get(5))) {
+            } else if (measurement.equals(TextsPL.measurementsMainNames.get(5))) {
                 List<MeasurementMain> list =
-                        extractMeasurementMainListByName(TextData.measurementsMainNames.get(5), measurementList);
+                        extractMeasurementMainListByName(TextsPL.measurementsMainNames.get(5), measurementList);
                 measurementsStatisticTextDataLists
                         .add(getCommonStatisticTextData(list));
             } else {
@@ -83,9 +83,9 @@ public class StatisticService {
         measuredObjects = measurements.size();
 
         statisticsTextData.add(measurements.get(0).getMeasurementName());
-        statisticsTextData.add(TextData.protectionMeasurementStatisticText.get(0) + totalMeasuringPoints);
-        statisticsTextData.add(TextData.protectionMeasurementStatisticText.get(1) + totalPositiveResults);
-        statisticsTextData.add(TextData.protectionMeasurementStatisticText.get(2) + measuredObjects);
+        statisticsTextData.add(TextsPL.protectionMeasurementStatisticText.get(0) + totalMeasuringPoints);
+        statisticsTextData.add(TextsPL.protectionMeasurementStatisticText.get(1) + totalPositiveResults);
+        statisticsTextData.add(TextsPL.protectionMeasurementStatisticText.get(2) + measuredObjects);
 
         return statisticsTextData;
     }
@@ -117,10 +117,10 @@ public class StatisticService {
         measuredObjects = measurements.size();
 
         statisticsTextData.add(measurements.get(0).getMeasurementName());
-        statisticsTextData.add(TextData.circuitInsulationMeasurementStatisticText.get(0) + totalOnePhaseCircuits);
-        statisticsTextData.add(TextData.circuitInsulationMeasurementStatisticText.get(1) + totalThreePhaseCircuits);
-        statisticsTextData.add(TextData.circuitInsulationMeasurementStatisticText.get(2) + totalPositiveResults);
-        statisticsTextData.add(TextData.circuitInsulationMeasurementStatisticText.get(3) + measuredObjects);
+        statisticsTextData.add(TextsPL.circuitInsulationMeasurementStatisticText.get(0) + totalOnePhaseCircuits);
+        statisticsTextData.add(TextsPL.circuitInsulationMeasurementStatisticText.get(1) + totalThreePhaseCircuits);
+        statisticsTextData.add(TextsPL.circuitInsulationMeasurementStatisticText.get(2) + totalPositiveResults);
+        statisticsTextData.add(TextsPL.circuitInsulationMeasurementStatisticText.get(3) + measuredObjects);
 
         return statisticsTextData;
     }
@@ -152,10 +152,10 @@ public class StatisticService {
         measuredObjects = measurements.size();
 
         statisticsTextData.add(measurements.get(0).getMeasurementName());
-        statisticsTextData.add(TextData.circuitInsulationMeasurementStatisticText.get(0) + totalOnePhaseCircuits);
-        statisticsTextData.add(TextData.circuitInsulationMeasurementStatisticText.get(1) + totalThreePhaseCircuits);
-        statisticsTextData.add(TextData.circuitInsulationMeasurementStatisticText.get(2) + totalPositiveResults);
-        statisticsTextData.add(TextData.circuitInsulationMeasurementStatisticText.get(3) + measuredObjects);
+        statisticsTextData.add(TextsPL.circuitInsulationMeasurementStatisticText.get(0) + totalOnePhaseCircuits);
+        statisticsTextData.add(TextsPL.circuitInsulationMeasurementStatisticText.get(1) + totalThreePhaseCircuits);
+        statisticsTextData.add(TextsPL.circuitInsulationMeasurementStatisticText.get(2) + totalPositiveResults);
+        statisticsTextData.add(TextsPL.circuitInsulationMeasurementStatisticText.get(3) + measuredObjects);
 
         return statisticsTextData;
     }
@@ -176,9 +176,9 @@ public class StatisticService {
             }
         }
         statisticsTextData.add(measurements.get(0).getMeasurementName());
-        statisticsTextData.add(TextData.commonStatisticText.get(0) + measurementPoints);
-        statisticsTextData.add(TextData.commonStatisticText.get(1) + totalPositiveResults);
-        statisticsTextData.add(TextData.commonStatisticText.get(2)
+        statisticsTextData.add(TextsPL.commonStatisticText.get(0) + measurementPoints);
+        statisticsTextData.add(TextsPL.commonStatisticText.get(1) + totalPositiveResults);
+        statisticsTextData.add(TextsPL.commonStatisticText.get(2)
                 + (measurementPoints - totalPositiveResults));
 
         return statisticsTextData;
@@ -200,8 +200,8 @@ public class StatisticService {
             }
         }
         statisticsTextData.add(measurements.get(0).getMeasurementName());
-        statisticsTextData.add(TextData.soilResistanceStatisticText.get(0) + measurementPoints);
-        statisticsTextData.add(TextData.soilResistanceStatisticText.get(1) + totalNoneResults);
+        statisticsTextData.add(TextsPL.soilResistanceStatisticText.get(0) + measurementPoints);
+        statisticsTextData.add(TextsPL.soilResistanceStatisticText.get(1) + totalNoneResults);
 
         return statisticsTextData;
     }

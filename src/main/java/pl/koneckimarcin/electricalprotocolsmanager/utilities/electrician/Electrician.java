@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-import pl.koneckimarcin.electricalprotocolsmanager.measurement.data.TextData;
+import pl.koneckimarcin.electricalprotocolsmanager.measurement.protocolTextData.TextsPL;
 import pl.koneckimarcin.electricalprotocolsmanager.pdf.titlePage.PdfTitlePage;
 
 import java.util.ArrayList;
@@ -85,8 +85,8 @@ public class Electrician {
     public List<String> addSignature() {
 
         signature.add(this.firstName + " " + this.lastName);
-        signature.add(TextData.electriciansPageText.get(0));
-        signature.add(TextData.electriciansPageText.get(1));
+        signature.add(TextsPL.electriciansPageText.get(0));
+        signature.add(TextsPL.electriciansPageText.get(1));
         String permissions = "";
         for (String permission : this.permissionList) {
             permissions = permissions + permission + " ";

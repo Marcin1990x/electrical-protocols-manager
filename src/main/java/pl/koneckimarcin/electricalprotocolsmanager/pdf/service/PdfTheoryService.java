@@ -4,7 +4,7 @@ import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPageContentStream;
 import org.apache.pdfbox.pdmodel.graphics.image.PDImageXObject;
 import org.springframework.stereotype.Service;
-import pl.koneckimarcin.electricalprotocolsmanager.measurement.data.TextData;
+import pl.koneckimarcin.electricalprotocolsmanager.measurement.protocolTextData.TextsPL;
 import pl.koneckimarcin.electricalprotocolsmanager.structure.building.Building;
 
 import java.io.IOException;
@@ -49,17 +49,17 @@ public class PdfTheoryService {
         boolean circuitFlag = false;
 
         for (String name : measurementsNames) {
-            if (name.equals(TextData.measurementsMainNames.get(0))) {
+            if (name.equals(TextsPL.measurementsMainNames.get(0))) {
                 directories.add(dir + "protect1.jpg");
                 directories.add(dir + "protect2.jpg");
-            } else if (name.equals(TextData.measurementsMainNames.get(1)) ||
-                    name.equals(TextData.measurementsMainNames.get(2))) {
+            } else if (name.equals(TextsPL.measurementsMainNames.get(1)) ||
+                    name.equals(TextsPL.measurementsMainNames.get(2))) {
                 if (!circuitFlag) directories.add(dir + "insulation.jpg");
                 circuitFlag = true;
-            } else if (name.equals(TextData.measurementsMainNames.get(3))) {
+            } else if (name.equals(TextsPL.measurementsMainNames.get(3))) {
                 directories.add(dir + "residual.jpg");
-            } else if (name.equals(TextData.measurementsMainNames.get(4))) {
-            } else if (name.equals(TextData.measurementsMainNames.get(5))) {
+            } else if (name.equals(TextsPL.measurementsMainNames.get(4))) {
+            } else if (name.equals(TextsPL.measurementsMainNames.get(5))) {
                 directories.add(dir + "continuity.jpg");
             } else {
                 throw new IllegalArgumentException("No theory image directory for this measurement name.");

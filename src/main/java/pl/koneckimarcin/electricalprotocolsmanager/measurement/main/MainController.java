@@ -2,7 +2,7 @@ package pl.koneckimarcin.electricalprotocolsmanager.measurement.main;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import pl.koneckimarcin.electricalprotocolsmanager.measurement.data.TextData;
+import pl.koneckimarcin.electricalprotocolsmanager.measurement.protocolTextData.TextsPL;
 import pl.koneckimarcin.electricalprotocolsmanager.structure.room.Room;
 import pl.koneckimarcin.electricalprotocolsmanager.structure.room.RoomRepository;
 
@@ -19,7 +19,7 @@ public class MainController {
 
     @GetMapping("/types")
     public List<String> retrieveMeasurementMainTypes() {
-        return TextData.measurementsMainNames;
+        return TextsPL.measurementsMainNames;
     }
 
     @GetMapping("/measurements/{id}")

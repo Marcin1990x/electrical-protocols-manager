@@ -3,7 +3,7 @@ package pl.koneckimarcin.electricalprotocolsmanager.pdf.service;
 import org.apache.pdfbox.pdmodel.PDPageContentStream;
 import org.apache.pdfbox.pdmodel.font.PDFont;
 import org.springframework.stereotype.Service;
-import pl.koneckimarcin.electricalprotocolsmanager.measurement.data.TextData;
+import pl.koneckimarcin.electricalprotocolsmanager.measurement.protocolTextData.TextsPL;
 import pl.koneckimarcin.electricalprotocolsmanager.pdf.Alignment;
 
 import java.io.IOException;
@@ -61,18 +61,18 @@ public class PdfTextService {
 
         List<Object> tableHeaders;
 
-        if (measurementName.equals(TextData.measurementsMainNames.get(0))) {
-            tableHeaders = TextData.protectionAgainstElectricShockByAutomaticShutdownEntryHeaders;
-        } else if (measurementName.equals(TextData.measurementsMainNames.get(1))) {
-            tableHeaders = TextData.circuitInsulationResistanceTnsHeaders;
-        } else if (measurementName.equals(TextData.measurementsMainNames.get(2))) {
-            tableHeaders = TextData.circuitInsulationResistanceTncHeaders;
-        } else if (measurementName.equals(TextData.measurementsMainNames.get(3))) {
-            tableHeaders = TextData.residualCurrentProtectionHeaders;
-        } else if (measurementName.equals(TextData.measurementsMainNames.get(4))) {
-            tableHeaders = TextData.soilResistanceHeaders;
-        } else if (measurementName.equals(TextData.measurementsMainNames.get(5))) {
-            tableHeaders = TextData.continuityOfSmallResistanceHeaders;
+        if (measurementName.equals(TextsPL.measurementsMainNames.get(0))) {
+            tableHeaders = TextsPL.protectionAgainstElectricShockByAutomaticShutdownEntryHeaders;
+        } else if (measurementName.equals(TextsPL.measurementsMainNames.get(1))) {
+            tableHeaders = TextsPL.circuitInsulationResistanceTnsHeaders;
+        } else if (measurementName.equals(TextsPL.measurementsMainNames.get(2))) {
+            tableHeaders = TextsPL.circuitInsulationResistanceTncHeaders;
+        } else if (measurementName.equals(TextsPL.measurementsMainNames.get(3))) {
+            tableHeaders = TextsPL.residualCurrentProtectionHeaders;
+        } else if (measurementName.equals(TextsPL.measurementsMainNames.get(4))) {
+            tableHeaders = TextsPL.soilResistanceHeaders;
+        } else if (measurementName.equals(TextsPL.measurementsMainNames.get(5))) {
+            tableHeaders = TextsPL.continuityOfSmallResistanceHeaders;
         } else {
             throw new IllegalArgumentException("No entry table headers for this measurement main name.");
         }

@@ -3,7 +3,7 @@ package pl.koneckimarcin.electricalprotocolsmanager.pdf.service;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPageContentStream;
 import org.springframework.stereotype.Service;
-import pl.koneckimarcin.electricalprotocolsmanager.measurement.data.TextData;
+import pl.koneckimarcin.electricalprotocolsmanager.measurement.protocolTextData.TextsPL;
 import pl.koneckimarcin.electricalprotocolsmanager.measurement.statistic.StatisticService;
 import pl.koneckimarcin.electricalprotocolsmanager.pdf.Alignment;
 import pl.koneckimarcin.electricalprotocolsmanager.pdf.Font;
@@ -31,7 +31,7 @@ public class PdfStatisticPageService {
         content = new PDPageContentStream(document, document.getPage(page),
                 PDPageContentStream.AppendMode.APPEND, false);
 
-        textService.addSingleLineOfTextAlignment(content, TextData.statisticPageText.get(0), yPos,
+        textService.addSingleLineOfTextAlignment(content, TextsPL.statisticPageText.get(0), yPos,
                 Alignment.CENTER, font.getFont(), 13);
         yPos -= 40;
         List<List<String>> measurementsStatistics = statisticService.getMeasurementsStatistics(building);

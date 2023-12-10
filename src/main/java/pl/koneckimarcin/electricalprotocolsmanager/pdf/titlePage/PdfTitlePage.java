@@ -7,7 +7,7 @@ import jakarta.validation.constraints.NotNull;
 import pl.koneckimarcin.electricalprotocolsmanager.measurement.TypeOfInstallation;
 import pl.koneckimarcin.electricalprotocolsmanager.measurement.TypeOfMeasurement;
 import pl.koneckimarcin.electricalprotocolsmanager.measurement.TypeOfWeather;
-import pl.koneckimarcin.electricalprotocolsmanager.measurement.data.TextData;
+import pl.koneckimarcin.electricalprotocolsmanager.measurement.protocolTextData.TextsPL;
 import pl.koneckimarcin.electricalprotocolsmanager.utilities.electrician.Electrician;
 
 import java.time.LocalDate;
@@ -160,9 +160,9 @@ public class PdfTitlePage {
         String result = "";
 
         switch(this.typeOfMeasurement){
-            case PERIODIC -> result = TextData.typeOfMeasurementText.get(0);
-            case NEW_INSTALLATION ->  result = TextData.typeOfMeasurementText.get(1);
-            case AFTER_RENOVATION -> result = TextData.typeOfMeasurementText.get(2);
+            case PERIODIC -> result = TextsPL.typeOfMeasurementText.get(0);
+            case NEW_INSTALLATION ->  result = TextsPL.typeOfMeasurementText.get(1);
+            case AFTER_RENOVATION -> result = TextsPL.typeOfMeasurementText.get(2);
         }
         return result;
     }
@@ -172,9 +172,9 @@ public class PdfTitlePage {
         String result = "";
 
         switch(this.typeOfWeather){
-            case SUNNY -> result = TextData.typeOfWeatherText.get(0);
-            case CLOUDY ->  result = TextData.typeOfWeatherText.get(1);
-            case RAINY -> result = TextData.typeOfWeatherText.get(2);
+            case SUNNY -> result = TextsPL.typeOfWeatherText.get(0);
+            case CLOUDY ->  result = TextsPL.typeOfWeatherText.get(1);
+            case RAINY -> result = TextsPL.typeOfWeatherText.get(2);
         }
         return result;
     }
@@ -183,10 +183,10 @@ public class PdfTitlePage {
         String result = "";
 
         switch(this.typeOfInstallation){
-            case NEW -> result = TextData.typeOfInstallationText.get(0);
-            case MODIFICATED ->  result = TextData.typeOfInstallationText.get(1);
-            case EXPANDED -> result = TextData.typeOfInstallationText.get(2);
-            case EXISTING -> result = TextData.typeOfInstallationText.get(3);
+            case NEW -> result = TextsPL.typeOfInstallationText.get(0);
+            case MODIFICATED ->  result = TextsPL.typeOfInstallationText.get(1);
+            case EXPANDED -> result = TextsPL.typeOfInstallationText.get(2);
+            case EXISTING -> result = TextsPL.typeOfInstallationText.get(3);
         }
         return result;
     }
@@ -198,12 +198,12 @@ public class PdfTitlePage {
 
         List<String> headingTextData = new ArrayList<>();
         headingTextData.add(this.documentNumber);
-        headingTextData.add(TextData.headerText.get(0) + this.measurementDate.toString());
+        headingTextData.add(TextsPL.headerText.get(0) + this.measurementDate.toString());
         for (Electrician electrician : this.electricians) {
             builder.append(electrician.getFirstName()).append(" ").append(electrician.getLastName()).append("; ");
         }
-        headingTextData.add(TextData.headerText.get(1) + builder.substring(0, builder.length() - 2));
-        headingTextData.add(TextData.headerText.get(2) + this.measurementPlace);
+        headingTextData.add(TextsPL.headerText.get(1) + builder.substring(0, builder.length() - 2));
+        headingTextData.add(TextsPL.headerText.get(2) + this.measurementPlace);
 
         return headingTextData;
     }
@@ -221,13 +221,13 @@ public class PdfTitlePage {
     public List<String> getTitlePageMeasurementTextData() {
 
         List<String> measurementTextData = new ArrayList<>();
-        measurementTextData.add(TextData.titlePageText.get(2) + this.getTypeOfMeasurementPdf() +
+        measurementTextData.add(TextsPL.titlePageText.get(2) + this.getTypeOfMeasurementPdf() +
                 "                                                    "
-                + TextData.titlePageText.get(3) + this.getTypeOfWeatherPdf());
-        measurementTextData.add(TextData.titlePageText.get(4) + measurementDate.toString() +
+                + TextsPL.titlePageText.get(3) + this.getTypeOfWeatherPdf());
+        measurementTextData.add(TextsPL.titlePageText.get(4) + measurementDate.toString() +
                 "                                                              " +
-                TextData.titlePageText.get(5) + nextMeasurementDate.toString());
-        measurementTextData.add(TextData.titlePageText.get(6));
+                TextsPL.titlePageText.get(5) + nextMeasurementDate.toString());
+        measurementTextData.add(TextsPL.titlePageText.get(6));
         measurementTextData.add(this.getTypeOfInstallationPdf());
 
         return measurementTextData;
@@ -236,10 +236,10 @@ public class PdfTitlePage {
     public List<String> getDecisionTextData() {
 
         List<String> decisionTextData = new ArrayList<>();
-        decisionTextData.add(TextData.titlePageText.get(8));
+        decisionTextData.add(TextsPL.titlePageText.get(8));
         decisionTextData.add(this.getDecisionDescription());
         decisionTextData.add(""); // empty line
-        decisionTextData.add(TextData.titlePageText.get(10));
+        decisionTextData.add(TextsPL.titlePageText.get(9));
         decisionTextData.addAll(splitTextByNewLine(this.getComments(), 10, 70));
 
         return decisionTextData;

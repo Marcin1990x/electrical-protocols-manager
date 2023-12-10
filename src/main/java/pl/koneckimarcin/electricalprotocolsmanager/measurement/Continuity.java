@@ -1,10 +1,10 @@
 package pl.koneckimarcin.electricalprotocolsmanager.measurement;
 
-import pl.koneckimarcin.electricalprotocolsmanager.measurement.data.TextData;
+import pl.koneckimarcin.electricalprotocolsmanager.measurement.protocolTextData.TextsPL;
 
 public enum Continuity {
 
-    PRESERVED(TextData.continuityEnumText.get(0)), NOTPRESERVED(TextData.continuityEnumText.get(1));
+    PRESERVED(TextsPL.continuityEnumText.get(0)), NOTPRESERVED(TextsPL.continuityEnumText.get(1));
     private final String name;
 
     Continuity(String name) {

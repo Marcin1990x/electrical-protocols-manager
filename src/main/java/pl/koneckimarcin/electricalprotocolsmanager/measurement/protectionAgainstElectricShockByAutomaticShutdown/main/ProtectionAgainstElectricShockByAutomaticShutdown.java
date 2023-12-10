@@ -7,7 +7,7 @@ import jakarta.persistence.OneToMany;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 import pl.koneckimarcin.electricalprotocolsmanager.measurement.NetworkType;
-import pl.koneckimarcin.electricalprotocolsmanager.measurement.data.TextData;
+import pl.koneckimarcin.electricalprotocolsmanager.measurement.protocolTextData.TextsPL;
 import pl.koneckimarcin.electricalprotocolsmanager.measurement.main.MeasurementMain;
 import pl.koneckimarcin.electricalprotocolsmanager.measurement.protectionAgainstElectricShockByAutomaticShutdown.entry.ProtectionMeasurementEntry;
 
@@ -17,7 +17,7 @@ import java.util.List;
 @DiscriminatorValue("0")
 public class ProtectionAgainstElectricShockByAutomaticShutdown extends MeasurementMain {
 
-    private final String measurementName = TextData.measurementsMainNames.get(0);
+    private final String measurementName = TextsPL.measurementsMainNames.get(0);
 
     @Positive(message = "This value is mandatory.")
     private int un;
@@ -91,11 +91,11 @@ public class ProtectionAgainstElectricShockByAutomaticShutdown extends Measureme
     @JsonIgnore
     @Override
     public String getPropertiesNamesAndValues() {
-        return TextData.protectionAgainstElectricShockByAutomaticShutdownLabels.get(0) + " = " + this.un + " V " +
-                TextData.protectionAgainstElectricShockByAutomaticShutdownLabels.get(1) + " = " + this.ui + " V " +
-                TextData.protectionAgainstElectricShockByAutomaticShutdownLabels.get(2) + " = " + this.ko + " " +
-                TextData.protectionAgainstElectricShockByAutomaticShutdownLabels.get(3) + " = " + this.ta + "s " +
-                TextData.protectionAgainstElectricShockByAutomaticShutdownLabels.get(4) + " = " + this.networkType.name();
+        return TextsPL.protectionAgainstElectricShockByAutomaticShutdownLabels.get(0) + " = " + this.un + " V " +
+                TextsPL.protectionAgainstElectricShockByAutomaticShutdownLabels.get(1) + " = " + this.ui + " V " +
+                TextsPL.protectionAgainstElectricShockByAutomaticShutdownLabels.get(2) + " = " + this.ko + " " +
+                TextsPL.protectionAgainstElectricShockByAutomaticShutdownLabels.get(3) + " = " + this.ta + "s " +
+                TextsPL.protectionAgainstElectricShockByAutomaticShutdownLabels.get(4) + " = " + this.networkType.name();
     }
 
     public String getMeasurementName() {

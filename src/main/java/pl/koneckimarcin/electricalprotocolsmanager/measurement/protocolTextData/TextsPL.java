@@ -1,8 +1,8 @@
-package pl.koneckimarcin.electricalprotocolsmanager.measurement.data;
+package pl.koneckimarcin.electricalprotocolsmanager.measurement.protocolTextData;
 
 import java.util.List;
 
-public class TextData {
+public class TextsPL {
 
     public static List<String> resultEnumText = List.of("Pozytywna", "Negatywna");
     public static List<String> positionEnumText = List.of("Pomiarowiec", "Sprawdzający");
@@ -111,7 +111,7 @@ public class TextData {
     public static List<String> titlePageText =
             List.of("Zleceniodawca: ", "Miejsce przeprowadzenia pomiarów: ", "Rodzaj pomiarów: ", "Pogoda: ",
                     "Data pomiarów: ", "Data następnych pomiarów: ", "Instalacja: ", "Wykonawcy pomiarów:", "Orzeczenie: "
-                    , "Protokół z pomiarów ochronnych", "Uwagi do orzeczenia:");
+                    , "Uwagi do orzeczenia:");
 
     public static List<String> legendPageText =
             List.of("Legenda:");

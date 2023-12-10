@@ -3,7 +3,7 @@ package pl.koneckimarcin.electricalprotocolsmanager.pdf.service;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPageContentStream;
 import org.springframework.stereotype.Service;
-import pl.koneckimarcin.electricalprotocolsmanager.measurement.data.TextData;
+import pl.koneckimarcin.electricalprotocolsmanager.measurement.protocolTextData.TextsPL;
 import pl.koneckimarcin.electricalprotocolsmanager.pdf.Alignment;
 import pl.koneckimarcin.electricalprotocolsmanager.pdf.Font;
 import pl.koneckimarcin.electricalprotocolsmanager.pdf.titlePage.PdfTitlePage;
@@ -28,7 +28,7 @@ public class PdfTitlePageService {
         content = new PDPageContentStream(document, document.getPage(0),
                 PDPageContentStream.AppendMode.APPEND, false);
 
-        textService.addSingleLineOfTextAlignment(content, TextData.titlePageText.get(7),
+        textService.addSingleLineOfTextAlignment(content, TextsPL.titlePageText.get(7),
                 780, Alignment.CENTER, font.getFontBold(), 10);
 
         textService.addMultipleLineOfTextAlignment(content, titlePageData.getElectriciansTextData(), 765,

@@ -3,7 +3,7 @@ package pl.koneckimarcin.electricalprotocolsmanager.pdf.service;
 import org.apache.pdfbox.pdmodel.PDPageContentStream;
 import org.apache.pdfbox.pdmodel.font.PDFont;
 import org.springframework.stereotype.Component;
-import pl.koneckimarcin.electricalprotocolsmanager.measurement.data.TextData;
+import pl.koneckimarcin.electricalprotocolsmanager.measurement.protocolTextData.TextsPL;
 import pl.koneckimarcin.electricalprotocolsmanager.measurement.main.MeasurementMain;
 import pl.koneckimarcin.electricalprotocolsmanager.pdf.Alignment;
 import pl.koneckimarcin.electricalprotocolsmanager.pdf.Font;
@@ -39,7 +39,7 @@ public class PdfTableComponent {
         yPosTitle = 660; // start position for 1st table component
         // add title
         addTableComponent(content, oneColTable, 25, yPosTitle,
-                List.of(TextData.titlePageText.get(9)), Alignment.CENTER, commonColor,
+                List.of(titlePageData.getTitle()), Alignment.CENTER, commonColor,
                 12, font.getFontBold()); // add method for centering
         // add document number
         yPosTitle -= 40;
@@ -48,12 +48,12 @@ public class PdfTableComponent {
         // add customer name
         yPosTitle -= 60;
         addTableComponentWithMultilineText(content, oneColTable, 40, yPosTitle,
-                List.of(List.of(TextData.titlePageText.get(0), titlePageData.getCustomerName())),
+                List.of(List.of(TextsPL.titlePageText.get(0), titlePageData.getCustomerName())),
                 3, commonColor, 10, font.getFont()); // replace with getter
         // add measurement place
         yPosTitle -= 50;
         addTableComponentWithMultilineText(content, oneColTable, 40, yPosTitle,
-                List.of(List.of(TextData.titlePageText.get(1), titlePageData.getMeasurementPlace())),
+                List.of(List.of(TextsPL.titlePageText.get(1), titlePageData.getMeasurementPlace())),
                 3, commonColor, 10, font.getFont()); // replace with getter
         // add measurement data
         yPosTitle -= 70;
@@ -106,13 +106,13 @@ public class PdfTableComponent {
         // add header
         yPosElec = 720;
         addTableComponent(content, oneColTable, 22, yPosElec,
-                List.of(TextData.electriciansPageText.get(2)), Alignment.CENTER, commonColor, 11,
+                List.of(TextsPL.electriciansPageText.get(2)), Alignment.CENTER, commonColor, 11,
                 font.getFont());
         // add table header
         yPosElec -= 30;
         int[] headerCellWidths = new int[]{50, 60, 100, 70, 70, 150}; // to do: automatic calculation
         addTableComponent(content, headerCellWidths, 25, yPosElec,
-                TextData.electricianPdfTableHeaders, Alignment.LEFT, headerColor, 10, font.getFont());
+                TextsPL.electricianPdfTableHeaders, Alignment.LEFT, headerColor, 10, font.getFont());
         // add electrician data
         yPosElec -= 70;
         for (Electrician electrician : electricians) {
