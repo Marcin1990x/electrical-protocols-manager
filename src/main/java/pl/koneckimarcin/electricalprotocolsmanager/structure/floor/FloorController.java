@@ -1,72 +1,48 @@
 package pl.koneckimarcin.electricalprotocolsmanager.structure.floor;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import pl.koneckimarcin.electricalprotocolsmanager.structure.building.Building;
 import pl.koneckimarcin.electricalprotocolsmanager.structure.building.BuildingRepository;
-import pl.koneckimarcin.electricalprotocolsmanager.structure.room.Room;
 import pl.koneckimarcin.electricalprotocolsmanager.structure.room.RoomRepository;
 
-import java.io.InvalidObjectException;
 import java.util.List;
 import java.util.Optional;
 
 @RestController
+@RequestMapping("floors")
 public class FloorController {
 
+    @Autowired
     private FloorRepository floorRepository;
+    @Autowired
     private RoomRepository roomRepository;
+    @Autowired
     private BuildingRepository buildingRepository;
+    @Autowired
+    private FloorService floorService;
 
-    public FloorController(FloorRepository floorRepository, RoomRepository roomRepository, BuildingRepository buildingRepository) {
-        this.floorRepository = floorRepository;
-        this.roomRepository = roomRepository;
-        this.buildingRepository = buildingRepository;
-    }
-
-    @GetMapping("/floors")
+    @GetMapping()
     public List<Floor> getFloors() {
 
-        return floorRepository.findAll();
+        return floorService.getAllFloors();
     }
 
-    @PostMapping("/floors")
+    @PostMapping()
     public Floor addFloor(@RequestBody Floor floor) {
 
-        floorRepository.save(floor);
-
+        floorService.addFloor(floor);
         return floor;
     }
 
-    @DeleteMapping("/floors/{id}/{buildingId}")
-    public void deleteById(@PathVariable int id, @PathVariable int buildingId) {
+    @DeleteMapping("/{floorId}/{buildingId}")
+    public void deleteFloorById(@PathVariable int floorId, @PathVariable int buildingId) {
 
-        Optional<Building> building = buildingRepository.findById(buildingId);
-        Optional<Floor> floor = floorRepository.findById(id);
-        building.get().removeFloor(floor.get());
-
-        floorRepository.deleteById(id);
-    }
-    @PutMapping("/floors/{floorId}")
-    public Optional<Floor> addRoomToFloor(@PathVariable  int floorId, @RequestParam int roomId)
-            throws InvalidObjectException {
-
-        Optional<Floor> floor = addRoomToFloorLogic(floorId, roomId);
-        floorRepository.save(floor.get());
-
-        return floor;
+        floorService.deleteFloorById(floorId, buildingId);
     }
 
-    private Optional<Floor> addRoomToFloorLogic(int floorId, int roomId) throws InvalidObjectException {
+    @PutMapping("/{floorId}")
+    public Optional<Floor> addRoomToFloor(@PathVariable int floorId, @RequestParam int roomId) {
 
-        Optional<Room> room = roomRepository.findById(roomId);
-        Optional<Floor> floor =  floorRepository.findById(floorId);
-
-        if(floor.isPresent() && room.isPresent())
-            floor.get().addRoom(room.get());
-        else {
-            throw new InvalidObjectException("Floor with ID: " + floorId + " or " +
-                    "Room with ID: " + roomId + " not found.");
-        }
-        return floor;
+        return floorService.addRoomToFloor(floorId, roomId);
     }
 }
