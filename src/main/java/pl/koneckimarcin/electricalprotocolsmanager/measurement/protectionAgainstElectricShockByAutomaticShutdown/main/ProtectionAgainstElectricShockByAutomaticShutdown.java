@@ -95,7 +95,7 @@ public class ProtectionAgainstElectricShockByAutomaticShutdown extends Measureme
                 TextsPL.protectionAgainstElectricShockByAutomaticShutdownLabels.get(1) + " = " + this.ui + " V " +
                 TextsPL.protectionAgainstElectricShockByAutomaticShutdownLabels.get(2) + " = " + this.ko + " " +
                 TextsPL.protectionAgainstElectricShockByAutomaticShutdownLabels.get(3) + " = " + this.ta + "s " +
-                TextsPL.protectionAgainstElectricShockByAutomaticShutdownLabels.get(4) + " = " + this.networkType.name();
+                TextsPL.protectionAgainstElectricShockByAutomaticShutdownLabels.get(4) + " = " + this.networkType.getName();
     }
 
     public String getMeasurementName() {
