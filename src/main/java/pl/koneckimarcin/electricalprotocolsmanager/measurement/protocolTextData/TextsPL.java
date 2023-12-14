@@ -12,7 +12,7 @@ public class TextsPL {
             "(TN-C, TN-S) Badanie ochrony przed porażeniem przez samoczynne wyłączenie",
             "(TN-S) Badanie rezystancji izolacji obwodów",
             "(TN-C) Badanie rezystancji izolacji obwodów",
-            "Parametry zabezpieczeń róźnicowoprądowych",
+            "Parametry zabezpieczeń różnicowoprądowych",
             "Badanie rezystywności gruntu",
             "Badanie ciągłości małych rezystancji"
     );

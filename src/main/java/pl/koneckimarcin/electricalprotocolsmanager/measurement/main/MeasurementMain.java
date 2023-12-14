@@ -43,7 +43,7 @@ public abstract class MeasurementMain {
     }
 
     public void addEntry(MeasurementEntry entry) {
-        if (this.measurementEntries.size() < 20) {
+        if (this.measurementEntries.size() < 37) {
             this.measurementEntries.add(entry);
         }
     }

@@ -2,6 +2,7 @@ package pl.koneckimarcin.electricalprotocolsmanager.pdf.service;
 
 import org.apache.pdfbox.pdmodel.PDPageContentStream;
 import org.apache.pdfbox.pdmodel.font.PDFont;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import pl.koneckimarcin.electricalprotocolsmanager.measurement.protocolTextData.TextsPL;
 import pl.koneckimarcin.electricalprotocolsmanager.measurement.main.MeasurementMain;
@@ -18,18 +19,15 @@ import java.util.List;
 @Component
 public class PdfTableComponent {
 
-    private final PdfTableService pdfTableService;
-    private final PdfTextService textService;
+    @Autowired
+    private PdfTableService pdfTableService;
+    @Autowired
+    private PdfTextService textService;
 
     private int yPosMeas; // y position for measurements tables
     private int yPosTitle; // y position for title page tables
     private int yPosElec; // y position for electricians data page
     private final int[] oneColTable = new int[]{500};
-
-    public PdfTableComponent(PdfTableService pdfTableService, PdfTextService textService) {
-        this.pdfTableService = pdfTableService;
-        this.textService = textService;
-    }
 
     private final Color commonColor = new Color(255, 255, 255); // color for tables backgrounds
     private final Color headerColor = new Color(180, 180, 180); // color for table header background
@@ -40,7 +38,7 @@ public class PdfTableComponent {
         // add title
         addTableComponent(content, oneColTable, 25, yPosTitle,
                 List.of(titlePageData.getTitle()), Alignment.CENTER, commonColor,
-                12, font.getFontBold()); // add method for centering
+                12, font.getFontBold(), false);
         // add document number
         yPosTitle -= 40;
         textService.addSingleLineOfTextAlignment(content, titlePageData.getDocumentNumber(), yPosTitle,
@@ -72,33 +70,45 @@ public class PdfTableComponent {
         // add cascade name without measurement name
         addTableComponent(content, oneColTable, 25, yPosMeas,
                 List.of(measurementMain.getMeasurementMainCascadeNameWithoutMeasurementName()),
-                Alignment.LEFT, commonColor, 12, font.getFont());
+                Alignment.LEFT, commonColor, 12, font.getFont(), false);
         yPosMeas -= 30;
         // add measurement name
         addTableComponent(content, oneColTable, 25, yPosMeas, List.of(measurementMain.getMeasurementName()),
-                Alignment.CENTER, commonColor, 11, font.getFont());
+                Alignment.CENTER, commonColor, 11, font.getFont(), false);
         yPosMeas -= 30;
         // add cascadeTable
         // add header
         int[] headerCellWidths = pdfTableService.getCellSizes(measurementMain.getMeasurementName());
         addTableComponent(content, headerCellWidths, 25, yPosMeas,
                 textService.getMeasurementEntryTableHeaders(measurementMain.getMeasurementName()),
-                Alignment.CENTER, headerColor, 8, font.getFontBold());
+                Alignment.CENTER, headerColor, 8, font.getFontBold(), false);
         yPosMeas -= 30;
         // add main parameters
         if (!measurementMain.getPropertiesNamesAndValues().isEmpty()) {
             addTableComponent(content, oneColTable, 25, yPosMeas,
                     List.of(measurementMain.getPropertiesNamesAndValues()), Alignment.LEFT,
-                    commonColor, 9, font.getFont());
+                    commonColor, 9, font.getFont(), false);
             yPosMeas -= 30;
         }
         // add entry parameters
         for (int j = 0; j < measurementMain.getMeasurementEntries().size(); j++) {
-            addTableComponent(content, headerCellWidths, 25, yPosMeas,
+
+            int cellHeight = 25;
+            boolean moreThan20Entries = isSizeMoreThan20(measurementMain.getMeasurementEntries().size());
+
+            if(moreThan20Entries) {
+                cellHeight = 15;
+            }
+
+            addTableComponent(content, headerCellWidths, cellHeight, yPosMeas,
                     measurementMain.getMeasurementEntries().get(j).getEntryResultList(j+1),
-                    Alignment.LEFT, commonColor, 8, font.getFont());
-            yPosMeas -= 25;
+                    Alignment.LEFT, commonColor, 8, font.getFont(), moreThan20Entries);
+            yPosMeas -= cellHeight;
         }
+    }
+
+    private boolean isSizeMoreThan20(int size) {
+        return size > 20;
     }
 
     public void addElectricianPageTable(PDPageContentStream content, List<Electrician> electricians, Font font)
@@ -107,12 +117,12 @@ public class PdfTableComponent {
         yPosElec = 720;
         addTableComponent(content, oneColTable, 22, yPosElec,
                 List.of(TextsPL.electriciansPageText.get(2)), Alignment.CENTER, commonColor, 11,
-                font.getFont());
+                font.getFont(), false);
         // add table header
         yPosElec -= 30;
         int[] headerCellWidths = new int[]{50, 60, 100, 70, 70, 150}; // to do: automatic calculation
         addTableComponent(content, headerCellWidths, 25, yPosElec,
-                TextsPL.electricianPdfTableHeaders, Alignment.LEFT, headerColor, 10, font.getFont());
+                TextsPL.electricianPdfTableHeaders, Alignment.LEFT, headerColor, 10, font.getFont(), false);
         // add electrician data
         yPosElec -= 70;
         for (Electrician electrician : electricians) {
@@ -131,16 +141,17 @@ public class PdfTableComponent {
 
     public void addFooterTable(PDPageContentStream content, Font font) throws IOException {
         addTableComponent(content, oneColTable, 1, 50, List.of(""), Alignment.RIGHT,
-                commonColor, 10, font.getFont());
+                commonColor, 10, font.getFont(), false);
     }
 
     private void addTableComponent(PDPageContentStream content, int[] cellWidths, int cellHeight, int yPos, List<Object> textData,
-                                   Alignment alignment, Color backgroundColor, int fontSize, PDFont fontType) throws IOException {
+                                   Alignment alignment, Color backgroundColor, int fontSize, PDFont fontType,
+                                   boolean increasedHeight) throws IOException {
 
         Table table = new Table(content);
         table.setTable(cellWidths, cellHeight, yPos);
         for (int i = 0; i < cellWidths.length; i++) {
-            table.addCellAlignment(textData.get(i).toString(), alignment, backgroundColor, fontSize, fontType);
+            table.addCellAlignment(textData.get(i).toString(), alignment, backgroundColor, fontSize, fontType, increasedHeight);
         }
     }
 

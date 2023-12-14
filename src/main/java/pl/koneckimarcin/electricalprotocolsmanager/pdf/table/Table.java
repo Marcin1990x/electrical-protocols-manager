@@ -30,18 +30,23 @@ public class Table {
         this.yPos = yPos;
     }
 
-    public void addCellAlignment(String text, Alignment alignment, Color fillColor, int fontSize, PDFont font)
-            throws IOException {
+    public void addCellAlignment(String text, Alignment alignment, Color fillColor, int fontSize, PDFont font,
+        boolean increasedHeigth) throws IOException {
 
         Color fontColor = new Color(0, 0, 0);
 
         content.setNonStrokingColor(fillColor);
 
         int textWidth = getTextWidth(text, font, fontSize);
-        boolean splitNeeded = columnWidths[columnPosition] - textWidth < 10 && text.contains(" ");
+        boolean isSplitNeeded = isSplitNeeded(text, textWidth);
+
         int yPosText = yPos + 10;
 
-        if(splitNeeded)
+        if(increasedHeigth) {
+            yPosText -= 5;
+        }
+
+        if(isSplitNeeded)
             yPosText += 5;
 
         content.addRect(xPos, yPos, columnWidths[columnPosition], cellHeight);
@@ -52,29 +57,36 @@ public class Table {
         content.setFont(font, fontSize);
 
         content.newLineAtOffset(xPos + calculateAlignmentPosition(alignment, columnWidths[columnPosition],
-                text, font, fontSize, splitNeeded), yPosText);
+                text, font, fontSize, isSplitNeeded), yPosText);
 
-        if (splitNeeded) {
-
-            content.setLeading(10);
-
-            String[] splitted;
-            if (text.contains(" ")) {
-                splitted = StringUtils.split(text, " ");
-                for (String half : splitted) {
-                    content.showText(half);
-                    content.newLine();
-                }
-            } else {
-                content.showText(text);
-            }
-            content.endText();
-        } else {
+        if (!isSplitNeeded) {
             content.showText(text);
             content.endText();
+        } else {
+            content.setLeading(10);
+            printSplitedText(content, text);
         }
         xPos = xPos + columnWidths[columnPosition];
         columnPosition++;
+    }
+
+    private void printSplitedText(PDPageContentStream content, String text) throws IOException {
+
+        String[] splitted;
+        if (text.contains(" ")) {
+            splitted = splitTextBySpace(text);
+            for (String half : splitted) {
+                content.showText(half);
+                content.newLine();
+            }
+        } else {
+            content.showText(text);
+        }
+        content.endText();
+    }
+
+    private boolean isSplitNeeded(String text, int textWidth) {
+        return columnWidths[columnPosition] - textWidth < 10 && text.contains(" ");
     }
 
     public void addCellWithMultilineText(List<String> text, int alignment, Color fillColor, int fontSize, PDFont font)
@@ -103,20 +115,20 @@ public class Table {
     }
 
     private int calculateAlignmentPosition(Alignment alignment, int columnWidth, String text, PDFont font,
-                                           int fontSize, boolean split) throws IOException {
+                                           int fontSize, boolean needsSplit) throws IOException {
 
         int offset = 0;
 
         if (alignment == Alignment.CENTER) {
-            if(split) {
-                text = getSplittedText(text);
+            if(needsSplit) {
+                text = getSplitedText(text);
             }
             offset = columnWidth / 2 - getTextWidth(text, font, fontSize) / 2;
         } else if (alignment == Alignment.LEFT) {
             offset = 3;
         } else if (alignment == Alignment.RIGHT) {
-            if(split) {
-                text = getSplittedText(text);
+            if(needsSplit) {
+                text = getSplitedText(text);
             }
             offset = -3 + columnWidth - getTextWidth(text, font, fontSize);
         }
@@ -127,12 +139,16 @@ public class Table {
 
         return (int) (font.getStringWidth(text) / 1000 * fontSize);
     }
-    private String getSplittedText(String textToSplit) {
+    private String getSplitedText(String textToSplit) {
 
-        String[] splitted = StringUtils.split(textToSplit, " ");
+        String[] splitted = splitTextBySpace(textToSplit);
         if(splitted != null) {
             textToSplit =  Arrays.stream(splitted).max(Comparator.comparing(String::length)).orElseThrow();
         }
         return textToSplit;
+    }
+
+    private String[] splitTextBySpace(String text) {
+        return StringUtils.split(text, " ");
     }
 }
