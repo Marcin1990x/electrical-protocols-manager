@@ -18,6 +18,9 @@ public class DatabaseBackupController {
     @GetMapping("createSqlFile")
     public void createSqlFile() {
 
+        service.createQueriesListFromFile();
+        service.extractInsertQueries();
+
         service.createFileWithQueries();
     }
 }

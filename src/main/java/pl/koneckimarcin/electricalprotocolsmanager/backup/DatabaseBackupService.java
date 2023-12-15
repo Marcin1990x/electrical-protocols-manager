@@ -11,6 +11,9 @@ import java.util.List;
 @Service
 public class DatabaseBackupService {
 
+    @Autowired
+    private JdbcTemplate jdbcTemplate;
+
     private final List<String> dontDoBackupFor = List.of(
             "BUILDING_FLOORS",
             "FLOOR_ROOMS",
@@ -22,21 +25,37 @@ public class DatabaseBackupService {
             "PDF",
             "SYSTEM_LOB_STREAM");
 
-    @Autowired
-    private JdbcTemplate jdbcTemplate;
-
     private final String schemaName = "actualSchema.sql";
     private final String backupSchemaName = "data.sql";
+
+    private List<String> allQueries = new ArrayList<>();
+    private List<String> insertQueries;
 
     public void dumpTables() {
 
         jdbcTemplate.queryForList("SCRIPT TO '" + schemaName + "'");
     }
 
+    public void createQueriesListFromFile() {
+
+        try {
+            BufferedReader reader = new BufferedReader(new FileReader(schemaName));
+            String line;
+            StringBuilder builder = new StringBuilder();
+
+            while ((line = readLine(reader)) != null) {
+                addQueryToList(line, allQueries, builder);
+            }
+        } catch (FileNotFoundException e) {
+            System.out.println("Can not find file: " + schemaName + e.getMessage());
+        }
+    }
+    public void extractInsertQueries() {
+        insertQueries =  allQueries.stream().filter(query -> query.contains("INSERT")).toList();
+    }
+
     public void createFileWithQueries() {
 
-        List<String> allQueries = createQueriesListFromFile();
-        List<String> insertQueries = extractInsertQueries(allQueries);
         List<String> joinQueries = new ArrayList<>();
 
         FileWriter fileWriter;
@@ -62,24 +81,6 @@ public class DatabaseBackupService {
         return isContaining;
     }
 
-    private List<String> createQueriesListFromFile() {
-
-        List<String> queriesList = new ArrayList<>();
-
-        try {
-            BufferedReader reader = new BufferedReader(new FileReader(schemaName));
-            String line;
-            StringBuilder builder = new StringBuilder();
-
-            while ((line = readLine(reader)) != null) {
-                addQueryToList(line, queriesList, builder);
-            }
-        } catch (FileNotFoundException e) {
-            System.out.println("Can not find file: " + schemaName + e.getMessage());
-        }
-        return queriesList;
-    }
-
     private String readLine(BufferedReader reader) {
 
         try {
@@ -98,15 +99,10 @@ public class DatabaseBackupService {
             builder.setLength(0);
         }
     }
-    private List<String> extractInsertQueries(List<String> allQueries) {
-
-        return allQueries.stream().filter(query -> query.contains("INSERT")).toList();
-    }
     private void writeQueriesToFile(List<String> insertQueries, List<String> joinQueries, FileWriter fileWriter) {
 
         for (String query : insertQueries) {
             if (!isContainingString(query, dontDoBackupFor)) {
-                //fileWriter.write(query + System.lineSeparator());
                 writeQueryToFile(query, fileWriter);
             } else if (isContainingString(query, dontDoNothing)) {
             } else {
@@ -114,7 +110,6 @@ public class DatabaseBackupService {
             }
         }
         for (String joinQuery : joinQueries) {
-            //fileWriter.write(joinQuery + System.lineSeparator());
             writeQueryToFile(joinQuery, fileWriter);
         }
     }
