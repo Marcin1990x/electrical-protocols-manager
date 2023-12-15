@@ -18,6 +18,6 @@ public class DatabaseBackupController {
     @GetMapping("createSqlFile")
     public void createSqlFile() {
 
-        service.createQueries();
+        service.createFileWithQueries();
     }
 }
