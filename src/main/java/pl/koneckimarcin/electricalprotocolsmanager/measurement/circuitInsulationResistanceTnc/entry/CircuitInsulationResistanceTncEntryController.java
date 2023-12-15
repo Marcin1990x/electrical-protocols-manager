@@ -1,5 +1,6 @@
 package pl.koneckimarcin.electricalprotocolsmanager.measurement.circuitInsulationResistanceTnc.entry;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import pl.koneckimarcin.electricalprotocolsmanager.measurement.circuitInsulationResistanceTnc.main.CircuitInsulationResistanceTnc;
@@ -14,48 +15,30 @@ import java.util.Optional;
 public class CircuitInsulationResistanceTncEntryController
         implements MeasurementEntryController<CircuitInsulationResistanceTncEntry> {
 
-    private CircuitInsulationResistanceTncEntryRepository entryRepository;
-    private CircuitInsulationResistanceTncRepository mainRepository;
-
-    public CircuitInsulationResistanceTncEntryController(CircuitInsulationResistanceTncEntryRepository entryRepository,
-                                                         CircuitInsulationResistanceTncRepository mainRepository) {
-        this.entryRepository = entryRepository;
-        this.mainRepository = mainRepository;
-    }
+    @Autowired
+    private CircuitInsulationResistanceTncEntryService entryService;
 
     @Override
     public List<CircuitInsulationResistanceTncEntry> getEntries() {
 
-        return entryRepository.findAll();
+        return entryService.getEntries();
     }
 
     @Override
     public CircuitInsulationResistanceTncEntry addEntry(CircuitInsulationResistanceTncEntry entry) {
 
-        entry.setResult();
-        entryRepository.save(entry);
-        return entry;
+        return entryService.addEntry(entry);
     }
 
     @Override
     public void deleteEntryById(int id, int mainId) {
 
-        Optional<CircuitInsulationResistanceTnc> main = mainRepository.findById(mainId);
-        Optional<CircuitInsulationResistanceTncEntry> entry = entryRepository.findById(id);
-        main.get().removeEntry(entry.get());
-
-        entryRepository.deleteById(id);
+        entryService.deleteById(id, mainId);
     }
 
     @Override
     public void deleteAllEntries(int mainId) {
 
-        Optional<CircuitInsulationResistanceTnc> main = mainRepository.findById(mainId);
-        List<Integer> entriesToDelete = main.get().listEntriesId();
-        main.get().removeAllEntries();
-
-        for(Integer entryId : entriesToDelete){
-            entryRepository.deleteById(entryId);
-        }
+        entryService.deleteAllEntries(mainId);
     }
 }
