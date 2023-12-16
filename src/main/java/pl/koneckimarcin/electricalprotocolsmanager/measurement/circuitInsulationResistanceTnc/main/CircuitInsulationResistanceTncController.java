@@ -3,13 +3,11 @@ package pl.koneckimarcin.electricalprotocolsmanager.measurement.circuitInsulatio
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import pl.koneckimarcin.electricalprotocolsmanager.measurement.circuitInsulationResistanceTnc.entry.CircuitInsulationResistanceTncEntry;
 import pl.koneckimarcin.electricalprotocolsmanager.measurement.circuitInsulationResistanceTnc.entry.CircuitInsulationResistanceTncEntryRepository;
 import pl.koneckimarcin.electricalprotocolsmanager.measurement.main.MeasurementMainController;
 import pl.koneckimarcin.electricalprotocolsmanager.structure.room.RoomRepository;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/2")
@@ -22,30 +20,25 @@ public class CircuitInsulationResistanceTncController
     private CircuitInsulationResistanceTncEntryRepository entryRepository;
     @Autowired
     private RoomRepository roomRepository;
+    @Autowired
+    private CircuitInsulationResistanceTncService service;
 
     @Override
 
     public List<CircuitInsulationResistanceTnc> getMains() {
 
-        return mainRepository.findAll();
+        return service.getMains();
     }
 
     @Override
     public CircuitInsulationResistanceTnc addMain(CircuitInsulationResistanceTnc main) {
 
-        mainRepository.save(main);
-        return main;
+        return service.addMain(main);
     }
 
     @Override
     public CircuitInsulationResistanceTnc addEntryToMain(int mainId, int entryId) {
 
-        Optional<CircuitInsulationResistanceTnc> main = mainRepository.findById(mainId);
-        Optional<CircuitInsulationResistanceTncEntry> entry = entryRepository.findById(entryId);
-
-        main.get().addEntry(entry.get());
-        mainRepository.save(main.get());
-
-        return main.get();
+        return service.addEntryToMain(mainId, entryId);
     }
 }
