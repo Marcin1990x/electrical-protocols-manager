@@ -4,12 +4,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pl.koneckimarcin.electricalprotocolsmanager.measurement.circuitInsulationResistanceTnc.main.CircuitInsulationResistanceTnc;
 import pl.koneckimarcin.electricalprotocolsmanager.measurement.circuitInsulationResistanceTnc.main.CircuitInsulationResistanceTncRepository;
+import pl.koneckimarcin.electricalprotocolsmanager.measurement.entry.MeasurementEntryService;
 
 import java.util.List;
 import java.util.Optional;
 
 @Service
-public class CircuitInsulationResistanceTncEntryService {
+public class CircuitInsulationResistanceTncEntryService implements MeasurementEntryService <CircuitInsulationResistanceTncEntry> {
 
     @Autowired
     private CircuitInsulationResistanceTncEntryRepository entryRepository;
@@ -28,7 +29,7 @@ public class CircuitInsulationResistanceTncEntryService {
         return entry;
     }
 
-    public void deleteById(int entryId, int mainId) {
+    public void deleteEntryById(int entryId, int mainId) {
 
         Optional<CircuitInsulationResistanceTnc> main = mainRepository.findById(mainId);
         Optional<CircuitInsulationResistanceTncEntry> entry = entryRepository.findById(entryId);

@@ -28,8 +28,11 @@ public class DatabaseBackupService {
     private final String schemaName = "actualSchema.sql";
     private final String backupSchemaName = "data.sql";
 
-    private List<String> allQueries = new ArrayList<>();
+    private List<String> allQueries;
     private List<String> insertQueries;
+
+    private BufferedReader reader;
+
 
     public void dumpTables() {
 
@@ -38,15 +41,18 @@ public class DatabaseBackupService {
 
     public void createQueriesListFromFile() {
 
+        allQueries = new ArrayList<>();
+
         try {
-            BufferedReader reader = new BufferedReader(new FileReader(schemaName));
+            reader =  new BufferedReader(new FileReader(schemaName));
             String line;
             StringBuilder builder = new StringBuilder();
 
             while ((line = readLine(reader)) != null) {
                 addQueryToList(line, allQueries, builder);
             }
-        } catch (FileNotFoundException e) {
+            reader.close();
+        } catch (Exception e) {
             System.out.println("Can not find file: " + schemaName + e.getMessage());
         }
     }

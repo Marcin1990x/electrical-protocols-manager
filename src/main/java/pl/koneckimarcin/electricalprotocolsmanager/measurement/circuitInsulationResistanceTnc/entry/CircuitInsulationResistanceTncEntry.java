@@ -98,19 +98,14 @@ public class CircuitInsulationResistanceTncEntry extends MeasurementEntry {
 
     public void setResult() {
 
-        if(this.l1pen > 0 && this.l2pen == 0) { // first phase
-            if (this.l1pen >= this.ra) super.setResult(Result.POSITIVE);
-                else super.setResult(Result.NEGATIVE);
-        } else if (this.l2pen > 0 && this.l1pen == 0) { // second phase
-            if (this.l2pen >= this.ra) super.setResult(Result.POSITIVE);
-            else super.setResult(Result.NEGATIVE);
-        } else if(this.l3pen > 0 && this.l2pen == 0) { // third phase
-            if (this.l3pen >= this.ra) super.setResult(Result.POSITIVE);
-            else super.setResult(Result.NEGATIVE);
+        if(isFirstPhase()) {
+            handleOnePhaseResult(this.l1pen);
+        } else if (isSecondPhase()) {
+            handleOnePhaseResult(this.l2pen);
+        } else if(isThirdPhase()) {
+            handleOnePhaseResult(this.l3pen);
         } else {
-            if (this.l1l2 >= this.ra && this.l2l3 >= this.ra && this.l3l1 >= this.ra && this.l1pen >= this.ra
-                    && this.l2pen >= this.ra && this.l3pen >= this.ra) super.setResult(Result.POSITIVE);
-            else super.setResult(Result.NEGATIVE);
+            handleAllPhasesResult();
         }
     }
 
@@ -128,5 +123,40 @@ public class CircuitInsulationResistanceTncEntry extends MeasurementEntry {
                 Common.emptyIfZero(this.l3pen),
                 this.ra,
                 super.getResult().getName());
+    }
+    private void handleOnePhaseResult(float phaseValue) {
+        if (isEqualOrGreater(phaseValue)) super.setResult(Result.POSITIVE);
+        else super.setResult(Result.NEGATIVE);
+    }
+    private void handleAllPhasesResult(){
+        if (isEachValueEqualOrGreater()) super.setResult(Result.POSITIVE);
+        else super.setResult(Result.NEGATIVE);
+    }
+
+    private boolean isEachValueEqualOrGreater(){
+
+        boolean result = true;
+
+        List<Integer> values = List.of(this.l1l2, this.l2l3, this.l3l1, this.l1pen, this.l2pen, this.l3pen);
+        for(Integer value : values){
+            if(!(value >= this.ra)) {
+                result = false;
+                break;
+            }
+        }
+        return result;
+    }
+
+    private boolean isFirstPhase() {
+        return this.l1pen > 0 && this.l2pen == 0;
+    }
+    private boolean isSecondPhase() {
+        return this.l2pen > 0 && this.l1pen == 0;
+    }
+    private boolean isThirdPhase() {
+        return this.l3pen > 0 && this.l2pen == 0;
+    }
+    private boolean isEqualOrGreater(float value) {
+        return value >= this.ra;
     }
 }
