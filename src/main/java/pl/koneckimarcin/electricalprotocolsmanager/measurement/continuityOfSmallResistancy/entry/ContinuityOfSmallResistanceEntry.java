@@ -64,12 +64,21 @@ public class ContinuityOfSmallResistanceEntry extends MeasurementEntry {
     }
 
     public void setResult() {
-        if (this.rs <= this.ra) {
+        handleResult();
+    }
+
+    private void handleResult() {
+        if (isEqualOrLower()) {
             super.setResult(Result.POSITIVE);
         } else {
             super.setResult(Result.NEGATIVE);
         }
     }
+
+    private boolean isEqualOrLower() {
+        return this.rs <= this.ra;
+    }
+
 
     @Override
     public List<Object> getEntryResultList(int lp) {
