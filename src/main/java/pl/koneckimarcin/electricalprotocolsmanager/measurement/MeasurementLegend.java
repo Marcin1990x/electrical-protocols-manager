@@ -2,7 +2,6 @@ package pl.koneckimarcin.electricalprotocolsmanager.measurement;
 
 import pl.koneckimarcin.electricalprotocolsmanager.measurement.protocolTextData.TextsPL;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class MeasurementLegend {
@@ -17,24 +16,28 @@ public class MeasurementLegend {
 
     private List<String> addLegend() {
 
-        List<String> legend = new ArrayList<>();
+        List<String> legend;
 
-        if (this.measurementName.equals(TextsPL.measurementsMainNames.get(0))) {
+        if (isTextEqual(TextsPL.measurementsMainNames.get(0))) {
             legend = TextsPL.protectionAgainstElectricShockByAutomaticShutdownLegendText;
-        } else if (this.measurementName.equals(TextsPL.measurementsMainNames.get(1))) {
+        } else if (isTextEqual(TextsPL.measurementsMainNames.get(1))) {
             legend = TextsPL.circuitInsulationResistanceTnsLegendText;
-        } else if (this.measurementName.equals(TextsPL.measurementsMainNames.get(2))) {
+        } else if (isTextEqual(TextsPL.measurementsMainNames.get(2))) {
             legend = TextsPL.circuitInsulationResistanceTncLegendText;
-        } else if (this.measurementName.equals(TextsPL.measurementsMainNames.get(3))) {
+        } else if (isTextEqual(TextsPL.measurementsMainNames.get(3))) {
             legend = TextsPL.residualCurrentProtectionLegendText;
-        } else if (this.measurementName.equals(TextsPL.measurementsMainNames.get(4))) {
+        } else if (isTextEqual(TextsPL.measurementsMainNames.get(4))) {
             legend = TextsPL.soilResistanceLegendText;
-        } else if (this.measurementName.equals(TextsPL.measurementsMainNames.get(5))) {
+        } else if (isTextEqual(TextsPL.measurementsMainNames.get(5))) {
             legend = TextsPL.continuityOfSmallResistanceLegendText;
         } else {
             throw new IllegalArgumentException("No legend text for this measurement main name.");
         }
         return legend;
+    }
+
+    private boolean isTextEqual(String text) {
+        return this.measurementName.equals(text);
     }
 
     public String getMeasurementName() {

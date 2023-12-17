@@ -26,32 +26,32 @@ public class StatisticService {
 
         for (String measurement : distinctMeasurementMainNames) {
 
-            if (measurement.equals(TextsPL.measurementsMainNames.get(0))) {
+            if (areTextsEqual(measurement, TextsPL.measurementsMainNames.get(0))) {
                 List<MeasurementMain> list =
                         extractMeasurementMainListByName(TextsPL.measurementsMainNames.get(0), measurementList);
                 measurementsStatisticTextDataLists
                         .add(getProtectionMeasurementStatisticTextData(list));
-            } else if (measurement.equals(TextsPL.measurementsMainNames.get(1))) {
+            } else if (areTextsEqual(measurement, TextsPL.measurementsMainNames.get(1))) {
                 List<MeasurementMain> list =
                         extractMeasurementMainListByName(TextsPL.measurementsMainNames.get(1), measurementList);
                 measurementsStatisticTextDataLists
                         .add(getCircuitInsulationTnsMeasurementStatisticTextData(list));
-            } else if (measurement.equals(TextsPL.measurementsMainNames.get(2))) {
+            } else if (areTextsEqual(measurement, TextsPL.measurementsMainNames.get(2))) {
                 List<MeasurementMain> list =
                         extractMeasurementMainListByName(TextsPL.measurementsMainNames.get(2), measurementList);
                 measurementsStatisticTextDataLists
                         .add(getCircuitInsulationTncMeasurementStatisticTextData(list));
-            } else if (measurement.equals(TextsPL.measurementsMainNames.get(3))) {
+            } else if (areTextsEqual(measurement, TextsPL.measurementsMainNames.get(3))) {
                 List<MeasurementMain> list =
                         extractMeasurementMainListByName(TextsPL.measurementsMainNames.get(3), measurementList);
                 measurementsStatisticTextDataLists
                         .add(getCommonStatisticTextData(list));
-            } else if (measurement.equals(TextsPL.measurementsMainNames.get(4))) {
+            } else if (areTextsEqual(measurement, TextsPL.measurementsMainNames.get(4))) {
                 List<MeasurementMain> list =
                         extractMeasurementMainListByName(TextsPL.measurementsMainNames.get(4), measurementList);
                 measurementsStatisticTextDataLists
                         .add(getSoilResistanceStatisticTextData(list));
-            } else if (measurement.equals(TextsPL.measurementsMainNames.get(5))) {
+            } else if (areTextsEqual(measurement, TextsPL.measurementsMainNames.get(5))) {
                 List<MeasurementMain> list =
                         extractMeasurementMainListByName(TextsPL.measurementsMainNames.get(5), measurementList);
                 measurementsStatisticTextDataLists
@@ -63,6 +63,10 @@ public class StatisticService {
         return measurementsStatisticTextDataLists;
     }
 
+    private boolean areTextsEqual(String text, String text2) {
+        return text.equals(text2);
+    }
+
     private List<String> getProtectionMeasurementStatisticTextData(List<MeasurementMain> measurements) {
 
         int totalMeasuringPoints = 0;
@@ -72,12 +76,8 @@ public class StatisticService {
         List<String> statisticsTextData = new ArrayList<>();
 
         for (MeasurementMain measurement : measurements) {
-            totalMeasuringPoints += measurement.getMeasurementEntries().size();
-            for (MeasurementEntry entry : measurement.getMeasurementEntries()) {
-                if (entry.getResult() == Result.POSITIVE) {
-                    totalPositiveResults++;
-                }
-            }
+            totalMeasuringPoints += countMeasuringPoints(measurement);
+            totalPositiveResults += countPositiveResults(measurement);
         }
 
         measuredObjects = measurements.size();
@@ -88,6 +88,21 @@ public class StatisticService {
         statisticsTextData.add(TextsPL.protectionMeasurementStatisticText.get(2) + measuredObjects);
 
         return statisticsTextData;
+    }
+
+    private int countPositiveResults(MeasurementMain measurement) {
+
+        int positiveResults = 0;
+
+        for (MeasurementEntry entry : measurement.getMeasurementEntries()) {
+            if (entry.getResult() == Result.POSITIVE) {
+                positiveResults++;
+            }
+        }
+        return positiveResults;
+    }
+    private int countMeasuringPoints(MeasurementMain measurement) {
+        return measurement.getMeasurementEntries().size();
     }
 
     // almost identical methods - fix !
