@@ -25,7 +25,7 @@ public class DatabaseBackupService {
             "PDF",
             "SYSTEM_LOB_STREAM");
 
-    private final String schemaName = "actualSchema.sql";
+    private String schemaName = "actualSchema.sql";
     private final String backupSchemaName = "data.sql";
 
     private List<String> allQueries;
@@ -126,6 +126,14 @@ public class DatabaseBackupService {
         } catch (IOException e) {
             System.out.println("Problem with writing query to file: " + backupSchemaName + " " + e.getMessage());
         }
+    }
+
+    public List<String> getAllQueries() {
+        return allQueries;
+    }
+
+    public void setSchemaName(String schemaName) {
+        this.schemaName = schemaName;
     }
 }
 
