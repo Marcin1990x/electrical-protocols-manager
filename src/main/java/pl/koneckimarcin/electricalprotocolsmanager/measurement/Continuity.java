@@ -10,6 +10,7 @@ public enum Continuity {
     Continuity(String name) {
         this.name = name;
     }
+
     public String getName() {
         return name;
     }
