@@ -133,27 +133,42 @@ public class CircuitInsulationResistanceTnsEntry extends MeasurementEntry {
     }
 
     public void setResult() {
-        if (this.l1pe > 0 && this.l2pe == 0) { // first phase
-            if (this.l1pe >= this.ra && this.l1n >= this.ra && this.npe >= this.ra) {
-                super.setResult(Result.POSITIVE);
-            } else super.setResult(Result.NEGATIVE);
-        } else if (this.l2pe > 0 && this.l1pe == 0) { // second phase
-            if (this.l2pe >= this.ra && this.l2n >= this.ra && this.npe >= this.ra) {
-                super.setResult(Result.POSITIVE);
-            } else super.setResult(Result.NEGATIVE);
-        } else if (this.l3pe > 0 && this.l1pe == 0) { // third phase
-            if (this.l3pe >= this.ra && this.l3n >= this.ra && this.npe >= this.ra) {
-                super.setResult(Result.POSITIVE);
-            } else super.setResult(Result.NEGATIVE);
-        } else { // three phase
-            if (this.l1l2 >= this.ra && this.l2l3 >= this.ra && this.l3l1 >= this.ra && this.l1pe >= this.ra
-                    && this.l2pe >= this.ra && this.l3pe >= this.ra && this.l1n >= this.ra && this.l2n >= this.ra
-                    && this.l3n >= this.ra && this.npe >= this.ra) {
-                super.setResult(Result.POSITIVE);
-            } else {
-                super.setResult(Result.NEGATIVE);
+        if (isFirstPhase()) {
+            handlePhasesResult(List.of(l1pe, l1n, npe));
+        } else if (isSecondPhase()) {
+            handlePhasesResult(List.of(l2pe, l2n, npe));
+        } else if (isThirdPhase()) {
+            handlePhasesResult(List.of(l3pe, l3n, npe));
+        } else {
+            handlePhasesResult(List.of(l1l2, l2l3, l3l1, l1pe, l2pe, l3pe, l1n, l2n, l3n, npe));
+        }
+    }
+    private boolean isFirstPhase() {
+        return this.l1pe > 0 && this.l2pe == 0;
+    }
+    private boolean isSecondPhase() {
+        return this.l2pe > 0 && this.l1pe == 0;
+    }
+    private boolean isThirdPhase() {
+        return this.l3pe > 0 && this.l2pe == 0;
+    }
+    private void handlePhasesResult(List<Integer> valuesToCompare) {
+        if (isEachValueEqualOrGreater(valuesToCompare)) {
+            super.setResult(Result.POSITIVE);
+        } else super.setResult(Result.NEGATIVE);
+    }
+
+    private boolean isEachValueEqualOrGreater(List<Integer> valuesToCompare){
+
+        boolean result = true;
+
+        for(Integer value : valuesToCompare){
+            if(!(value >= this.ra)) {
+                result = false;
+                break;
             }
         }
+        return result;
     }
 
     @Override
