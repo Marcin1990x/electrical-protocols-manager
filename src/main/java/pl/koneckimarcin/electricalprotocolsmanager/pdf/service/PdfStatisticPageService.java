@@ -34,7 +34,7 @@ public class PdfStatisticPageService {
         textService.addSingleLineOfTextAlignment(content, TextsPL.statisticPageText.get(0), yPos,
                 Alignment.CENTER, font.getFont(), 13);
         yPos -= 40;
-        List<List<String>> measurementsStatistics = statisticService.getMeasurementsStatistics(building);
+        List<List<String>> measurementsStatistics = statisticService.buildMeasurementsStatistics(building);
         for (List statistics : measurementsStatistics) {
             textService.addSingleLineOfTextAlignment(content, statistics.get(0).toString(), yPos,
                     Alignment.LEFT, font.getFont(), 12);
