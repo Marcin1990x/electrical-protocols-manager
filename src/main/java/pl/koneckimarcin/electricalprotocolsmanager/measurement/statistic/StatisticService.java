@@ -24,22 +24,22 @@ public class StatisticService {
 
             if (areTextsEqual(measurement, TextsPL.measurementsMainNames.get(0))) {
                 completeMeasurementsStatistics.add(getStatisticsForMeasurement(
-                        TextsPL.measurementsMainNames.get(0), measurementList, protectionMeasurementStatisticText));
+                        TextsPL.measurementsMainNames.get(0), measurementList));
             } else if (areTextsEqual(measurement, TextsPL.measurementsMainNames.get(1))) {
                 completeMeasurementsStatistics.add(getStatisticsForMeasurement(
-                        TextsPL.measurementsMainNames.get(1), measurementList, circuitInsulationMeasurementStatisticText));
+                        TextsPL.measurementsMainNames.get(1), measurementList));
             } else if (areTextsEqual(measurement, TextsPL.measurementsMainNames.get(2))) {
                 completeMeasurementsStatistics.add(getStatisticsForMeasurement(
-                        TextsPL.measurementsMainNames.get(2), measurementList, circuitInsulationMeasurementStatisticText));
+                        TextsPL.measurementsMainNames.get(2), measurementList));
             } else if (areTextsEqual(measurement, TextsPL.measurementsMainNames.get(3))) {
                 completeMeasurementsStatistics.add(getStatisticsForMeasurement(
-                        TextsPL.measurementsMainNames.get(3), measurementList, commonStatisticText));
+                        TextsPL.measurementsMainNames.get(3), measurementList));
             } else if (areTextsEqual(measurement, TextsPL.measurementsMainNames.get(4))) {
                 completeMeasurementsStatistics.add(getStatisticsForMeasurement(
-                        TextsPL.measurementsMainNames.get(4), measurementList, commonStatisticText));
+                        TextsPL.measurementsMainNames.get(4), measurementList));
             } else if (areTextsEqual(measurement, TextsPL.measurementsMainNames.get(5))) {
                 completeMeasurementsStatistics.add(getStatisticsForMeasurement(
-                        TextsPL.measurementsMainNames.get(5), measurementList, commonStatisticText));
+                        TextsPL.measurementsMainNames.get(5), measurementList));
             } else {
                 throw new IllegalArgumentException("No statistic creation method for this measurement main name.");
             }
@@ -51,49 +51,48 @@ public class StatisticService {
         return text.equals(text2);
     }
 
-    private List<String> getStatisticsForMeasurement(String measurementName, List<MeasurementMain> measurements,
-                                                     List<String> translations) {
+    private List<String> getStatisticsForMeasurement(String measurementName, List<MeasurementMain> measurements) {
 
         List<MeasurementMain> list = extractMeasurementsByName(measurementName, measurements);
-        return getMeasurementStatisticsTextData(list, translations);
+        return getMeasurementStatisticsTextData(list);
     }
 
-    private List<String> getMeasurementStatisticsTextData(List<MeasurementMain> measurements, List<String> statisticsTranslations) {
+    private List<String> getMeasurementStatisticsTextData(List<MeasurementMain> measurements) {
 
         Statistics statistics = new Statistics(measurements);
 
-        List<String> measurementStatisticsTextData = getStatisticsTextList(statistics, measurements.get(0).getMeasurementName(),
-                statisticsTranslations);
+        List<String> measurementStatisticsTextData = getStatisticsTextList(statistics, measurements.get(0).getMeasurementName());
 
         return measurementStatisticsTextData;
     }
 
-    private List<String> getStatisticsTextList(Statistics statistics, String measurementName, List<String> legendList) {
+    private List<String> getStatisticsTextList(Statistics statistics, String measurementName) {
 
         List<String> statisticsTextList = new ArrayList<>();
 
         statisticsTextList.add(measurementName);
 
-        if (measurementName.equals(TextsPL.measurementsMainNames.get(0))) {
-            statisticsTextList.add(protectionMeasurementStatisticText.get(0) + statistics.totalMeasuringPoints);
-            statisticsTextList.add(protectionMeasurementStatisticText.get(1) + statistics.totalPositiveResults);
-            statisticsTextList.add(protectionMeasurementStatisticText.get(2) + statistics.measuredObjects);
+        if (areTextsEqual(measurementName, measurementsMainNames.get(0))) {
+            statisticsTextList.add(statistics.getTotalMeasuringPointsWithDescription());
+            statisticsTextList.add(statistics.getTotalPositiveResultsWithDescription());
+            statisticsTextList.add(statistics.getMeasuredObjectsWithDescription());
         }
-        if (measurementName.contains("Badanie rezystancji izolacji obwodów")) {
-            statisticsTextList.add(TextsPL.circuitInsulationMeasurementStatisticText.get(0) + statistics.totalOnePhaseCircuits);
-            statisticsTextList.add(TextsPL.circuitInsulationMeasurementStatisticText.get(1) + statistics.totalThreePhaseCircuits);
-            statisticsTextList.add(TextsPL.circuitInsulationMeasurementStatisticText.get(2) + statistics.totalPositiveResults);
-            statisticsTextList.add(TextsPL.circuitInsulationMeasurementStatisticText.get(3) + statistics.measuredObjects);
+        if (measurementName.contains(measurementsMainNames.get(1).substring(7))) {
+
+            statisticsTextList.add(statistics.getTotalOnePhaseCircuitsWithDescription());
+            statisticsTextList.add(statistics.getTotalThreePhaseCircuitsWithDescription());
+            statisticsTextList.add(statistics.getTotalPositiveResultsWithDescription());
+            statisticsTextList.add(statistics.getMeasuredObjectsWithDescription());
         }
-        if (measurementName.equals(TextsPL.measurementsMainNames.get(3)) ||
-                measurementName.equals(TextsPL.measurementsMainNames.get(5))) {
-            statisticsTextList.add(TextsPL.commonStatisticText.get(0) + statistics.totalMeasuringPoints);
-            statisticsTextList.add(TextsPL.commonStatisticText.get(1) + statistics.totalPositiveResults);
-            statisticsTextList.add(TextsPL.commonStatisticText.get(2) + statistics.totalNegativeResults);
+        if (areTextsEqual(measurementName, measurementsMainNames.get(3)) ||
+                areTextsEqual(measurementName, measurementsMainNames.get(5))) {
+            statisticsTextList.add(statistics.getTotalMeasuringPointsWithDescription());
+            statisticsTextList.add(statistics.getTotalPositiveResultsWithDescription());
+            statisticsTextList.add(statistics.getTotalNegativeResultsWithDescription());
         }
-        if (measurementName.equals(TextsPL.measurementsMainNames.get(4))) {
-            statisticsTextList.add(TextsPL.soilResistanceStatisticText.get(0) + statistics.totalMeasuringPoints);
-            statisticsTextList.add(TextsPL.soilResistanceStatisticText.get(1) + statistics.totalNoneResults);
+        if (areTextsEqual(measurementName, measurementsMainNames.get(4))) {
+            statisticsTextList.add(statistics.getTotalMeasuringPointsWithDescription());
+            statisticsTextList.add(statistics.getTotalNoneResultsWithDescription());
         }
         return statisticsTextList;
     }

@@ -5,8 +5,12 @@ import pl.koneckimarcin.electricalprotocolsmanager.measurement.circuitInsulation
 import pl.koneckimarcin.electricalprotocolsmanager.measurement.circuitInsulationResistanceTns.entry.CircuitInsulationResistanceTnsEntry;
 import pl.koneckimarcin.electricalprotocolsmanager.measurement.entry.MeasurementEntry;
 import pl.koneckimarcin.electricalprotocolsmanager.measurement.main.MeasurementMain;
+import pl.koneckimarcin.electricalprotocolsmanager.measurement.protocolTextData.TextsPL;
 
 import java.util.List;
+import java.util.Map;
+
+import static pl.koneckimarcin.electricalprotocolsmanager.measurement.protocolTextData.TextsPL.statisticsText;
 
 public class Statistics {
 
@@ -21,9 +25,11 @@ public class Statistics {
     public Statistics(List<MeasurementMain> measurements) {
         setStatisticsValues(measurements);
     }
-    public void countNegativeResults(){
+
+    public void countNegativeResults() {
         this.totalNegativeResults = this.totalMeasuringPoints - this.totalPositiveResults;
     }
+
     private void setStatisticsValues(List<MeasurementMain> measurements) {
 
         for (MeasurementMain measurement : measurements) {
@@ -40,6 +46,7 @@ public class Statistics {
         this.measuredObjects = measurements.size();
         this.totalNegativeResults = this.totalMeasuringPoints - this.totalPositiveResults;
     }
+
     private int countPositiveResults(MeasurementMain measurement) {
 
         int positiveResults = 0;
@@ -51,17 +58,18 @@ public class Statistics {
         }
         return positiveResults;
     }
+
     private int countMeasuringPoints(MeasurementMain measurement) {
         return measurement.getMeasurementEntries().size();
     }
+
     private int[] countOneAndThreePhaseCircuits(MeasurementMain measurement) {
 
         int totalOnePhaseCircuits = 0;
         int totalThreePhaseCircuits = 0;
 
         for (MeasurementEntry entry : measurement.getMeasurementEntries()) {
-            if (isOnePhaseCircuit(entry, measurement.getMeasurementName()))
-            {
+            if (isOnePhaseCircuit(entry, measurement.getMeasurementName())) {
                 totalOnePhaseCircuits++;
             } else {
                 totalThreePhaseCircuits++;
@@ -69,9 +77,10 @@ public class Statistics {
         }
         return new int[]{totalOnePhaseCircuits, totalThreePhaseCircuits};
     }
+
     private boolean isOnePhaseCircuit(MeasurementEntry entry, String measurementName) {
 
-        if(measurementName.contains("TN-S")) {
+        if (measurementName.contains("TN-S")) {
             return ((CircuitInsulationResistanceTnsEntry) entry).getL1l2() == 0 ||
                     ((CircuitInsulationResistanceTnsEntry) entry).getL2l3() == 0 ||
                     ((CircuitInsulationResistanceTnsEntry) entry).getL3l1() == 0;
@@ -81,6 +90,7 @@ public class Statistics {
                     ((CircuitInsulationResistanceTncEntry) entry).getL3l1() == 0;
         }
     }
+
     private int countNoneResults(MeasurementMain measurement) {
 
         int totalNoneResults = 0;
@@ -91,5 +101,33 @@ public class Statistics {
             }
         }
         return totalNoneResults;
+    }
+
+    public String getTotalMeasuringPointsWithDescription() {
+        return statisticsText.get(0) + totalMeasuringPoints;
+    }
+
+    public String getTotalPositiveResultsWithDescription() {
+        return statisticsText.get(1) + totalPositiveResults;
+    }
+
+    public String getTotalNegativeResultsWithDescription() {
+        return statisticsText.get(2) + totalNegativeResults;
+    }
+
+    public String getMeasuredObjectsWithDescription() {
+        return statisticsText.get(3) + measuredObjects;
+    }
+
+    public String getTotalOnePhaseCircuitsWithDescription() {
+        return statisticsText.get(4) + totalOnePhaseCircuits;
+    }
+
+    public String getTotalThreePhaseCircuitsWithDescription() {
+        return statisticsText.get(5) + totalThreePhaseCircuits;
+    }
+
+    public String getTotalNoneResultsWithDescription() {
+        return statisticsText.get(6) + totalNoneResults;
     }
 }

@@ -134,16 +134,11 @@ public class TextsPL {
     public static List<String> statisticPageText =
             List.of("Statystyki");
 
-    public static List<String> protectionMeasurementStatisticText =
-            List.of("Punktów pomiarowych: ", "Pozytywnych wyników: ", "Przebadano obiektów/pomieszczeń: ");
+    public static List<String> statisticsText =
+            List.of("Punktów pomiarowych: ", "Pozytywnych wyników: ", "Negatywnych wyników: ",
+                    "Przebadano obiektów/pomieszczeń: ", "Obwodów 1-fazowych: ", "Obwodów 3-fazowych: ",
+                    "Nieustalonych wyników: ");
 
-    public static List<String> commonStatisticText =
-            List.of("Punktów pomiarowych: ", "Pozytywnych wyników: ", "Negatywnych wyników: ");
 
-    public static List<String> soilResistanceStatisticText =
-            List.of("Punktów pomiarowych: ", "Nieustalonych wyników: ");
 
-    public static List<String> circuitInsulationMeasurementStatisticText =
-            List.of("Obwodów 1-fazowych: ", "Obwodów 3-fazowych: ", "Pozytywnych wyników: ",
-                    "Przebadano obiektów/pomieszczeń: ");
 }
