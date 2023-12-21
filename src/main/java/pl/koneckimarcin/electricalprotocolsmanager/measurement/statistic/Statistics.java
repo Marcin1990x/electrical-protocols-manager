@@ -5,11 +5,10 @@ import pl.koneckimarcin.electricalprotocolsmanager.measurement.circuitInsulation
 import pl.koneckimarcin.electricalprotocolsmanager.measurement.circuitInsulationResistanceTns.entry.CircuitInsulationResistanceTnsEntry;
 import pl.koneckimarcin.electricalprotocolsmanager.measurement.entry.MeasurementEntry;
 import pl.koneckimarcin.electricalprotocolsmanager.measurement.main.MeasurementMain;
-import pl.koneckimarcin.electricalprotocolsmanager.measurement.protocolTextData.TextsPL;
 
 import java.util.List;
-import java.util.Map;
 
+import static pl.koneckimarcin.electricalprotocolsmanager.measurement.protocolTextData.TextsPL.measurementsMainNames;
 import static pl.koneckimarcin.electricalprotocolsmanager.measurement.protocolTextData.TextsPL.statisticsText;
 
 public class Statistics {
@@ -26,20 +25,16 @@ public class Statistics {
         setStatisticsValues(measurements);
     }
 
-    public void countNegativeResults() {
-        this.totalNegativeResults = this.totalMeasuringPoints - this.totalPositiveResults;
-    }
-
     private void setStatisticsValues(List<MeasurementMain> measurements) {
 
         for (MeasurementMain measurement : measurements) {
             this.totalMeasuringPoints += countMeasuringPoints(measurement);
             this.totalPositiveResults += countPositiveResults(measurement);
-            if (measurement.getMeasurementName().contains("Badanie rezystancji izolacji obwodów")) {
+            if (isInsulationMeasurement(measurement)) {
                 this.totalOnePhaseCircuits += countOneAndThreePhaseCircuits(measurement)[0];
                 this.totalThreePhaseCircuits += countOneAndThreePhaseCircuits(measurement)[1];
             }
-            if (measurement.getMeasurementName().contains("gruntu")) {
+            if (isSoilMeasurement(measurement)) {
                 this.totalNoneResults += countNoneResults(measurement);
             }
         }
@@ -52,7 +47,7 @@ public class Statistics {
         int positiveResults = 0;
 
         for (MeasurementEntry entry : measurement.getMeasurementEntries()) {
-            if (entry.getResult() == Result.POSITIVE) {
+            if (isResult(entry, Result.POSITIVE)) {
                 positiveResults++;
             }
         }
@@ -80,14 +75,10 @@ public class Statistics {
 
     private boolean isOnePhaseCircuit(MeasurementEntry entry, String measurementName) {
 
-        if (measurementName.contains("TN-S")) {
-            return ((CircuitInsulationResistanceTnsEntry) entry).getL1l2() == 0 ||
-                    ((CircuitInsulationResistanceTnsEntry) entry).getL2l3() == 0 ||
-                    ((CircuitInsulationResistanceTnsEntry) entry).getL3l1() == 0;
-        } else {
-            return ((CircuitInsulationResistanceTncEntry) entry).getL1l2() == 0 ||
-                    ((CircuitInsulationResistanceTncEntry) entry).getL2l3() == 0 ||
-                    ((CircuitInsulationResistanceTncEntry) entry).getL3l1() == 0;
+        if (isInsulationTnsMeasurement(measurementName)) {
+            return ((CircuitInsulationResistanceTnsEntry) entry).getL1l2() != 0;
+        } else { // TNC
+            return ((CircuitInsulationResistanceTncEntry) entry).getL1l2() != 0;
         }
     }
 
@@ -96,7 +87,7 @@ public class Statistics {
         int totalNoneResults = 0;
 
         for (MeasurementEntry entry : measurement.getMeasurementEntries()) {
-            if (entry.getResult() == Result.NONE) {
+            if (isResult(entry, Result.NONE)) {
                 totalNoneResults++;
             }
         }
@@ -129,5 +120,18 @@ public class Statistics {
 
     public String getTotalNoneResultsWithDescription() {
         return statisticsText.get(6) + totalNoneResults;
+    }
+
+    private boolean isInsulationMeasurement(MeasurementMain measurement) {
+         return measurement.getMeasurementName().contains(measurementsMainNames.get(1).substring(7));
+    }
+    private boolean isSoilMeasurement(MeasurementMain measurement) {
+        return measurement.getMeasurementName().equals(measurementsMainNames.get(4));
+    }
+    private boolean isInsulationTnsMeasurement(String measurementName) {
+        return measurementName.contains("TN-S");
+    }
+    private boolean isResult(MeasurementEntry entry, Result result) {
+        return entry.getResult() == result;
     }
 }
