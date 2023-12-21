@@ -4,11 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import pl.koneckimarcin.electricalprotocolsmanager.measurement.entry.MeasurementEntryController;
-import pl.koneckimarcin.electricalprotocolsmanager.measurement.protectionAgainstElectricShockByAutomaticShutdown.main.ProtectionAgainstElectricShockByAutomaticShutdown;
-import pl.koneckimarcin.electricalprotocolsmanager.measurement.protectionAgainstElectricShockByAutomaticShutdown.main.ProtectionAgainstElectricShockByAutomaticShutdownRepository;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/0")
@@ -16,46 +13,29 @@ public class ProtectionMeasurementEntryController
         implements MeasurementEntryController<ProtectionMeasurementEntry> {
 
     @Autowired
-    private ProtectionMeasurementEntryRepository entryRepository;
-    @Autowired
-    private ProtectionAgainstElectricShockByAutomaticShutdownRepository mainRepository;
+    private ProtectionMeasurementEntryService entryService;
 
     @Override
     public List<ProtectionMeasurementEntry> getEntries() {
 
-        return entryRepository.findAll();
+        return entryService.getEntries();
     }
 
     @Override
     public ProtectionMeasurementEntry addEntry(ProtectionMeasurementEntry entry) {
 
-        entry.setIa();
-        entry.setZa();
-        entry.setIk();
-        entry.setResult();
-        entryRepository.save(entry);
-        return entry;
+        return entryService.addEntry(entry);
     }
 
     @Override
     public void deleteEntryById(int id, int mainId) {
 
-        Optional<ProtectionAgainstElectricShockByAutomaticShutdown> main = mainRepository.findById(mainId);
-        Optional<ProtectionMeasurementEntry> entry = entryRepository.findById(id);
-        main.get().removeEntry(entry.get());
-
-        entryRepository.deleteById(id);
+        entryService.deleteEntryById(id, mainId);
     }
 
     @Override
     public void deleteAllEntries(int mainId) {
 
-        Optional<ProtectionAgainstElectricShockByAutomaticShutdown> main = mainRepository.findById(mainId);
-        List<Integer> entriesToDelete = main.get().listEntriesId();
-        main.get().removeAllEntries();
-
-        for (Integer entryId : entriesToDelete) {
-            entryRepository.deleteById(entryId);
-        }
+        entryService.deleteAllEntries(mainId);
     }
 }
