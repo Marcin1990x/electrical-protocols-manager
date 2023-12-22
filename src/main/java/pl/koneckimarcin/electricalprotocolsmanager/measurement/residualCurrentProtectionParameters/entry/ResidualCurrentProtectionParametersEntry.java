@@ -113,28 +113,36 @@ public class ResidualCurrentProtectionParametersEntry extends MeasurementEntry {
 
     public void setResult() {
 
-        Result result = Result.NONE;
+        Result result = Result.NEGATIVE;
 
         switch (this.rcdType) {
             case "[AC]" -> {
-                if (this.ub <= this.ui && this.trcd < this.ta && ((this.ia >= this.iNom / 2) && (this.ia <= this.iNom))) {
+                if (isPositiveTypeAC())
                     result = Result.POSITIVE;
-                } else result = Result.NEGATIVE;
             }
             case "[A]" -> {
-                if (this.ub <= this.ui && this.trcd < this.ta &&
-                        ((this.ia >= this.iNom * 0.35) && (this.ia <= this.iNom * 1.4))) {
+                if (isPositiveTypeA())
                     result = Result.POSITIVE;
-                } else result = Result.NEGATIVE;
             }
             case "[B]" -> {
-                if (this.ub <= this.ui && this.trcd < this.ta &&
-                        ((this.ia >= this.iNom / 2) && (this.ia <= this.iNom * 2))) {
+                if (isPositiveTypeB())
                     result = Result.POSITIVE;
-                } else result = Result.NEGATIVE;
             }
         }
         setResult(result);
+    }
+
+    private boolean isPositiveTypeA(){
+        return isPositiveCommon() && ((this.ia >= this.iNom * 0.35) && (this.ia <= this.iNom * 1.4));
+    }
+    private boolean isPositiveTypeAC(){
+        return isPositiveCommon() && ((this.ia >= this.iNom / 2) && (this.ia <= this.iNom));
+    }
+    private boolean isPositiveTypeB() {
+        return isPositiveCommon() && ((this.ia >= this.iNom / 2) && (this.ia <= this.iNom * 2));
+    }
+    private boolean isPositiveCommon() {
+        return this.ub <= this.ui && this.trcd < this.ta;
     }
 
     @Override
