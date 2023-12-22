@@ -66,7 +66,7 @@ public class PdfGenerator {
         theoryService.addTheory(doc, doc.getNumberOfPages(), pagesCountTheory, building);
         //add electricians page
         pdfService.addPages(doc, 1);
-        electricianPageService.addData(doc, titlePageData.getElectricians(), doc.getNumberOfPages() - 1, font);
+        electricianPageService.appendElectriciansPage(doc, titlePageData.getElectricians(), doc.getNumberOfPages() - 1, font);
         //add statistic page
         pdfService.addPages(doc, 1);
         statisticPageService.addStatisticDate(doc, building, doc.getNumberOfPages() - 1, font);

@@ -111,27 +111,6 @@ public class PdfTableComponent {
         return size > 20;
     }
 
-    public void addElectricianPageTable(PDPageContentStream content, List<Electrician> electricians, Font font)
-            throws IOException {
-        // add header
-        yPosElec = 720;
-        addTableComponent(content, oneColTable, 22, yPosElec,
-                List.of(TextsPL.electriciansPageText.get(2)), Alignment.CENTER, commonColor, 11,
-                font.getFont(), false);
-        // add table header
-        yPosElec -= 30;
-        int[] headerCellWidths = new int[]{50, 60, 100, 70, 70, 150}; // to do: automatic calculation
-        addTableComponent(content, headerCellWidths, 25, yPosElec,
-                TextsPL.electricianPdfTableHeaders, Alignment.LEFT, headerColor, 10, font.getFont(), false);
-        // add electrician data
-        yPosElec -= 70;
-        for (Electrician electrician : electricians) {
-            addTableComponentWithMultilineText(content, headerCellWidths, 60, yPosElec,
-                    electrician.getElectricianDataTextList(), 3, commonColor, 8, font.getFont());
-            yPosElec -= 60;
-        }
-    }
-
     public void addHeaderTable(PDPageContentStream content, List<String> headingText, int yPos, int fontSize, Font font)
             throws IOException {
 
@@ -144,7 +123,7 @@ public class PdfTableComponent {
                 commonColor, 10, font.getFont(), false);
     }
 
-    private void addTableComponent(PDPageContentStream content, int[] cellWidths, int cellHeight, int yPos, List<Object> textData,
+    public void addTableComponent(PDPageContentStream content, int[] cellWidths, int cellHeight, int yPos, List<Object> textData,
                                    Alignment alignment, Color backgroundColor, int fontSize, PDFont fontType,
                                    boolean increasedHeight) throws IOException {
 
@@ -155,7 +134,7 @@ public class PdfTableComponent {
         }
     }
 
-    private void addTableComponentWithMultilineText(PDPageContentStream content, int[] cellWidths, int cellHeight,
+    public void addTableComponentWithMultilineText(PDPageContentStream content, int[] cellWidths, int cellHeight,
                                                     int yPos, List<List<String>> textData, int alignment, Color backgroundColor,
                                                     int fontSize, PDFont fontType) throws IOException {
         Table table = new Table(content);
