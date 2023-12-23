@@ -8,9 +8,9 @@ import pl.koneckimarcin.electricalprotocolsmanager.measurement.protocolTextData.
 import pl.koneckimarcin.electricalprotocolsmanager.measurement.main.MeasurementMain;
 import pl.koneckimarcin.electricalprotocolsmanager.pdf.Alignment;
 import pl.koneckimarcin.electricalprotocolsmanager.pdf.Font;
+import pl.koneckimarcin.electricalprotocolsmanager.pdf.component.TableProperties;
 import pl.koneckimarcin.electricalprotocolsmanager.pdf.titlePage.PdfTitlePage;
 import pl.koneckimarcin.electricalprotocolsmanager.pdf.table.Table;
-import pl.koneckimarcin.electricalprotocolsmanager.utilities.electrician.Electrician;
 
 import java.awt.*;
 import java.io.IOException;
@@ -131,6 +131,15 @@ public class PdfTableComponent {
         table.setTable(cellWidths, cellHeight, yPos);
         for (int i = 0; i < cellWidths.length; i++) {
             table.addCellAlignment(textData.get(i).toString(), alignment, backgroundColor, fontSize, fontType, increasedHeight);
+        }
+    }
+    public void addTableComponentWithProperties(TableProperties properties) throws IOException {
+
+        Table table = new Table(properties.getContent());
+        table.setTableWithProperties(properties);
+
+        for (int i = 0; i < properties.getCellWidths().length; i++) {
+            table.addCellWithProperties(properties.getTextData().get(i).toString(), properties);
         }
     }
 

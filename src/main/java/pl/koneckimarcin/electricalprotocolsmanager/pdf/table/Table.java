@@ -4,6 +4,7 @@ import org.apache.pdfbox.pdmodel.PDPageContentStream;
 import org.apache.pdfbox.pdmodel.font.PDFont;
 import org.springframework.util.StringUtils;
 import pl.koneckimarcin.electricalprotocolsmanager.pdf.Alignment;
+import pl.koneckimarcin.electricalprotocolsmanager.pdf.component.TableProperties;
 
 import java.awt.*;
 import java.io.IOException;
@@ -28,6 +29,11 @@ public class Table {
         this.columnWidths = columnWidths;
         this.cellHeight = cellHeight;
         this.yPos = yPos;
+    }
+    public void setTableWithProperties(TableProperties properties) {
+        this.columnWidths = properties.getCellWidths();
+        this.cellHeight = properties.getCellHeight();
+        this.yPos = properties.getYPosition();
     }
 
     public void addCellAlignment(String text, Alignment alignment, Color fillColor, int fontSize, PDFont font,
@@ -58,6 +64,44 @@ public class Table {
 
         content.newLineAtOffset(xPos + calculateAlignmentPosition(alignment, columnWidths[columnPosition],
                 text, font, fontSize, isSplitNeeded), yPosText);
+
+        if (!isSplitNeeded) {
+            content.showText(text);
+            content.endText();
+        } else {
+            content.setLeading(10);
+            printSplitedText(content, text);
+        }
+        xPos = xPos + columnWidths[columnPosition];
+        columnPosition++;
+    }
+    public void addCellWithProperties(String text, TableProperties properties) throws IOException {
+
+        Color fontColor = new Color(0, 0, 0);
+
+        content.setNonStrokingColor(properties.getBackgroundColor());
+
+        int textWidth = getTextWidth(text, properties.getFont().getFont(), properties.getFontSize());
+        boolean isSplitNeeded = isSplitNeeded(text, textWidth);
+
+        int yPosText = yPos + 10;
+
+        if(properties.isIncreasedHeight()) {
+            yPosText -= 5;
+        }
+
+        if(isSplitNeeded)
+            yPosText += 5;
+
+        content.addRect(xPos, yPos, columnWidths[columnPosition], cellHeight);
+
+        content.fillAndStroke();
+        content.beginText();
+        content.setNonStrokingColor(fontColor);
+        content.setFont(properties.getFont().getFont(), properties.getFontSize());
+
+        content.newLineAtOffset(xPos + calculateAlignmentPosition(properties.getAlignment(), columnWidths[columnPosition],
+                text, properties.getFont().getFont(), properties.getFontSize(), isSplitNeeded), yPosText);
 
         if (!isSplitNeeded) {
             content.showText(text);
