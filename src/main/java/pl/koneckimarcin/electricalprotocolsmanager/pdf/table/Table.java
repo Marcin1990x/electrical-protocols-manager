@@ -4,7 +4,8 @@ import org.apache.pdfbox.pdmodel.PDPageContentStream;
 import org.apache.pdfbox.pdmodel.font.PDFont;
 import org.springframework.util.StringUtils;
 import pl.koneckimarcin.electricalprotocolsmanager.pdf.Alignment;
-import pl.koneckimarcin.electricalprotocolsmanager.pdf.component.TableProperties;
+import pl.koneckimarcin.electricalprotocolsmanager.pdf.component.builder.TableProperties;
+import pl.koneckimarcin.electricalprotocolsmanager.pdf.style.TablesStyle;
 
 import java.awt.*;
 import java.io.IOException;
@@ -25,21 +26,21 @@ public class Table {
         this.content = content;
     }
 
-    public void setTable(int[] columnWidths, int cellHeight, int yPos) {
-        this.columnWidths = columnWidths;
-        this.cellHeight = cellHeight;
-        this.yPos = yPos;
-    }
-    public void setTableWithProperties(TableProperties properties) {
+    public Table(TableProperties properties) {
+        this.content = properties.getContent();
         this.columnWidths = properties.getCellWidths();
         this.cellHeight = properties.getCellHeight();
         this.yPos = properties.getYPosition();
     }
 
+    public void setTable(int[] columnWidths, int cellHeight, int yPos) {
+        this.columnWidths = columnWidths;
+        this.cellHeight = cellHeight;
+        this.yPos = yPos;
+    }
+
     public void addCellAlignment(String text, Alignment alignment, Color fillColor, int fontSize, PDFont font,
         boolean increasedHeigth) throws IOException {
-
-        Color fontColor = new Color(0, 0, 0);
 
         content.setNonStrokingColor(fillColor);
 
@@ -59,7 +60,7 @@ public class Table {
 
         content.fillAndStroke();
         content.beginText();
-        content.setNonStrokingColor(fontColor);
+        content.setNonStrokingColor(TablesStyle.fontColor);
         content.setFont(font, fontSize);
 
         content.newLineAtOffset(xPos + calculateAlignmentPosition(alignment, columnWidths[columnPosition],
@@ -75,11 +76,7 @@ public class Table {
         xPos = xPos + columnWidths[columnPosition];
         columnPosition++;
     }
-    public void addCellWithProperties(String text, TableProperties properties) throws IOException {
-
-        Color fontColor = new Color(0, 0, 0);
-
-        content.setNonStrokingColor(properties.getBackgroundColor());
+    public void addCellWithProperties(String text, TableProperties properties) {
 
         int textWidth = getTextWidth(text, properties.getFont().getFont(), properties.getFontSize());
         boolean isSplitNeeded = isSplitNeeded(text, textWidth);
@@ -93,22 +90,27 @@ public class Table {
         if(isSplitNeeded)
             yPosText += 5;
 
-        content.addRect(xPos, yPos, columnWidths[columnPosition], cellHeight);
+        try {
+            content.setNonStrokingColor(properties.getBackgroundColor());
+            content.addRect(xPos, yPos, columnWidths[columnPosition], cellHeight);
 
-        content.fillAndStroke();
-        content.beginText();
-        content.setNonStrokingColor(fontColor);
-        content.setFont(properties.getFont().getFont(), properties.getFontSize());
+            content.fillAndStroke();
+            content.beginText();
+            content.setNonStrokingColor(TablesStyle.fontColor);
+            content.setFont(properties.getFont().getFont(), properties.getFontSize());
 
-        content.newLineAtOffset(xPos + calculateAlignmentPosition(properties.getAlignment(), columnWidths[columnPosition],
-                text, properties.getFont().getFont(), properties.getFontSize(), isSplitNeeded), yPosText);
+            content.newLineAtOffset(xPos + calculateAlignmentPosition(properties.getAlignment(), columnWidths[columnPosition],
+                    text, properties.getFont().getFont(), properties.getFontSize(), isSplitNeeded), yPosText);
 
-        if (!isSplitNeeded) {
-            content.showText(text);
-            content.endText();
-        } else {
-            content.setLeading(10);
-            printSplitedText(content, text);
+            if (!isSplitNeeded) {
+                content.showText(text);
+                content.endText();
+            } else {
+                content.setLeading(10);
+                printSplitedText(content, text);
+            }
+        } catch (IOException e) {
+            System.out.println("Error when creating cell with multiline text. " + e.getMessage());
         }
         xPos = xPos + columnWidths[columnPosition];
         columnPosition++;
@@ -136,15 +138,13 @@ public class Table {
     public void addCellWithMultilineText(List<String> text, int alignment, Color fillColor, int fontSize, PDFont font)
             throws IOException {
 
-        Color fontColor = new Color(0, 0, 0);
-
         content.setNonStrokingColor(fillColor);
 
         content.addRect(xPos, yPos, columnWidths[columnPosition], cellHeight);
 
         content.fillAndStroke();
         content.beginText();
-        content.setNonStrokingColor(fontColor);
+        content.setNonStrokingColor(TablesStyle.fontColor);
         content.setFont(font, fontSize);
         content.setLeading(12); // extract
         content.newLineAtOffset(xPos + alignment, yPos + cellHeight - fontSize - 4);
@@ -154,6 +154,30 @@ public class Table {
         }
         content.endText();
 
+        xPos = xPos + columnWidths[columnPosition];
+        columnPosition++;
+    }
+    public void addCellWithMultilineTextWithProperties(TableProperties properties, List<String> text){
+
+        try {
+            content.setNonStrokingColor(properties.getBackgroundColor());
+            content.addRect(xPos, yPos, columnWidths[columnPosition], cellHeight);
+
+            content.fillAndStroke();
+            content.beginText();
+            content.setNonStrokingColor(TablesStyle.fontColor);
+            content.setFont(properties.getFont().getFont(), properties.getFontSize());
+            content.setLeading(12); // extract
+            content.newLineAtOffset(xPos + properties.getAlignmentMultiline(),
+                    yPos + cellHeight - properties.getFontSize() - 4);
+            for (String textLine : text) {
+                content.showText(textLine);
+                content.newLine();
+            }
+            content.endText();
+        } catch (IOException e) {
+            System.out.println("Error when creating cell with multiline text. " + e.getMessage());
+        }
         xPos = xPos + columnWidths[columnPosition];
         columnPosition++;
     }
@@ -179,9 +203,16 @@ public class Table {
         return offset;
     }
 
-    private int getTextWidth(String text, PDFont font, float fontSize) throws IOException {
+    private int getTextWidth(String text, PDFont font, float fontSize) {
 
-        return (int) (font.getStringWidth(text) / 1000 * fontSize);
+        int textWidth = 0;
+
+        try {
+            textWidth = (int) (font.getStringWidth(text) / 1000 * fontSize);
+        } catch (IOException e) {
+            System.out.println("Error when counting width of text: " + e.getMessage());
+        }
+        return textWidth;
     }
     private String getSplitedText(String textToSplit) {
 

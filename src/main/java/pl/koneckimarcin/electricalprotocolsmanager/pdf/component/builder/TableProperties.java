@@ -1,10 +1,11 @@
-package pl.koneckimarcin.electricalprotocolsmanager.pdf.component;
+package pl.koneckimarcin.electricalprotocolsmanager.pdf.component.builder;
 
 import org.apache.pdfbox.pdmodel.PDPageContentStream;
 import pl.koneckimarcin.electricalprotocolsmanager.pdf.Alignment;
 import pl.koneckimarcin.electricalprotocolsmanager.pdf.Font;
 
 import java.awt.*;
+import java.util.Arrays;
 import java.util.List;
 
 public class TableProperties {
@@ -14,6 +15,7 @@ public class TableProperties {
     private int cellHeight;
     private int yPosition;
     private List<Object> textData;
+    private int alignmentMultiline;
     private Alignment alignment;
     private Color backgroundColor;
     private int fontSize;
@@ -21,13 +23,14 @@ public class TableProperties {
     private boolean increasedHeight;
 
     public TableProperties(PDPageContentStream content, int[] cellWidths, int cellHeight, int yPosition,
-                           List<Object> textData, Alignment alignment, Color backgroundColor,
-                           int fontSize, Font font, boolean increasedHeight) {
+                           List<Object> textData, int alignmentMultiline,
+                           Alignment alignment, Color backgroundColor, int fontSize, Font font, boolean increasedHeight) {
         this.content = content;
         this.cellWidths = cellWidths;
         this.cellHeight = cellHeight;
         this.yPosition = yPosition;
         this.textData = textData;
+        this.alignmentMultiline = alignmentMultiline;
         this.alignment = alignment;
         this.backgroundColor = backgroundColor;
         this.fontSize = fontSize;
@@ -87,10 +90,6 @@ public class TableProperties {
         this.cellHeight = cellHeight;
     }
 
-    public void setyPosition(int yPosition) {
-        this.yPosition = yPosition;
-    }
-
     public void setTextData(List<Object> textData) {
         this.textData = textData;
     }
@@ -113,5 +112,25 @@ public class TableProperties {
 
     public void setIncreasedHeight(boolean increasedHeight) {
         this.increasedHeight = increasedHeight;
+    }
+
+    public int getAlignmentMultiline() {
+        return alignmentMultiline;
+    }
+
+    @Override
+    public String toString() {
+        return "TableProperties{" +
+                "cellWidths=" + Arrays.toString(cellWidths) +
+                ", cellHeight=" + cellHeight +
+                ", yPosition=" + yPosition +
+                ", textData=" + textData +
+                ", alignmentMultiline=" + alignmentMultiline +
+                ", alignment=" + alignment +
+                ", backgroundColor=" + backgroundColor +
+                ", fontSize=" + fontSize +
+                ", font=" + font +
+                ", increasedHeight=" + increasedHeight +
+                '}';
     }
 }

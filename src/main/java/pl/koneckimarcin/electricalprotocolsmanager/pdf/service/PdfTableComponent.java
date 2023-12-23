@@ -8,7 +8,7 @@ import pl.koneckimarcin.electricalprotocolsmanager.measurement.protocolTextData.
 import pl.koneckimarcin.electricalprotocolsmanager.measurement.main.MeasurementMain;
 import pl.koneckimarcin.electricalprotocolsmanager.pdf.Alignment;
 import pl.koneckimarcin.electricalprotocolsmanager.pdf.Font;
-import pl.koneckimarcin.electricalprotocolsmanager.pdf.component.TableProperties;
+import pl.koneckimarcin.electricalprotocolsmanager.pdf.component.builder.TableProperties;
 import pl.koneckimarcin.electricalprotocolsmanager.pdf.titlePage.PdfTitlePage;
 import pl.koneckimarcin.electricalprotocolsmanager.pdf.table.Table;
 
@@ -118,11 +118,6 @@ public class PdfTableComponent {
                 List.of(headingText), 3, commonColor, fontSize, font.getFont());
     }
 
-    public void addFooterTable(PDPageContentStream content, Font font) throws IOException {
-        addTableComponent(content, oneColTable, 1, 50, List.of(""), Alignment.RIGHT,
-                commonColor, 10, font.getFont(), false);
-    }
-
     public void addTableComponent(PDPageContentStream content, int[] cellWidths, int cellHeight, int yPos, List<Object> textData,
                                    Alignment alignment, Color backgroundColor, int fontSize, PDFont fontType,
                                    boolean increasedHeight) throws IOException {
@@ -133,10 +128,9 @@ public class PdfTableComponent {
             table.addCellAlignment(textData.get(i).toString(), alignment, backgroundColor, fontSize, fontType, increasedHeight);
         }
     }
-    public void addTableComponentWithProperties(TableProperties properties) throws IOException {
+    public void addTableComponentWithProperties(TableProperties properties) {
 
-        Table table = new Table(properties.getContent());
-        table.setTableWithProperties(properties);
+        Table table = new Table(properties);
 
         for (int i = 0; i < properties.getCellWidths().length; i++) {
             table.addCellWithProperties(properties.getTextData().get(i).toString(), properties);
@@ -150,6 +144,14 @@ public class PdfTableComponent {
         table.setTable(cellWidths, cellHeight, yPos);
         for (int i = 0; i < cellWidths.length; i++) {
             table.addCellWithMultilineText(textData.get(i), alignment, backgroundColor, fontSize, fontType);
+        }
+    }
+    public void addTableComponentWithMultilineTextWithProperties(TableProperties properties,
+                                                                 List<List<String>> electricianDataTextList) {
+        Table table = new Table(properties);
+
+        for (int i = 0; i < properties.getCellWidths().length; i++) {
+            table.addCellWithMultilineTextWithProperties(properties, electricianDataTextList.get(i));
         }
     }
 }

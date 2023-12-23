@@ -16,13 +16,17 @@ public class PdfTextService {
     private final int xMargin = 50;
 
     public void addSingleLineOfTextAlignment(PDPageContentStream content, String text, int yPos,
-                                             Alignment alignment, PDFont pdFont, float fontSize) throws IOException {
-        content.beginText();
-        content.setFont(pdFont, fontSize);
-        content.newLineAtOffset(xMargin + calculateAlignmentPosition(alignment, text, pdFont, (int) fontSize), yPos);
-        content.showText(text);
-        content.endText();
-        content.moveTo(0, 0);
+                                             Alignment alignment, PDFont pdFont, float fontSize) {
+        try {
+            content.beginText();
+            content.setFont(pdFont, fontSize);
+            content.newLineAtOffset(xMargin + calculateAlignmentPosition(alignment, text, pdFont, (int) fontSize), yPos);
+            content.showText(text);
+            content.endText();
+            content.moveTo(0, 0);
+        } catch (IOException e) {
+            System.out.println("Error when adding text: " + text + "page. " + e.getMessage());
+        }
     }
 
     public int addMultipleLineOfTextAlignment(PDPageContentStream content, List<String> text, int yPos, Alignment alignment,

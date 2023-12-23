@@ -1,4 +1,4 @@
-package pl.koneckimarcin.electricalprotocolsmanager.pdf.component;
+package pl.koneckimarcin.electricalprotocolsmanager.pdf.component.builder;
 
 import org.apache.pdfbox.pdmodel.PDPageContentStream;
 import pl.koneckimarcin.electricalprotocolsmanager.pdf.Alignment;
@@ -13,7 +13,8 @@ public class TablePropertiesBuilder {
     private int[] cellWidths = new int[]{500};
     private int cellHeight = 20;
     private int yPosition = 720;
-    private List<Object> textData = null;
+    private List<Object> textData = List.of("");
+    private int alignmentMultiline = 3;
     private Alignment alignment = Alignment.CENTER;
     private Color backgroundColor = new Color(255, 255, 255);
     private int fontSize = 11;
@@ -45,6 +46,11 @@ public class TablePropertiesBuilder {
         return this;
     }
 
+    public TablePropertiesBuilder setAlignmentMultiline(int alignmentMultiline) {
+        this.alignmentMultiline = alignmentMultiline;
+        return this;
+    }
+
     public TablePropertiesBuilder setAlignment(Alignment alignment) {
         this.alignment = alignment;
         return this;
@@ -72,13 +78,14 @@ public class TablePropertiesBuilder {
 
     public TableProperties build() {
         TableProperties tableProperties = new TableProperties(content, cellWidths, cellHeight, yPosition, textData,
-                alignment, backgroundColor, fontSize, fontType, increasedHeight);
+                alignmentMultiline, alignment, backgroundColor, fontSize, fontType, increasedHeight);
         content = null;
         cellWidths = new int[]{500};
         cellHeight = 20;
         yPosition = 700;
         textData = null;
         alignment = Alignment.CENTER;
+        alignmentMultiline = 3;
         backgroundColor = new Color(255, 255, 255);
         fontSize = 11;
         fontType = null;

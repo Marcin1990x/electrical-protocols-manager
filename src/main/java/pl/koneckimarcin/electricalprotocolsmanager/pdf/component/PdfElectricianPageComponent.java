@@ -7,6 +7,8 @@ import org.springframework.stereotype.Component;
 import pl.koneckimarcin.electricalprotocolsmanager.measurement.protocolTextData.TextsPL;
 import pl.koneckimarcin.electricalprotocolsmanager.pdf.Alignment;
 import pl.koneckimarcin.electricalprotocolsmanager.pdf.Font;
+import pl.koneckimarcin.electricalprotocolsmanager.pdf.component.builder.TableProperties;
+import pl.koneckimarcin.electricalprotocolsmanager.pdf.component.builder.TablePropertiesBuilder;
 import pl.koneckimarcin.electricalprotocolsmanager.pdf.service.PdfTableComponent;
 import pl.koneckimarcin.electricalprotocolsmanager.pdf.style.TablesStyle;
 import pl.koneckimarcin.electricalprotocolsmanager.utilities.electrician.Electrician;
@@ -17,47 +19,48 @@ import java.util.List;
 @Component
 public class PdfElectricianPageComponent {
 
-    private int yPosition = 720;
-    private final int[] headerCellWidths = new int[]{50, 60, 100, 70, 70, 150}; //header cell widths
-
     @Autowired
     private PdfTableComponent tableComponent;
 
-    public void appendElectriciansPage(PDDocument document, List<Electrician> electriciansList, int page, Font font) throws IOException {
+    public void appendElectriciansPage(PDDocument document, List<Electrician> electriciansList, int page, Font font) {
 
         PDPageContentStream content;
 
-        content = new PDPageContentStream(document, document.getPage(page),
-                PDPageContentStream.AppendMode.APPEND, false);
+        try {
+            content = new PDPageContentStream(document, document.getPage(page),
+                    PDPageContentStream.AppendMode.APPEND, false);
 
-        TablePropertiesBuilder builder = new TablePropertiesBuilder();
-        TableProperties properties = builder
-                .setContent(content)
-                .setCellHeight(22)
-                .setFontType(font)
-                .build();
+            TablePropertiesBuilder builder = new TablePropertiesBuilder();
+            TableProperties properties = builder
+                    .setContent(content)
+                    .setCellHeight(22)
+                    .setFontType(font)
+                    .build();
 
-        addElectriciansTableToPage(content, electriciansList, font, properties);
+            addElectriciansTableToPage(electriciansList, properties);
 
-        content.close();
+            content.close();
+        } catch (IOException e) {
+            System.out.println("Error when appending electricians page. " + e.getMessage());
+        }
     }
 
-    private void addElectriciansTableToPage(PDPageContentStream content, List<Electrician> electricians, Font font,
-                                            TableProperties properties)
-            throws IOException {
+    private void addElectriciansTableToPage(List<Electrician> electricians, TableProperties properties) {
 
         addTitleHeader(properties);
 
         addTableHeader(properties);
 
-        addTableWithElectriciansData(content, font, electricians);
+        addTableWithElectriciansData(electricians, properties);
     }
-    private void addTitleHeader(TableProperties properties) throws IOException {
+    private void addTitleHeader(TableProperties properties) {
 
         properties.setTextData(List.of(TextsPL.electriciansPageText.get(2)));
         tableComponent.addTableComponentWithProperties(properties);
     }
-    private void addTableHeader(TableProperties properties) throws IOException {
+    private void addTableHeader(TableProperties properties) {
+
+        int[] headerCellWidths = new int[]{50, 60, 100, 70, 70, 150}; //header cell widths
 
         properties.setCellWidths(headerCellWidths);
         properties.setCellHeight(25);
@@ -70,14 +73,20 @@ public class PdfElectricianPageComponent {
         tableComponent.addTableComponentWithProperties(properties);
 
     }
-    private void addTableWithElectriciansData(PDPageContentStream content, Font font, List<Electrician> electricians) throws IOException {
+    private void addTableWithElectriciansData(List<Electrician> electricians, TableProperties properties) {
 
-        yPosition = 620;
+        properties.setCellHeight(60);
+        properties.setYPosition(620);
+        properties.setBackgroundColor(TablesStyle.commonColor);
+        properties.setFontSize(8);
 
-        for (Electrician electrician : electricians) {
-            tableComponent.addTableComponentWithMultilineText(content, headerCellWidths, 60, yPosition,
-                    electrician.getElectricianDataTextList(), 3, TablesStyle.commonColor, 8, font.getFont());
-            yPosition -= 60;
+        for(Electrician electrician : electricians) {
+
+            tableComponent.addTableComponentWithMultilineTextWithProperties(properties, electrician.getElectricianDataTextList());
+            properties.setYPosition(decreaseNumber(properties.getYPosition(), 60));
         }
+    }
+    private int decreaseNumber(int actual, int decrease) {
+        return actual =- decrease;
     }
 }
