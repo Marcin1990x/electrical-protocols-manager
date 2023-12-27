@@ -8,6 +8,8 @@ import pl.koneckimarcin.electricalprotocolsmanager.pdf.Alignment;
 import pl.koneckimarcin.electricalprotocolsmanager.pdf.Font;
 import pl.koneckimarcin.electricalprotocolsmanager.pdf.component.builder.TableProperties;
 import pl.koneckimarcin.electricalprotocolsmanager.pdf.component.builder.TablePropertiesBuilder;
+import pl.koneckimarcin.electricalprotocolsmanager.pdf.component.builder.TextProperties;
+import pl.koneckimarcin.electricalprotocolsmanager.pdf.component.builder.TextPropertiesBuilder;
 import pl.koneckimarcin.electricalprotocolsmanager.pdf.service.PdfTableComponent;
 import pl.koneckimarcin.electricalprotocolsmanager.pdf.service.PdfTextService;
 
@@ -25,48 +27,62 @@ public class PdfFooterComponent {
 
     public void addFooter(PDDocument document, String documentNumber, Font font) {
 
-        int pagesCount = document.getNumberOfPages();
+        int pagesQuantity = document.getNumberOfPages();
         PDPageContentStream content;
 
-        for (int i = 0; i < pagesCount; i++) {
+        for (int page = 0; page < pagesQuantity; page++) {
 
             try {
-                content = new PDPageContentStream(document, document.getPage(i),
+                content = new PDPageContentStream(document, document.getPage(page),
                         PDPageContentStream.AppendMode.APPEND, false);
 
-                TablePropertiesBuilder builder = new TablePropertiesBuilder();
-                TableProperties properties = builder
+                //todo : try to extract builders
+                TableProperties tableProperties = new TablePropertiesBuilder()
                         .setContent(content)
                         .setCellHeight(1)
                         .setYPosition(50)
-                        .setAlignment(Alignment.RIGHT)
                         .setFontType(font)
                         .build();
 
-                addFooterLine(properties);
-                addTextLine(content, documentNumber, i, pagesCount, font);
+
+                TextProperties textProperties = new TextPropertiesBuilder()
+                        .setContent(content)
+                        .setText(createPageCounterText(documentNumber, page, pagesQuantity))
+                        .setAlignment(Alignment.RIGHT)
+                        .setyPosition(40)
+                        .setFontType(font.getFontBold())
+                        .setFontSize(footerFontSize)
+                        .build();
+
+                addFooterToPage(tableProperties, textProperties);
 
                 content.close();
+
             } catch (IOException e) {
                 System.out.println("Error when appending footer to pages. " + e.getMessage());
             }
         }
     }
+
+    private void addFooterToPage(TableProperties tableProperties, TextProperties textProperties) {
+
+        addFooterLine(tableProperties);
+        addTextLineNew(textProperties);
+    }
+
     private void addFooterLine(TableProperties properties) {
 
         tableComponent.addTableComponentWithProperties(properties);
     }
 
-    private void addTextLine(PDPageContentStream content, String documentNumber, int page, int pagesCount, Font font) {
+    private void addTextLineNew(TextProperties properties) {
 
-        //create builder for text!!!
-        textService.addSingleLineOfTextAlignment(content, createPageCounterText(documentNumber, page, pagesCount), 40,
-                Alignment.RIGHT, font.getFontBold(), footerFontSize);
+        textService.addSingleLineOfTextAlignmentWithProperties(properties);
     }
 
-    private String createPageCounterText(String documentNumber, int page, int pagesCount) {
+    private String createPageCounterText(String documentNumber, int page, int pagesQuantity) {
 
-        return documentNumber + " " + (page + 1) + "/" + pagesCount;
+        return documentNumber + " " + (page + 1) + "/" + pagesQuantity;
     }
 
 }

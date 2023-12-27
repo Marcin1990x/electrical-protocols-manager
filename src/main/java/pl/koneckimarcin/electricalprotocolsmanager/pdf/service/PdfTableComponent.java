@@ -111,13 +111,6 @@ public class PdfTableComponent {
         return size > 20;
     }
 
-    public void addHeaderTable(PDPageContentStream content, List<String> headingText, int yPos, int fontSize, Font font)
-            throws IOException {
-
-        addTableComponentWithMultilineText(content, oneColTable, 60, yPos,
-                List.of(headingText), 3, commonColor, fontSize, font.getFont());
-    }
-
     public void addTableComponent(PDPageContentStream content, int[] cellWidths, int cellHeight, int yPos, List<Object> textData,
                                    Alignment alignment, Color backgroundColor, int fontSize, PDFont fontType,
                                    boolean increasedHeight) throws IOException {
@@ -147,11 +140,11 @@ public class PdfTableComponent {
         }
     }
     public void addTableComponentWithMultilineTextWithProperties(TableProperties properties,
-                                                                 List<List<String>> electricianDataTextList) {
+                                                                 List<List<String>> textData) {
         Table table = new Table(properties);
 
         for (int i = 0; i < properties.getCellWidths().length; i++) {
-            table.addCellWithMultilineTextWithProperties(properties, electricianDataTextList.get(i));
+            table.addCellWithMultilineTextWithProperties(properties, textData.get(i));
         }
     }
 }

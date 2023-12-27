@@ -1,8 +1,8 @@
 package pl.koneckimarcin.electricalprotocolsmanager.pdf.component.builder;
 
 import org.apache.pdfbox.pdmodel.PDPageContentStream;
+import org.apache.pdfbox.pdmodel.font.PDFont;
 import pl.koneckimarcin.electricalprotocolsmanager.pdf.Alignment;
-import pl.koneckimarcin.electricalprotocolsmanager.pdf.Font;
 
 public class TextProperties {
 
@@ -10,12 +10,12 @@ public class TextProperties {
     private String text;
     private int yPosition;
     private Alignment alignment;
-    private Font fontType;
-    private float fontSize;
-    private float leading;
+    private PDFont fontType;
+    private int fontSize;
+    private int leading;
 
     public TextProperties(PDPageContentStream contentStream, String text, int yPosition, Alignment alignment,
-                          Font fontType, float fontSize, float leading) {
+                          PDFont fontType, int fontSize, int leading) {
         this.contentStream = contentStream;
         this.text = text;
         this.yPosition = yPosition;
@@ -57,27 +57,27 @@ public class TextProperties {
         this.alignment = alignment;
     }
 
-    public Font getFontType() {
+    public PDFont getFontType() {
         return fontType;
     }
 
-    public void setFontType(Font fontType) {
+    public void setFontType(PDFont fontType) {
         this.fontType = fontType;
     }
 
-    public float getFontSize() {
+    public int getFontSize() {
         return fontSize;
     }
 
-    public void setFontSize(float fontSize) {
+    public void setFontSize(int fontSize) {
         this.fontSize = fontSize;
     }
 
-    public float getLeading() {
+    public int getLeading() {
         return leading;
     }
 
-    public void setLeading(float leading) {
+    public void setLeading(int leading) {
         this.leading = leading;
     }
 

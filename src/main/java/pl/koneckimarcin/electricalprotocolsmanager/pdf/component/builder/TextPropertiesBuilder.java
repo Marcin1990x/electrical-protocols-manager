@@ -1,21 +1,21 @@
 package pl.koneckimarcin.electricalprotocolsmanager.pdf.component.builder;
 
 import org.apache.pdfbox.pdmodel.PDPageContentStream;
+import org.apache.pdfbox.pdmodel.font.PDFont;
 import pl.koneckimarcin.electricalprotocolsmanager.pdf.Alignment;
-import pl.koneckimarcin.electricalprotocolsmanager.pdf.Font;
 
 public class TextPropertiesBuilder {
 
-    private PDPageContentStream contentStream = null;
+    private PDPageContentStream content = null;
     private String text = "";
     private int yPosition = 700;
     private Alignment alignment = Alignment.CENTER;
-    private Font fontType = null;
-    private float fontSize = 10;
-    private float leadind = 11;
+    private PDFont fontType = null;
+    private int fontSize = 10;
+    private int leading = 11;
 
-    public TextPropertiesBuilder setContentStream(PDPageContentStream contentStream) {
-        this.contentStream = contentStream;
+    public TextPropertiesBuilder setContent(PDPageContentStream content) {
+        this.content = content;
         return this;
     }
 
@@ -34,31 +34,31 @@ public class TextPropertiesBuilder {
         return this;
     }
 
-    public TextPropertiesBuilder setFontType(Font fontType) {
+    public TextPropertiesBuilder setFontType(PDFont fontType) {
         this.fontType = fontType;
         return this;
     }
 
-    public TextPropertiesBuilder setFontSize(float fontSize) {
+    public TextPropertiesBuilder setFontSize(int fontSize) {
         this.fontSize = fontSize;
         return this;
     }
 
-    public TextPropertiesBuilder setLeadind(float leadind) {
-        this.leadind = leadind;
+    public TextPropertiesBuilder setLeading(int leading) {
+        this.leading = leading;
         return this;
     }
 
     public TextProperties build() {
-        TextProperties textProperties = new TextProperties(contentStream, text, yPosition, alignment, fontType, fontSize, leadind);
+        TextProperties textProperties = new TextProperties(content, text, yPosition, alignment, fontType, fontSize, leading);
 
         PDPageContentStream contentStream = null;
         String text = "";
         int yPosition = 700;
         Alignment alignment = Alignment.CENTER;
-        Font fontType = null;
-        float fontSize = 10;
-        float leadind = 11;
+        PDFont fontType = null;
+        int fontSize = 10;
+        int leading = 11;
 
         return textProperties;
     }

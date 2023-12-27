@@ -5,6 +5,7 @@ import org.apache.pdfbox.pdmodel.font.PDFont;
 import org.springframework.stereotype.Service;
 import pl.koneckimarcin.electricalprotocolsmanager.measurement.protocolTextData.TextsPL;
 import pl.koneckimarcin.electricalprotocolsmanager.pdf.Alignment;
+import pl.koneckimarcin.electricalprotocolsmanager.pdf.component.builder.TextProperties;
 
 import java.io.IOException;
 import java.util.List;
@@ -26,6 +27,21 @@ public class PdfTextService {
             content.moveTo(0, 0);
         } catch (IOException e) {
             System.out.println("Error when adding text: " + text + "page. " + e.getMessage());
+        }
+    }
+    public void addSingleLineOfTextAlignmentWithProperties(TextProperties properties) {
+        try {
+            PDPageContentStream content = properties.getContentStream();
+
+            content.beginText();
+            content.setFont(properties.getFontType(), properties.getFontSize());
+            content.newLineAtOffset(xMargin + calculateAlignmentPosition(properties.getAlignment(), properties.getText()
+                    , properties.getFontType(), properties.getFontSize()), properties.getyPosition());
+            content.showText(properties.getText());
+            content.endText();
+            content.moveTo(0, 0);
+        } catch (IOException e) {
+            System.out.println("Error when adding text: " + properties.getText() + "page. " + e.getMessage());
         }
     }
 

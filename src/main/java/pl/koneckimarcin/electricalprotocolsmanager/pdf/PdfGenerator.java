@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pl.koneckimarcin.electricalprotocolsmanager.pdf.component.PdfElectricianPageComponent;
 import pl.koneckimarcin.electricalprotocolsmanager.pdf.component.PdfFooterComponent;
+import pl.koneckimarcin.electricalprotocolsmanager.pdf.component.PdfHeadingComponent;
 import pl.koneckimarcin.electricalprotocolsmanager.pdf.service.*;
 import pl.koneckimarcin.electricalprotocolsmanager.pdf.storage.PdfRepository;
 import pl.koneckimarcin.electricalprotocolsmanager.pdf.titlePage.PdfTitlePage;
@@ -19,7 +20,7 @@ public class PdfGenerator {
     @Autowired
     private PdfService pdfService;
     @Autowired
-    private PdfHeadingService headingService;
+    private PdfHeadingComponent headingService;
     @Autowired
     private PdfFooterComponent footerService;
     @Autowired
