@@ -27,7 +27,7 @@ public class PdfLegendComponent {
 
     private int yPos = 720;
 
-    public void addLegendData(PDDocument document, int legendPage, List<MeasurementMain> measurementMainList, Font font) {
+    public void appendLegendPage(PDDocument document, int legendPage, List<MeasurementMain> measurementMainList, Font font) {
 
         PDPageContentStream content;
 
@@ -53,6 +53,7 @@ public class PdfLegendComponent {
                 .setAlignment(Alignment.LEFT)
                 .setFontType(font.getFontBold())
                 .setFontSize(12)
+                .setLeading(12)
                 .build();
 
         addLegendPageTitle(properties);
@@ -96,11 +97,12 @@ public class PdfLegendComponent {
         properties.setyPosition(yPos);
         properties.setFontType(font.getFont());
 
-        yPos += -5 + addLegendTextData(properties, legend.getLegendText());
+        yPos += -15 + addLegendTextData(properties, legend.getLegendText());
         properties.setyPosition(yPos);
 
-        if (yPos <= 50);
+        if (yPos <= 50) {
             throw new InvalidObjectException("Text outside available area.");
+        }
     }
 
     private void addMeasurementNameForLegend(TextProperties properties, String measurementName) {

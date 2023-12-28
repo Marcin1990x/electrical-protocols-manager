@@ -78,12 +78,12 @@ public class Table {
     }
     public void addCellWithProperties(String text, TableProperties properties) {
 
-        int textWidth = getTextWidth(text, properties.getFont().getFont(), properties.getFontSize());
+        int textWidth = getTextWidth(text, properties.getFont() , properties.getFontSize());
         boolean isSplitNeeded = isSplitNeeded(text, textWidth);
 
         int yPosText = yPos + 10;
 
-        if(properties.isIncreasedHeight()) {
+        if(properties.isDecreasedHeight()) {
             yPosText -= 5;
         }
 
@@ -97,10 +97,10 @@ public class Table {
             content.fillAndStroke();
             content.beginText();
             content.setNonStrokingColor(TablesStyle.fontColor);
-            content.setFont(properties.getFont().getFont(), properties.getFontSize());
+            content.setFont(properties.getFont(), properties.getFontSize());
 
             content.newLineAtOffset(xPos + calculateAlignmentPosition(properties.getAlignment(), columnWidths[columnPosition],
-                    text, properties.getFont().getFont(), properties.getFontSize(), isSplitNeeded), yPosText);
+                    text, properties.getFont(), properties.getFontSize(), isSplitNeeded), yPosText);
 
             if (!isSplitNeeded) {
                 content.showText(text);
@@ -166,7 +166,7 @@ public class Table {
             content.fillAndStroke();
             content.beginText();
             content.setNonStrokingColor(TablesStyle.fontColor);
-            content.setFont(properties.getFont().getFont(), properties.getFontSize());
+            content.setFont(properties.getFont(), properties.getFontSize());
             content.setLeading(12); // extract
             content.newLineAtOffset(xPos + properties.getAlignmentMultiline(),
                     yPos + cellHeight - properties.getFontSize() - 4);

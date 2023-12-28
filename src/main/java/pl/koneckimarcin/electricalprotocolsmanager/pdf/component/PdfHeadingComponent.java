@@ -24,7 +24,7 @@ public class PdfHeadingComponent {
     }
 
     //todo: extract font globally
-    public void addHeading(PDDocument document, List<String> headingTextData, Font font) {
+    public void addHeadingToPages(PDDocument document, List<String> headingTextData, Font font) {
 
         int pagesQuantity = document.getNumberOfPages();
 
@@ -41,7 +41,7 @@ public class PdfHeadingComponent {
                         .setCellHeight(60)
                         .setYPosition(headingYposition)
                         .setTextData(List.of(headingTextData))
-                        .setFontType(font)
+                        .setFontType(font.getFont())
                         .setFontSize(headingFontSize)
                         .build();
 

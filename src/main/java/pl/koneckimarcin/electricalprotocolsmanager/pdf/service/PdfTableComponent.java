@@ -64,61 +64,14 @@ public class PdfTableComponent {
                 List.of(titlePageData.getDecisionTextData()), 3, commonColor, 10, font.getFont());
     }
 
-    public void addMeasurementTable(PDPageContentStream content, MeasurementMain measurementMain, Font font) throws IOException {
-
-        yPosMeas = 700; // start position for 1st table component
-        // add cascade name without measurement name
-        addTableComponent(content, oneColTable, 25, yPosMeas,
-                List.of(measurementMain.getMeasurementMainCascadeNameWithoutMeasurementName()),
-                Alignment.LEFT, commonColor, 12, font.getFont(), false);
-        yPosMeas -= 30;
-        // add measurement name
-        addTableComponent(content, oneColTable, 25, yPosMeas, List.of(measurementMain.getMeasurementName()),
-                Alignment.CENTER, commonColor, 11, font.getFont(), false);
-        yPosMeas -= 30;
-        // add cascadeTable
-        // add header
-        int[] headerCellWidths = pdfTableService.getCellSizes(measurementMain.getMeasurementName());
-        addTableComponent(content, headerCellWidths, 25, yPosMeas,
-                textService.getMeasurementEntryTableHeaders(measurementMain.getMeasurementName()),
-                Alignment.CENTER, headerColor, 8, font.getFontBold(), false);
-        yPosMeas -= 30;
-        // add main parameters
-        if (!measurementMain.getPropertiesNamesAndValues().isEmpty()) {
-            addTableComponent(content, oneColTable, 25, yPosMeas,
-                    List.of(measurementMain.getPropertiesNamesAndValues()), Alignment.LEFT,
-                    commonColor, 9, font.getFont(), false);
-            yPosMeas -= 30;
-        }
-        // add entry parameters
-        for (int j = 0; j < measurementMain.getMeasurementEntries().size(); j++) {
-
-            int cellHeight = 25;
-            boolean moreThan20Entries = isSizeMoreThan20(measurementMain.getMeasurementEntries().size());
-
-            if(moreThan20Entries) {
-                cellHeight = 15;
-            }
-
-            addTableComponent(content, headerCellWidths, cellHeight, yPosMeas,
-                    measurementMain.getMeasurementEntries().get(j).getEntryResultList(j+1),
-                    Alignment.LEFT, commonColor, 8, font.getFont(), moreThan20Entries);
-            yPosMeas -= cellHeight;
-        }
-    }
-
-    private boolean isSizeMoreThan20(int size) {
-        return size > 20;
-    }
-
     public void addTableComponent(PDPageContentStream content, int[] cellWidths, int cellHeight, int yPos, List<Object> textData,
                                    Alignment alignment, Color backgroundColor, int fontSize, PDFont fontType,
-                                   boolean increasedHeight) throws IOException {
+                                   boolean decreasedHeight) throws IOException {
 
         Table table = new Table(content);
         table.setTable(cellWidths, cellHeight, yPos);
         for (int i = 0; i < cellWidths.length; i++) {
-            table.addCellAlignment(textData.get(i).toString(), alignment, backgroundColor, fontSize, fontType, increasedHeight);
+            table.addCellAlignment(textData.get(i).toString(), alignment, backgroundColor, fontSize, fontType, decreasedHeight);
         }
     }
     public void addTableComponentWithProperties(TableProperties properties) {

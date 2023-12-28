@@ -25,7 +25,7 @@ public class PdfFooterComponent {
 
     private final int footerFontSize = 9;
 
-    public void addFooter(PDDocument document, String documentNumber, Font font) {
+    public void addFooterToPages(PDDocument document, String documentNumber, Font font) {
 
         int pagesQuantity = document.getNumberOfPages();
         PDPageContentStream content;
@@ -41,7 +41,7 @@ public class PdfFooterComponent {
                         .setContent(content)
                         .setCellHeight(1)
                         .setYPosition(50)
-                        .setFontType(font)
+                        .setFontType(font.getFontBold())
                         .build();
 
 

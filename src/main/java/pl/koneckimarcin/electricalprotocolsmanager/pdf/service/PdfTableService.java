@@ -14,7 +14,7 @@ public class PdfTableService {
         this.textService = textService;
     }
 
-    public int[] getCellSizes(String measurementName) throws InvalidObjectException {
+    public int[] getCellSizes(String measurementName) throws IllegalArgumentException {
 
         int[] cellSizes;
 
@@ -32,7 +32,7 @@ public class PdfTableService {
             cellSizes = new int[]{20, 50, 100, 105, 80, 80, 65};
         } else {
             // check if error name is correct
-            throw new InvalidObjectException("No cell sizes prepared for: " + measurementName);
+            throw new IllegalArgumentException("No cell sizes prepared for: " + measurementName);
         }
         return cellSizes;
     }

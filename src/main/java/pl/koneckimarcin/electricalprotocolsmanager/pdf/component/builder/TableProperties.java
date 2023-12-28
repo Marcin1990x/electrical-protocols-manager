@@ -1,8 +1,8 @@
 package pl.koneckimarcin.electricalprotocolsmanager.pdf.component.builder;
 
 import org.apache.pdfbox.pdmodel.PDPageContentStream;
+import org.apache.pdfbox.pdmodel.font.PDFont;
 import pl.koneckimarcin.electricalprotocolsmanager.pdf.Alignment;
-import pl.koneckimarcin.electricalprotocolsmanager.pdf.Font;
 
 import java.awt.*;
 import java.util.Arrays;
@@ -19,12 +19,12 @@ public class TableProperties {
     private Alignment alignment;
     private Color backgroundColor;
     private int fontSize;
-    private Font font;
-    private boolean increasedHeight;
+    private PDFont font;
+    private boolean decreasedHeight;
 
     public TableProperties(PDPageContentStream content, int[] cellWidths, int cellHeight, int yPosition,
                            List<Object> textData, int alignmentMultiline,
-                           Alignment alignment, Color backgroundColor, int fontSize, Font font, boolean increasedHeight) {
+                           Alignment alignment, Color backgroundColor, int fontSize, PDFont font, boolean decreasedHeight) {
         this.content = content;
         this.cellWidths = cellWidths;
         this.cellHeight = cellHeight;
@@ -35,7 +35,7 @@ public class TableProperties {
         this.backgroundColor = backgroundColor;
         this.fontSize = fontSize;
         this.font = font;
-        this.increasedHeight = increasedHeight;
+        this.decreasedHeight = decreasedHeight;
     }
 
     public PDPageContentStream getContent() {
@@ -74,12 +74,12 @@ public class TableProperties {
         return fontSize;
     }
 
-    public Font getFont() {
+    public PDFont getFont() {
         return font;
     }
 
-    public boolean isIncreasedHeight() {
-        return increasedHeight;
+    public boolean isDecreasedHeight() {
+        return decreasedHeight;
     }
 
     public void setCellWidths(int[] cellWidths) {
@@ -106,12 +106,12 @@ public class TableProperties {
         this.fontSize = fontSize;
     }
 
-    public void setFont(Font font) {
+    public void setFont(PDFont font) {
         this.font = font;
     }
 
-    public void setIncreasedHeight(boolean increasedHeight) {
-        this.increasedHeight = increasedHeight;
+    public void setDecreasedHeight(boolean increasedHeight) {
+        this.decreasedHeight = increasedHeight;
     }
 
     public int getAlignmentMultiline() {
@@ -130,7 +130,7 @@ public class TableProperties {
                 ", backgroundColor=" + backgroundColor +
                 ", fontSize=" + fontSize +
                 ", font=" + font +
-                ", increasedHeight=" + increasedHeight +
+                ", increasedHeight=" + decreasedHeight +
                 '}';
     }
 }

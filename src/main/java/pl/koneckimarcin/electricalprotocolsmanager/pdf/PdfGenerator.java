@@ -3,10 +3,7 @@ package pl.koneckimarcin.electricalprotocolsmanager.pdf;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import pl.koneckimarcin.electricalprotocolsmanager.pdf.component.PdfElectricianPageComponent;
-import pl.koneckimarcin.electricalprotocolsmanager.pdf.component.PdfFooterComponent;
-import pl.koneckimarcin.electricalprotocolsmanager.pdf.component.PdfHeadingComponent;
-import pl.koneckimarcin.electricalprotocolsmanager.pdf.component.PdfLegendComponent;
+import pl.koneckimarcin.electricalprotocolsmanager.pdf.component.*;
 import pl.koneckimarcin.electricalprotocolsmanager.pdf.service.*;
 import pl.koneckimarcin.electricalprotocolsmanager.pdf.storage.PdfRepository;
 import pl.koneckimarcin.electricalprotocolsmanager.pdf.titlePage.PdfTitlePage;
@@ -25,7 +22,7 @@ public class PdfGenerator {
     @Autowired
     private PdfFooterComponent footerService;
     @Autowired
-    private PdfMeasurementDataService measurementDataService;
+    private PdfMeasurementDataComponent measurementDataService;
     @Autowired
     private PdfTitlePageService titlePageService;
     @Autowired
@@ -61,10 +58,10 @@ public class PdfGenerator {
         titlePageService.addTitlePage(doc, titlePageData, font);
         //add measurements
         pdfService.addPages(doc, pagesCountMeasurements);
-        measurementDataService.addMeasurementDataTable(doc, building, pagesCountMeasurements, font);
+        measurementDataService.appendMeasurementsDataToPages(doc, building, pagesCountMeasurements, font);
         //add legend page/pages
         pdfService.addPages(doc, 1);
-        legendService.addLegendData(doc, doc.getNumberOfPages() - 1, building.getMeasurementMainList(), font);
+        legendService.appendLegendPage(doc, doc.getNumberOfPages() - 1, building.getMeasurementMainList(), font);
         //add theory page/pages
         pdfService.addPages(doc, pagesCountTheory);
         theoryService.addTheory(doc, doc.getNumberOfPages(), pagesCountTheory, building);
@@ -75,9 +72,9 @@ public class PdfGenerator {
         pdfService.addPages(doc, 1);
         statisticPageService.addStatisticDate(doc, building, doc.getNumberOfPages() - 1, font);
         //add headers
-        headingService.addHeading(doc, titlePageData.getHeadingTextData(), font);
+        headingService.addHeadingToPages(doc, titlePageData.getHeadingTextData(), font);
         //add footers
-        footerService.addFooter(doc, titlePageData.getDocumentNumber(), font);
+        footerService.addFooterToPages(doc, titlePageData.getDocumentNumber(), font);
 
         mainPdfService.saveFileToDb(doc);
         doc.close();

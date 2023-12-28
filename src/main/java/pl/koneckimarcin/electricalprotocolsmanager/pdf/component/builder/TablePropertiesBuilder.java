@@ -1,6 +1,7 @@
 package pl.koneckimarcin.electricalprotocolsmanager.pdf.component.builder;
 
 import org.apache.pdfbox.pdmodel.PDPageContentStream;
+import org.apache.pdfbox.pdmodel.font.PDFont;
 import pl.koneckimarcin.electricalprotocolsmanager.pdf.Alignment;
 import pl.koneckimarcin.electricalprotocolsmanager.pdf.Font;
 
@@ -18,7 +19,7 @@ public class TablePropertiesBuilder {
     private Alignment alignment = Alignment.CENTER;
     private Color backgroundColor = new Color(255, 255, 255);
     private int fontSize = 11;
-    private Font fontType = null;
+    private PDFont fontType = null;
     private boolean increasedHeight = false;
 
     public TablePropertiesBuilder setContent(PDPageContentStream content) {
@@ -66,7 +67,7 @@ public class TablePropertiesBuilder {
         return this;
     }
 
-    public TablePropertiesBuilder setFontType(Font fontType) {
+    public TablePropertiesBuilder setFontType(PDFont fontType) {
         this.fontType = fontType;
         return this;
     }

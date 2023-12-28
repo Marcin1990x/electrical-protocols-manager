@@ -34,7 +34,7 @@ public class PdfElectricianPageComponent {
             TableProperties properties = builder
                     .setContent(content)
                     .setCellHeight(22)
-                    .setFontType(font)
+                    .setFontType(font.getFont())
                     .build();
 
             addElectriciansTableToPage(electriciansList, properties);
