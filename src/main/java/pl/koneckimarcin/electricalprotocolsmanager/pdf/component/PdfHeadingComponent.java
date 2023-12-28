@@ -23,6 +23,7 @@ public class PdfHeadingComponent {
         this.tableComponent = tableComponent;
     }
 
+    //todo: extract font globally
     public void addHeading(PDDocument document, List<String> headingTextData, Font font) {
 
         int pagesQuantity = document.getNumberOfPages();

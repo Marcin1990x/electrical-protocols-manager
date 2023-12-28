@@ -61,6 +61,31 @@ public class PdfTextService {
         content.moveTo(0, 0);
         return yPosOffset;
     }
+    public int addMultipleLineOfTextAlignmentWithProperties(TextProperties properties, List<String> text) {
+
+        PDPageContentStream content = properties.getContentStream();
+        int yPosOffset = 0;
+
+        try {
+            content.beginText();
+            content.setFont(properties.getFontType(), properties.getFontSize());
+            content.setLeading(properties.getLeading());
+            content.newLineAtOffset(xMargin +
+                            calculateAlignmentPosition(properties.getAlignment(), text.get(0), properties.getFontType(), properties.getFontSize()),
+                    properties.getyPosition());
+            for (String textLine : text) {
+                content.showText(textLine);
+                content.newLine();
+                yPosOffset -= properties.getFontSize();
+            }
+            content.endText();
+            content.moveTo(0, 0);
+
+        } catch (IOException e) {
+            System.out.println("Error when adding multiline text: " + text + " to page. " + e.getMessage());
+        }
+        return yPosOffset;
+    }
 
     private int calculateAlignmentPosition(Alignment alignment, String text, PDFont font, int fontSize)
             throws IOException {
