@@ -35,9 +35,11 @@ public class FloorService {
 
         Optional<Building> building = buildingRepository.findById(buildingId);
         Optional<Floor> floor = floorRepository.findById(floorId);
-        building.get().removeFloor(floor.get());
 
-        floorRepository.deleteById(floorId);
+        if(building.isPresent() && floor.isPresent()) {
+            building.get().removeFloor(floor.get());
+            floorRepository.deleteById(floorId);
+        } // todo : throw custom exception and test it
     }
 
     public Optional<Floor> addRoomToFloor(int floorId, int roomId) {
@@ -46,7 +48,7 @@ public class FloorService {
         try {
             floor = addRoomToFloorList(floorId, roomId);
         } catch (InvalidObjectException e) {
-            throw new RuntimeException(e);
+            throw new RuntimeException(e); // todo : throw custom exception and test it
         }
         floorRepository.save(floor.get());
 

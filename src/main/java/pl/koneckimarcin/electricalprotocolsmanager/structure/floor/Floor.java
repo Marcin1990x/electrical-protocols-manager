@@ -46,13 +46,16 @@ public class Floor {
     public void setFloorCascadeName(String buildingName) {
         this.floorCascadeName = buildingName + "/" + this.floorName;
     }
+
     public void addRoom(Room room) {
         this.rooms.add(room);
         room.setRoomCascadeName(this.floorCascadeName);
     }
+
     public void removeRoom(Room room) {
         this.rooms.remove(room);
     }
+
     public int calculateMainMeasurementsCount() {
 
         int count = 0;
