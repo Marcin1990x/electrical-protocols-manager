@@ -15,15 +15,11 @@ import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.Optional;
 
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @TestPropertySource("/application-test.properties")
@@ -102,15 +98,12 @@ public class FloorControllerTest {
         Optional<Floor> deletedFloor = floorRepository.findById(1);
         Assertions.assertFalse(deletedFloor.isPresent());
     }
-//    @PutMapping("/{floorId}")
-//    public Optional<Floor> addRoomToFloor(@PathVariable int floorId, @RequestParam int roomId) {
-//
-//        return floorService.addRoomToFloor(floorId, roomId);
+
     @Test
-    void addRoomToFloorHttpRequest() throws Exception{
+    void addRoomToFloorHttpRequest() throws Exception {
 
         mockMvc.perform(MockMvcRequestBuilders.put("/floors/{floorId}", 1)
-                .param("roomId", "1"))
+                        .param("roomId", "1"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.rooms", hasSize(1)))
