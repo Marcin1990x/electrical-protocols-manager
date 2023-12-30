@@ -52,7 +52,7 @@ public class PdfMeasurementDataComponent {
                         .setFontSize(12)
                         .build();
 
-                addMeasurementTableToPage(properties, content, measurementMainList.get(page), font);
+                addMeasurementTableToPage(properties, measurementMainList.get(page), font);
 
                 content.close();
             } catch (IOException e) {
@@ -61,7 +61,7 @@ public class PdfMeasurementDataComponent {
         }
     }
 
-    private void addMeasurementTableToPage(TableProperties properties, PDPageContentStream content, MeasurementMain measurementMain, Font font) throws IOException {
+    private void addMeasurementTableToPage(TableProperties properties, MeasurementMain measurementMain, Font font) throws IOException {
 
         addCascadeName(properties, measurementMain, font);
         addMeasurementName(properties, measurementMain);

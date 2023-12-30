@@ -64,7 +64,7 @@ public class PdfGenerator {
         legendService.appendLegendPage(doc, doc.getNumberOfPages() - 1, building.getMeasurementMainList(), font);
         //add theory page/pages
         pdfService.addPages(doc, pagesCountTheory);
-        theoryService.addTheory(doc, doc.getNumberOfPages(), pagesCountTheory, building);
+        theoryService.appendTheoryPages(doc, doc.getNumberOfPages(), pagesCountTheory, building);
         //add electricians page
         pdfService.addPages(doc, 1);
         electricianPageService.appendElectriciansPage(doc, titlePageData.getElectricians(), doc.getNumberOfPages() - 1, font);
