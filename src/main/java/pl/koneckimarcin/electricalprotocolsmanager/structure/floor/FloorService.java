@@ -44,14 +44,14 @@ public class FloorService {
 
     public Optional<Floor> addRoomToFloor(int floorId, int roomId) {
 
-        Optional<Floor> floor;
+        Optional<Floor> floor = null;
         try {
             floor = addRoomToFloorList(floorId, roomId);
+            floorRepository.save(floor.get());
         } catch (InvalidObjectException e) {
-            throw new RuntimeException(e); // todo : throw custom exception and test it
+            System.out.println("Floor with ID: " + floorId + " or " +
+                    "Room with ID: " + roomId + " not found. " + e.getMessage() );
         }
-        floorRepository.save(floor.get());
-
         return floor;
     }
     private Optional<Floor> addRoomToFloorList(int floorId, int roomId) throws InvalidObjectException {
@@ -62,8 +62,7 @@ public class FloorService {
         if(floor.isPresent() && room.isPresent())
             floor.get().addRoom(room.get());
         else {
-            throw new InvalidObjectException("Floor with ID: " + floorId + " or " +
-                    "Room with ID: " + roomId + " not found.");
+            throw new InvalidObjectException("");
         }
         return floor;
     }
