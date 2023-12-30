@@ -10,7 +10,6 @@ import pl.koneckimarcin.electricalprotocolsmanager.pdf.Font;
 import pl.koneckimarcin.electricalprotocolsmanager.pdf.component.builder.TableProperties;
 import pl.koneckimarcin.electricalprotocolsmanager.pdf.component.builder.TablePropertiesBuilder;
 import pl.koneckimarcin.electricalprotocolsmanager.pdf.service.PdfTableComponent;
-import pl.koneckimarcin.electricalprotocolsmanager.pdf.service.PdfTableService;
 import pl.koneckimarcin.electricalprotocolsmanager.pdf.service.PdfTextService;
 import pl.koneckimarcin.electricalprotocolsmanager.pdf.style.TablesStyle;
 import pl.koneckimarcin.electricalprotocolsmanager.structure.building.Building;
@@ -26,9 +25,6 @@ public class PdfMeasurementDataComponent {
 
     @Autowired
     private PdfTableComponent tableComponent;
-
-    @Autowired
-    private PdfTableService pdfTableService;
 
     @Autowired
     private PdfTextService textService;
@@ -99,7 +95,7 @@ public class PdfMeasurementDataComponent {
         properties.setFont(font.getFontBold());
         properties.setFontSize(8);
         properties.setBackgroundColor(headerColor);
-        properties.setCellWidths(calculateHeaderCellsWidth(measurementMain));
+        properties.setCellWidths(measurementMain.getTableCellsSizes());
 
         tableComponent.addTableComponentWithProperties(properties);
     }
@@ -133,7 +129,7 @@ public class PdfMeasurementDataComponent {
     private void addEntryParameters(TableProperties properties, MeasurementMain measurementMain, boolean decreaseYposition) {
 
         int yPos;
-        if(!decreaseYposition){
+        if (!decreaseYposition) {
             yPos = 610;
         } else {
             yPos = 580;
@@ -147,7 +143,7 @@ public class PdfMeasurementDataComponent {
             cellHeight = 25;
         }
         properties.setCellHeight(cellHeight);
-        properties.setCellWidths(calculateHeaderCellsWidth(measurementMain));
+        properties.setCellWidths(measurementMain.getTableCellsSizes());
         properties.setFontSize(8);
         properties.setDecreasedHeight(moreThan20Entries);
 
@@ -163,17 +159,5 @@ public class PdfMeasurementDataComponent {
 
     private boolean isSizeMoreThan20(int size) {
         return size > 20;
-    }
-
-    private int[] calculateHeaderCellsWidth(MeasurementMain measurementMain) {
-
-        int[] headerCellWidths = new int[0];
-
-        try {
-            headerCellWidths = pdfTableService.getCellSizes(measurementMain.getMeasurementName());
-        } catch (IllegalArgumentException e) {
-            System.out.println("Error when counting cell sizes for: " + measurementMain.getMeasurementName() + e.getMessage());
-        }
-        return headerCellWidths;
     }
 }

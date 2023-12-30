@@ -4,6 +4,7 @@ import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
 import jakarta.persistence.OneToMany;
 import jakarta.validation.constraints.Positive;
+import pl.koneckimarcin.electricalprotocolsmanager.measurement.MeasurementSpecificData;
 import pl.koneckimarcin.electricalprotocolsmanager.measurement.circuitInsulationResistanceTnc.entry.CircuitInsulationResistanceTncEntry;
 import pl.koneckimarcin.electricalprotocolsmanager.measurement.protocolTextData.TextsPL;
 import pl.koneckimarcin.electricalprotocolsmanager.measurement.main.MeasurementMain;
@@ -12,7 +13,7 @@ import java.util.List;
 
 @Entity
 @DiscriminatorValue("2")
-public class CircuitInsulationResistanceTnc extends MeasurementMain {
+public class CircuitInsulationResistanceTnc extends MeasurementMain implements MeasurementSpecificData {
 
     private final String measurementName = TextsPL.measurementsMainNames.get(2);
 
@@ -41,5 +42,10 @@ public class CircuitInsulationResistanceTnc extends MeasurementMain {
 
     public String getMeasurementName() {
         return measurementName;
+    }
+
+    @Override
+    public int[] getTableCellsSizes() {
+        return new int[]{20, 55, 85, 40, 39, 39, 39, 39, 39, 40, 65};
     }
 }

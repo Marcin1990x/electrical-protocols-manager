@@ -13,12 +13,12 @@ import java.util.List;
 @Service
 public class PdfService {
 
-    public int calculateNumberOfMeasurementsPages(Building building) {
+    public int calculateNumberOfPagesForMeasurements(List<Floor> floors) {
 
         int count = 0;
 
-        for (Floor floor : building.getFloors()) {
-            count += floor.calculateMainMeasurementsCount();
+        for (Floor floor : floors) {
+            count += floor.calculateMeasurementMainQuantity();
         }
         return count;
     }
@@ -44,7 +44,7 @@ public class PdfService {
                 count++;
             } else if (name.equals(TextsPL.measurementsMainNames.get(4))) {
             } else {
-                throw new IllegalArgumentException("No theory pages for this measuremement name.");
+                throw new IllegalArgumentException("No theory pages for this measurement name.");
             }
         }
         return count;

@@ -48,7 +48,7 @@ public class PdfGenerator {
         Font font = new Font(doc);
 
         //count pages for rooms measurements
-        int pagesCountMeasurements = pdfService.calculateNumberOfMeasurementsPages(building);
+        int pagesCountMeasurements = pdfService.calculateNumberOfPagesForMeasurements(building.getFloors());
         //count pages for theory
         int pagesCountTheory = pdfService.calculateNumberOfTheoryPages(building);
         //add pages for title, theory...

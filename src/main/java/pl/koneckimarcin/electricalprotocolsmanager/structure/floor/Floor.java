@@ -1,6 +1,7 @@
 package pl.koneckimarcin.electricalprotocolsmanager.structure.floor;
 
 import jakarta.persistence.*;
+import pl.koneckimarcin.electricalprotocolsmanager.measurement.main.MeasurementMain;
 import pl.koneckimarcin.electricalprotocolsmanager.structure.building.Building;
 import pl.koneckimarcin.electricalprotocolsmanager.structure.room.Room;
 
@@ -56,17 +57,18 @@ public class Floor {
         this.rooms.remove(room);
     }
 
-    public int calculateMainMeasurementsCount() {
+    public int calculateMeasurementMainQuantity() {
 
         int count = 0;
 
-        //check if one page is enough
-
         for (Room room : getRooms()) {
-            if (room.getMeasurementMains().size() > 0) {
-                count += room.getMeasurementMains().size(); // every measurement on new page
+            if (isNotEmpty(room.getMeasurementMains())) {
+                count += room.getMeasurementMains().size();
             }
         }
         return count;
+    }
+    private boolean isNotEmpty(List<MeasurementMain> list) {
+        return list.size() > 0;
     }
 }

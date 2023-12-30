@@ -30,6 +30,8 @@ public class PdfStatisticPageComponent {
 
         PDPageContentStream content;
 
+        //todo: 6th statistsc out of the page ! fix!
+
         try {
             content = new PDPageContentStream(document, document.getPage(page),
                     PDPageContentStream.AppendMode.APPEND, false);

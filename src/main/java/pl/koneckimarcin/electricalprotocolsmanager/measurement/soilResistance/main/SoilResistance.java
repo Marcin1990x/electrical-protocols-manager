@@ -3,6 +3,7 @@ package pl.koneckimarcin.electricalprotocolsmanager.measurement.soilResistance.m
 import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
 import jakarta.persistence.OneToMany;
+import pl.koneckimarcin.electricalprotocolsmanager.measurement.MeasurementSpecificData;
 import pl.koneckimarcin.electricalprotocolsmanager.measurement.protocolTextData.TextsPL;
 import pl.koneckimarcin.electricalprotocolsmanager.measurement.main.MeasurementMain;
 import pl.koneckimarcin.electricalprotocolsmanager.measurement.soilResistance.entry.SoilResistanceEntry;
@@ -11,7 +12,7 @@ import java.util.List;
 
 @Entity
 @DiscriminatorValue("4")
-public class SoilResistance extends MeasurementMain {
+public class SoilResistance extends MeasurementMain implements MeasurementSpecificData {
 
     private final String measurementName = TextsPL.measurementsMainNames.get(4);
 
@@ -23,5 +24,10 @@ public class SoilResistance extends MeasurementMain {
 
     public String getMeasurementName() {
         return measurementName;
+    }
+
+    @Override
+    public int[] getTableCellsSizes() {
+        return new int[]{20, 50, 100, 110, 110, 110};
     }
 }

@@ -20,8 +20,6 @@ import java.util.List;
 public class PdfTableComponent {
 
     @Autowired
-    private PdfTableService pdfTableService;
-    @Autowired
     private PdfTextService textService;
 
     private int yPosMeas; // y position for measurements tables

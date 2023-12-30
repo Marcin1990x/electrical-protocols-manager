@@ -6,6 +6,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.OneToMany;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
+import pl.koneckimarcin.electricalprotocolsmanager.measurement.MeasurementSpecificData;
 import pl.koneckimarcin.electricalprotocolsmanager.measurement.NetworkType;
 import pl.koneckimarcin.electricalprotocolsmanager.measurement.protocolTextData.TextsPL;
 import pl.koneckimarcin.electricalprotocolsmanager.measurement.main.MeasurementMain;
@@ -15,7 +16,7 @@ import java.util.List;
 
 @Entity
 @DiscriminatorValue("0")
-public class ProtectionAgainstElectricShockByAutomaticShutdown extends MeasurementMain {
+public class ProtectionAgainstElectricShockByAutomaticShutdown extends MeasurementMain implements MeasurementSpecificData {
 
     private final String measurementName = TextsPL.measurementsMainNames.get(0);
 
@@ -100,5 +101,10 @@ public class ProtectionAgainstElectricShockByAutomaticShutdown extends Measureme
 
     public String getMeasurementName() {
         return measurementName;
+    }
+
+    @Override
+    public int[] getTableCellsSizes() {
+        return new int[]{20, 55, 85, 55, 30, 35, 35, 40, 40, 40, 65};
     }
 }

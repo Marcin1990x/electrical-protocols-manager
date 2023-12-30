@@ -84,4 +84,10 @@ public abstract class MeasurementMain {
         }
         return result;
     }
+
+    public int[] getTableCellsSizes() {
+        return new int[0];
+    }
+
+    ;
 }
