@@ -48,4 +48,9 @@ public class CircuitInsulationResistanceTnc extends MeasurementMain implements M
     public int[] getTableCellsSizes() {
         return new int[]{20, 55, 85, 40, 39, 39, 39, 39, 39, 40, 65};
     }
+
+    @Override
+    public List<String> getMeasurementLegend() {
+        return TextsPL.circuitInsulationResistanceTncLegendText;
+    }
 }

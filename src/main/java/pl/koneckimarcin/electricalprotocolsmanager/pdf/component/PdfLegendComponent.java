@@ -3,7 +3,6 @@ package pl.koneckimarcin.electricalprotocolsmanager.pdf.component;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPageContentStream;
 import org.springframework.stereotype.Component;
-import pl.koneckimarcin.electricalprotocolsmanager.measurement.MeasurementLegend;
 import pl.koneckimarcin.electricalprotocolsmanager.measurement.main.MeasurementMain;
 import pl.koneckimarcin.electricalprotocolsmanager.measurement.protocolTextData.TextsPL;
 import pl.koneckimarcin.electricalprotocolsmanager.pdf.Alignment;
@@ -13,7 +12,7 @@ import pl.koneckimarcin.electricalprotocolsmanager.pdf.component.builder.TextPro
 import pl.koneckimarcin.electricalprotocolsmanager.pdf.service.PdfTextService;
 
 import java.io.IOException;
-import java.io.InvalidObjectException;
+import java.util.ArrayList;
 import java.util.List;
 
 @Component
@@ -53,7 +52,7 @@ public class PdfLegendComponent {
                 .setAlignment(Alignment.LEFT)
                 .setFontType(font.getFontBold())
                 .setFontSize(12)
-                .setLeading(12)
+                .setLeading(10)
                 .build();
 
         addLegendPageTitle(properties);
@@ -73,36 +72,33 @@ public class PdfLegendComponent {
 
     private void addLegendForAllMeasurements(TextProperties properties, List<MeasurementMain> measurementMainList, Font font) {
 
-        List<String> distinctMeasurements = extractDistinctMeasurementNames(measurementMainList);
+        List<String> addedMeasurements = new ArrayList<>();
 
-        try {
-            for (String measure : distinctMeasurements) {
-                addLegendForOneMeasurement(measure, properties, font);
+        for (MeasurementMain measurement : measurementMainList) {
+            if(isLegendForMeasurementAlreadyAdded(addedMeasurements, measurement)) {
+                addedMeasurements.add(addLegendForOneMeasurement(measurement, properties, font));
             }
-        } catch (InvalidObjectException e) {
-            System.out.println("Error when appending legend to page. Legend out of page size." + e.getMessage());
         }
     }
+    private boolean isLegendForMeasurementAlreadyAdded(List<String> addedMeasurements, MeasurementMain measurementToAdd) {
 
-    private void addLegendForOneMeasurement(String measurementName, TextProperties properties, Font font) throws InvalidObjectException {
+        return addedMeasurements.stream().noneMatch(name -> name.equals(measurementToAdd.getMeasurementName()));
+    }
 
-        MeasurementLegend legend;
-        legend = new MeasurementLegend(measurementName);
+    private String addLegendForOneMeasurement(MeasurementMain measurementMain, TextProperties properties, Font font) {
 
         properties.setFontType(font.getFontBold());
-        addMeasurementNameForLegend(properties, legend.getMeasurementName());
+        addMeasurementNameForLegend(properties, measurementMain.getMeasurementName());
 
-        yPos -= 20;
+        yPos -= 18;
 
         properties.setyPosition(yPos);
         properties.setFontType(font.getFont());
 
-        yPos += -15 + addLegendTextData(properties, legend.getLegendText());
+        yPos += -25 + addLegendTextData(properties, measurementMain.getMeasurementLegend());
         properties.setyPosition(yPos);
 
-        if (yPos <= 50) {
-            throw new InvalidObjectException("Text outside available area.");
-        }
+        return measurementMain.getMeasurementName();
     }
 
     private void addMeasurementNameForLegend(TextProperties properties, String measurementName) {
@@ -115,15 +111,7 @@ public class PdfLegendComponent {
 
     private int addLegendTextData(TextProperties properties, List<String> legendTextData) {
 
+        properties.setFontSize(9);
         return textService.addMultipleLineOfTextAlignmentWithProperties(properties, legendTextData);
-    }
-
-    private List<String> extractDistinctMeasurementNames(List<MeasurementMain> measurementMainList) {
-
-        return measurementMainList
-                .stream()
-                .map(MeasurementMain::getMeasurementName)
-                .distinct()
-                .toList();
     }
 }

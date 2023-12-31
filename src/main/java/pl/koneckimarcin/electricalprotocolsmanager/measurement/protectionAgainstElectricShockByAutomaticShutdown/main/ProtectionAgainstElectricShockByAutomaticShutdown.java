@@ -107,4 +107,9 @@ public class ProtectionAgainstElectricShockByAutomaticShutdown extends Measureme
     public int[] getTableCellsSizes() {
         return new int[]{20, 55, 85, 55, 30, 35, 35, 40, 40, 40, 65};
     }
+
+    @Override
+    public List<String> getMeasurementLegend() {
+        return TextsPL.protectionAgainstElectricShockByAutomaticShutdownLegendText;
+    }
 }

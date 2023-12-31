@@ -29,4 +29,9 @@ public class ResidualCurrentProtectionParameters extends MeasurementMain impleme
     public int[] getTableCellsSizes() {
         return new int[]{20, 50, 80, 55, 30, 30, 30, 40, 40, 30, 30, 65};
     }
+
+    @Override
+    public List<String> getMeasurementLegend() {
+        return TextsPL.residualCurrentProtectionLegendText;
+    }
 }

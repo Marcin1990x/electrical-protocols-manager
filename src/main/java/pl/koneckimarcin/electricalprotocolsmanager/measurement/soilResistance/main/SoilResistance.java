@@ -30,4 +30,9 @@ public class SoilResistance extends MeasurementMain implements MeasurementSpecif
     public int[] getTableCellsSizes() {
         return new int[]{20, 50, 100, 110, 110, 110};
     }
+
+    @Override
+    public List<String> getMeasurementLegend() {
+        return TextsPL.soilResistanceLegendText;
+    }
 }

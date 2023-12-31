@@ -5,12 +5,11 @@ import org.apache.pdfbox.pdmodel.font.PDFont;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import pl.koneckimarcin.electricalprotocolsmanager.measurement.protocolTextData.TextsPL;
-import pl.koneckimarcin.electricalprotocolsmanager.measurement.main.MeasurementMain;
 import pl.koneckimarcin.electricalprotocolsmanager.pdf.Alignment;
 import pl.koneckimarcin.electricalprotocolsmanager.pdf.Font;
 import pl.koneckimarcin.electricalprotocolsmanager.pdf.component.builder.TableProperties;
-import pl.koneckimarcin.electricalprotocolsmanager.pdf.titlePage.PdfTitlePage;
 import pl.koneckimarcin.electricalprotocolsmanager.pdf.table.Table;
+import pl.koneckimarcin.electricalprotocolsmanager.pdf.titlePage.PdfTitlePage;
 
 import java.awt.*;
 import java.io.IOException;
@@ -63,8 +62,8 @@ public class PdfTableComponent {
     }
 
     public void addTableComponent(PDPageContentStream content, int[] cellWidths, int cellHeight, int yPos, List<Object> textData,
-                                   Alignment alignment, Color backgroundColor, int fontSize, PDFont fontType,
-                                   boolean decreasedHeight) throws IOException {
+                                  Alignment alignment, Color backgroundColor, int fontSize, PDFont fontType,
+                                  boolean decreasedHeight) throws IOException {
 
         Table table = new Table(content);
         table.setTable(cellWidths, cellHeight, yPos);
@@ -72,6 +71,7 @@ public class PdfTableComponent {
             table.addCellAlignment(textData.get(i).toString(), alignment, backgroundColor, fontSize, fontType, decreasedHeight);
         }
     }
+
     public void addTableComponentWithProperties(TableProperties properties) {
 
         Table table = new Table(properties);
@@ -82,14 +82,15 @@ public class PdfTableComponent {
     }
 
     public void addTableComponentWithMultilineText(PDPageContentStream content, int[] cellWidths, int cellHeight,
-                                                    int yPos, List<List<String>> textData, int alignment, Color backgroundColor,
-                                                    int fontSize, PDFont fontType) throws IOException {
+                                                   int yPos, List<List<String>> textData, int alignment, Color backgroundColor,
+                                                   int fontSize, PDFont fontType) throws IOException {
         Table table = new Table(content);
         table.setTable(cellWidths, cellHeight, yPos);
         for (int i = 0; i < cellWidths.length; i++) {
             table.addCellWithMultilineText(textData.get(i), alignment, backgroundColor, fontSize, fontType);
         }
     }
+
     public void addTableComponentWithMultilineTextWithProperties(TableProperties properties,
                                                                  List<List<String>> textData) {
         Table table = new Table(properties);

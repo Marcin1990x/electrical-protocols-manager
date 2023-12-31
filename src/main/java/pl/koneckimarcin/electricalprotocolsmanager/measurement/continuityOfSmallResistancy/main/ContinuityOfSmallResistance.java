@@ -34,4 +34,9 @@ public class ContinuityOfSmallResistance extends MeasurementMain implements Meas
     public int[] getTableCellsSizes() {
         return new int[]{20, 50, 100, 105, 80, 80, 65};
     }
+
+    @Override
+    public List<String> getMeasurementLegend() {
+        return TextsPL.continuityOfSmallResistanceLegendText;
+    }
 }

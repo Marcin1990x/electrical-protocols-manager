@@ -1,6 +1,7 @@
 package pl.koneckimarcin.electricalprotocolsmanager.measurement.main;
 
 import jakarta.persistence.*;
+import pl.koneckimarcin.electricalprotocolsmanager.measurement.MeasurementSpecificData;
 import pl.koneckimarcin.electricalprotocolsmanager.measurement.entry.MeasurementEntry;
 import pl.koneckimarcin.electricalprotocolsmanager.structure.room.Room;
 
@@ -89,5 +90,7 @@ public abstract class MeasurementMain {
         return new int[0];
     }
 
-    ;
+    public List<String> getMeasurementLegend() {
+        return null;
+    }
 }
