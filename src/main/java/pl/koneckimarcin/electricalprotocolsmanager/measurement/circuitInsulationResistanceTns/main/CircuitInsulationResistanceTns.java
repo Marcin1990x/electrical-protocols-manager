@@ -54,4 +54,8 @@ public class CircuitInsulationResistanceTns extends MeasurementMain implements M
     public List<String> getMeasurementLegend() {
         return TextsPL.circuitInsulationResistanceTnsLegendText;
     }
+    @Override
+    public List<String> getMeasureTheoryDirectory() {
+        return List.of("theoryImages/insulation.jpg");
+    }
 }

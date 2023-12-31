@@ -75,12 +75,12 @@ public class PdfLegendComponent {
         List<String> addedMeasurements = new ArrayList<>();
 
         for (MeasurementMain measurement : measurementMainList) {
-            if(isLegendForMeasurementAlreadyAdded(addedMeasurements, measurement)) {
+            if(isNotLegendForMeasurementAdded(addedMeasurements, measurement)) {
                 addedMeasurements.add(addLegendForOneMeasurement(measurement, properties, font));
             }
         }
     }
-    private boolean isLegendForMeasurementAlreadyAdded(List<String> addedMeasurements, MeasurementMain measurementToAdd) {
+    private boolean isNotLegendForMeasurementAdded(List<String> addedMeasurements, MeasurementMain measurementToAdd) {
 
         return addedMeasurements.stream().noneMatch(name -> name.equals(measurementToAdd.getMeasurementName()));
     }

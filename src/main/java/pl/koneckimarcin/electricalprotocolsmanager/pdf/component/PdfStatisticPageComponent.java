@@ -30,8 +30,6 @@ public class PdfStatisticPageComponent {
 
         PDPageContentStream content;
 
-        //todo: 6th statistsc out of the page ! fix!
-
         try {
             content = new PDPageContentStream(document, document.getPage(page),
                     PDPageContentStream.AppendMode.APPEND, false);
@@ -96,8 +94,5 @@ public class PdfStatisticPageComponent {
         properties.setFontType(font.getFont());
 
         return textService.addMultipleLineOfTextAlignmentWithProperties(properties, statistics.subList(1, statistics.size()));
-
-//        textService.addMultipleLineOfTextAlignment(content, statistics.subList(1, statistics.size()),
-//                yPos, Alignment.LEFT, 12, font.getFont(), 10);
     }
 }

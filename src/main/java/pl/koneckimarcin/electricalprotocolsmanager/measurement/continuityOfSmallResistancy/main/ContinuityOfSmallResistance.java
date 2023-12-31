@@ -39,4 +39,8 @@ public class ContinuityOfSmallResistance extends MeasurementMain implements Meas
     public List<String> getMeasurementLegend() {
         return TextsPL.continuityOfSmallResistanceLegendText;
     }
+    @Override
+    public List<String> getMeasureTheoryDirectory() {
+        return List.of("theoryImages/continuity.jpg");
+    }
 }

@@ -28,7 +28,7 @@ public class PdfGenerator {
     @Autowired
     private PdfLegendComponent legendService;
     @Autowired
-    private PdfTheoryService theoryService;
+    private PdfTheoryComponent theoryService;
     @Autowired
     private PdfElectricianPageComponent electricianPageService;
     @Autowired

@@ -112,4 +112,8 @@ public class ProtectionAgainstElectricShockByAutomaticShutdown extends Measureme
     public List<String> getMeasurementLegend() {
         return TextsPL.protectionAgainstElectricShockByAutomaticShutdownLegendText;
     }
+    @Override
+    public List<String> getMeasureTheoryDirectory() {
+        return List.of("theoryImages/protect1.jpg", "theoryImages/protect2.jpg");
+    }
 }

@@ -4,7 +4,7 @@ import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPageContentStream;
 import org.apache.pdfbox.pdmodel.graphics.image.PDImageXObject;
 import org.springframework.stereotype.Component;
-import pl.koneckimarcin.electricalprotocolsmanager.measurement.protocolTextData.TextsPL;
+import pl.koneckimarcin.electricalprotocolsmanager.measurement.main.MeasurementMain;
 import pl.koneckimarcin.electricalprotocolsmanager.structure.building.Building;
 
 import java.io.IOException;
@@ -12,16 +12,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Component
-public class PdfTheoryService {
-
-    private final String theoryImagesDirectory = "theoryImages/";
+public class PdfTheoryComponent {
 
     public void appendTheoryPages(PDDocument document, int startPage, int theoryPagesQuantity, Building building) {
 
         PDPageContentStream content;
 
-        List<String> measurementDistinctNames = building.extractMeasurementMainDistinctNames();
-        List<String> theoryImageDirectoryList = getTheoryImagesDirectoryList(measurementDistinctNames);
+        List<String> theoryImageDirectoryList = getTheoryImagesDirectories(building.getMeasurementMainList());
 
         int theoryImageCount = 0;
 
@@ -41,29 +38,19 @@ public class PdfTheoryService {
         }
     }
 
-    private List<String> getTheoryImagesDirectoryList(List<String> measurementsNames) {
+    private List<String> getTheoryImagesDirectories(List<MeasurementMain> measurementMainList) {
 
-        List<String> directories = new ArrayList<>();
+        List<String> addedDirectories = new ArrayList<>();
 
-        boolean isTheoryForCircuitInsulationAdded = false;
-
-        for (String name : measurementsNames) {
-            if (name.equals(TextsPL.measurementsMainNames.get(0))) {
-                directories.addAll(List.of(theoryImagesDirectory + "protect1.jpg", theoryImagesDirectory + "protect2.jpg"));
-            } else if (name.equals(TextsPL.measurementsMainNames.get(1)) ||
-                    name.equals(TextsPL.measurementsMainNames.get(2))) {
-                if (!isTheoryForCircuitInsulationAdded) directories.add(theoryImagesDirectory + "insulation.jpg");
-                isTheoryForCircuitInsulationAdded = true;
-            } else if (name.equals(TextsPL.measurementsMainNames.get(3))) {
-                directories.add(theoryImagesDirectory + "residual.jpg");
-            } else if (name.equals(TextsPL.measurementsMainNames.get(4))) {
-            } else if (name.equals(TextsPL.measurementsMainNames.get(5))) {
-                directories.add(theoryImagesDirectory + "continuity.jpg");
-            } else {
-                throw new IllegalArgumentException("No theory image directory for this measurement name.");
-            }
+        for(MeasurementMain measurement : measurementMainList) {
+            if(isNotAddedAndIsNotNull(measurement, addedDirectories))
+                addedDirectories.addAll(measurement.getMeasureTheoryDirectory());
         }
-        return directories;
+        return addedDirectories;
+    }
+    private boolean isNotAddedAndIsNotNull(MeasurementMain measurementToAdd, List<String> addedDirectories) {
+        return measurementToAdd.getMeasureTheoryDirectory() != null
+                && addedDirectories.stream().noneMatch(name -> name.equals(measurementToAdd.getMeasureTheoryDirectory().get(0)));
     }
     private void addImageToPage(PDPageContentStream content, PDDocument document, List<String> imageDirectories,
                                 int theoryImageCount) {
