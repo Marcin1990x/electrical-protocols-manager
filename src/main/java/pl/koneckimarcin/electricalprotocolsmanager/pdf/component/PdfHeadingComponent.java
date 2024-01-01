@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 import pl.koneckimarcin.electricalprotocolsmanager.pdf.Font;
 import pl.koneckimarcin.electricalprotocolsmanager.pdf.component.builder.TableProperties;
 import pl.koneckimarcin.electricalprotocolsmanager.pdf.component.builder.TablePropertiesBuilder;
-import pl.koneckimarcin.electricalprotocolsmanager.pdf.service.PdfTableComponent;
+import pl.koneckimarcin.electricalprotocolsmanager.pdf.service.PdfTableService;
 
 import java.io.IOException;
 import java.util.List;
@@ -17,9 +17,9 @@ public class PdfHeadingComponent {
     private final int headingYposition = 750;
     private final int headingFontSize = 10;
 
-    private PdfTableComponent tableComponent;
+    private PdfTableService tableComponent;
 
-    public PdfHeadingComponent(PdfTableComponent tableComponent) {
+    public PdfHeadingComponent(PdfTableService tableComponent) {
         this.tableComponent = tableComponent;
     }
 
@@ -56,6 +56,6 @@ public class PdfHeadingComponent {
 
     private void addHeaderToPage(TableProperties tableProperties, List<String> headingTextData) {
 
-        tableComponent.addTableComponentWithMultilineTextWithProperties(tableProperties, List.of(headingTextData));
+        tableComponent.addTableMultilineText(tableProperties, List.of(headingTextData));
     }
 }

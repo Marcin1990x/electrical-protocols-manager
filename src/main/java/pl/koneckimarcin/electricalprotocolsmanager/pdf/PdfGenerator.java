@@ -24,7 +24,7 @@ public class PdfGenerator {
     @Autowired
     private PdfMeasurementDataComponent measurementDataService;
     @Autowired
-    private PdfTitlePageService titlePageService;
+    private PdfTitlePageComponent titlePageService;
     @Autowired
     private PdfLegendComponent legendService;
     @Autowired
@@ -55,7 +55,7 @@ public class PdfGenerator {
 
         //add title page
         pdfService.addPages(doc, 1);
-        titlePageService.addTitlePage(doc, titlePageData, font);
+        titlePageService.appendTitlePage(doc, titlePageData, font);
         //add measurements
         pdfService.addPages(doc, pagesCountMeasurements);
         measurementDataService.appendMeasurementsDataToPages(doc, building, pagesCountMeasurements, font);

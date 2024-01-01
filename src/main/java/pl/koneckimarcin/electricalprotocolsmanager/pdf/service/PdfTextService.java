@@ -16,20 +16,7 @@ public class PdfTextService {
     private final int pageSize = 500;
     private final int xMargin = 50;
 
-    public void addSingleLineOfTextAlignment(PDPageContentStream content, String text, int yPos,
-                                             Alignment alignment, PDFont pdFont, float fontSize) {
-        try {
-            content.beginText();
-            content.setFont(pdFont, fontSize);
-            content.newLineAtOffset(xMargin + calculateAlignmentPosition(alignment, text, pdFont, (int) fontSize), yPos);
-            content.showText(text);
-            content.endText();
-            content.moveTo(0, 0);
-        } catch (IOException e) {
-            System.out.println("Error when adding text: " + text + "page. " + e.getMessage());
-        }
-    }
-    public void addSingleLineOfTextAlignmentWithProperties(TextProperties properties) {
+    public void addTextSingleline(TextProperties properties) {
         try {
             PDPageContentStream content = properties.getContentStream();
 
@@ -44,24 +31,7 @@ public class PdfTextService {
             System.out.println("Error when adding text: " + properties.getText() + "page. " + e.getMessage());
         }
     }
-
-    public int addMultipleLineOfTextAlignment(PDPageContentStream content, List<String> text, int yPos, Alignment alignment,
-                                              float leading, PDFont pdFont, float fontSize) throws IOException {
-        int yPosOffset = 0;
-        content.beginText();
-        content.setFont(pdFont, fontSize);
-        content.setLeading(leading);
-        content.newLineAtOffset(xMargin + calculateAlignmentPosition(alignment, text.get(0), pdFont, (int) fontSize), yPos);
-        for (String textLine : text) {
-            content.showText(textLine);
-            content.newLine();
-            yPosOffset -= fontSize;
-        }
-        content.endText();
-        content.moveTo(0, 0);
-        return yPosOffset;
-    }
-    public int addMultipleLineOfTextAlignmentWithProperties(TextProperties properties, List<String> text) {
+    public int addTextMultiline(TextProperties properties, List<String> text) {
 
         PDPageContentStream content = properties.getContentStream();
         int yPosOffset = 0;

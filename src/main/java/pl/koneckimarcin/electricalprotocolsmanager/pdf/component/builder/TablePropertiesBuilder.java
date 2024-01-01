@@ -3,7 +3,7 @@ package pl.koneckimarcin.electricalprotocolsmanager.pdf.component.builder;
 import org.apache.pdfbox.pdmodel.PDPageContentStream;
 import org.apache.pdfbox.pdmodel.font.PDFont;
 import pl.koneckimarcin.electricalprotocolsmanager.pdf.Alignment;
-import pl.koneckimarcin.electricalprotocolsmanager.pdf.Font;
+import pl.koneckimarcin.electricalprotocolsmanager.pdf.style.TablesStyle;
 
 import java.awt.*;
 import java.util.List;
@@ -11,7 +11,7 @@ import java.util.List;
 public class TablePropertiesBuilder {
 
     private PDPageContentStream content = null;
-    private int[] cellWidths = new int[]{500};
+    private int[] cellWidths = TablesStyle.oneColTable;
     private int cellHeight = 20;
     private int yPosition = 720;
     private List<Object> textData = List.of("");

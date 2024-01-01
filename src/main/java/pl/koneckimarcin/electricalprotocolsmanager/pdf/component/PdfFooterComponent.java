@@ -10,7 +10,7 @@ import pl.koneckimarcin.electricalprotocolsmanager.pdf.component.builder.TablePr
 import pl.koneckimarcin.electricalprotocolsmanager.pdf.component.builder.TablePropertiesBuilder;
 import pl.koneckimarcin.electricalprotocolsmanager.pdf.component.builder.TextProperties;
 import pl.koneckimarcin.electricalprotocolsmanager.pdf.component.builder.TextPropertiesBuilder;
-import pl.koneckimarcin.electricalprotocolsmanager.pdf.service.PdfTableComponent;
+import pl.koneckimarcin.electricalprotocolsmanager.pdf.service.PdfTableService;
 import pl.koneckimarcin.electricalprotocolsmanager.pdf.service.PdfTextService;
 
 import java.io.IOException;
@@ -19,7 +19,7 @@ import java.io.IOException;
 public class PdfFooterComponent {
 
     @Autowired
-    private PdfTableComponent tableComponent;
+    private PdfTableService tableComponent;
     @Autowired
     private PdfTextService textService;
 
@@ -72,12 +72,12 @@ public class PdfFooterComponent {
 
     private void addFooterLine(TableProperties properties) {
 
-        tableComponent.addTableComponentWithProperties(properties);
+        tableComponent.addTableSinglelineText(properties);
     }
 
     private void addTextLineNew(TextProperties properties) {
 
-        textService.addSingleLineOfTextAlignmentWithProperties(properties);
+        textService.addTextSingleline(properties);
     }
 
     private String createPageCounterText(String documentNumber, int page, int pagesQuantity) {

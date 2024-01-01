@@ -9,7 +9,7 @@ import pl.koneckimarcin.electricalprotocolsmanager.pdf.Alignment;
 import pl.koneckimarcin.electricalprotocolsmanager.pdf.Font;
 import pl.koneckimarcin.electricalprotocolsmanager.pdf.component.builder.TableProperties;
 import pl.koneckimarcin.electricalprotocolsmanager.pdf.component.builder.TablePropertiesBuilder;
-import pl.koneckimarcin.electricalprotocolsmanager.pdf.service.PdfTableComponent;
+import pl.koneckimarcin.electricalprotocolsmanager.pdf.service.PdfTableService;
 import pl.koneckimarcin.electricalprotocolsmanager.pdf.style.TablesStyle;
 import pl.koneckimarcin.electricalprotocolsmanager.utilities.electrician.Electrician;
 
@@ -20,7 +20,7 @@ import java.util.List;
 public class PdfElectricianPageComponent {
 
     @Autowired
-    private PdfTableComponent tableComponent;
+    private PdfTableService tableComponent;
 
     public void appendElectriciansPage(PDDocument document, List<Electrician> electriciansList, int page, Font font) {
 
@@ -56,7 +56,7 @@ public class PdfElectricianPageComponent {
     private void addTitleHeader(TableProperties properties) {
 
         properties.setTextData(List.of(TextsPL.electriciansPageText.get(2)));
-        tableComponent.addTableComponentWithProperties(properties);
+        tableComponent.addTableSinglelineText(properties);
     }
     private void addTableHeader(TableProperties properties) {
 
@@ -70,7 +70,7 @@ public class PdfElectricianPageComponent {
         properties.setBackgroundColor(TablesStyle.headerColor);
         properties.setFontSize(10);
 
-        tableComponent.addTableComponentWithProperties(properties);
+        tableComponent.addTableSinglelineText(properties);
 
     }
     private void addTableWithElectriciansData(List<Electrician> electricians, TableProperties properties) {
@@ -82,7 +82,7 @@ public class PdfElectricianPageComponent {
 
         for(Electrician electrician : electricians) {
 
-            tableComponent.addTableComponentWithMultilineTextWithProperties(properties, electrician.getElectricianDataTextList());
+            tableComponent.addTableMultilineText(properties, electrician.getElectricianDataTextList());
             properties.setYPosition(decreaseNumber(properties.getYPosition(), 60));
         }
     }

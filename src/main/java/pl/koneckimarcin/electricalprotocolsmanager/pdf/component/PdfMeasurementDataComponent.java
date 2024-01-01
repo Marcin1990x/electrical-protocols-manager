@@ -9,7 +9,7 @@ import pl.koneckimarcin.electricalprotocolsmanager.pdf.Alignment;
 import pl.koneckimarcin.electricalprotocolsmanager.pdf.Font;
 import pl.koneckimarcin.electricalprotocolsmanager.pdf.component.builder.TableProperties;
 import pl.koneckimarcin.electricalprotocolsmanager.pdf.component.builder.TablePropertiesBuilder;
-import pl.koneckimarcin.electricalprotocolsmanager.pdf.service.PdfTableComponent;
+import pl.koneckimarcin.electricalprotocolsmanager.pdf.service.PdfTableService;
 import pl.koneckimarcin.electricalprotocolsmanager.pdf.service.PdfTextService;
 import pl.koneckimarcin.electricalprotocolsmanager.pdf.style.TablesStyle;
 import pl.koneckimarcin.electricalprotocolsmanager.structure.building.Building;
@@ -24,7 +24,7 @@ import static pl.koneckimarcin.electricalprotocolsmanager.pdf.style.TablesStyle.
 public class PdfMeasurementDataComponent {
 
     @Autowired
-    private PdfTableComponent tableComponent;
+    private PdfTableService tableComponent;
 
     @Autowired
     private PdfTextService textService;
@@ -73,7 +73,7 @@ public class PdfMeasurementDataComponent {
         properties.setFont(font.getFont());
         properties.setTextData(List.of(measurementMain.getMeasurementMainCascadeNameWithoutMeasurementName()));
 
-        tableComponent.addTableComponentWithProperties(properties);
+        tableComponent.addTableSinglelineText(properties);
     }
 
     private void addMeasurementName(TableProperties properties, MeasurementMain measurementMain) {
@@ -84,20 +84,21 @@ public class PdfMeasurementDataComponent {
         properties.setAlignment(Alignment.CENTER);
         properties.setTextData(List.of(measurementMain.getMeasurementName()));
 
-        tableComponent.addTableComponentWithProperties(properties);
+        tableComponent.addTableSinglelineText(properties);
     }
 
     private void addTableHeader(TableProperties properties, MeasurementMain measurementMain, Font font) {
 
         int yPos = 640;
         properties.setYPosition(yPos);
+        // todo: refactor line below
         properties.setTextData(textService.getMeasurementEntryTableHeaders(measurementMain.getMeasurementName()));
         properties.setFont(font.getFontBold());
         properties.setFontSize(8);
         properties.setBackgroundColor(headerColor);
         properties.setCellWidths(measurementMain.getTableCellsSizes());
 
-        tableComponent.addTableComponentWithProperties(properties);
+        tableComponent.addTableSinglelineText(properties);
     }
 
     private boolean addMainParameters(TableProperties properties, MeasurementMain measurementMain, Font font) {
@@ -116,7 +117,7 @@ public class PdfMeasurementDataComponent {
         if (!hasMainProperties(measurementMain)) {
 
             properties.setTextData(List.of(measurementMain.getPropertiesNamesAndValues()));
-            tableComponent.addTableComponentWithProperties(properties);
+            tableComponent.addTableSinglelineText(properties);
             mainParametersAdded = true;
         }
         return mainParametersAdded;
@@ -151,7 +152,7 @@ public class PdfMeasurementDataComponent {
 
             properties.setYPosition(yPos);
             properties.setTextData(measurementMain.getMeasurementEntries().get(j).getEntryResultList(j + 1));
-            tableComponent.addTableComponentWithProperties(properties);
+            tableComponent.addTableSinglelineText(properties);
 
             yPos -= cellHeight;
         }

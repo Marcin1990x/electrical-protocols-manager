@@ -59,7 +59,7 @@ public class PdfStatisticPageComponent {
         properties.setFontSize(13);
         properties.setFontType(font.getFontBold());
 
-        textService.addSingleLineOfTextAlignmentWithProperties(properties);
+        textService.addTextSingleline(properties);
     }
 
     private void addStatistics(TextProperties properties, Building building, Font font) {
@@ -83,7 +83,7 @@ public class PdfStatisticPageComponent {
         properties.setFontSize(12);
         properties.setFontType(font.getFontBold());
 
-        textService.addSingleLineOfTextAlignmentWithProperties(properties);
+        textService.addTextSingleline(properties);
     }
 
     private int addStatisticsData(TextProperties properties, List statistics, int yPostion, Font font) {
@@ -93,6 +93,6 @@ public class PdfStatisticPageComponent {
         properties.setFontSize(10);
         properties.setFontType(font.getFont());
 
-        return textService.addMultipleLineOfTextAlignmentWithProperties(properties, statistics.subList(1, statistics.size()));
+        return textService.addTextMultiline(properties, statistics.subList(1, statistics.size()));
     }
 }

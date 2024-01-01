@@ -67,7 +67,7 @@ public class PdfLegendComponent {
 
     private void addLegendPageTitle(TextProperties properties) {
 
-        textService.addSingleLineOfTextAlignmentWithProperties(properties);
+        textService.addTextSingleline(properties);
     }
 
     private void addLegendForAllMeasurements(TextProperties properties, List<MeasurementMain> measurementMainList, Font font) {
@@ -106,12 +106,12 @@ public class PdfLegendComponent {
         properties.setText(measurementName);
         properties.setFontSize(11);
 
-        textService.addSingleLineOfTextAlignmentWithProperties(properties);
+        textService.addTextSingleline(properties);
     }
 
     private int addLegendTextData(TextProperties properties, List<String> legendTextData) {
 
         properties.setFontSize(9);
-        return textService.addMultipleLineOfTextAlignmentWithProperties(properties, legendTextData);
+        return textService.addTextMultiline(properties, legendTextData);
     }
 }
