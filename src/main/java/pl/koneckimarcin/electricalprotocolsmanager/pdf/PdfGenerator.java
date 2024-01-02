@@ -7,8 +7,8 @@ import pl.koneckimarcin.electricalprotocolsmanager.pdf.component.*;
 import pl.koneckimarcin.electricalprotocolsmanager.pdf.service.*;
 import pl.koneckimarcin.electricalprotocolsmanager.pdf.storage.PdfRepository;
 import pl.koneckimarcin.electricalprotocolsmanager.pdf.titlePage.PdfTitlePage;
-import pl.koneckimarcin.electricalprotocolsmanager.structure.building.Building;
-import pl.koneckimarcin.electricalprotocolsmanager.structure.building.BuildingRepository;
+import pl.koneckimarcin.electricalprotocolsmanager.buildingstructure.building.Building;
+import pl.koneckimarcin.electricalprotocolsmanager.buildingstructure.building.BuildingRepository;
 
 import java.io.IOException;
 

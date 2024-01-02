@@ -1,4 +1,4 @@
-package pl.koneckimarcin.electricalprotocolsmanager.structure.room;
+package pl.koneckimarcin.electricalprotocolsmanager.buildingstructure.room;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;

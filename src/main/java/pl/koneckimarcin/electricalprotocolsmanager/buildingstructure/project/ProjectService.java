@@ -1,9 +1,9 @@
-package pl.koneckimarcin.electricalprotocolsmanager.structure.project;
+package pl.koneckimarcin.electricalprotocolsmanager.buildingstructure.project;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import pl.koneckimarcin.electricalprotocolsmanager.structure.building.Building;
-import pl.koneckimarcin.electricalprotocolsmanager.structure.building.BuildingRepository;
+import pl.koneckimarcin.electricalprotocolsmanager.buildingstructure.building.Building;
+import pl.koneckimarcin.electricalprotocolsmanager.buildingstructure.building.BuildingRepository;
 
 import java.util.List;
 import java.util.Optional;

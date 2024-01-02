@@ -35,4 +35,9 @@ public class SoilResistance extends MeasurementMain implements MeasurementSpecif
     public List<String> getMeasurementLegend() {
         return TextsPL.soilResistanceLegendText;
     }
+    @Override
+    public List<Object> getMeasurementEntryTableHeaders() {
+
+        return TextsPL.soilResistanceHeaders;
+    }
 }

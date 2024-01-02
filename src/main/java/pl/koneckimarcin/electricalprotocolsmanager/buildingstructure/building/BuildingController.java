@@ -1,12 +1,11 @@
-package pl.koneckimarcin.electricalprotocolsmanager.structure.building;
+package pl.koneckimarcin.electricalprotocolsmanager.buildingstructure.building;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import pl.koneckimarcin.electricalprotocolsmanager.structure.floor.FloorRepository;
-import pl.koneckimarcin.electricalprotocolsmanager.structure.project.ProjectRepository;
+import pl.koneckimarcin.electricalprotocolsmanager.buildingstructure.floor.FloorRepository;
+import pl.koneckimarcin.electricalprotocolsmanager.buildingstructure.project.ProjectRepository;
 
 import java.io.InvalidObjectException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -26,45 +25,37 @@ public class BuildingController {
     @GetMapping
     public List<Building> getBuildings() {
 
-        return buildingRepository.findAll();
+        return service.getBuildings();
     }
 
     @GetMapping("/{id}")
-    public List<Building> getBuilding(@PathVariable int id) {
+    public List<Building> getBuildingById(@PathVariable int id) {
 
-        List<Building> buildings = new ArrayList<>();
-        buildings.add(buildingRepository.findById(id).get());
-
-        return buildings;
+        return service.getBuildingById(id);
     }
 
     @DeleteMapping("/{id}")
     public void deleteById(@PathVariable int id) {
 
-        service.deleteBuildingFromProject(id);
-        buildingRepository.deleteById(id);
+        service.deleteById(id);
     }
 
     @DeleteMapping
     public void deleteAllBuildings() {
 
-        buildingRepository.deleteAll();
+        service.deleteAllBuildings();
     }
 
     @PostMapping
     public Building addBuilding(@RequestBody Building building) {
 
-        buildingRepository.save(building);
-        return building;
+        return service.addBuilding(building);
     }
 
     @PutMapping("/{buildingId}")
     public Optional<Building> addFloorToBuilding(@PathVariable int buildingId, @RequestParam int floorId)
             throws InvalidObjectException {
 
-        Optional<Building> building = service.addFloorToBuildingLogic(buildingId, floorId);
-        buildingRepository.save(building.get());
-
-        return building;
+        return service.addFloorToBuilding(buildingId, floorId);
     }
 }

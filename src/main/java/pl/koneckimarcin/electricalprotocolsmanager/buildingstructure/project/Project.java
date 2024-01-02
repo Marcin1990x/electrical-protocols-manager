@@ -1,7 +1,7 @@
-package pl.koneckimarcin.electricalprotocolsmanager.structure.project;
+package pl.koneckimarcin.electricalprotocolsmanager.buildingstructure.project;
 
 import jakarta.persistence.*;
-import pl.koneckimarcin.electricalprotocolsmanager.structure.building.Building;
+import pl.koneckimarcin.electricalprotocolsmanager.buildingstructure.building.Building;
 
 @Entity
 public class Project {

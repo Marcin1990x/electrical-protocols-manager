@@ -11,7 +11,7 @@ import pl.koneckimarcin.electricalprotocolsmanager.pdf.Font;
 import pl.koneckimarcin.electricalprotocolsmanager.pdf.component.builder.TextProperties;
 import pl.koneckimarcin.electricalprotocolsmanager.pdf.component.builder.TextPropertiesBuilder;
 import pl.koneckimarcin.electricalprotocolsmanager.pdf.service.PdfTextService;
-import pl.koneckimarcin.electricalprotocolsmanager.structure.building.Building;
+import pl.koneckimarcin.electricalprotocolsmanager.buildingstructure.building.Building;
 
 import java.io.IOException;
 import java.util.List;

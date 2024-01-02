@@ -1,9 +1,9 @@
-package pl.koneckimarcin.electricalprotocolsmanager.structure.floor;
+package pl.koneckimarcin.electricalprotocolsmanager.buildingstructure.floor;
 
 import jakarta.persistence.*;
 import pl.koneckimarcin.electricalprotocolsmanager.measurement.main.MeasurementMain;
-import pl.koneckimarcin.electricalprotocolsmanager.structure.building.Building;
-import pl.koneckimarcin.electricalprotocolsmanager.structure.room.Room;
+import pl.koneckimarcin.electricalprotocolsmanager.buildingstructure.building.Building;
+import pl.koneckimarcin.electricalprotocolsmanager.buildingstructure.room.Room;
 
 import java.util.List;
 

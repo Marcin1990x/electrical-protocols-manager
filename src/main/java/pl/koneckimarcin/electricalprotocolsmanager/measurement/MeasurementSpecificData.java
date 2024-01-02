@@ -8,5 +8,7 @@ public interface MeasurementSpecificData {
 
     public List<String> getMeasurementLegend();
 
-    public List<String> getMeasureTheoryDirectory();
+    public List<String> getMeasurementTheoryDirectory();
+
+    public List<Object> getMeasurementEntryTableHeaders();
 }

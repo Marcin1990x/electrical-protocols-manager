@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import pl.koneckimarcin.electricalprotocolsmanager.measurement.circuitInsulationResistanceTnc.entry.CircuitInsulationResistanceTncEntryRepository;
 import pl.koneckimarcin.electricalprotocolsmanager.measurement.main.MeasurementMainController;
-import pl.koneckimarcin.electricalprotocolsmanager.structure.room.RoomRepository;
+import pl.koneckimarcin.electricalprotocolsmanager.buildingstructure.room.RoomRepository;
 
 import java.util.List;
 

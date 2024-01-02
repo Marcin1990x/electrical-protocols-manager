@@ -3,8 +3,8 @@ package pl.koneckimarcin.electricalprotocolsmanager.measurement.main;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pl.koneckimarcin.electricalprotocolsmanager.measurement.protocolTextData.TextsPL;
-import pl.koneckimarcin.electricalprotocolsmanager.structure.room.Room;
-import pl.koneckimarcin.electricalprotocolsmanager.structure.room.RoomRepository;
+import pl.koneckimarcin.electricalprotocolsmanager.buildingstructure.room.Room;
+import pl.koneckimarcin.electricalprotocolsmanager.buildingstructure.room.RoomRepository;
 
 import java.util.List;
 import java.util.Optional;

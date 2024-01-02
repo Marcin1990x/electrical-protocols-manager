@@ -12,7 +12,7 @@ import pl.koneckimarcin.electricalprotocolsmanager.pdf.component.builder.TablePr
 import pl.koneckimarcin.electricalprotocolsmanager.pdf.service.PdfTableService;
 import pl.koneckimarcin.electricalprotocolsmanager.pdf.service.PdfTextService;
 import pl.koneckimarcin.electricalprotocolsmanager.pdf.style.TablesStyle;
-import pl.koneckimarcin.electricalprotocolsmanager.structure.building.Building;
+import pl.koneckimarcin.electricalprotocolsmanager.buildingstructure.building.Building;
 
 import java.io.IOException;
 import java.util.List;
@@ -91,8 +91,7 @@ public class PdfMeasurementDataComponent {
 
         int yPos = 640;
         properties.setYPosition(yPos);
-        // todo: refactor line below
-        properties.setTextData(textService.getMeasurementEntryTableHeaders(measurementMain.getMeasurementName()));
+        properties.setTextData(measurementMain.getMeasurementEntryTableHeaders());
         properties.setFont(font.getFontBold());
         properties.setFontSize(8);
         properties.setBackgroundColor(headerColor);

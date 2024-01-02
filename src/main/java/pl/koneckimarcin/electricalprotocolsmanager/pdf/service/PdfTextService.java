@@ -3,7 +3,6 @@ package pl.koneckimarcin.electricalprotocolsmanager.pdf.service;
 import org.apache.pdfbox.pdmodel.PDPageContentStream;
 import org.apache.pdfbox.pdmodel.font.PDFont;
 import org.springframework.stereotype.Service;
-import pl.koneckimarcin.electricalprotocolsmanager.measurement.protocolTextData.TextsPL;
 import pl.koneckimarcin.electricalprotocolsmanager.pdf.Alignment;
 import pl.koneckimarcin.electricalprotocolsmanager.pdf.component.builder.TextProperties;
 
@@ -31,6 +30,7 @@ public class PdfTextService {
             System.out.println("Error when adding text: " + properties.getText() + "page. " + e.getMessage());
         }
     }
+
     public int addTextMultiline(TextProperties properties, List<String> text) {
 
         PDPageContentStream content = properties.getContentStream();
@@ -70,28 +70,6 @@ public class PdfTextService {
             offset = pageSize - getTextWidth(text, font, fontSize);
         }
         return offset;
-    }
-
-    public List<Object> getMeasurementEntryTableHeaders(String measurementName) {
-
-        List<Object> tableHeaders;
-
-        if (measurementName.equals(TextsPL.measurementsMainNames.get(0))) {
-            tableHeaders = TextsPL.protectionAgainstElectricShockByAutomaticShutdownEntryHeaders;
-        } else if (measurementName.equals(TextsPL.measurementsMainNames.get(1))) {
-            tableHeaders = TextsPL.circuitInsulationResistanceTnsHeaders;
-        } else if (measurementName.equals(TextsPL.measurementsMainNames.get(2))) {
-            tableHeaders = TextsPL.circuitInsulationResistanceTncHeaders;
-        } else if (measurementName.equals(TextsPL.measurementsMainNames.get(3))) {
-            tableHeaders = TextsPL.residualCurrentProtectionHeaders;
-        } else if (measurementName.equals(TextsPL.measurementsMainNames.get(4))) {
-            tableHeaders = TextsPL.soilResistanceHeaders;
-        } else if (measurementName.equals(TextsPL.measurementsMainNames.get(5))) {
-            tableHeaders = TextsPL.continuityOfSmallResistanceHeaders;
-        } else {
-            throw new IllegalArgumentException("No entry table headers for this measurement main name.");
-        }
-        return tableHeaders;
     }
 
     private int getTextWidth(String text, PDFont font, float fontSize) throws IOException {

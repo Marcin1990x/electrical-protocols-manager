@@ -1,4 +1,4 @@
-package pl.koneckimarcin.electricalprotocolsmanager.structure.floor;
+package pl.koneckimarcin.electricalprotocolsmanager.buildingstructure.floor;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -9,8 +9,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.transaction.annotation.Transactional;
-import pl.koneckimarcin.electricalprotocolsmanager.structure.building.BuildingRepository;
-import pl.koneckimarcin.electricalprotocolsmanager.structure.room.RoomRepository;
+import pl.koneckimarcin.electricalprotocolsmanager.buildingstructure.building.BuildingRepository;
+import pl.koneckimarcin.electricalprotocolsmanager.buildingstructure.room.RoomRepository;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;

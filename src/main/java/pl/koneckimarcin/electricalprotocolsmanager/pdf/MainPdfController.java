@@ -6,8 +6,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 import pl.koneckimarcin.electricalprotocolsmanager.pdf.titlePage.PdfTitlePage;
 import pl.koneckimarcin.electricalprotocolsmanager.pdf.titlePage.PdfTitlePageController;
-import pl.koneckimarcin.electricalprotocolsmanager.structure.building.Building;
-import pl.koneckimarcin.electricalprotocolsmanager.structure.building.BuildingService;
+import pl.koneckimarcin.electricalprotocolsmanager.buildingstructure.building.Building;
+import pl.koneckimarcin.electricalprotocolsmanager.buildingstructure.building.BuildingService;
 
 import java.io.IOException;
 

@@ -6,8 +6,8 @@ import jakarta.persistence.OneToMany;
 import jakarta.validation.constraints.Positive;
 import pl.koneckimarcin.electricalprotocolsmanager.measurement.MeasurementSpecificData;
 import pl.koneckimarcin.electricalprotocolsmanager.measurement.circuitInsulationResistanceTnc.entry.CircuitInsulationResistanceTncEntry;
-import pl.koneckimarcin.electricalprotocolsmanager.measurement.protocolTextData.TextsPL;
 import pl.koneckimarcin.electricalprotocolsmanager.measurement.main.MeasurementMain;
+import pl.koneckimarcin.electricalprotocolsmanager.measurement.protocolTextData.TextsPL;
 
 import java.util.List;
 
@@ -48,14 +48,21 @@ public class CircuitInsulationResistanceTnc extends MeasurementMain implements M
     public int[] getTableCellsSizes() {
         return new int[]{20, 55, 85, 40, 39, 39, 39, 39, 39, 40, 65};
     }
+
     @Override
     public List<String> getMeasurementLegend() {
         return TextsPL.circuitInsulationResistanceTncLegendText;
     }
 
     @Override
-    public List<String> getMeasureTheoryDirectory() {
+    public List<String> getMeasurementTheoryDirectory() {
         return List.of("theoryImages/insulation.jpg");
+    }
+
+    @Override
+    public List<Object> getMeasurementEntryTableHeaders() {
+
+        return TextsPL.circuitInsulationResistanceTncHeaders;
     }
 
 }

@@ -40,7 +40,13 @@ public class ContinuityOfSmallResistance extends MeasurementMain implements Meas
         return TextsPL.continuityOfSmallResistanceLegendText;
     }
     @Override
-    public List<String> getMeasureTheoryDirectory() {
+    public List<String> getMeasurementTheoryDirectory() {
         return List.of("theoryImages/continuity.jpg");
+    }
+
+    @Override
+    public List<Object> getMeasurementEntryTableHeaders() {
+
+        return TextsPL.continuityOfSmallResistanceHeaders;
     }
 }

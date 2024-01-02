@@ -35,7 +35,13 @@ public class ResidualCurrentProtectionParameters extends MeasurementMain impleme
         return TextsPL.residualCurrentProtectionLegendText;
     }
     @Override
-    public List<String> getMeasureTheoryDirectory() {
+    public List<String> getMeasurementTheoryDirectory() {
         return List.of("theoryImages/residual.jpg");
+    }
+
+    @Override
+    public List<Object> getMeasurementEntryTableHeaders() {
+
+        return TextsPL.residualCurrentProtectionHeaders;
     }
 }

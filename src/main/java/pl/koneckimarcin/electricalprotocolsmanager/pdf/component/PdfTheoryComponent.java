@@ -5,7 +5,7 @@ import org.apache.pdfbox.pdmodel.PDPageContentStream;
 import org.apache.pdfbox.pdmodel.graphics.image.PDImageXObject;
 import org.springframework.stereotype.Component;
 import pl.koneckimarcin.electricalprotocolsmanager.measurement.main.MeasurementMain;
-import pl.koneckimarcin.electricalprotocolsmanager.structure.building.Building;
+import pl.koneckimarcin.electricalprotocolsmanager.buildingstructure.building.Building;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -44,13 +44,13 @@ public class PdfTheoryComponent {
 
         for(MeasurementMain measurement : measurementMainList) {
             if(isNotAddedAndIsNotNull(measurement, addedDirectories))
-                addedDirectories.addAll(measurement.getMeasureTheoryDirectory());
+                addedDirectories.addAll(measurement.getMeasurementTheoryDirectory());
         }
         return addedDirectories;
     }
     private boolean isNotAddedAndIsNotNull(MeasurementMain measurementToAdd, List<String> addedDirectories) {
-        return measurementToAdd.getMeasureTheoryDirectory() != null
-                && addedDirectories.stream().noneMatch(name -> name.equals(measurementToAdd.getMeasureTheoryDirectory().get(0)));
+        return measurementToAdd.getMeasurementTheoryDirectory() != null
+                && addedDirectories.stream().noneMatch(name -> name.equals(measurementToAdd.getMeasurementTheoryDirectory().get(0)));
     }
     private void addImageToPage(PDPageContentStream content, PDDocument document, List<String> imageDirectories,
                                 int theoryImageCount) {

@@ -3,7 +3,7 @@ package pl.koneckimarcin.electricalprotocolsmanager.measurement.statistic;
 import org.springframework.stereotype.Service;
 import pl.koneckimarcin.electricalprotocolsmanager.measurement.main.MeasurementMain;
 import pl.koneckimarcin.electricalprotocolsmanager.measurement.protocolTextData.TextsPL;
-import pl.koneckimarcin.electricalprotocolsmanager.structure.building.Building;
+import pl.koneckimarcin.electricalprotocolsmanager.buildingstructure.building.Building;
 
 import java.util.ArrayList;
 import java.util.List;

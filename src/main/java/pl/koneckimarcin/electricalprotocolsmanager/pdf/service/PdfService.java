@@ -5,8 +5,8 @@ import org.apache.pdfbox.pdmodel.PDPage;
 import org.apache.pdfbox.pdmodel.common.PDRectangle;
 import org.springframework.stereotype.Service;
 import pl.koneckimarcin.electricalprotocolsmanager.measurement.protocolTextData.TextsPL;
-import pl.koneckimarcin.electricalprotocolsmanager.structure.building.Building;
-import pl.koneckimarcin.electricalprotocolsmanager.structure.floor.Floor;
+import pl.koneckimarcin.electricalprotocolsmanager.buildingstructure.building.Building;
+import pl.koneckimarcin.electricalprotocolsmanager.buildingstructure.floor.Floor;
 
 import java.util.List;
 

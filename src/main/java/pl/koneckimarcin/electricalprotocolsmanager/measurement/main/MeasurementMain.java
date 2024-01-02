@@ -2,7 +2,7 @@ package pl.koneckimarcin.electricalprotocolsmanager.measurement.main;
 
 import jakarta.persistence.*;
 import pl.koneckimarcin.electricalprotocolsmanager.measurement.entry.MeasurementEntry;
-import pl.koneckimarcin.electricalprotocolsmanager.structure.room.Room;
+import pl.koneckimarcin.electricalprotocolsmanager.buildingstructure.room.Room;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -93,7 +93,11 @@ public abstract class MeasurementMain {
         return null;
     }
 
-    public List<String> getMeasureTheoryDirectory() {
+    public List<String> getMeasurementTheoryDirectory() {
+        return null;
+    }
+
+    public List<Object> getMeasurementEntryTableHeaders() {
         return null;
     }
 }

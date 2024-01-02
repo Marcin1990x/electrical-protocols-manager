@@ -1,10 +1,10 @@
-package pl.koneckimarcin.electricalprotocolsmanager.structure.room;
+package pl.koneckimarcin.electricalprotocolsmanager.buildingstructure.room;
 
 import org.springframework.web.bind.annotation.*;
 import pl.koneckimarcin.electricalprotocolsmanager.measurement.main.MeasurementMain;
 import pl.koneckimarcin.electricalprotocolsmanager.measurement.main.MeasurementMainRepository;
-import pl.koneckimarcin.electricalprotocolsmanager.structure.floor.Floor;
-import pl.koneckimarcin.electricalprotocolsmanager.structure.floor.FloorRepository;
+import pl.koneckimarcin.electricalprotocolsmanager.buildingstructure.floor.Floor;
+import pl.koneckimarcin.electricalprotocolsmanager.buildingstructure.floor.FloorRepository;
 
 import java.io.InvalidObjectException;
 import java.util.List;

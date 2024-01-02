@@ -1,11 +1,11 @@
-package pl.koneckimarcin.electricalprotocolsmanager.structure.floor;
+package pl.koneckimarcin.electricalprotocolsmanager.buildingstructure.floor;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import pl.koneckimarcin.electricalprotocolsmanager.structure.building.Building;
-import pl.koneckimarcin.electricalprotocolsmanager.structure.building.BuildingRepository;
-import pl.koneckimarcin.electricalprotocolsmanager.structure.room.Room;
-import pl.koneckimarcin.electricalprotocolsmanager.structure.room.RoomRepository;
+import pl.koneckimarcin.electricalprotocolsmanager.buildingstructure.building.Building;
+import pl.koneckimarcin.electricalprotocolsmanager.buildingstructure.building.BuildingRepository;
+import pl.koneckimarcin.electricalprotocolsmanager.buildingstructure.room.Room;
+import pl.koneckimarcin.electricalprotocolsmanager.buildingstructure.room.RoomRepository;
 
 import java.io.InvalidObjectException;
 import java.util.List;

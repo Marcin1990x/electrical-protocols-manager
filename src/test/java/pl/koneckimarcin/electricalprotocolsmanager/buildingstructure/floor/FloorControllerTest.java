@@ -1,4 +1,4 @@
-package pl.koneckimarcin.electricalprotocolsmanager.structure.floor;
+package pl.koneckimarcin.electricalprotocolsmanager.buildingstructure.floor;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.AfterEach;
