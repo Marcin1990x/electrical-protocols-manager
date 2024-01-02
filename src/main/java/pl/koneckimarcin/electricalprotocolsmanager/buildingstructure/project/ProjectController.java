@@ -3,7 +3,6 @@ package pl.koneckimarcin.electricalprotocolsmanager.buildingstructure.project;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.io.InvalidObjectException;
 import java.util.List;
 import java.util.Optional;
 
@@ -51,8 +50,7 @@ public class ProjectController {
     }
 
     @PutMapping("/{projectName}")
-    public Project addBuildingToProject(@PathVariable String projectName, @RequestParam int buildingId)
-            throws InvalidObjectException {
+    public Project addBuildingToProject(@PathVariable String projectName, @RequestParam int buildingId) {
 
         return projectService.addBuildingToProject(projectName, buildingId);
     }
