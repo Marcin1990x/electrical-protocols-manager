@@ -1,4 +1,4 @@
-package pl.koneckimarcin.electricalprotocolsmanager.utilities.electrician;
+package pl.koneckimarcin.electricalprotocolsmanager.electrician;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

@@ -11,7 +11,7 @@ import pl.koneckimarcin.electricalprotocolsmanager.pdf.component.builder.TablePr
 import pl.koneckimarcin.electricalprotocolsmanager.pdf.component.builder.TablePropertiesBuilder;
 import pl.koneckimarcin.electricalprotocolsmanager.pdf.service.PdfTableService;
 import pl.koneckimarcin.electricalprotocolsmanager.pdf.style.TablesStyle;
-import pl.koneckimarcin.electricalprotocolsmanager.utilities.electrician.Electrician;
+import pl.koneckimarcin.electricalprotocolsmanager.electrician.Electrician;
 
 import java.io.IOException;
 import java.util.List;

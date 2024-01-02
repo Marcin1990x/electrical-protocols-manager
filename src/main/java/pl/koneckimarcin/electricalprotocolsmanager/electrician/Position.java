@@ -1,4 +1,4 @@
-package pl.koneckimarcin.electricalprotocolsmanager.utilities.electrician;
+package pl.koneckimarcin.electricalprotocolsmanager.electrician;
 
 import pl.koneckimarcin.electricalprotocolsmanager.measurement.protocolTextData.TextsPL;
 

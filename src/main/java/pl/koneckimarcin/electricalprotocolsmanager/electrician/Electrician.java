@@ -1,4 +1,4 @@
-package pl.koneckimarcin.electricalprotocolsmanager.utilities.electrician;
+package pl.koneckimarcin.electricalprotocolsmanager.electrician;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;

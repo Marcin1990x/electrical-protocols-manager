@@ -1,8 +1,8 @@
 package pl.koneckimarcin.electricalprotocolsmanager.pdf.titlePage;
 
 import org.springframework.web.bind.annotation.*;
-import pl.koneckimarcin.electricalprotocolsmanager.utilities.electrician.Electrician;
-import pl.koneckimarcin.electricalprotocolsmanager.utilities.electrician.ElectricianRepository;
+import pl.koneckimarcin.electricalprotocolsmanager.electrician.Electrician;
+import pl.koneckimarcin.electricalprotocolsmanager.electrician.ElectricianRepository;
 
 import java.util.List;
 import java.util.Optional;

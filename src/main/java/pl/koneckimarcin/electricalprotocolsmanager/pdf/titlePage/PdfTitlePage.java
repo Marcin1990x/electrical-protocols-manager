@@ -8,7 +8,7 @@ import pl.koneckimarcin.electricalprotocolsmanager.measurement.TypeOfInstallatio
 import pl.koneckimarcin.electricalprotocolsmanager.measurement.TypeOfMeasurement;
 import pl.koneckimarcin.electricalprotocolsmanager.measurement.TypeOfWeather;
 import pl.koneckimarcin.electricalprotocolsmanager.measurement.protocolTextData.TextsPL;
-import pl.koneckimarcin.electricalprotocolsmanager.utilities.electrician.Electrician;
+import pl.koneckimarcin.electricalprotocolsmanager.electrician.Electrician;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
