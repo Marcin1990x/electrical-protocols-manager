@@ -1,4 +1,7 @@
 # Electrical protocols manager
+
+<hr>
+
 ## Application description
 
 Application Electrical protocols manager allows user to create PDF protocol from
@@ -13,13 +16,13 @@ and use H2 database to manage data when application is working.
 
 It is my first bigger application which is used by my colleagues in real. I mainly focused
 on backend because it is what I want more to do in the future.
-About the backend:
+<br> About the backend: <br>
 I did a lot of refactoring because when programming I learned a lot at the same time so application
 changed its shape many times. I tried to write as clean code as I'm able at this moment.
 I know that it is still many work to do to make this code cleaner, more maintainable and scalable.
 There are only few tests written, there is need to cover all the code. Now I know and understand
 that tests should be written in parallel with the code.
-About the frontend:
+<br> About the frontend: <br>
 It was written by me to just work. There is a lot of ugly code to refactor but like I wrote above
 I'm focusing on the backend site.
 
