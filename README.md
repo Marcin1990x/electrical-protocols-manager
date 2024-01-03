@@ -26,17 +26,19 @@ https://github.com/Marcin1990x/electrical-protocols-manager
 https://github.com/Marcin1990x/electrical-protocols-manager-ui
 
 ## Application is developed using following technologies:
-<img src="https://ultimateqa.com/wp-content/uploads/2020/12/Java-logo-icon-1.png" alt="java" width="80" height="50"/> 
-<img src="https://e4developer.com/wp-content/uploads/2018/01/spring-boot.png" alt="spring" width="90" height="50"/> 
-<img src="https://www.tutorialkart.com/wp-content/uploads/2017/08/apache_pdfbox.png" alt="java" width="" height="50"/>
-<img src="https://s3.ap-southeast-1.amazonaws.com/arrowhitech.com/wp-content/uploads/2021/09/01031030/ReactJS.png" alt="java" width="" height="50"/>
-<img src="https://jaki-jezyk-programowania.pl/img/technologies/javascript.png" alt="java" width="" height="50"/>
-<img src="https://getbootstrap.com/docs/5.3/assets/brand/bootstrap-logo-shadow.png" alt="java" width="" height="50"/>
-<img src="https://react-pdf.org/images/og-banner.png" alt="java" width="" height="50"/>
-<img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/mysql/mysql-original-wordmark.svg" alt="mysql" width="50" height="50"/>
-<img src="https://junit.org/junit4/images/junit5-banner.png" alt="java" width="90" height="50"/>
-<img src="https://javadoc.io/static/org.mockito/mockito-core/1.9.5/org/mockito/logo.jpg" alt="java" width="90" height="50"/>
-<img src="https://avatars.githubusercontent.com/u/1595737?s=200&v=4" alt="java" width="50" height="50"/>
+<p align="left">
+    <img src="https://ultimateqa.com/wp-content/uploads/2020/12/Java-logo-icon-1.png" alt="java" width="80" height="50"/> 
+    <img src="https://e4developer.com/wp-content/uploads/2018/01/spring-boot.png" alt="spring" width="90" height="50"/> 
+    <img src="https://www.tutorialkart.com/wp-content/uploads/2017/08/apache_pdfbox.png" alt="java" width="" height="50"/>
+    <img src="https://s3.ap-southeast-1.amazonaws.com/arrowhitech.com/wp-content/uploads/2021/09/01031030/ReactJS.png" alt="java" width="" height="50"/>
+    <img src="https://jaki-jezyk-programowania.pl/img/technologies/javascript.png" alt="java" width="" height="50"/>
+    <img src="https://getbootstrap.com/docs/5.3/assets/brand/bootstrap-logo-shadow.png" alt="java" width="" height="50"/>
+    <img src="https://react-pdf.org/images/og-banner.png" alt="java" width="" height="50"/>
+    <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/mysql/mysql-original-wordmark.svg" alt="mysql" width="50" height="50"/>
+    <img src="https://junit.org/junit4/images/junit5-banner.png" alt="java" width="90" height="50"/>
+    <img src="https://javadoc.io/static/org.mockito/mockito-core/1.9.5/org/mockito/logo.jpg" alt="java" width="90" height="50"/>
+    <img src="https://avatars.githubusercontent.com/u/1595737?s=200&v=4" alt="java" width="50" height="50"/>
+</p>
 
 ## To run the application in development mode, follow these steps :
 - download both backend and frontend repositories from links above
