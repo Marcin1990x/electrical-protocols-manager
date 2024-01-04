@@ -14,7 +14,7 @@ and use H2 database to manage data when application is working.
 
 ## Development comments
 
-It is my first bigger application which is used by my colleagues in real. I mainly focused
+It is my first bigger application which is used electricians in real. I mainly focused
 on backend because it is what I want more to do in the future.
 <br> About the backend: <br>
 I did a lot of refactoring because when programming I learned a lot at the same time so application
