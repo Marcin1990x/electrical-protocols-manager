@@ -53,9 +53,10 @@ public class BuildingController {
     }
 
     @PutMapping("/{buildingId}")
-    public Optional<Building> addFloorToBuilding(@PathVariable int buildingId, @RequestParam int floorId)
-            throws InvalidObjectException {
+    public Optional<Building> addFloorToBuilding(@PathVariable int buildingId, @RequestParam int floorId) throws InvalidObjectException {
 
         return service.addFloorToBuilding(buildingId, floorId);
     }
+
+
 }

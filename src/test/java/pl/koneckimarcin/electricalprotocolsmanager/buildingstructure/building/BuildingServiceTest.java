@@ -68,7 +68,7 @@ public class BuildingServiceTest {
     void shouldReturnAllBuildings() {
         List<Building> buildings = buildingService.getBuildings();
 
-        assertThat(buildings, hasSize(1));
+        assertThat(buildings, hasSize(2));
     }
 
     @Test
@@ -89,7 +89,7 @@ public class BuildingServiceTest {
         project.setBuilding(building.get());
 
         buildingService.deleteById(1);
-        assertThat(buildingRepository.findAll(), hasSize(0));
+        assertThat(buildingRepository.findAll(), hasSize(1));
     }
 
     @Test

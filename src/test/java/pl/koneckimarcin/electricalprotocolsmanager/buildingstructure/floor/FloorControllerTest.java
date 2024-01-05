@@ -112,8 +112,8 @@ public class FloorControllerTest {
 
     @AfterEach
     void cleanDatabase() {
-        jdbc.execute(sqlDeleteFloor);
         jdbc.execute(sqlDeleteBuilding);
+        jdbc.execute(sqlDeleteFloor);
         jdbc.execute(sqlDeleteRoom);
     }
 }

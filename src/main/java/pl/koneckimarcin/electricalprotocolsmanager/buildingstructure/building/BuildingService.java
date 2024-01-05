@@ -44,8 +44,10 @@ public class BuildingService {
 
     public void deleteById(int id) {
 
-        deleteBuildingFromProject(id);
-        buildingRepository.deleteById(id);
+        if(buildingRepository.findById(id).isPresent()) {
+            deleteBuildingFromProject(id);
+            buildingRepository.deleteById(id);
+        }
     }
 
     private void deleteBuildingFromProject(int id) {
