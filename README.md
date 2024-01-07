@@ -89,7 +89,7 @@ https://github.com/Marcin1990x/electrical-protocols-manager/blob/master/pdf/exam
 ## User interface
 
 - home page <br>
-  <img src="https://github.com/Marcin1990x/electrical-protocols-manager/blob/master/repo-screens/homepage.png?raw=true" width="1765" height="712"/>
+  <img src="https://github.com/Marcin1990x/electrical-protocols-manager/blob/master/repo-screens/homepage.png?raw=true" width="880" height="356"/>
 - project page <br>
     <img src="https://raw.githubusercontent.com/Marcin1990x/electrical-protocols-manager/master/repo-screens/projectpage.png"  width="1675" height="763"/>
 - electricians page <br>
