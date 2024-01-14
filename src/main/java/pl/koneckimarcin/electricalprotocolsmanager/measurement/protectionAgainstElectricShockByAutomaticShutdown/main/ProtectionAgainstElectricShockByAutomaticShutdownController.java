@@ -1,8 +1,7 @@
 package pl.koneckimarcin.electricalprotocolsmanager.measurement.protectionAgainstElectricShockByAutomaticShutdown.main;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import pl.koneckimarcin.electricalprotocolsmanager.measurement.main.MeasurementMainController;
 
 import java.util.List;
@@ -32,5 +31,12 @@ public class ProtectionAgainstElectricShockByAutomaticShutdownController
     public ProtectionAgainstElectricShockByAutomaticShutdown addEntryToMain(int mainId, int entryId) {
 
         return mainService.addEntryToMain(mainId, entryId);
+    }
+
+    @PutMapping
+    public ProtectionAgainstElectricShockByAutomaticShutdown updateMain(
+            @PathVariable int mainId, @RequestBody ProtectionAgainstElectricShockByAutomaticShutdown main) {
+
+        return mainService.updateMain(mainId, main);
     }
 }

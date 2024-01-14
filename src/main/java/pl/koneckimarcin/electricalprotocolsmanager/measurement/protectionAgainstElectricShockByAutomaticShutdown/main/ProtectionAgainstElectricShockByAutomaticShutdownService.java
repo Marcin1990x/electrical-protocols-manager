@@ -42,4 +42,21 @@ public class ProtectionAgainstElectricShockByAutomaticShutdownService
 
         return main.get();
     }
+
+    public ProtectionAgainstElectricShockByAutomaticShutdown updateMain(int mainId, ProtectionAgainstElectricShockByAutomaticShutdown newMain) {
+
+        Optional<ProtectionAgainstElectricShockByAutomaticShutdown> mainToUpdate =
+                mainRepository.findById(mainId);
+
+        if (mainToUpdate.isPresent()) {
+            mainToUpdate.get().setUn(newMain.getUn());
+            mainToUpdate.get().setUi(newMain.getUi());
+            mainToUpdate.get().setKo(newMain.getKo());
+            mainToUpdate.get().setTa(newMain.getTa());
+            mainToUpdate.get().setNetworkType(newMain.getNetworkType());
+
+            mainRepository.save(mainToUpdate.get());
+        }
+        return mainToUpdate.get();
+    }
 }
