@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class CircuitInsulationResistanceTncService implements MeasurementMainService <CircuitInsulationResistanceTnc> {
+public class CircuitInsulationResistanceTncService implements MeasurementMainService<CircuitInsulationResistanceTnc> {
 
     @Autowired
     private CircuitInsulationResistanceTncRepository mainRepository;
@@ -40,5 +40,17 @@ public class CircuitInsulationResistanceTncService implements MeasurementMainSer
         mainRepository.save(main.get());
 
         return main.get();
+    }
+
+    public CircuitInsulationResistanceTnc updateMain(int mainId, CircuitInsulationResistanceTnc main) {
+
+        Optional<CircuitInsulationResistanceTnc> mainToUpdate =
+                mainRepository.findById(mainId);
+
+        if (mainToUpdate.isPresent()) {
+            mainToUpdate.get().setUiso(main.getUiso());
+            mainRepository.save(mainToUpdate.get());
+        }
+        return mainToUpdate.get();
     }
 }

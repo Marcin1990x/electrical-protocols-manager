@@ -41,4 +41,16 @@ public class CircuitInsulationResistanceTnsService implements MeasurementMainSer
 
         return main.get();
     }
+
+    public CircuitInsulationResistanceTns updateMain(int mainId, CircuitInsulationResistanceTns main) {
+
+        Optional<CircuitInsulationResistanceTns> mainToUpdate =
+                mainRepository.findById(mainId);
+
+        if (mainToUpdate.isPresent()) {
+            mainToUpdate.get().setUiso(main.getUiso());
+            mainRepository.save(mainToUpdate.get());
+        }
+        return mainToUpdate.get();
+    }
 }

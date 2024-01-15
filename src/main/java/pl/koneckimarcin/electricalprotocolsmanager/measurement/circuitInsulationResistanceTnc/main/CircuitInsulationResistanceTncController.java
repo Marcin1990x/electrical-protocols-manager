@@ -1,11 +1,11 @@
 package pl.koneckimarcin.electricalprotocolsmanager.measurement.circuitInsulationResistanceTnc.main;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import pl.koneckimarcin.electricalprotocolsmanager.measurement.circuitInsulationResistanceTnc.entry.CircuitInsulationResistanceTncEntryRepository;
 import pl.koneckimarcin.electricalprotocolsmanager.measurement.main.MeasurementMainController;
 import pl.koneckimarcin.electricalprotocolsmanager.buildingstructure.room.RoomRepository;
+import pl.koneckimarcin.electricalprotocolsmanager.measurement.protectionAgainstElectricShockByAutomaticShutdown.main.ProtectionAgainstElectricShockByAutomaticShutdown;
 
 import java.util.List;
 
@@ -40,5 +40,11 @@ public class CircuitInsulationResistanceTncController
     public CircuitInsulationResistanceTnc addEntryToMain(int mainId, int entryId) {
 
         return service.addEntryToMain(mainId, entryId);
+    }
+    @PutMapping("/mains/edit={mainId}")
+    public CircuitInsulationResistanceTnc updateMain(
+            @PathVariable int mainId, @RequestBody CircuitInsulationResistanceTnc main) {
+
+        return service.updateMain(mainId, main);
     }
 }

@@ -33,7 +33,7 @@ public class ProtectionAgainstElectricShockByAutomaticShutdownController
         return mainService.addEntryToMain(mainId, entryId);
     }
 
-    @PutMapping
+    @PutMapping("/mains/edit={mainId}")
     public ProtectionAgainstElectricShockByAutomaticShutdown updateMain(
             @PathVariable int mainId, @RequestBody ProtectionAgainstElectricShockByAutomaticShutdown main) {
 
