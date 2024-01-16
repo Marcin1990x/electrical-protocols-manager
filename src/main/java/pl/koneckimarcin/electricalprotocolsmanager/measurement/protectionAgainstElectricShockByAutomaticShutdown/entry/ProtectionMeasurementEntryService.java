@@ -55,4 +55,27 @@ public class ProtectionMeasurementEntryService implements MeasurementEntryServic
             entryRepository.deleteById(entryId);
         }
     }
+
+    public ProtectionMeasurementEntry updateEntry(int entryId, ProtectionMeasurementEntry newEntry) {
+
+        Optional<ProtectionMeasurementEntry> entryToUpdate =
+                entryRepository.findById(entryId);
+
+        if (entryToUpdate.isPresent()) {
+            entryToUpdate.get().setSymbol(newEntry.getSymbol());
+            entryToUpdate.get().setMeasuringPoint(newEntry.getMeasuringPoint());
+            entryToUpdate.get().setCutout(newEntry.getCutout());
+            entryToUpdate.get().setType(newEntry.getType());
+            entryToUpdate.get().setiNom(newEntry.getiNom());
+            entryToUpdate.get().setZs(newEntry.getZs());
+
+            entryToUpdate.get().setIa();
+            entryToUpdate.get().setZa();
+            entryToUpdate.get().setIk();
+            entryToUpdate.get().setResult();
+
+            entryRepository.save(entryToUpdate.get());
+        }
+        return entryToUpdate.get();
+    }
 }
