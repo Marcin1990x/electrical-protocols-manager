@@ -11,7 +11,7 @@ import java.util.Optional;
 
 @Service
 public class ResidualCurrentProtectionParametersEntryService
-        implements MeasurementEntryService <ResidualCurrentProtectionParametersEntry> {
+        implements MeasurementEntryService<ResidualCurrentProtectionParametersEntry> {
 
     @Autowired
     private ResidualCurrentProtectionParametersEntryRepository entryRepository;
@@ -52,5 +52,30 @@ public class ResidualCurrentProtectionParametersEntryService
         for (Integer entryId : entriesToDelete) {
             entryRepository.deleteById(entryId);
         }
+    }
+
+    public ResidualCurrentProtectionParametersEntry updateEntry
+            (int entryId, ResidualCurrentProtectionParametersEntry newEntry) {
+
+        Optional<ResidualCurrentProtectionParametersEntry> entryToUpdate =
+                entryRepository.findById(entryId);
+
+        if (entryToUpdate.isPresent()) {
+            entryToUpdate.get().setSymbol(newEntry.getSymbol());
+            entryToUpdate.get().setMeasuringPoint(newEntry.getMeasuringPoint());
+            entryToUpdate.get().setCircuitBreaker(newEntry.getCircuitBreaker());
+            entryToUpdate.get().setRcdType(newEntry.getRcdType());
+            entryToUpdate.get().setiNom(newEntry.getiNom());
+            entryToUpdate.get().setIa(newEntry.getIa());
+            entryToUpdate.get().setTa(newEntry.getTa());
+            entryToUpdate.get().setTrcd(newEntry.getTrcd());
+            entryToUpdate.get().setUb(newEntry.getUb());
+            entryToUpdate.get().setUi(newEntry.getUi());
+
+            entryToUpdate.get().setResult();
+
+            entryRepository.save(entryToUpdate.get());
+        }
+        return entryToUpdate.get();
     }
 }

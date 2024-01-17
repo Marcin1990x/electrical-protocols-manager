@@ -1,8 +1,7 @@
 package pl.koneckimarcin.electricalprotocolsmanager.measurement.circuitInsulationResistanceTns.entry;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import pl.koneckimarcin.electricalprotocolsmanager.measurement.entry.MeasurementEntryController;
 
 import java.util.List;
@@ -37,5 +36,12 @@ public class CircuitInsulationResistanceTnsEntryController
     public void deleteAllEntries(int mainId) {
 
         entryService.deleteAllEntries(mainId);
+    }
+
+    @PutMapping("/entries/edit={entryId}")
+    public CircuitInsulationResistanceTnsEntry updateEntry(
+            @PathVariable int entryId, @RequestBody CircuitInsulationResistanceTnsEntry entry) {
+
+        return entryService.updateEntry(entryId, entry);
     }
 }
