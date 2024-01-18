@@ -38,4 +38,10 @@ public class SoilResistanceEntryController
 
         entryService.deleteAllEntries(mainId);
     }
+
+    @Override
+    public SoilResistanceEntry updateEntry(int entryId, SoilResistanceEntry entry) {
+
+        return entryService.updateEntry(entryId, entry);
+    }
 }

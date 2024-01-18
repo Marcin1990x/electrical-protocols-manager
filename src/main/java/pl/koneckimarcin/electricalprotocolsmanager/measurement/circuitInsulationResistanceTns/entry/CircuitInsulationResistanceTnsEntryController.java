@@ -37,8 +37,7 @@ public class CircuitInsulationResistanceTnsEntryController
 
         entryService.deleteAllEntries(mainId);
     }
-
-    @PutMapping("/entries/edit={entryId}")
+    @Override
     public CircuitInsulationResistanceTnsEntry updateEntry(
             @PathVariable int entryId, @RequestBody CircuitInsulationResistanceTnsEntry entry) {
 

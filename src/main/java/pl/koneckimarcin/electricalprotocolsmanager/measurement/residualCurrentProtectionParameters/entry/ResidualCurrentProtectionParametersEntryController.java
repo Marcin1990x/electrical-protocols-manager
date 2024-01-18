@@ -38,7 +38,7 @@ public class ResidualCurrentProtectionParametersEntryController
         entryService.deleteAllEntries(mainId);
     }
 
-    @PutMapping("/entries/edit={entryId}")
+    @Override
     public ResidualCurrentProtectionParametersEntry updateEntry(
             @PathVariable int entryId, @RequestBody ResidualCurrentProtectionParametersEntry entry) {
 

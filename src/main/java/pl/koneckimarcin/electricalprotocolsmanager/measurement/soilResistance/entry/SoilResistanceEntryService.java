@@ -51,4 +51,22 @@ public class SoilResistanceEntryService implements MeasurementEntryService<SoilR
             entryRepository.deleteById(entryId);
         }
     }
+
+    @Override
+    public SoilResistanceEntry updateEntry(int entryId, SoilResistanceEntry newEntry) {
+
+        Optional<SoilResistanceEntry> entryToUpdate =
+                entryRepository.findById(entryId);
+
+        if (entryToUpdate.isPresent()) {
+            entryToUpdate.get().setSymbol(newEntry.getSymbol());
+            entryToUpdate.get().setMeasuringPoint(newEntry.getMeasuringPoint());
+            entryToUpdate.get().setL(newEntry.getL());
+            entryToUpdate.get().setD(newEntry.getD());
+            entryToUpdate.get().setP(newEntry.getP());
+
+            entryRepository.save(entryToUpdate.get());
+        }
+        return entryToUpdate.get();
+    }
 }

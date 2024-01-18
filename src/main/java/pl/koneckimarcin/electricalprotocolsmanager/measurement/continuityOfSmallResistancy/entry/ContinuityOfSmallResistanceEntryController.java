@@ -38,4 +38,10 @@ public class ContinuityOfSmallResistanceEntryController
 
         entryService.deleteAllEntries(mainId);
     }
+
+    @Override
+    public ContinuityOfSmallResistanceEntry updateEntry(int entryId, ContinuityOfSmallResistanceEntry entry) {
+
+        return entryService.updateEntry(entryId, entry);
+    }
 }

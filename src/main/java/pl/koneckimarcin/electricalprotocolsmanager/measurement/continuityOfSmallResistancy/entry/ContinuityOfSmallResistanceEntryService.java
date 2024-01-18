@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class ContinuityOfSmallResistanceEntryService implements MeasurementEntryService <ContinuityOfSmallResistanceEntry> {
+public class ContinuityOfSmallResistanceEntryService implements MeasurementEntryService<ContinuityOfSmallResistanceEntry> {
 
     @Autowired
     private ContinuityOfSmallResistanceEntryRepository entryRepository;
@@ -49,8 +49,28 @@ public class ContinuityOfSmallResistanceEntryService implements MeasurementEntry
         List<Integer> entriesToDelete = main.get().listEntriesId();
         main.get().removeAllEntries();
 
-        for(Integer entryId : entriesToDelete){
+        for (Integer entryId : entriesToDelete) {
             entryRepository.deleteById(entryId);
         }
+    }
+
+    @Override
+    public ContinuityOfSmallResistanceEntry updateEntry(int entryId, ContinuityOfSmallResistanceEntry newEntry) {
+
+        Optional<ContinuityOfSmallResistanceEntry> entryToUpdate =
+                entryRepository.findById(entryId);
+
+        if (entryToUpdate.isPresent()) {
+            entryToUpdate.get().setSymbol(newEntry.getSymbol());
+            entryToUpdate.get().setMeasuringPoint(newEntry.getMeasuringPoint());
+            entryToUpdate.get().setContinuity(newEntry.getContinuity());
+            entryToUpdate.get().setRs(newEntry.getRs());
+            entryToUpdate.get().setRa(newEntry.getRa());
+
+            entryToUpdate.get().setResult();
+
+            entryRepository.save(entryToUpdate.get());
+        }
+        return entryToUpdate.get();
     }
 }

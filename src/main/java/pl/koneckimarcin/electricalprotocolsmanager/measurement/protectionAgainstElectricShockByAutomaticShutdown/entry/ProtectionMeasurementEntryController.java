@@ -38,7 +38,7 @@ public class ProtectionMeasurementEntryController
 
         entryService.deleteAllEntries(mainId);
     }
-    @PutMapping("/entries/edit={entryId}")
+    @Override
     public ProtectionMeasurementEntry updateEntry(
             @PathVariable int entryId, @RequestBody ProtectionMeasurementEntry entry) {
 
