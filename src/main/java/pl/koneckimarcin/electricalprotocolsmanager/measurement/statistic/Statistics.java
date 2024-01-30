@@ -76,9 +76,9 @@ public class Statistics {
     private boolean isOnePhaseCircuit(MeasurementEntry entry, String measurementName) {
 
         if (isInsulationTnsMeasurement(measurementName)) {
-            return ((CircuitInsulationResistanceTnsEntry) entry).getL1l2() != 0;
+            return ((CircuitInsulationResistanceTnsEntry) entry).getL1l2() == 0;
         } else { // TNC
-            return ((CircuitInsulationResistanceTncEntry) entry).getL1l2() != 0;
+            return ((CircuitInsulationResistanceTncEntry) entry).getL1l2() == 0;
         }
     }
 
